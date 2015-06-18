@@ -11,11 +11,12 @@ local p_mark="%B%(?,%F{green},%F{magenta})%(!,#,>)%f%b"
 #スクリーン番号を（あれば）変数に格納
 local window_no="${WINDOW:+"[$WINDOW]"}"
 
-PROMPT="
-%{$F[green]%}USER:%n%{${reset_color}%}
-%(?.%{${fg[green]}%}.%{${fg[magenta]}%})[%~]%{${reset_color}%} $p_mark "
 
-RPROMPT="%{$fg[cyan]%}return:[%?]%{$reset_color%}"
+PROMPT="
+%{$F[green]%}User:%n%{${reset_color}%}
+%(?.%{${fg[green]}%}.%{${fg[magenta]}%})[%~]%{${reset_color}%} $p_mark "
+RPROMPT="[%*] %{$fg[cyan]%}return:[%?]%{$reset_color%}"
+#RPROMPT="%{$fg[cyan]%}return:[%?]%{$reset_color%}"
 #--------------------------#
 
 # 自動補完の有効化
@@ -50,9 +51,6 @@ zstyle ':completion:*:default' menu select=1
 autoload colors
 colors
 
-#export LSCOLORS=gxfxcxdxbxegedabagacag
-#export LS_COLORS='di=36;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;46'
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*' list-colors \
@@ -66,7 +64,8 @@ alias -s html=pick-web-browser
 #---------エイリアス-----------#
 alias ...=`cd ../..` #　２つ上の階層に移動
 alias ....=`cd ../../..` # ３つ上の階層に移動
-alias ls="ls -F"
+alias ls="gls -F --color=auto"
+#alias ls="ls -F"
 alias la="ls -a"
 alias -s html="open -a /Applications/Firefox.app"
 alias index="~/Documents/terminal_command.html"
