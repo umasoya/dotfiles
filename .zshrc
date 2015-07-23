@@ -11,12 +11,15 @@ local p_mark="%B%(?,%F{green},%F{magenta})%(!,#,>)%f%b"
 #スクリーン番号を（あれば）変数に格納
 local window_no="${WINDOW:+"[$WINDOW]"}"
 
-
 PROMPT="
 %{$F[green]%}User:%n%{${reset_color}%}
 %(?.%{${fg[green]}%}.%{${fg[magenta]}%})[%~]%{${reset_color}%} $p_mark "
 RPROMPT="[%*] %{$fg[cyan]%}return:[%?]%{$reset_color%}"
-#RPROMPT="%{$fg[cyan]%}return:[%?]%{$reset_color%}"
+
+# Googleライクにサジェスト#
+setopt correct
+SPROMPT="( ´・ω・) ＜ もしかして: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
+-> "
 #--------------------------#
 
 # 自動補完の有効化
@@ -61,6 +64,12 @@ zstyle ':mime:*' browser-style running x
 autoload -Uz pick-web-browser
 alias -s html=pick-web-browser
 
+#
+# ホームページの設定
+# これでv3mを引数なしで起動できる
+#
+export WWW_HOME="google.co.jp"
+
 #---------エイリアス-----------#
 alias ...=`cd ../..` #　２つ上の階層に移動
 alias ....=`cd ../../..` # ３つ上の階層に移動
@@ -69,11 +78,24 @@ alias ls="gls -F --color=auto"
 alias la="ls -a"
 alias -s html="open -a /Applications/Firefox.app"
 alias index="~/Documents/terminal_command.html"
+# カレントディレクトリのパスをクリップボードにコピー
+alias path='echo -n `pwd` | pbcopy'
+# richpager
+alias rat="richpager -s friendly"
+# iCloud Driveのパス
+#alias icloud='$HOME/Library/Mobile Documents/com~apple~CloudDocs'
 #------------------------------#
 
+#---------cdしたら自動でls-----------#
 cdls(){
 	\cd "$@" && la
 }
 alias cd="cdls"
-
+#------------------------------------#
+#---------catで常に行番号表示----#
+catn(){
+	\cat -n "$@"
+}
+alias cat="catn"
+#--------------------------------#
 

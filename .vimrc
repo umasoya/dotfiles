@@ -15,6 +15,8 @@ NeoBundle 'tomtom/tcomment_vim'
 " 自動括弧閉じ
 NeoBundle 'Townk/vim-autoclose'
 
+" 起動時にAAやらメッセージ表示
+NeoBundle 'thinca/vim-splash'
 
 "未インストールのプラグインがある場合、インストールするか確認
 NeoBundleCheck
@@ -55,6 +57,9 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 "行数表示
 set number
+
+"ペースト時にずれないように設定
+set paste
 
 "折りたたみ有効化
 set foldmethod=marker
