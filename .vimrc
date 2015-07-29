@@ -1,3 +1,57 @@
+" Yasuto's vimrc
+
+
+
+" {{{ 基本設定 
+
+" 文字コードをUTF-8
+set encoding=utf-8
+
+"行数表示
+set number
+
+"ペースト時にずれないように設定
+set paste
+
+"折りたたみ有効化
+set foldmethod=marker
+
+"tab文字と行末文字の設定
+set list
+set listchars=eol:<,tab:>.
+
+"ソフトタブ無効
+set noexpandtab
+
+"インデント時にインデントする文字数
+set shiftwidth=2
+set tabstop=2
+set autoindent
+set smartindent
+" C言語スタイルのインデント
+set cindent
+
+"補完
+set wildmenu wildmode=list:full
+
+"シンタックスハイライト
+colorscheme desert
+syntax on
+set nohlsearch
+set cursorline
+
+" }}}
+
+" マッピング {{{
+
+"ノーマルモード時にエンターキーで改行挿入
+noremap <CR> o<ESC>
+
+" ノーマルモード時にスペースキーで半角スペース挿入
+noremap <space> i<space><ESC>l
+
+" }}}
+
 "{{{bundleで管理するディレクトリ指定
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 
@@ -54,38 +108,4 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " }}}
-
-"行数表示
-set number
-
-"ペースト時にずれないように設定
-set paste
-
-"折りたたみ有効化
-set foldmethod=marker
-
-"tab文字と行末文字の設定
-set list
-set listchars=eol:<,tab:>.
-
-"ソフトタブ無効
-set noexpandtab
-
-"インデント時にインデントする文字数
-set shiftwidth=2
-set tabstop=2
-set autoindent
-set smartindent
-
-"補完
-set wildmenu wildmode=list:full
-
-"シンタックスハイライト
-colorscheme desert
-syntax on
-set nohlsearch
-set cursorline
-
-"ノーマルモード時にエンターキーで改行挿入
-noremap <CR> o<ESC>
 
