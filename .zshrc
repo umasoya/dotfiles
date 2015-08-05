@@ -3,11 +3,6 @@
 # 文字コードはUTF-8 #
 export LANG=ja_JP.UTF-8
 
-# Googleライクにサジェスト #
-setopt correct
-#SPROMPT="( ´・ω・) ＜ もしかして: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
-SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
--> "
 
 #入力したコマンドが存在せず、かつディレクトリ名と一致する場合ディレクトリに移動
 setopt auto_cd
@@ -50,15 +45,25 @@ promptinit
 autoload -U colors && colors
 
 #ユーザーIDでマーク変更
-local p_mark="%B%(?,%F{green},%F{magenta})%(!,#,>)%f%b"
+#local p_mark="%B%(?,%F{green},%F{magenta})%(!,#,>)%f%b"
+
+# 直前の返り値によって色変更
+local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 
 #スクリーン番号を（あれば）変数に格納
 local window_no="${WINDOW:+"[$WINDOW]"}"
 
 PROMPT="
-%{$F[green]%}User:%n%{${reset_color}%}
-%(?.%{${fg[green]}%}.%{${fg[magenta]}%})[%~]%{${reset_color}%} $p_mark "
-RPROMPT="[%*] %{$fg[cyan]%}return:[%?]%{$reset_color%}"
+%{$fg[cyan]%}User:%n%{${reset_color}%}
+$p_color [%~] > %{${reset_color}%}"
+
+RPROMPT="$p_color return:[%?]%{${reset_color}%}"
+function memo() {RPROMPT="%S$1%s $p_color return:[%?]%{${reset_color}%}";}
+
+# Googleライクにサジェスト #
+setopt correct
+SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
+-> "
 
 # }}}
 
