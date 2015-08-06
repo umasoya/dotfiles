@@ -1,7 +1,6 @@
 " Yasuto's vimrc
 
 
-
 " {{{ 基本設定 
 
 " 文字コードをUTF-8
@@ -10,8 +9,8 @@ set encoding=utf-8
 "行数表示
 set number
 
-"ペースト時にずれないように設定
-set paste
+" vimの無名レジスタとクリップボードを連携
+set clipboard=unnamed
 
 "折りたたみ有効化
 set foldmethod=marker
@@ -24,10 +23,10 @@ set listchars=eol:<,tab:>.
 set noexpandtab
 
 "インデント時にインデントする文字数
-set shiftwidth=2
-set tabstop=2
 set autoindent
 set smartindent
+set shiftwidth=2
+set tabstop=2
 " C言語スタイルのインデント
 set cindent
 
@@ -39,6 +38,15 @@ colorscheme desert
 syntax on
 set nohlsearch
 set cursorline
+
+" ファイルタイプによるスニペットを有効化
+filetype on
+
+" カーソル位置の記憶
+augroup vimrcEx
+	  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+		  \ exe "normal g`\"" | endif
+	augroup END "`""'")
 
 " }}}
 
@@ -59,9 +67,15 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Shougo/neocomplcache.git'
-NeoBundle 'Shougo/neosnippet.git'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+
+" smartinputを有効
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'cohama/vim-smartinput-endwise'
+"call smartinput_endwise#define_default_rules()
+
 
 "コメントON/OFFを手軽に実行
 NeoBundle 'tomtom/tcomment_vim'
@@ -72,15 +86,20 @@ NeoBundle 'Townk/vim-autoclose'
 " 起動時にAAやらメッセージ表示
 NeoBundle 'thinca/vim-splash'
 
-"未インストールのプラグインがある場合、インストールするか確認
-NeoBundleCheck
-
 call neobundle#end()
 
 filetype plugin indent on
+
+"未インストールのプラグインがある場合、インストールするか確認
+NeoBundleCheck
+
 " }}}
 
 " {{{neosnippet
+
+" スニペット用ディレクトリの指定
+let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/neosnippets/'
+
 "Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
