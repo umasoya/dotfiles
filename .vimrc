@@ -1,7 +1,12 @@
 " Yasuto's vimrc
+"        _                    
+" _   __(_)___ ___  __________
+"| | / / / __ `__ \/ ___/ ___/
+"| |/ / / / / / / / /  / /__  
+"|___/_/_/ /_/ /_/_/   \___/  
+"                             
 
-
-" {{{ 基本設定 
+  " {{{ 基本設定 
 
 " 文字コードをUTF-8
 set encoding=utf-8
@@ -46,9 +51,26 @@ filetype on
 augroup vimrcEx
 	  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
 		  \ exe "normal g`\"" | endif
-	augroup END "`""'")
+	augroup END 
+
+" 余裕を持ってスクロールする
+set scrolloff=5
+
+" ビープ音無効
+set visualbell t_vb=
+set noerrorbells
 
 " }}}
+
+ " {{{ プラグインの設定
+
+" quickrunの出力をスプリットで開く
+let g:quickrun_config={'*': {'split': ''}}
+" 縦分割時は右に,横分割時は下に新しいウィンドウを開く
+set splitright
+set splitbelow
+
+"  }}}
 
 " マッピング {{{
 
@@ -60,7 +82,7 @@ noremap <space> i<space><ESC>l
 
 " }}}
 
-"{{{bundleで管理するディレクトリ指定
+"{{{ bundle関連
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -85,6 +107,10 @@ NeoBundle 'Townk/vim-autoclose'
 
 " 起動時にAAやらメッセージ表示
 NeoBundle 'thinca/vim-splash'
+
+" クイックラン
+NeoBundle 'thinca/vim-quickrun'
+let g:quickrun_config = {'*': {'hook/time/enable': '1'}, }
 
 call neobundle#end()
 
