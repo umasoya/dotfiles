@@ -16,8 +16,10 @@
 #                                                          
 
 
-
 #  {{{ 基本オプション
+
+# zsh起動時にtmux起動
+[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 
 # 文字コードはUTF-8 #
 export LANG=ja_JP.UTF-8
@@ -179,3 +181,14 @@ catn(){
 	\cat -n "$@"
 }
  alias cat="catn"
+
+# }}}
+
+# {{{ Network
+
+# Get SSID
+get_ssid(){
+	networksetup -getairportnetwork en0 | awk '{print $4}'
+}
+
+# }}}
