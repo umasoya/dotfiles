@@ -62,13 +62,16 @@ set noerrorbells
 
 " }}}
 
- " {{{ プラグインの設定
+  " {{{ プラグインの設定
 
 " quickrunの出力をスプリットで開く
 let g:quickrun_config={'*': {'split': ''}}
 " 縦分割時は右に,横分割時は下に新しいウィンドウを開く
 set splitright
 set splitbelow
+
+" vim-splashの設定
+"let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
 
 "  }}}
 
