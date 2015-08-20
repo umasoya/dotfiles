@@ -6,7 +6,7 @@
 "|___/_/_/ /_/ /_/_/   \___/  
 "                             
 
-  " {{{ 基本設定 
+" {{{ 基本設定 
 
 " 文字コードをUTF-8
 set encoding=utf-8
@@ -17,10 +17,10 @@ set number
 " vimの無名レジスタとクリップボードを連携
 set clipboard=unnamed
 
-"折りたたみ有効化
+" 折りたたみ有効化
 set foldmethod=marker
 
-"tab文字と行末文字の設定
+" tab文字と行末文字の設定
 set list
 set listchars=eol:<,tab:>.
 
@@ -38,9 +38,8 @@ set cindent
 "補完
 set wildmenu wildmode=list:full
 
-"シンタックスハイライト
-colorscheme desert
-syntax on
+
+
 set nohlsearch
 set cursorline
 
@@ -62,7 +61,22 @@ set noerrorbells
 
 " }}}
 
-  " {{{ プラグインの設定
+" {{{ 拡張設定
+
+" Switch Incert Mode
+if executable('osascript')
+	let s:keycode_jis_eisuu = 102
+	let g:force_alphanumeric_input_command = "osascript -e 'tell application \"System Events\" to key code " . s:keycode_jis_eisuu . "' &"
+
+	inoremap <silent> <Esc> <Esc>:call system(g:force_alphanumeric_input_command)<CR>
+
+	autocmd! FocusGained *
+				\ call system(g:force_alphanumeric_input_command)
+endif
+
+"  }}}
+
+" {{{ プラグインの設定
 
 " quickrunの出力をスプリットで開く
 let g:quickrun_config={'*': {'split': ''}}
@@ -71,7 +85,7 @@ set splitright
 set splitbelow
 
 " vim-splashの設定
-"let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
+let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
 
 "  }}}
 
@@ -93,20 +107,20 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+
+" これ on にしたら wq の返り値が1になる!!
+"NeoBundle 'Shougo/neosnippet'
+"NeoBundle 'Shougo/neosnippet-snippets'
 
 " smartinputを有効
-NeoBundle 'kana/vim-smartinput'
-NeoBundle 'cohama/vim-smartinput-endwise'
-"call smartinput_endwise#define_default_rules()
+" これも上記同様怪しい
+"NeoBundle 'kana/vim-smartinput'
+"NeoBundle 'cohama/vim-smartinput-endwise'
+""call smartinput_endwise#define_default_rules()
 
 
 "コメントON/OFFを手軽に実行
 NeoBundle 'tomtom/tcomment_vim'
-
-" 自動括弧閉じ
-NeoBundle 'Townk/vim-autoclose'
 
 " 起動時にAAやらメッセージ表示
 NeoBundle 'thinca/vim-splash'
@@ -115,16 +129,23 @@ NeoBundle 'thinca/vim-splash'
 NeoBundle 'thinca/vim-quickrun'
 let g:quickrun_config = {'*': {'hook/time/enable': '1'}, }
 
-call neobundle#end()
+" Solarized
+NeoBundle 'altercation/vim-colors-solarized'
 
-filetype plugin indent on
+call neobundle#end()
 
 "未インストールのプラグインがある場合、インストールするか確認
 NeoBundleCheck
 
+filetype plugin indent on
+
+syntax enable on
+colorscheme solarized
+
+
 " }}}
 
-" {{{neosnippet
+" {{{ neosnippet
 
 " スニペット用ディレクトリの指定
 let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/neosnippets/'
