@@ -8,6 +8,12 @@
 
 " {{{ 基本設定 
 
+" Vim mode
+set nocompatible
+set notimeout
+set ttimeout
+set timeoutlen=100
+
 " 文字コードをUTF-8
 set encoding=utf-8
 
@@ -38,8 +44,6 @@ set cindent
 "補完
 set wildmenu wildmode=list:full
 
-
-
 set nohlsearch
 set cursorline
 
@@ -61,20 +65,21 @@ set noerrorbells
 
 " }}}
 
-" {{{ 拡張設定
-
-" Switch Incert Mode
-if executable('osascript')
-	let s:keycode_jis_eisuu = 102
-	let g:force_alphanumeric_input_command = "osascript -e 'tell application \"System Events\" to key code " . s:keycode_jis_eisuu . "' &"
-
-	inoremap <silent> <Esc> <Esc>:call system(g:force_alphanumeric_input_command)<CR>
-
-	autocmd! FocusGained *
-				\ call system(g:force_alphanumeric_input_command)
-endif
-
-"  }}}
+"" {{{ 拡張設定
+"
+"" Switch Incert Mode
+" これonにすると矢印キーでバグる
+"if executable('osascript')
+"	let s:keycode_jis_eisuu = 102
+"	let g:force_alphanumeric_input_command = "osascript -e 'tell application \"System Events\" to key code " . s:keycode_jis_eisuu . "' &"
+"
+"	inoremap <silent> <Esc> <Esc>:call system(g:force_alphanumeric_input_command)<CR>
+"
+"	autocmd! FocusGained *
+"				\ call system(g:force_alphanumeric_input_command)
+"endif
+"
+""  }}}
 
 " {{{ プラグインの設定
 
@@ -144,30 +149,6 @@ colorscheme solarized
 
 
 " }}}
-
-" {{{ neosnippet
-
-" スニペット用ディレクトリの指定
-let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/neosnippets/'
-
-"Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
- 
- " SuperTab like snippets behavior.
- imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
- \ "\<Plug>(neosnippet_expand_or_jump)"
- \: pumvisible() ? "\<C-n>" : "\<TAB>"
- smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
- \ "\<Plug>(neosnippet_expand_or_jump)"
- \: "\<TAB>"
-  
-  " For snippet_complete marker.
-  if has('conceal')
-    set conceallevel=2 concealcursor=i
-  endif
-"}}}
 
 " {{{neocomplcache
 let g:neocomplcache_enable_at_startup = 1
