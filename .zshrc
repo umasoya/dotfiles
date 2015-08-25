@@ -19,7 +19,7 @@
 #  {{{ 基本オプション
 
 # zsh起動時にtmux起動
-[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
+[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux2
 
 # 文字コードはUTF-8 #
 export LANG=ja_JP.UTF-8
@@ -125,7 +125,8 @@ alias index="~/Documents/terminal_command.html"
 # カレントディレクトリのパスをクリップボードにコピー
 alias path='echo -n `pwd` | pbcopy'
 
-
+# tmux の256色表示有効
+alias tmux2="tmux -2"
 
 # }}}
 
