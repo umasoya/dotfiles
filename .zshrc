@@ -65,9 +65,6 @@ autoload -U promptinit
 promptinit
 autoload -U colors && colors
 
-#ユーザーIDでマーク変更
-#local p_mark="%B%(?,%F{green},%F{magenta})%(!,#,>)%f%b"
-
 # 直前の返り値によって色変更
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 
