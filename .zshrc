@@ -16,7 +16,7 @@
 #                                                          
 
 
-#  {{{ 基本オプション
+# {{{1 基本オプション
 
 # zsh起動時にtmux起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux2
@@ -75,13 +75,40 @@ PROMPT="
 %{$fg[cyan]%}User:%n%{${reset_color}%}
 $p_color [%~] > %{${reset_color}%}"
 
-RPROMPT="$p_color return:[%?]%{${reset_color}%}"
-function memo() {RPROMPT="%S$1%s $p_color return:[%?]%{${reset_color}%}";}
+#RPROMPT="$p_color return:[%?]%{${reset_color}%}"
+#function memo() {RPROMPT="%S$1%s $p_color return:[%?]%{${reset_color}%}";}
 
 # Googleライクにサジェスト #
 setopt correct
 SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
 -> "
+
+# {{{2 vcs_info
+autoload -Uz vcs_info
+setopt prompt_subst
+
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
+zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
+precmd(){ vcs_info }
+
+# function_memo
+function memo(){
+	if [ $# -eq 0 ]; then
+		unset memotxt
+		return
+	fi
+for str in $@
+do
+	memotxt="${memotxt} ${str}"
+done
+}
+
+RPROMPT='${memotxt}''${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%}"
+
+# }}}
 
 # }}}
 
@@ -181,13 +208,3 @@ catn(){
  alias cat="catn"
 
 # }}}
-
-# {{{ Network
-
-# Get SSID
-get_ssid(){
-	networksetup -getairportnetwork en0 | awk '{print $4}'
-}
-
-# }}}
-# commit
