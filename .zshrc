@@ -84,6 +84,10 @@ SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${
 -> "
 
 # {{{2 vcs_info
+
+#brname='git branch --contains=HEAD'
+#git log origin/${brname}..HEAD
+
 autoload -Uz vcs_info
 setopt prompt_subst
 
@@ -94,7 +98,9 @@ zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 precmd(){ vcs_info }
 
-# function_memo
+
+
+# {{{3 function_memo
 function memo(){
 	if [ $# -eq 0 ]; then
 		unset memotxt
@@ -105,6 +111,7 @@ do
 	memotxt="${memotxt} ${str}"
 done
 }
+# }}}
 
 RPROMPT='%S${memotxt}%s''${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%}"
 
