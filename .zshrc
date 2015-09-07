@@ -19,7 +19,7 @@
 # {{{1 基本オプション
 
 # zsh起動時にtmux起動
-[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux2
+# [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux -2
 
 # 文字コードはUTF-8 #
 export LANG=ja_JP.UTF-8
