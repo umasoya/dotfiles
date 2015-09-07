@@ -146,7 +146,7 @@ filetype plugin indent on
 
 syntax enable on
 colorscheme solarized
-
+set background=dark
 
 " }}}
 
@@ -159,4 +159,3 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " }}}
 
-"commit
