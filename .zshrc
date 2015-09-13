@@ -98,7 +98,21 @@ zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 precmd(){ vcs_info }
 
+# {{{3 check push files
 
+# Distinction a repository
+# if [[ ! -d .git ]]; then
+# 	#directory is not repository
+# 	exit
+# fi
+
+# Get current branch name
+# brname=`git branch --contains=HEAD | awk '{print $2}'`
+
+# check push files
+# phcheck=`git log origin/${brname}..HEAD`
+
+# }}}
 
 # {{{3 function_memo
 function memo(){
@@ -161,7 +175,9 @@ alias tmux2="tmux -2"
 
 # }}}
 
- # {{{ 関数
+# {{{ 関数
+
+# {{{2 ls_abbrev
 #
 # cdしたら自動でls
 # ファイルが多い場合は省略表示する
@@ -205,7 +221,9 @@ ls_abbrev() {
         echo "$ls_result"
     fi
 }
+# }}}
 
+# {{{2 catn
 #
 # catで常に行番号表示
 #
@@ -213,5 +231,13 @@ catn(){
 	\cat -n "$@"
 }
  alias cat="catn"
+# }}}
 
+# }}}
+
+# {{{ update Brewfile
+# Automatically update Brewfile when execute a  brew command
+if [ -f $(brew --prefix)/etc/brew-wrap ];then
+  source $(brew --prefix)/etc/brew-wrap
+fi
 # }}}
