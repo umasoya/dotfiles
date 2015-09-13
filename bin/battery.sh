@@ -1,7 +1,7 @@
 #!/bin/zsh
 # 
 # 2015.08.14
-#
+# echo -e '\e[VALUE[;VALUE..]mSTRINGS\e[m'
 #
 #
 
@@ -22,3 +22,10 @@ if [ ${parcentage} -gt 30 ]; then
 else
 	echo '#[fg=red]'${parcentage}%'#[default]'
 fi
+
+
+# New
+
+#color_select (){
+#
+#}
