@@ -11,7 +11,7 @@ export LESS='-X -i -P ?f%f:(stdin).  ?lb%lb?L/%L..  [?eEOF:?pb%pb\%..]'
 export EDITOR=vim
 
 # Prompt custumize
-PS1="\n\h@\u\n[\W] >"
+PS1="\n\h@\u\n[\w] >"
 
 # alias
 alias ls='ls -CF'
