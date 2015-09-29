@@ -1,0 +1,52 @@
+// dotfiles repository tree
+
+graph g{
+
+	size=10
+//	rankdir=BT
+	graph[label="This repository's tree"];
+	graph[bgcolor="#00000000"];
+
+// Node style
+		"dotfiles"[shape=box3d, fixedsize=true, width=5, height=1.7, fontsize=80, style=filled, fillcolor=chartreuse, fontcolor=oldlace];
+
+// Directory
+	node[shape=tab,style=filled, fillcolor=deepskyblue, fontcolor=black];
+	{
+		{
+			rank=same
+		"bin" ".vim" "etc"
+		}
+		{
+			rank=same
+			"fonts" "graphviz"
+		}
+		"snippets"
+	}
+// Files
+		node[shape=note, style=filled, fillcolor=linen];
+		{
+			{
+				rank=same
+				".bashrc" ".tmux.conf" ".vimrc" ".zshenv" ".zshrc"
+		"README.md" "dotlink.sh"
+			}
+		"splash.txt"
+		{
+			rank=same
+				"battery.sh" "get_ssid.sh"
+		}
+		}
+
+
+// Draw line
+	"dotfiles" -- {"bin" ".vim" "etc"};
+	"dotfiles" -- {".bashrc" ".tmux.conf" ".vimrc" ".zshenv" ".zshrc"
+		 "README.md" "dotlink.sh"};
+	"etc" -- {"fonts" "graphviz"};
+	".vim" -- {"snippets" "splash.txt"};
+	"bin" -- {"battery.sh" "get_ssid.sh"};
+
+// Nodo rank
+//	{rank = same; "bin"; ".vim"; "etc"}
+}
