@@ -235,9 +235,9 @@ catn(){
 
 # }}}
 
-## {{{ update Brewfile
-## Automatically update Brewfile when execute a  brew command
-#if [ -f $(brew --prefix)/etc/brew-wrap ];then
-#  source $(brew --prefix)/etc/brew-wrap
-#fi
-## }}}
+# {{{ update Brewfile
+# Automatically update Brewfile when execute a  brew command
+if [ -f $(brew --prefix)/etc/brew-wrap ];then
+  source $(brew --prefix)/etc/brew-wrap
+fi
+# }}}
