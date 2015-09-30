@@ -14,11 +14,11 @@ export EDITOR=vim
 # {{{1 Color Settings
 export LS_COLORS
 
-if [ -f ~/.dircolors ]; then
+if [ -f ~/dotfiles/.dircolors ]; then
     if type dircolors > /dev/null 2>&1; then
-        eval $(dircolors ~/.dircolors)
+        eval $(dircolors ~/dotfiles/.dircolors)
     elif type gdircolors > /dev/null 2>&1; then
-        eval $(gdircolors ~/.dircolors)
+        eval $(gdircolors ~/dotfiles/.dircolors)
     fi
 fi
 # }}}
