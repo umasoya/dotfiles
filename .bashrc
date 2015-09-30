@@ -11,6 +11,19 @@ export LESS='-X -i -P ?f%f:(stdin).  ?lb%lb?L/%L..  [?eEOF:?pb%pb\%..]'
 export EDITOR=vim
 # }}}
 
+# {{{1 Color Settings
+export LS_COLORS
+
+if [ -f ~/.dircolors ]; then
+    if type dircolors > /dev/null 2>&1; then
+        eval $(dircolors ~/.dircolors)
+    elif type gdircolors > /dev/null 2>&1; then
+        eval $(gdircolors ~/.dircolors)
+    fi
+fi
+# }}}
+
+
 # Prompt custumize
 PS1="\n\[\e[0;36m\]\h@\u\n[\w]\[\e[00m\] \$ "
 
