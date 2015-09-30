@@ -28,7 +28,7 @@ fi
 PS1="\n\[\e[0;36m\]\h@\u\n[\w]\[\e[00m\] \$ "
 
 # {{{1 alias
-alias ls='ls -CF'
+alias ls='ls -CF color=auto'
 alias la='ls -a'
 
 cdls(){
