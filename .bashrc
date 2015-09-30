@@ -19,7 +19,7 @@ alias ls='ls -CF'
 alias la='ls -a'
 
 cdls(){
-	\cd "$@" && ls
+	\cd "$@" && la
 }
 alias cd="cdls"
 
