@@ -16,5 +16,5 @@ done
 # Make Synbolic-link
 for n in ${dotfile[@]}; do
 	filename=`basename $n`
-	ln -s $n $HOME/$filename
+	ln -s -f $n $HOME/$filename
 done
