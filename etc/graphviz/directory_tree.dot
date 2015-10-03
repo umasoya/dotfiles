@@ -2,8 +2,7 @@
 
 graph g{
 
-	size=10
-//	rankdir=BT
+	size=13
 	graph[label="This repository's tree"];
 	graph[bgcolor="#00000000"];
 
@@ -47,6 +46,4 @@ graph g{
 	".vim" -- {"snippets" "splash.txt"};
 	"bin" -- {"battery.sh" "get_ssid.sh"};
 
-// Nodo rank
-//	{rank = same; "bin"; ".vim"; "etc"}
 }
