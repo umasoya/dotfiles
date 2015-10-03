@@ -7,5 +7,6 @@ path=(
 	/usr/bin(N-/)
 	$HOME/local/bin(N-/)
 	$HOME/script(N-/)
+	$HOME/.rbenv(N-/)
 	$path
 )
