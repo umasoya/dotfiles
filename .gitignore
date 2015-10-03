@@ -1,4 +1,7 @@
+# If add an exception, put a BOL "!"
+
 .DS_Store
 *.swp
 *~
 /tmp
+*.log
