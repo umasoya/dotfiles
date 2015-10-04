@@ -24,6 +24,18 @@
 # 文字コードはUTF-8 #
 export LANG=ja_JP.UTF-8
 
+#プロンプトの自動リロード
+autoload -U promptinit
+promptinit
+autoload -U colors && colors
+
+autoload -Uz dd-zsh-hook
+autoload -Uz terminfo
+
+#  {{{ Vim mode setting
+bindkey -v
+
+# }}}
 
 #入力したコマンドが存在せず、かつディレクトリ名と一致する場合ディレクトリに移動
 setopt auto_cd
@@ -59,11 +71,6 @@ zstyle ':completion:*:default' menu select=1
 # }}}
 
 # {{{ プロンプトの設定
-
-#プロンプトの自動リロード
-autoload -U promptinit
-promptinit
-autoload -U colors && colors
 
 # 直前の返り値によって色変更
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
