@@ -2,7 +2,7 @@
 ## Make Synbolic-link to $HOME
 # ln -s <source> <target>
 
-files="$HOME/dotfiles/.*"
+files="$HOME/dotfiles/.??*"
 # Make array
 dotfile=()
 
