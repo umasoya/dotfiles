@@ -23,8 +23,16 @@ set number
 " vimの無名レジスタとクリップボードを連携
 set clipboard=unnamed
 
-" 折りたたみ有効化
+"======================="
+" Fold setting
+"======================="
+
 set foldmethod=marker
+"set foldtext=MyFoldText()
+function MyFoldText()
+	let line = getline(v:foldstart)
+	let foldlinecount = v:foldend - v:foldstart
+endfunction
 
 " tab文字と行末文字の設定
 set list
@@ -33,6 +41,9 @@ set listchars=eol:<,tab:>.
 "ソフトタブ無効
 set noexpandtab
 
+"======================="
+" Indent setting
+"======================="
 "インデント時にインデントする文字数
 set autoindent
 set smartindent
@@ -65,22 +76,6 @@ set noerrorbells
 
 " }}}
 
-"" {{{ 拡張設定
-"
-"" Switch Incert Mode
-" これonにすると矢印キーでバグる
-"if executable('osascript')
-"	let s:keycode_jis_eisuu = 102
-"	let g:force_alphanumeric_input_command = "osascript -e 'tell application \"System Events\" to key code " . s:keycode_jis_eisuu . "' &"
-"
-"	inoremap <silent> <Esc> <Esc>:call system(g:force_alphanumeric_input_command)<CR>
-"
-"	autocmd! FocusGained *
-"				\ call system(g:force_alphanumeric_input_command)
-"endif
-"
-""  }}}
-
 " {{{ プラグインの設定
 
 " quickrunの出力をスプリットで開く
@@ -100,7 +95,7 @@ let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
 noremap <CR> o<ESC>
 
 " ノーマルモード時にスペースキーで半角スペース挿入
-noremap <space> i<space><ESC>l
+"noremap <space> i<space><ESC>l
 
 " }}}
 
@@ -112,17 +107,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/neocomplcache'
-
-" これ on にしたら wq の返り値が1になる!!
-"NeoBundle 'Shougo/neosnippet'
-"NeoBundle 'Shougo/neosnippet-snippets'
-
-" smartinputを有効
-" これも上記同様怪しい
-"NeoBundle 'kana/vim-smartinput'
-"NeoBundle 'cohama/vim-smartinput-endwise'
-""call smartinput_endwise#define_default_rules()
-
 
 "コメントON/OFFを手軽に実行
 NeoBundle 'tomtom/tcomment_vim'
