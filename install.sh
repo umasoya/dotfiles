@@ -4,6 +4,7 @@
 ## 1. Deployment of dotfiles.
 ## 2. Update shell
 ## 3. Change default shell (osx=>newer zsh,linux=>newer bash).
+## 4. install github && setting rsa_key&ID
 #
 #
 ## How to use it
@@ -45,9 +46,10 @@ echo ""
 echo "Finished Installing & updating Homebrew"
 echo ""
 
-# Update zsh
-# brew install zsh
+## Update zsh to /usr/local/bin/zsh
+## Change login shell bash => newer zsh
 
+# Install brew-file if not install.
 
 
 # }}}
