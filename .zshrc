@@ -134,7 +134,7 @@ done
 }
 # }}}
 
-RPROMPT='%S${memotxt}%s''${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%}"
+RPROMPT='%S${memotxt}%s''${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%} "
 
 # }}}
 
