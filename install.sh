@@ -20,15 +20,13 @@ detect_os(){
 	case "$(OSTYPE)" in
 		*'darwin'*) PLATFORM='osx'	;;
 		*'linux'*) PLATFORM='linux'	;;
+		*)			PLATFORM='unknown'	;;
 	esac
 }
 detect_os
 # }}}
 
 # {{{ OS X
-
-# Symlink to $HOME
-./dotlink.sh
 
 # Install Homebrew if not installed.
 if ! type -p brew > /dev/null ; then
