@@ -23,9 +23,3 @@ else
 	echo '#[fg=red]'${parcentage}%'#[default]'
 fi
 
-
-# New
-
-#color_select (){
-#
-#}
