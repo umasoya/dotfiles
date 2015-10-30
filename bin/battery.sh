@@ -2,7 +2,7 @@
 # 
 # 2015.08.14
 # echo -e '\e[VALUE[;VALUE..]mSTRINGS\e[m'
-#
+#▂ ▅ ▇ 
 #
 
 	source_power=`pmset -g ps | awk 'NR==1{print $4,$5}'`
