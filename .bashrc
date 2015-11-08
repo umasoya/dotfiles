@@ -32,6 +32,8 @@ alias ls='ls -CF'
 alias ls='ls --color=auto'
 alias la='ls -a'
 
+alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+
 cdls(){
 	\cd "$@" && la
 }
