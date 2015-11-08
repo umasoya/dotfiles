@@ -192,6 +192,11 @@ alias path='echo -n `pwd` | pbcopy'
 # tmux の256色表示有効
 alias tmux2="tmux -2"
 
+# If platform is OSX, alias airport command
+#if [ "${OSTYPE}" = "*darwin*" ]; then
+	alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+#fi
+
 # }}}
 
 # {{{ 関数
