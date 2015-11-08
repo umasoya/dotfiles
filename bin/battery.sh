@@ -1,25 +1,21 @@
 #!/bin/zsh
-# 
-# 2015.08.14
-# echo -e '\e[VALUE[;VALUE..]mSTRINGS\e[m'
-#▂ ▅ ▇ 
-#
+# battery.sh 
 
+# Get battery level
 	source_power=`pmset -g ps | awk 'NR==1{print $4,$5}'`
 	parcentage=`pmset -g ps |awk 'NR==2{print $2}' | awk 'BEGIN{FS="%;";}{print $1}'` 
 
-# test echo
-# echo '${source_power}:'${source_power}
-# echo -e '${parcentage}:'"\e[36m ${parcentage}% \e[m"
-
-if [ ${source_power}='AC Power' ]; then
-	echo '#[fg=cyan]'${parcentage}%'#[default]'
-	exit 0
+# 100% (AC Power) Blue
+if [ "${parcentage}" -eq "100" ] || [ "${source_power}" = "AC Power" ]; then
+	echo '#[fg=colour51]100%#[default]'
 fi
 
-if [ ${parcentage} -gt 30 ]; then
-	echo '#[fg=green]'${parcentage}%'#[default]'
-else
-	echo '#[fg=red]'${parcentage}%'#[default]'
+# 31% ~ 99% Green
+if [ "${parcentage}" -gt "30" ] && [ "${parcentage}" -lt "100" ]; then
+	echo '#[fg=colour46]'${parcentage}'%#[default]'
 fi
 
+# 1% ~ 30% Red
+if [ "${parcentage}" -le "30" ]; then
+	echo -e '#[fg=colour197]'${parcentage}'%#[default]'
+fi
