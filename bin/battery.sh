@@ -1,21 +1,33 @@
 #!/bin/zsh
 # battery.sh 
 
+# Checking whether AC adapter are connected
+	power_source=`pmset -g ps | awk 'NR==2{print $3}'`
 # Get battery level
-	source_power=`pmset -g ps | awk 'NR==1{print $4,$5}'`
 	parcentage=`pmset -g ps |awk 'NR==2{print $2}' | awk 'BEGIN{FS="%;";}{print $1}'` 
 
-# 100% (AC Power) Blue
-if [ "${parcentage}" -eq "100" ] || [ "${source_power}" = "AC Power" ]; then
-	echo '#[fg=colour51]100%#[default]'
-fi
+#------------
+# Rewrite
+#------------
+
+# If AC adapter are connected, color is Yellow
+if [ "${power_source}" = "charging;" ]; then
+	# If charging, font colour is yellow
+	fgcolour="#[fg=colour226]"
+
+# 100% Blue
+elif [ "${parcentage}" -eq "100" ]; then 
+	fgcolour='#[fg=colour51]'
 
 # 31% ~ 99% Green
-if [ "${parcentage}" -gt "30" ] && [ "${parcentage}" -lt "100" ]; then
-	echo '#[fg=colour46]'${parcentage}'%#[default]'
-fi
+elif [ "${parcentage}" -gt "30" ] && [ "${parcentage}" -lt "100" ]; then
+	fgcolour="#[fg=colour46]"
 
 # 1% ~ 30% Red
-if [ "${parcentage}" -le "30" ]; then
-	echo -e '#[fg=colour197]'${parcentage}'%#[default]'
+elif [ "${parcentage}" -le "30" ]; then
+	fgcolour="#[fg=colour197]"
+
 fi
+
+echo -e ${fgcolour}${parcentage}'%#[default]'
+
