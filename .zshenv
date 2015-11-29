@@ -8,6 +8,7 @@ export GOPATH="$HOME/go"
 path=(
 	/usr/local/bin(N-/)
 	/usr/bin(N-/)
+	/usr/local/sbin(N-/)
 	$HOME/local/bin(N-/)
 	$HOME/script(N-/)
 	$HOME/.rbenv(N-/)
