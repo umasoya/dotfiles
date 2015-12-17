@@ -136,10 +136,5 @@ set background=dark
 
 " {{{neocomplcache
 let g:neocomplcache_enable_at_startup = 1
-
-" Enable omni completion. Not required if they are already set elsewhere in.vimrc
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " }}}
 
