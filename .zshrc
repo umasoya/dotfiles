@@ -28,7 +28,7 @@ case "${OSTYPE}" in
 		;;
 	*linux*)
 		# Linux
-		detect_distribution()
+		detect_distribution
 		;;
 esac
 
