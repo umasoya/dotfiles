@@ -17,6 +17,10 @@
 
 # {{{1 Detect OSTYPE
 
+function detect_distribution(){
+	distribution=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'`
+}
+
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
@@ -27,10 +31,6 @@ case "${OSTYPE}" in
 		detect_distribution()
 		;;
 esac
-
-function detect_distribution(){
-	distribution=`cat /etc/*-release | awk '{print $2}'`
-}
 
 # }}}
 
