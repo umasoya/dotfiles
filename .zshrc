@@ -20,14 +20,18 @@
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
-		OS=OSX
 		source .zsh/.zshrc_osx
 		;;
 	*linux*)
 		# Linux
-		export OS=Linux
+		detect_distribution()
 		;;
 esac
+
+function detect_distribution(){
+	distribution=`cat /etc/*-release | awk '{print $2}'`
+}
+
 # }}}
 
 
