@@ -15,6 +15,11 @@
 # `--"                                            `----'   
 #                                                          
 
+# Environment variables
+export DOTDIR="$HOME/dotfiles"
+export ZDOT_DIR="$HOME/dotfiles/.zsh"
+
+
 # {{{1 Detect OSTYPE
 
 function detect_distribution(){
@@ -24,11 +29,14 @@ function detect_distribution(){
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
-		source .zsh/.zshrc_osx
+		source "${ZDOT_DIR}/.zshrc_osx"
 		;;
 	*linux*)
 		# Linux
 		detect_distribution
+		if [ -f ${ZDOT_DIR}/.zshrc_${distribution} ]; then
+		source ${ZDOT_DIR}/.zshrc_${distribution}
+	fi
 		;;
 esac
 
