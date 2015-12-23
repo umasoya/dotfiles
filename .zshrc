@@ -242,3 +242,7 @@ alias path='echo -n `pwd` | pbcopy'
 
 # }}}
 
+# If "screenfetch" cmd installed, 
+if (( $+commands[screenfetch] ));then
+	screenfetch
+fi
