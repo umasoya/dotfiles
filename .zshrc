@@ -43,7 +43,7 @@ esac
 # }}}
 
 
-# zsh起動時にtmux起動
+# Auto launch tmux if it installed
 [[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 
 # 文字コードはUTF-8 #
@@ -91,8 +91,6 @@ setopt hist_ignore_space
 #<tab>でパス名の補完候補を表示後、続けて<tab>を押すと候補からパス名を選択できるようにする
 zstyle ':completion:*:default' menu select=1
 
-
-# {{{2 catn
 #
 # catで常に行番号表示
 #
@@ -100,7 +98,6 @@ catn(){
 	\cat -n "$@"
 }
  alias cat="catn"
-# }}}
 
 # {{{ update Brewfile
 # Automatically update Brewfile when execute a  brew command
@@ -202,6 +199,43 @@ export WWW_HOME="google.co.jp"
 alias ...=`cd ../..` #　２つ上の階層に移動
 alias ....=`cd ../../..` # ３つ上の階層に移動
 alias la="ls -a"
+
+chpwd() {
+    ls_abbrev
+}
+# If exist many files and directories
+ls_abbrev() {
+    # -a : Do not ignore entries starting with ..
+    # -C : Force multi-column output.
+    # -F : Append indicator (one of */=>@|) to entries.
+    local cmd_ls='ls'
+    local -a opt_ls
+    opt_ls=('-aCF' '--color=always')
+    case "${OSTYPE}" in
+        freebsd*|darwin*)
+            if type gls > /dev/null 2>&1; then
+                cmd_ls='gls'
+            else
+                # -G : Enable colorized output.
+                opt_ls=('-aCFG')
+            fi
+            ;;
+    esac
+
+    local ls_result
+    ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
+
+    local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
+
+    if [ $ls_lines -gt 10 ]; then
+        echo "$ls_result" | head -n 5
+        echo '...'
+        echo "$ls_result" | tail -n 5
+        echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
+    else
+        echo "$ls_result"
+    fi
+}
 
 # カレントディレクトリのパスをクリップボードにコピー
 alias path='echo -n `pwd` | pbcopy'
