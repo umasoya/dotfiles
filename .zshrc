@@ -200,6 +200,10 @@ alias ...=`cd ../..` #　２つ上の階層に移動
 alias ....=`cd ../../..` # ３つ上の階層に移動
 alias la="ls -a"
 
+mkgo(){
+	mkdir $1 && cd $_
+}
+
 chpwd() {
     ls_abbrev
 }
