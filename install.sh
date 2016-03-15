@@ -28,7 +28,7 @@ detect_os
 
 # {{{ OS X
 
-# Install Homebrew if not installed.
+# {{{2 Install Homebrew if not installed.
 if ! type -p brew > /dev/null ; then
 	echo ""
 	echo "==========================="
@@ -43,6 +43,7 @@ brew update
 echo ""
 echo "Finished Installing & updating Homebrew"
 echo ""
+# }}}
 
 ## Update zsh to /usr/local/bin/zsh
 ## Change login shell bash => newer zsh
