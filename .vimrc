@@ -118,6 +118,9 @@ NeoBundle 'thinca/vim-splash'
 NeoBundle 'thinca/vim-quickrun'
 let g:quickrun_config = {'*': {'hook/time/enable': '1'}, }
 
+" Golang
+NeoBundle 'fatih/vim-go'
+
 " Solarized
 NeoBundle 'altercation/vim-colors-solarized'
 
