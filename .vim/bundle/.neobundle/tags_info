@@ -1,0 +1,7 @@
+neobundle.vim
+neocomplcache
+tcomment_vim
+vim-colors-solarized
+vim-go
+vim-quickrun
+vim-splash
