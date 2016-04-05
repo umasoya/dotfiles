@@ -1,0 +1,4 @@
+# source ~/.dircolors
+eval $(dircolors -b ~/.dircolors)
+
+alias ls='ls --color=auto'
