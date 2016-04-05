@@ -114,6 +114,9 @@ NeoBundle 'tomtom/tcomment_vim'
 " 起動時にAAやらメッセージ表示
 NeoBundle 'thinca/vim-splash'
 
+" html編集
+NeoBundle 'mattn/emmet-vim'
+
 " クイックラン
 NeoBundle 'thinca/vim-quickrun'
 let g:quickrun_config = {'*': {'hook/time/enable': '1'}, }
