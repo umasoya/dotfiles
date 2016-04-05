@@ -44,7 +44,7 @@ esac
 
 
 # Auto launch tmux if it installed
-[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
+#[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 
 # 文字コードはUTF-8 #
 export LANG=ja_JP.UTF-8
