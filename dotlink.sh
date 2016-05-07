@@ -18,6 +18,3 @@ for n in ${dotfile[@]}; do
 	filename=`basename $n`
 	ln -s -f $n $HOME/$filename
 done
-
-# Make .vim/ symboloc-link to $HOME
-ln -fs $HOME/dotfiles/.vim $HOME/.vim
