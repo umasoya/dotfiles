@@ -134,10 +134,10 @@ NeoBundleCheck
 
 filetype plugin indent on
 
-syntax enable on
+syntax enable 
 colorscheme solarized
 set background=dark
-
+let g:solarized_termcolors=256
 " }}}
 
 " {{{neocomplcache
