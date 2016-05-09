@@ -29,6 +29,7 @@ function detect_distribution(){
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
+		distribution="OSX"
 		source "${ZDOT_DIR}/.zshrc_osx"
 		;;
 	*linux*)
