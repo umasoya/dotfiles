@@ -6,6 +6,19 @@
 "|___/_/_/ /_/ /_/_/   \___/  
 "                             
 
+" {{{ Background transparent
+if !has('gui_running')
+	augroup trans
+		autocmd!
+		autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
+		autocmd VimEnter,ColorScheme * highlight LineNr ctermbg=none
+		autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
+		autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
+		autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
+	augroup END
+endif
+" }}}
+
 " {{{ 基本設定 
 
 " Vim mode
