@@ -19,17 +19,18 @@
 export DOTDIR="$HOME/dotfiles"
 export ZDOT_DIR="$HOME/dotfiles/.zsh"
 
-
 # {{{1 Detect OSTYPE
 
 function detect_distribution(){
 	distribution=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'`
+	export distribution
 }
 
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
 		distribution="OSX"
+		#export distribution
 		source "${ZDOT_DIR}/.zshrc_osx"
 		;;
 	*linux*)
@@ -43,7 +44,7 @@ esac
 
 # }}}
 
-
+# {{{1 General settings
 # Auto launch tmux if it installed
 #[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 
@@ -99,20 +100,6 @@ catn(){
 	\cat -n "$@"
 }
  alias cat="catn"
-
-# {{{ update Brewfile
-# Automatically update Brewfile when execute a  brew command
-#if [ -f $(brew --prefix)/etc/brew-wrap ];then
-#  source $(brew --prefix)/etc/brew-wrap
-#fi
-# }}}
-
-# {{{ rbenv
-if [ -d ${HOME}/.rbenv ]; then
-	PATH=${HOME}/.rbenv/bin:${PATH}
-	export PATH
-	eval "$(rbenv init -)"
-fi
 # }}}
 
 # {{{2 Prompt
@@ -193,8 +180,6 @@ alias -s html=pick-web-browser
 export WWW_HOME="google.co.jp"
 # }}}
 
-# }}}
-
  #{{{1 alias
 
 alias ...=`cd ../..` #　２つ上の階層に移動
@@ -244,10 +229,21 @@ ls_abbrev() {
 
 # カレントディレクトリのパスをクリップボードにコピー
 alias path='echo -n `pwd` | pbcopy'
-
 # }}}
 
+# test alias
+alias ubuntu='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"Ubuntu_Dark\""'
+
+
+#{{{ screenfetch
 # If "screenfetch" cmd installed, 
 if (( $+commands[screenfetch] ));then
 	screenfetch
 fi
+#}}}
+
+# {{{ Vagrant settings
+# Automatically ssh connection
+
+
+# }}}
