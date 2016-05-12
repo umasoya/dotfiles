@@ -22,26 +22,23 @@ export ZDOT_DIR="$HOME/dotfiles/.zsh"
 # {{{1 Detect OSTYPE
 
 function detect_distribution(){
-	distribution=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'`
-	#export distribution
+	DISTRIBUTION=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'`
 }
 
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
-		distribution="OSX"
-		#export distribution
+		DISTRIBUTION="OSX"
 		source "${ZDOT_DIR}/.zshrc_osx"
 		;;
 	*linux*)
 		# Linux
 		detect_distribution
-		if [ -f ${ZDOT_DIR}/.zshrc_${distribution} ]; then
-		source ${ZDOT_DIR}/.zshrc_${distribution}
+		if [ -f ${ZDOT_DIR}/.zshrc_${DISTRIBUTION} ]; then
+		source ${ZDOT_DIR}/.zshrc_${DISTRIBUTION}
 		fi
 		;;
 esac
-export distribution
 # }}}
 
 # {{{1 General settings
