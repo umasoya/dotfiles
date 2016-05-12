@@ -22,24 +22,37 @@ export ZDOT_DIR="$HOME/dotfiles/.zsh"
 # {{{1 Detect OSTYPE
 
 function detect_distribution(){
-	DISTRIBUTION=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'`
+	distribution=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'`
 }
 
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
-		DISTRIBUTION="OSX"
+		distribution="OSX"
 		source "${ZDOT_DIR}/.zshrc_osx"
 		;;
 	*linux*)
 		# Linux
 		detect_distribution
-		if [ -f ${ZDOT_DIR}/.zshrc_${DISTRIBUTION} ]; then
-		source ${ZDOT_DIR}/.zshrc_${DISTRIBUTION}
+		if [ -f ${ZDOT_DIR}/.zshrc_${distribution} ]; then
+		source ${ZDOT_DIR}/.zshrc_${distribution}
 		fi
 		;;
 esac
 # }}}
+
+#{{{ terminal background setting
+		/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"${distribution}_Dark\""
+		term_bg=${distribution}
+
+function load_terminal_plofile(){
+	if [ ${term_bg} != ${distribution} ];then
+		/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"${distribution}_Dark\""
+	fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd load_terminal_plofile
+#}}}
 
 # {{{1 General settings
 # Auto launch tmux if it installed
@@ -239,8 +252,3 @@ if (( $+commands[screenfetch] ));then
 fi
 #}}}
 
-# {{{ Vagrant settings
-# Automatically ssh connection
-
-
-# }}}
