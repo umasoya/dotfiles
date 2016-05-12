@@ -41,19 +41,6 @@ case "${OSTYPE}" in
 esac
 # }}}
 
-#{{{ terminal background setting
-		/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"${distribution}_Dark\""
-		term_bg=${distribution}
-
-function load_terminal_plofile(){
-	if [ ${term_bg} != ${distribution} ];then
-		/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"${distribution}_Dark\""
-	fi
-}
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd load_terminal_plofile
-#}}}
-
 # {{{1 General settings
 # Auto launch tmux if it installed
 #[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
@@ -243,7 +230,6 @@ alias path='echo -n `pwd` | pbcopy'
 
 # test alias
 alias ubuntu='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"Ubuntu_Dark\""'
-
 
 #{{{ screenfetch
 # If "screenfetch" cmd installed, 
