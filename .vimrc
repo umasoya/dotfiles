@@ -140,6 +140,9 @@ NeoBundle 'fatih/vim-go'
 " Solarized
 NeoBundle 'altercation/vim-colors-solarized'
 
+" Nginx syntax highlight
+NeoBundle 'evanmiller/nginx-vim-syntax'
+
 call neobundle#end()
 
 "未インストールのプラグインがある場合、インストールするか確認
