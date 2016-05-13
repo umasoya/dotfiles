@@ -15,6 +15,11 @@ if !has('gui_running')
 		autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
 		autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
 		autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
+		autocmd VimEnter,ColorScheme * highlight SpecialKey ctermbg=none
+		autocmd VimEnter,ColorScheme * highlight CursorLine ctermbg=233
+		autocmd VimEnter,ColorScheme * highlight CursorColumn ctermbg=233
+		autocmd VimEnter,ColorScheme * highlight Folded ctermbg=none
+		autocmd VimEnter,ColorScheme * highlight Visual ctermfg=20 ctermbg=255
 	augroup END
 endif
 " }}}
@@ -32,6 +37,10 @@ set encoding=utf-8
 
 "行数表示
 set number
+
+" Display ruler
+set ruler
+set rulerformat=[L:%l/%L\ C:%v]
 
 " vimの無名レジスタとクリップボードを連携
 set clipboard=unnamed
@@ -70,6 +79,7 @@ set wildmenu wildmode=list:full
 
 set nohlsearch
 set cursorline
+set cursorcolumn
 
 " ファイルタイプによるスニペットを有効化
 filetype on
