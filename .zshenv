@@ -15,3 +15,4 @@ path=(
 	$GOPATH(N-/)
 	$path
 )
+
