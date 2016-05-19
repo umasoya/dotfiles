@@ -4,7 +4,7 @@ typeset -U path
 # Set GOPATH
 export GOPATH="$HOME/go"
 
-# (N-/): 存在しないパスを登録しない
+ #(N-/): 存在しないパスを登録しない
 path=(
 	/usr/local/bin(N-/)
 	/usr/bin(N-/)
