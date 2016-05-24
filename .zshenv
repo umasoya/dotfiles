@@ -10,7 +10,7 @@ path=(
 	/usr/bin(N-/)
 	/usr/local/sbin(N-/)
 	$HOME/local/bin(N-/)
-	$HOME/script(N-/)
+	$HOME/scripts(N-/)
 	$HOME/.rbenv(N-/)
 	$GOPATH(N-/)
 	$path
