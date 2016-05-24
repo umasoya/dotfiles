@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Cloning repository from Github
+# Cloning repositories from Github
+# Repositories list is '~/dotfiles/etc/Repository_list'
 
 Repo_list="../etc/Repository_list"
 
