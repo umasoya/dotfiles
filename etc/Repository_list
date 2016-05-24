@@ -2,6 +2,8 @@
 # Yasuto777's Repository List
 #
 
+#------------------------------#
 #Userneme|Repository|Clone path#
-yasuto777 Scripts "$HOME/test/"
-yasuto777 dotfiles "$HOME/test1/"
+#------------------------------#
+yasuto777 Scripts "$HOME/Scripts"
+#yasuto777 dotfiles "$HOME/test1/"
