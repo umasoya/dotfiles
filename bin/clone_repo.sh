@@ -15,5 +15,3 @@ while read user repo into_path; do
 done < $Repo_list
 
 wait
-
-exit
