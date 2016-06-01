@@ -22,6 +22,13 @@ if !has('gui_running')
 		autocmd VimEnter,ColorScheme * highlight Visual ctermfg=20 ctermbg=255
 	augroup END
 endif
+
+" Change cursorline color when entering insert mode
+augroup vimrc_change_cursorline_color
+	autocmd!
+	autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
+	autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
+augroup END
 " }}}
 
 " {{{ General settings
@@ -103,7 +110,7 @@ set noerrorbells
 
 " Quickrun result display in split pane
 let g:quickrun_config={'*': {'split': ''}}
-" 縦分割時は右に,横分割時は下に新しいウィンドウを開く
+" Nice and split
 set splitright
 set splitbelow
 
