@@ -5,7 +5,6 @@
 "| |/ / / / / / / / /  / /__  
 "|___/_/_/ /_/ /_/_/   \___/  
 "                             
-
 " {{{ Background transparent
 if !has('gui_running')
 	augroup trans
@@ -91,8 +90,9 @@ set cursorcolumn
 " Enable Filetype
 filetype on
 
-" カーソル位置の記憶
-augroup vimrcEx
+" Restore cursor position
+"
+"augroup vimrcEx
 	  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
 		  \ exe "normal g`\"" | endif
 	augroup END 
@@ -123,7 +123,7 @@ let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
 "Press <return> in normal mode, insert a new line
 noremap <CR> o<ESC>
 " Press <Space> in normal mode, insert space
-"noremap <space> i<space><ESC>l
+noremap <space> i<space><ESC>l
 "}}}
 
 "{{{ bundle settings
@@ -171,7 +171,7 @@ set background=dark
 let g:solarized_termcolors=256
 " }}}
 
-" {{{neocomplcache
+" {{{ neocomplcache
 let g:neocomplcache_enable_at_startup = 1
 " }}}
 
