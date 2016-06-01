@@ -2,7 +2,7 @@
 typeset -U path
 
 # Set GOPATH
-export GOPATH="$HOME/go"
+export GOPATH="$HOME/Golang"
 
  #(N-/): 存在しないパスを登録しない
 path=(
