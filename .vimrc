@@ -24,7 +24,7 @@ if !has('gui_running')
 endif
 " }}}
 
-" {{{ 基本設定 
+" {{{ General settings
 
 " Vim mode
 set nocompatible
@@ -32,17 +32,17 @@ set notimeout
 set ttimeout
 set timeoutlen=100
 
-" 文字コードをUTF-8
+" UTF-8
 set encoding=utf-8
 
-"行数表示
+" Display line
 set number
 
 " Display ruler
 set ruler
 set rulerformat=[L:%l/%L\ C:%v]
 
-" vimの無名レジスタとクリップボードを連携
+" Linking the clipboard and unnamed register
 set clipboard=unnamed
 
 "======================="
@@ -56,32 +56,32 @@ function MyFoldText()
 	let foldlinecount = v:foldend - v:foldstart
 endfunction
 
-" tab文字と行末文字の設定
+" Set Tab and EOL chars
 set list
 set listchars=eol:<,tab:>.
 
-"ソフトタブ無効
+" Disable soft tab
 set noexpandtab
 
 "======================="
 " Indent setting
 "======================="
-"インデント時にインデントする文字数
+" Indent settings
 set autoindent
 set smartindent
 set shiftwidth=2
 set tabstop=2
-" C言語スタイルのインデント
+" Like C lang
 set cindent
 
-"補完
+" Completion settings
 set wildmenu wildmode=list:full
 
 set nohlsearch
 set cursorline
 set cursorcolumn
 
-" ファイルタイプによるスニペットを有効化
+" Enable Filetype
 filetype on
 
 " カーソル位置の記憶
@@ -90,39 +90,36 @@ augroup vimrcEx
 		  \ exe "normal g`\"" | endif
 	augroup END 
 
-" 余裕を持ってスクロールする
+" In good time scroll
 set scrolloff=5
 
-" ビープ音無効
+" Disable beep
 set visualbell t_vb=
 set noerrorbells
 
 " }}}
 
-" {{{ プラグインの設定
+" {{{ Plugin settings
 
-" quickrunの出力をスプリットで開く
+" Quickrun result display in split pane
 let g:quickrun_config={'*': {'split': ''}}
 " 縦分割時は右に,横分割時は下に新しいウィンドウを開く
 set splitright
 set splitbelow
 
-" vim-splashの設定
+" vim-splash setting
 let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
 
 "  }}}
 
-" マッピング {{{
-
-"ノーマルモード時にエンターキーで改行挿入
+"{{{ Mapping
+"Press <return> in normal mode, insert a new line
 noremap <CR> o<ESC>
-
-" ノーマルモード時にスペースキーで半角スペース挿入
+" Press <Space> in normal mode, insert space
 "noremap <space> i<space><ESC>l
+"}}}
 
-" }}}
-
-"{{{ bundle関連
+"{{{ bundle settings
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -132,15 +129,15 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 
 "コメントON/OFFを手軽に実行
-NeoBundle 'tomtom/tcomment_vim'
+"NeoBundle 'tomtom/tcomment_vim'
 
-" 起動時にAAやらメッセージ表示
+" Message is display on startup
 NeoBundle 'thinca/vim-splash'
 
-" html編集
+" Emmet
 NeoBundle 'mattn/emmet-vim'
 
-" クイックラン
+" quickrun
 NeoBundle 'thinca/vim-quickrun'
 let g:quickrun_config = {'*': {'hook/time/enable': '1'}, }
 
@@ -155,11 +152,12 @@ NeoBundle 'evanmiller/nginx-vim-syntax'
 
 call neobundle#end()
 
-"未インストールのプラグインがある場合、インストールするか確認
+" Check plugin
 NeoBundleCheck
 
 filetype plugin indent on
 
+" Colorscheme settings
 syntax enable 
 colorscheme solarized
 set background=dark
