@@ -99,7 +99,7 @@ catn(){
  alias cat="catn"
 # }}}
 
-# {{{2 Prompt
+# {{{1 Prompt
 
 # 直前の返り値によって色変更
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
@@ -108,7 +108,7 @@ local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 local window_no="${WINDOW:+"[$WINDOW]"}"
 
 PROMPT="
-%{$fg[cyan]%}User:%n%{${reset_color}%}
+%{$fg[cyan]%}User:%n%{${reset_color}%} $github_status
 $p_color [%~] > %{${reset_color}%}"
 
 # Googleライクにサジェスト #
@@ -116,7 +116,7 @@ setopt correct
 SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
 -> "
 
-# {{{3 vcs_info
+# {{{2 vcs_info
 
 autoload -Uz vcs_info
 setopt prompt_subst
@@ -129,7 +129,7 @@ zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 precmd(){ vcs_info }
 # }}}
 
-# {{{3 function_memo
+# {{{2 function_memo
 #function memo(){
 #	if [ $# -eq 0 ]; then
 #		unset memotxt
@@ -142,12 +142,14 @@ precmd(){ vcs_info }
 #}
 # }}}
 
+
 #RPROMPT='%S${memotxt}%s''${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%} "
 RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%} "
 
 # }}}
 
-# {{{2 ls coloring
+
+# {{{1 ls coloring
 #lsコマンドとzsh補完候補の色を揃える設定
 
 export LSCOLORS=gxfxcxdxbxegedabagacad
@@ -165,7 +167,7 @@ if [ -n "$LS_COLORS" ]; then
 fi
 # }}}
 
-# {{{2 w3m
+# {{{1 w3m
 #webブラウザが起動していれば新規タブに開く
 zstyle ':mime:*' browser-style running x
 autoload -Uz pick-web-browser
