@@ -13,6 +13,7 @@ path=(
 	$HOME/scripts(N-/)
 	$HOME/.rbenv(N-/)
 	$GOPATH(N-/)
+	$GOPATH/bin(N-/)
 	$path
 )
 
