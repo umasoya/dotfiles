@@ -231,14 +231,13 @@ ls_abbrev() {
 alias path='echo -n `pwd` | pbcopy'
 # }}}
 
-# test alias
-alias ubuntu='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"Ubuntu_Dark\""'
-alias osx='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"OSX_Dark\""'
-
-#{{{ screenfetch
-# If "screenfetch" cmd installed, 
-if (( $+commands[screenfetch] ));then
-	screenfetch
-fi
+#{{{ nvm settings
+NVM_DIR="$HOME/.nvm"
+# load nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "NVM_DIR/nvm.sh"
 #}}}
 
+#{{{ test alias
+alias ubuntu='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"Ubuntu_Dark\""'
+alias osx='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"OSX_Dark\""'
+#}}}
