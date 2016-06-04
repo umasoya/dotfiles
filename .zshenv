@@ -14,6 +14,7 @@ path=(
 	$HOME/.rbenv(N-/)
 	$GOPATH(N-/)
 	$GOPATH/bin(N-/)
+	$HOME/.nodebrew/current/bin(N-/)
 	$path
 )
 
