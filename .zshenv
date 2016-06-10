@@ -15,6 +15,8 @@ path=(
 	$GOPATH(N-/)
 	$GOPATH/bin(N-/)
 	$HOME/.nodebrew/current/bin(N-/)
+	#node_modules
+	$HOME/.nodebrew/node/v6.2.1/lib/node_modules
 	$path
 )
 
