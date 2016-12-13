@@ -124,6 +124,8 @@ let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
 noremap <CR> o<ESC>
 " Press <Space> in normal mode, insert space
 noremap <space> i<space><ESC>l
+" Press <Control + e> , NERDTreeToggle
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 "}}}
 
 "{{{ dein settings
@@ -143,6 +145,7 @@ call dein#add('fatih/vim-go')
 call dein#add('altercation/vim-colors-solarized')
 call dein#add('evanmiller/nginx-vim-syntax')
 call dein#add('jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}})
+call dein#add('scrooloose/nerdtree')
 
 call dein#end()
 
