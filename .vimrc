@@ -157,6 +157,9 @@ NeoBundle 'altercation/vim-colors-solarized'
 " Nginx syntax highlight
 NeoBundle 'evanmiller/nginx-vim-syntax'
 
+" javascript-syntax
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+
 call neobundle#end()
 
 " Check plugin
