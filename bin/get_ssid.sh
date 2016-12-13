@@ -23,4 +23,5 @@ else
 fi
 
 
-echo "#[fg=colour231]${SSID} ${RSL}#[default]"
+#echo "#[fg=colour231]${SSID} ${RSL}#[default]"
+echo "${SSID} ${RSL}"
