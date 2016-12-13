@@ -126,55 +126,38 @@ noremap <CR> o<ESC>
 noremap <space> i<space><ESC>l
 "}}}
 
-"{{{ bundle settings
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+"{{{ dein settings
+if &compatible
+  set nocompatible
+endif
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+call dein#begin(expand('~/.vim/dein'))
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/neocomplete.vim')
+call dein#add('thinca/vim-splash')
+call dein#add('mattn/emmet-vim')
+call dein#add('thinca/vim-quickrun')
+call dein#add('fatih/vim-go')
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('evanmiller/nginx-vim-syntax')
+call dein#add('jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}})
 
-NeoBundle 'Shougo/neocomplcache'
-
-"コメントON/OFFを手軽に実行
-"NeoBundle 'tomtom/tcomment_vim'
-
-" Message is display on startup
-NeoBundle 'thinca/vim-splash'
-
-" Emmet
-NeoBundle 'mattn/emmet-vim'
-
-" quickrun
-NeoBundle 'thinca/vim-quickrun'
-let g:quickrun_config = {'*': {'hook/time/enable': '1'}, }
-
-" Golang
-NeoBundle 'fatih/vim-go'
-
-" Solarized
-NeoBundle 'altercation/vim-colors-solarized'
-
-" Nginx syntax highlight
-NeoBundle 'evanmiller/nginx-vim-syntax'
-
-" javascript-syntax
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-
-call neobundle#end()
-
-" Check plugin
-NeoBundleCheck
+call dein#end()
 
 filetype plugin indent on
-
-" Colorscheme settings
 syntax enable 
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"	call dein#install()
+"endif
+
+"}}}
+
+"{{{ Colorscheme settings
 colorscheme solarized
 set background=dark
 let g:solarized_termcolors=256
-" }}}
-
-" {{{ neocomplcache
-let g:neocomplcache_enable_at_startup = 1
-" }}}
-
+"}}}
