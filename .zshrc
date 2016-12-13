@@ -185,6 +185,7 @@ export WWW_HOME="google.co.jp"
 alias ...=`cd ../..` #　２つ上の階層に移動
 alias ....=`cd ../../..` # ３つ上の階層に移動
 alias la="ls -a"
+alias vi='vim'
 
 mkgo(){
 	mkdir $1 && cd $_
