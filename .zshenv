@@ -17,8 +17,10 @@ path=(
 	$HOME/.nodebrew/current/bin(N-/)
 	#node_modules
 	$HOME/.nodebrew/node/v6.2.1/lib/node_modules(N-/)
+	#rbenv
+	$HOME/.rbenv/bin(N-/)
 	$path
 )
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
