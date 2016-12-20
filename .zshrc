@@ -22,7 +22,7 @@ export ZDOT_DIR="$HOME/dotfiles/.zsh"
 # {{{1 Detect OSTYPE
 
 function detect_distribution(){
-	distribution=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'`
+	distribution=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'` 2>/dev/null
 }
 
 case "${OSTYPE}" in
