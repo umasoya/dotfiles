@@ -132,9 +132,10 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 if &compatible
   set nocompatible
 endif
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+"set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.vim/dein.vim
 
-call dein#begin(expand('~/.vim/dein'))
+call dein#begin(expand('~/.vim/dein.vim'))
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/neocomplete.vim')
@@ -142,7 +143,10 @@ call dein#add('thinca/vim-splash')
 call dein#add('mattn/emmet-vim')
 call dein#add('thinca/vim-quickrun')
 call dein#add('fatih/vim-go')
+"solarized
 call dein#add('altercation/vim-colors-solarized')
+"tender
+call dein#add('jacoborus/tender.vim')
 call dein#add('evanmiller/nginx-vim-syntax')
 call dein#add('jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}})
 call dein#add('scrooloose/nerdtree')
@@ -159,8 +163,13 @@ syntax enable
 
 "}}}
 
-"{{{ Colorscheme settings
-colorscheme solarized
-set background=dark
-let g:solarized_termcolors=256
+"{{{1 Colorscheme settings
+	"{{{2 solarized
+		"colorscheme solarized
+		"set background=dark
+		"let g:solarized_termcolors=256
+	"}}}
+	"{{{2 tender
+		colorscheme tender
+	"}}}
 "}}}
