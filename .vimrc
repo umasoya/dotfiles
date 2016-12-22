@@ -106,19 +106,6 @@ set noerrorbells
 
 " }}}
 
-" {{{ Plugin settings
-
-" Quickrun result display in split pane
-let g:quickrun_config={'*': {'split': ''}}
-" Nice and split
-set splitright
-set splitbelow
-
-" vim-splash setting
-let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
-
-"  }}}
-
 "{{{ Mapping
 "Press <return> in normal mode, insert a new line
 noremap <CR> o<ESC>
@@ -143,6 +130,7 @@ call dein#add('thinca/vim-splash')
 call dein#add('mattn/emmet-vim')
 call dein#add('thinca/vim-quickrun')
 call dein#add('fatih/vim-go')
+call dein#add('flyinshadow/php_localvarcheck.vim')
 "solarized
 call dein#add('altercation/vim-colors-solarized')
 "tender
@@ -161,6 +149,21 @@ syntax enable
 "	call dein#install()
 "endif
 
+"}}}
+
+"{{{1 Plugin settings
+
+" Quickrun result display in split pane
+let g:quickrun_config={'*': {'split': ''}}
+" Nice and split
+set splitright
+set splitbelow
+
+" vim-splash setting
+let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
+" php_localvarcheck
+let g:php_localvarcheck_enable = 1
+let g:php_localvarcheck_global = 0
 "}}}
 
 "{{{1 Colorscheme settings
