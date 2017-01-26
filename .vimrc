@@ -48,6 +48,9 @@ set number
 set ruler
 set rulerformat=[L:%l/%L\ C:%v]
 
+" Display Statusline
+set laststatus=2
+
 " Linking the clipboard and unnamed register
 set clipboard=unnamed
 
