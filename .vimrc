@@ -25,7 +25,8 @@ endif
 " Change cursorline color when entering insert mode
 augroup vimrc_change_cursorline_color
 	autocmd!
-	autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
+	"autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
+	autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
 	autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
 augroup END
 " }}}
