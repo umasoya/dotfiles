@@ -7,3 +7,5 @@
 	email = basilisk.0331@icloud.com
 [color]
 	ui = auto
+[push]
+	default = matching
