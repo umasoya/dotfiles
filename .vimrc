@@ -55,6 +55,7 @@ set laststatus=2
 " Linking the clipboard and unnamed register
 set clipboard=unnamed
 
+set backspace=indent,eol,start
 "======================="
 " Fold setting
 "======================="
@@ -71,7 +72,7 @@ set list
 set listchars=eol:<,tab:>.
 
 " Disable soft tab
-set noexpandtab
+set expandtab
 
 "======================="
 " Indent setting
@@ -79,8 +80,8 @@ set noexpandtab
 " Indent settings
 set autoindent
 set smartindent
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 " Like C lang
 set cindent
 
