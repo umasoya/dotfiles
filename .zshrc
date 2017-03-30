@@ -148,7 +148,6 @@ RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%} "
 
 # }}}
 
-
 # {{{1 ls coloring
 #lsコマンドとzsh補完候補の色を揃える設定
 
@@ -235,7 +234,9 @@ alias path='echo -n `pwd` | pbcopy'
 #{{{ nvm settings
 NVM_DIR="$HOME/.nvm"
 # load nvm
-[ -s "$NVM_DIR/nvm.sh" ] && . "NVM_DIR/nvm.sh"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+    source "$NVM_DIR/nvm.sh"
+fi
 #}}}
 
 #{{{ test alias
