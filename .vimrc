@@ -7,27 +7,27 @@
 "                             
 " {{{ Background transparent
 if !has('gui_running')
-	augroup trans
-		autocmd!
-		autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
-		autocmd VimEnter,ColorScheme * highlight LineNr ctermbg=none
-		autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
-		autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
-		autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
-		autocmd VimEnter,ColorScheme * highlight SpecialKey ctermbg=none
-		autocmd VimEnter,ColorScheme * highlight CursorLine ctermbg=233
-		autocmd VimEnter,ColorScheme * highlight CursorColumn ctermbg=233
-		autocmd VimEnter,ColorScheme * highlight Folded ctermbg=none
-		autocmd VimEnter,ColorScheme * highlight Visual ctermfg=20 ctermbg=255
-	augroup END
+    augroup trans
+        autocmd!
+        autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
+        autocmd VimEnter,ColorScheme * highlight LineNr ctermbg=none
+        autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
+        autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
+        autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
+        autocmd VimEnter,ColorScheme * highlight SpecialKey ctermbg=none
+        autocmd VimEnter,ColorScheme * highlight CursorLine ctermbg=233
+        autocmd VimEnter,ColorScheme * highlight CursorColumn ctermbg=233
+        autocmd VimEnter,ColorScheme * highlight Folded ctermbg=none
+        autocmd VimEnter,ColorScheme * highlight Visual ctermfg=20 ctermbg=255
+    augroup END
 endif
 
 " Change cursorline color when entering insert mode
 augroup vimrc_change_cursorline_color
-	autocmd!
-	"autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
-	autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
-	autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
+    autocmd!
+    "autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
+    autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
+    autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
 augroup END
 " }}}
 
@@ -63,21 +63,19 @@ set backspace=indent,eol,start
 set foldmethod=marker
 "set foldtext=MyFoldText()
 function MyFoldText()
-	let line = getline(v:foldstart)
-	let foldlinecount = v:foldend - v:foldstart
+    let line = getline(v:foldstart)
+    let foldlinecount = v:foldend - v:foldstart
 endfunction
 
 " Set Tab and EOL chars
 set list
 set listchars=eol:<,tab:>.
 
-" Disable soft tab
-set expandtab
-
 "======================="
 " Indent setting
 "======================="
 " Indent settings
+set expandtab
 set autoindent
 set smartindent
 set shiftwidth=4
@@ -98,9 +96,9 @@ filetype on
 " Restore cursor position
 "
 "augroup vimrcEx
-	  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
-		  \ exe "normal g`\"" | endif
-	augroup END 
+      au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+          \ exe "normal g`\"" | endif
+    augroup END 
 
 " In good time scroll
 set scrolloff=5
@@ -124,7 +122,6 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 if &compatible
   set nocompatible
 endif
-"set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 set runtimepath+=~/.vim/dein.vim
 
 call dein#begin(expand('~/.vim/dein.vim'))
@@ -151,7 +148,7 @@ syntax enable
 
 " If you want to install not installed plugins on startup.
 "if dein#check_install()
-"	call dein#install()
+"   call dein#install()
 "endif
 
 "}}}
@@ -172,12 +169,12 @@ let g:php_localvarcheck_global = 0
 "}}}
 
 "{{{1 Colorscheme settings
-	"{{{2 solarized
-		"colorscheme solarized
-		"set background=dark
-		"let g:solarized_termcolors=256
-	"}}}
-	"{{{2 tender
-		colorscheme tender
-	"}}}
+    "{{{2 solarized
+        "colorscheme solarized
+        "set background=dark
+        "let g:solarized_termcolors=256
+    "}}}
+    "{{{2 tender
+        colorscheme tender
+    "}}}
 "}}}
