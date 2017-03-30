@@ -13,6 +13,8 @@ for i in $files; do
 	fi
 done
 
+dotfile+=("$HOME/dotfiles/.vim")
+
 # Make Synbolic-link
 for n in ${dotfile[@]}; do
 	filename=`basename $n`
