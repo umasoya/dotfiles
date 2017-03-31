@@ -6,3 +6,4 @@
 /tmp
 *.log
 /cookbooks/
+.vim/dein.vim
