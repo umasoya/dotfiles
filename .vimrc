@@ -7,27 +7,27 @@
 "                             
 " {{{ Background transparent
 if !has('gui_running')
-    augroup trans
-        autocmd!
-        autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
-        autocmd VimEnter,ColorScheme * highlight LineNr ctermbg=none
-        autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
-        autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
-        autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
-        autocmd VimEnter,ColorScheme * highlight SpecialKey ctermbg=none
-        autocmd VimEnter,ColorScheme * highlight CursorLine ctermbg=233
-        autocmd VimEnter,ColorScheme * highlight CursorColumn ctermbg=233
-        autocmd VimEnter,ColorScheme * highlight Folded ctermbg=none
-        autocmd VimEnter,ColorScheme * highlight Visual ctermfg=20 ctermbg=255
-    augroup END
+  augroup trans
+    autocmd!
+    autocmd VimEnter,ColorScheme * highlight Normal ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight LineNr ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight VertSplit ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight NonText ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight SpecialKey ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight CursorLine ctermbg=233
+    autocmd VimEnter,ColorScheme * highlight CursorColumn ctermbg=233
+    autocmd VimEnter,ColorScheme * highlight Folded ctermbg=none
+    autocmd VimEnter,ColorScheme * highlight Visual ctermfg=20 ctermbg=255
+  augroup END
 endif
 
 " Change cursorline color when entering insert mode
 augroup vimrc_change_cursorline_color
-    autocmd!
-    "autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
-    autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
-    autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
+  autocmd!
+  "autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
+  autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
+  autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
 augroup END
 " }}}
 
@@ -63,8 +63,8 @@ set backspace=indent,eol,start
 set foldmethod=marker
 "set foldtext=MyFoldText()
 function MyFoldText()
-    let line = getline(v:foldstart)
-    let foldlinecount = v:foldend - v:foldstart
+  let line = getline(v:foldstart)
+  let foldlinecount = v:foldend - v:foldstart
 endfunction
 
 " Set Tab and EOL chars
@@ -74,12 +74,14 @@ set listchars=eol:<,tab:>.
 "======================="
 " Indent setting
 "======================="
+" enable filetype plugin indent
+filetype plugin indent on
 " Indent settings
 set expandtab
 set autoindent
 set smartindent
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 " Like C lang
 set cindent
 
@@ -96,82 +98,91 @@ filetype on
 " Restore cursor position
 "
 "augroup vimrcEx
-      au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
-          \ exe "normal g`\"" | endif
+au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+      \ exe "normal g`\"" | endif
     augroup END 
 
-" In good time scroll
-set scrolloff=5
+    " In good time scroll
+    set scrolloff=5
 
-" Disable beep
-set visualbell t_vb=
-set noerrorbells
+    " Disable beep
+    set visualbell t_vb=
+    set noerrorbells
 
-" }}}
+    " }}}
 
-"{{{ Mapping
-"Press <return> in normal mode, insert a new line
-noremap <CR> o<ESC>
-" Press <Space> in normal mode, insert space
-noremap <space> i<space><ESC>l
-" Press <Control + e> , NERDTreeToggle
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-"}}}
+    "{{{ Mapping
+    "Press <return> in normal mode, insert a new line
+    noremap <CR> o<ESC>
+    " Press <Space> in normal mode, insert space
+    noremap <space> i<space><ESC>l
+    " Press <Control + e> , NERDTreeToggle
+    nnoremap <silent><C-e> :NERDTreeToggle<CR>
+    "}}}
 
-"{{{ dein settings
-if &compatible
-  set nocompatible
-endif
-set runtimepath+=~/.vim/dein.vim
+    "{{{ dein settings
+    if &compatible
+      set nocompatible
+    endif
+    set runtimepath+=~/.vim/dein.vim
 
-call dein#begin(expand('~/.vim/dein.vim'))
+    call dein#begin(expand('~/.vim/dein.vim'))
 
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/neocomplete.vim')
-call dein#add('thinca/vim-splash')
-call dein#add('mattn/emmet-vim')
-call dein#add('thinca/vim-quickrun')
-call dein#add('fatih/vim-go')
-call dein#add('flyinshadow/php_localvarcheck.vim')
-call dein#add('evanmiller/nginx-vim-syntax')
-call dein#add('jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}})
-call dein#add('scrooloose/nerdtree')
-call dein#add('digitaltoad/vim-pug')
+    call dein#add('Shougo/dein.vim')
+    call dein#add('Shougo/neocomplete.vim')
+    call dein#add('thinca/vim-splash')
+    call dein#add('mattn/emmet-vim')
+    call dein#add('thinca/vim-quickrun')
+    call dein#add('fatih/vim-go')
+    call dein#add('flyinshadow/php_localvarcheck.vim')
+    call dein#add('evanmiller/nginx-vim-syntax')
+    call dein#add('jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}})
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('digitaltoad/vim-pug')
+    call dein#add('nathanaelkane/vim-indent-guides')
 
-call dein#end()
+    call dein#end()
 
-filetype plugin indent on
-syntax enable 
+    filetype plugin indent on
+    syntax enable 
 
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"   call dein#install()
-"endif
+    " If you want to install not installed plugins on startup.
+    "if dein#check_install()
+    "   call dein#install()
+    "endif
 
-"}}}
+    "}}}
 
-"{{{1 Plugin settings
+    "{{{1 Plugin settings
 
-" Quickrun result display in split pane
-let g:quickrun_config={'*': {'split': ''}}
-" Nice and split
-set splitright
-set splitbelow
+    " Quickrun result display in split pane
+    let g:quickrun_config={'*': {'split': ''}}
+    " Nice and split
+    set splitright
+    set splitbelow
 
-" vim-splash setting
-let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
-" php_localvarcheck
-let g:php_localvarcheck_enable = 1
-let g:php_localvarcheck_global = 0
-"}}}
+    " vim-splash setting
+    let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
+    " php_localvarcheck
+    let g:php_localvarcheck_enable = 1
+    let g:php_localvarcheck_global = 0
 
-"{{{1 Colorscheme settings
+    " vim-indent-guide
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_auto_colors=0
+    let g:indent_guides_guide_size = 2
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=16
+     let g:indent_guides_start_level = 2
+    "}}}
+
+    "{{{1 Colorscheme settings
     "{{{2 solarized
-        "colorscheme solarized
-        "set background=dark
-        "let g:solarized_termcolors=256
+    "colorscheme solarized
+    "set background=dark
+    "let g:solarized_termcolors=256
     "}}}
     "{{{2 tender
-        colorscheme tender
+    colorscheme tender
     "}}}
-"}}}
+    "}}}
