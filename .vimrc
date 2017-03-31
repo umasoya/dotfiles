@@ -140,6 +140,7 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     call dein#add('scrooloose/nerdtree')
     call dein#add('digitaltoad/vim-pug')
     call dein#add('nathanaelkane/vim-indent-guides')
+    call dein#add('moll/vim-node')
 
     call dein#end()
 
