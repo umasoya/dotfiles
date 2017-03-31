@@ -133,13 +133,10 @@ call dein#add('mattn/emmet-vim')
 call dein#add('thinca/vim-quickrun')
 call dein#add('fatih/vim-go')
 call dein#add('flyinshadow/php_localvarcheck.vim')
-"solarized
-call dein#add('altercation/vim-colors-solarized')
-"tender
-call dein#add('jacoborus/tender.vim')
 call dein#add('evanmiller/nginx-vim-syntax')
 call dein#add('jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}})
 call dein#add('scrooloose/nerdtree')
+call dein#add('digitaltoad/vim-pug')
 
 call dein#end()
 
