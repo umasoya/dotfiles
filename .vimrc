@@ -168,11 +168,17 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     let g:php_localvarcheck_global = 0
 
     " vim-indent-guide
+    " autorun vim-indent-guide
     let g:indent_guides_enable_on_vim_startup = 1
+    " disable auto-colors
     let g:indent_guides_auto_colors=0
+    " set guide size
     let g:indent_guides_guide_size = 2
+    " set bg color Odd
     autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
+    " set bg color Even
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=16
+    " set guide start revel
      let g:indent_guides_start_level = 2
     "}}}
 
