@@ -7,3 +7,4 @@
 *.log
 /cookbooks/
 .vim/dein.vim
+bin/osx_setting.sh
