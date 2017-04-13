@@ -108,7 +108,7 @@ local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 local window_no="${WINDOW:+"[$WINDOW]"}"
 
 PROMPT="
-%{$fg[cyan]%}User:%n%{${reset_color}%} $github_status
+%{$fg[cyan]%}%n@%m%{${reset_color}%} $github_status
 $p_color [%~] > %{${reset_color}%}"
 
 # Googleライクにサジェスト #
