@@ -39,6 +39,9 @@ set notimeout
 set ttimeout
 set timeoutlen=100
 
+" Backup
+set backupdir=~/.vim/tmp
+
 " UTF-8
 set encoding=utf-8
 
