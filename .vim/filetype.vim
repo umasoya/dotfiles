@@ -5,4 +5,5 @@ augroup filetypedetect
   au BufRead,BufNewFile *.js setfiletype javascript
   au BufRead,BufNewFile *.go setfiletype go
   au BufRead,BufNewFile *.sh setfiletype sh
+  au BufRead,BufNewFile *.html,*.tpl setfiletype html
 augroup END
