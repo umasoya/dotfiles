@@ -31,7 +31,7 @@ augroup vimrc_change_cursorline_color
 augroup END
 " }}}
 
-" {{{ General settings
+" {{{1 General settings
 
 " Vim mode
 set nocompatible
@@ -40,6 +40,9 @@ set ttimeout
 set timeoutlen=100
 
 " Backup
+if !isdirectory("~/.vim/tmp")
+  call mkdir("~/.vim/tmp","p")
+endif
 set backupdir=~/.vim/tmp
 
 " UTF-8
@@ -59,6 +62,7 @@ set laststatus=2
 set clipboard=unnamed
 
 set backspace=indent,eol,start
+
 "======================="
 " Fold setting
 "======================="
@@ -79,14 +83,15 @@ set listchars=eol:<,tab:>.
 "======================="
 " enable filetype plugin indent
 filetype plugin indent on
-" Indent settings
+
+"{{{2 Indent settings
 set expandtab
 set autoindent
 set smartindent
 set shiftwidth=2
 set tabstop=2
-" Like C lang
 set cindent
+" }}}
 
 " Completion settings
 set wildmenu wildmode=list:full
@@ -159,19 +164,23 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
 
     "{{{1 Plugin settings
 
+    " {{{2 Quickrun
     " Quickrun result display in split pane
     let g:quickrun_config={'*': {'split': ''}}
     " Nice and split
     set splitright
     set splitbelow
+    " }}}
 
     " vim-splash setting
     let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
-    " php_localvarcheck
+
+    "{{{2 php_localvarcheck
     let g:php_localvarcheck_enable = 1
     let g:php_localvarcheck_global = 0
+    " }}}
 
-    " vim-indent-guide
+    "{{{2 vim-indent-guide
     " autorun vim-indent-guide
     let g:indent_guides_enable_on_vim_startup = 1
     " disable auto-colors
@@ -184,6 +193,18 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=16
     " set guide start revel
      let g:indent_guides_start_level = 2
+     " }}}
+
+     "{{{2 emmet-vim
+     " key-bind <Ctrl + y> + ,
+     let g:user_emmet_leader_key='<C-y>'
+     let g:user_emmet_settings = {
+           \ 'variables' : {
+           \'lang' : 'ja'
+           \}
+           \}
+     " }}}
+     "
     "}}}
 
     "{{{1 Colorscheme settings
