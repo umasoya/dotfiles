@@ -40,10 +40,10 @@ set ttimeout
 set timeoutlen=100
 
 " Backup
-if !isdirectory("~/.vim/tmp")
-  call mkdir("~/.vim/tmp","p")
+if !isdirectory("$HOME/.vim/tmp")
+  call mkdir("$HOME/.vim/tmp","p")
 endif
-set backupdir=~/.vim/tmp
+set backupdir=$HOME/.vim/tmp
 
 " UTF-8
 set encoding=utf-8
