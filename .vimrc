@@ -45,6 +45,12 @@ if !isdirectory($HOME . '/.vim/tmp')
 endif
 set backupdir=$HOME/.vim/tmp
 
+" Undo
+if !isdirectory($HOME . '/.vim/undo')
+  call mkdir($HOME . '/.vim/undo', "p")
+endif
+set undodir=$HOME/.vim/undo
+
 " UTF-8
 set encoding=utf-8
 
