@@ -1,1 +1,6 @@
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-syntax-highlighting", \
+        defer:2, \
+        from:github
+zplug "xryanglab/xtail", \
+        as:command, \
+        from:github

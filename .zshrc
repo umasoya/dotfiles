@@ -101,15 +101,14 @@ catn(){
 
 # {{{ zplug
 # check init.zsh file
-if [ -e $HOME/.zplug/init.zsh ]; then
+if [[ -f $HOME/.zplug/init.zsh ]]; then
+  export ZPLUG_LOADFILE=$HOME/dotfiles/.zplugrc
   source $HOME/.zplug/init.zsh
 else
   curl -sL --proto-redir -all,https "https://raw.githubusercontent.com/zplug/installer/master/installer.zsh"| zsh
+  export ZPLUG_LOADFILE=$HOME/dotfiles/.zplugrc
   source $HOME/.zplug/init.zsh
 fi
-
-# Load .zplugrc
-source $HOME/dotfiles/.zplugrc
 
 # If `zplug check` is false, run `zplug install`
 if ! zplug check; then
