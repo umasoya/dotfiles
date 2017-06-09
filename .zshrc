@@ -115,6 +115,10 @@ source $HOME/dotfiles/.zplugrc
 if ! zplug check; then
   zplug install
 fi
+
+if [ -e $ZPLUG_REPOS/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source $ZPLUG_REPOS/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 # }}}
 
 # {{{1 Prompt
