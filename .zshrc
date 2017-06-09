@@ -45,10 +45,10 @@ esac
 # Auto launch tmux if it installed
 #[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 
-# 文字コードはUTF-8 #
+# character-set  UTF-8
 export LANG=ja_JP.UTF-8
 
-#プロンプトの自動リロード
+# auto reload prompt
 autoload -U promptinit
 promptinit
 autoload -U colors && colors
@@ -59,13 +59,13 @@ autoload -Uz terminfo
 #  Vim mode setting
 bindkey -v
 
-#入力したコマンドが存在せず、かつディレクトリ名と一致する場合ディレクトリに移動
+# If the command does not exist and matches Dir name, move to Dir
 setopt auto_cd
 
-# ビープ音を鳴らさない
+# no beep
 setopt no_beep
 
-# 自動補完の有効化
+# Enable autocomplete
 autoload -U compinit; compinit
 
 # 大文字小文字を区別せずに補完
