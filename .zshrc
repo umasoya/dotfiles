@@ -99,6 +99,24 @@ catn(){
  alias cat="catn"
 # }}}
 
+# {{{ zplug
+# check init.zsh file
+if [ -e $HOME/.zplug/init.zsh ]; then
+  source $HOME/.zplug/init.zsh
+else
+  curl -sL --proto-redir -all,https "https://raw.githubusercontent.com/zplug/installer/master/installer.zsh"| zsh
+  source $HOME/.zplug/init.zsh
+fi
+
+# Load .zplugrc
+source $HOME/dotfiles/.zplugrc
+
+# If `zplug check` is false, run `zplug install`
+if ! zplug check; then
+  zplug install
+fi
+# }}}
+
 # {{{1 Prompt
 
 # 直前の返り値によって色変更
@@ -243,3 +261,7 @@ fi
 alias ubuntu='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"Ubuntu_Dark\""'
 alias osx='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"OSX_Dark\""'
 #}}}
+#
+if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
