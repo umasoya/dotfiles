@@ -261,7 +261,3 @@ fi
 alias ubuntu='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"Ubuntu_Dark\""'
 alias osx='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"OSX_Dark\""'
 #}}}
-#
-if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
