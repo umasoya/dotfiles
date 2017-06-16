@@ -67,7 +67,11 @@ set laststatus=2
 " Linking the clipboard and unnamed register
 set clipboard=unnamed
 
+" Enable backspace
 set backspace=indent,eol,start
+
+" Set syntax max col
+set synmaxcol=200
 
 "======================="
 " Fold setting
