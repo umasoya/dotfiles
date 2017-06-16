@@ -150,21 +150,7 @@ zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 precmd(){ vcs_info }
 # }}}
 
-# {{{2 function_memo
-#function memo(){
-#	if [ $# -eq 0 ]; then
-#		unset memotxt
-#		return
-#	fi
-#for str in $@
-#do
-#	memotxt="${memotxt} ${str}"
-#done
-#}
-# }}}
 
-
-#RPROMPT='%S${memotxt}%s''${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%} "
 RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%} "
 
 # }}}
