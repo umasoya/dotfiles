@@ -151,7 +151,7 @@ zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 precmd(){ vcs_info }
 # }}}
 
-RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?]%{${reset_color}%} "
+RPROMPT='`git config user.name` ${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
 
 # }}}
 
