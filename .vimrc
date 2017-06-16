@@ -160,6 +160,7 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     call dein#add('nathanaelkane/vim-indent-guides')
     call dein#add('moll/vim-node')
     call dein#add('ekalinin/Dockerfile.vim')
+    call dein#add('alvan/vim-php-manual')
 
     call dein#end()
 
