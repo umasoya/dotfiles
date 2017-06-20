@@ -28,6 +28,8 @@ augroup vimrc_change_cursorline_color
   "autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
   autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
   autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
+  autocmd InsertEnter * highlight StatusLine ctermbg=172
+  autocmd InsertLeave * highlight StatusLine ctermbg=248
 augroup END
 " }}}
 
