@@ -136,6 +136,11 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     noremap <space> i<space><ESC>l
     " Press <Control + e> , NERDTreeToggle
     nnoremap <silent><C-e> :NERDTreeToggle<CR>
+    " Press <Ctrl + [h,j,k,l]>, move max
+    nnoremap <C-h> ^
+    nnoremap <C-j> G
+    nnoremap <C-k> gg
+    nnoremap <C-l> $
     "}}}
 
     "{{{ dein settings
