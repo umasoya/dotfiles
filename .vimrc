@@ -88,7 +88,7 @@ endfunction
 
 " Set Tab and EOL chars
 set list
-set listchars=eol:<,tab:>.
+set listchars=tab:>-
 
 "======================="
 " Indent setting
@@ -97,12 +97,10 @@ set listchars=eol:<,tab:>.
 filetype plugin indent on
 
 "{{{2 Indent settings
-"set expandtab
-"set autoindent
-"set smartindent
-"set shiftwidth=2
-"set tabstop=2
-"set cindent
+set expandtab
+set autoindent
+set smartindent
+set cindent
 " }}}
 
 " Completion settings
