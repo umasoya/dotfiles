@@ -81,7 +81,7 @@ set synmaxcol=200
 
 set foldmethod=marker
 "set foldtext=MyFoldText()
-function MyFoldText()
+function! MyFoldText()
   let line = getline(v:foldstart)
   let foldlinecount = v:foldend - v:foldstart
 endfunction
@@ -97,10 +97,10 @@ set listchars=tab:>-
 filetype plugin indent on
 
 "{{{2 Indent settings
-set expandtab
-set autoindent
-set smartindent
-set cindent
+"set expandtab
+"set autoindent
+"set smartindent
+"set cindent
 " }}}
 
 " Completion settings
@@ -109,9 +109,6 @@ set wildmenu wildmode=list:full
 set nohlsearch
 set cursorline
 set cursorcolumn
-
-" Enable Filetype
-filetype on
 
 " Restore cursor position
 "
@@ -170,7 +167,6 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
 
     call dein#end()
 
-    filetype plugin indent on
     syntax enable 
 
     " If you want to install not installed plugins on startup.
@@ -210,19 +206,19 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     " set bg color Even
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=16
     " set guide start revel
-     let g:indent_guides_start_level = 2
-     " }}}
+    let g:indent_guides_start_level = 2
+    " }}}
 
-     "{{{2 emmet-vim
-     " key-bind <Ctrl + y> + ,
-     let g:user_emmet_leader_key='<C-y>'
-     let g:user_emmet_settings = {
-           \ 'variables' : {
-           \'lang' : 'ja'
-           \}
-           \}
-     " }}}
-     "
+    "{{{2 emmet-vim
+    " key-bind <Ctrl + y> + ,
+    let g:user_emmet_leader_key='<C-y>'
+    let g:user_emmet_settings = {
+          \ 'variables' : {
+          \'lang' : 'ja'
+          \}
+          \}
+    " }}}
+    "
     "}}}
 
     "{{{1 Colorscheme settings
