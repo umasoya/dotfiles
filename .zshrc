@@ -137,6 +137,7 @@ setopt correct
 SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
 -> "
 
+
 # {{{2 vcs_info
 
 autoload -Uz vcs_info
@@ -148,7 +149,9 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 
-precmd(){ vcs_info }
+precmd(){ 
+	vcs_info 
+}
 # }}}
 
 RPROMPT='`git config user.name` ${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
@@ -246,3 +249,18 @@ if [[ -s "$NVM_DIR/nvm.sh" ]]; then
     source "$NVM_DIR/nvm.sh"
 fi
 #}}}
+
+#add-zsh-hook preexec hoge
+
+#local gitroot=`git rev-parse --show-toplevel 2>/dev/null`
+# Check current dir is inside git project.
+# return bool
+# git rev-parse --is-inside-work-tree
+#isInsideProject(){
+#	local check=`git rev-parse --is-inside-work-tree 2>/dev/null`
+#	if [ ! ${check} ];then
+#		return false
+#	fi
+#
+#	return true
+#}
