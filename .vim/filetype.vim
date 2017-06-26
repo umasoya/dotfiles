@@ -4,5 +4,5 @@ augroup filetypedetect
   au BufRead,BufNewFile *.vim setfiletype vim
   au BufRead,BufNewFile *.js setfiletype javascript
   au BufRead,BufNewFile *.go setfiletype go
-  au BufRead,BufNewFile *.sh,*.zsh,.zplugrc setfiletype sh
+  au BufRead,BufNewFile *.sh,*.zsh,.zplugrc,.zshrc setfiletype sh
 augroup END
