@@ -246,8 +246,3 @@ if [[ -s "$NVM_DIR/nvm.sh" ]]; then
     source "$NVM_DIR/nvm.sh"
 fi
 #}}}
-
-#{{{ test alias
-alias ubuntu='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"Ubuntu_Dark\""'
-alias osx='/usr/bin/osascript -e "tell application \"Terminal\" to set current settings of first window to settings set \"OSX_Dark\""'
-#}}}
