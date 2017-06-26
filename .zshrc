@@ -252,13 +252,11 @@ fi
 
 #add-zsh-hook preexec hoge
 
-#local gitroot=`git rev-parse --show-toplevel 2>/dev/null`
-# Check current dir is inside git project.
-# return bool
-# git rev-parse --is-inside-work-tree
-#isInsideProject(){
+## Check current dir is inside git project.
+## return bool
+#function isInsideProject(){
 #	local check=`git rev-parse --is-inside-work-tree 2>/dev/null`
-#	if [ ! ${check} ];then
+#	if [[ ! ${check} ]];then
 #		return false
 #	fi
 #
