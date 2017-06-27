@@ -143,18 +143,32 @@ SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${
 autoload -Uz vcs_info
 setopt prompt_subst
 
+checkGitUser(){
+  local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
+  if ${insideProject};then
+    gitUser=`git config user.name 2>/dev/null`
+  else
+    gitUser=''
+  fi
+}
+add-zsh-hook precmd checkGitUser
+
+# ${vcs_info_msg_0_} : normal message
+# ${vcs_info_msg_1_} : warning message
+# ${vcs_info_msg_2_} : error message
+
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 
-precmd(){ 
-	vcs_info 
-}
+precmd(){ vcs_info }
 # }}}
 
-RPROMPT='`git config user.name` ${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
+
+#RPROMPT='`git config user.name` ${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
+RPROMPT='${gitUser} ${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
 
 # }}}
 
