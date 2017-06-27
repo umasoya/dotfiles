@@ -17,6 +17,11 @@ dotfile+=("$HOME/dotfiles/.vim")
 
 # Make Synbolic-link
 for n in ${dotfile[@]}; do
+  # Don't create link .git*
+  if [[ $n =~ \.git* ]];then
+    continue
+  fi
+
 	filename=`basename $n`
 	ln -s -f $n $HOME/$filename
 done
