@@ -145,13 +145,13 @@ setopt prompt_subst
 
 checkGitUser(){
   local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
-  if ${insideProject};then
+  if [ ${insideProject} ];then
     gitUser=`git config user.name 2>/dev/null`
   else
     gitUser=''
   fi
 }
-#add-zsh-hook precmd checkGitUser
+add-zsh-hook chpwd checkGitUser
 
 # ${vcs_info_msg_0_} : normal message
 # ${vcs_info_msg_1_} : warning message
@@ -162,7 +162,6 @@ zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
-zstyle ':vcs_info:git:*' hooks checkGitUser
 
 precmd(){ vcs_info }
 # }}}
