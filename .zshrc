@@ -250,15 +250,32 @@ if [[ -s "$NVM_DIR/nvm.sh" ]]; then
 fi
 #}}}
 
-#add-zsh-hook preexec hoge
+# {{{ Custom `cd` command
+# If current directory is inside 'git project', `cd /` is goto 'Project Root'
+cd(){
+  # If argument is not '/', regular `cd`
+  if [ "${1}" != "/" ];then
+    builtin cd "${@}"
+    return
+  fi
 
-## Check current dir is inside git project.
-## return bool
-#function isInsideProject(){
-#	local check=`git rev-parse --is-inside-work-tree 2>/dev/null`
-#	if [[ ! ${check} ]];then
-#		return false
-#	fi
-#
-#	return true
-#}
+  # If current dir is not inside project, regular `cd`
+  local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
+  if ! ${insodeProject};then
+    builtin cd "${@}"
+    return
+  fi
+
+  # If current dir is projectRoot, `cd /` is regular action
+  local currentDir=`pwd 2>/dev/null`
+  local projectRoot=`git rev-parse --show-toplevel 2>/dev/null`
+
+  if [ "${currentDir}" = "${projectRoot}" ];then
+    builtin cd "/"
+    return
+  fi
+
+  builtin cd "${projectRoot}"
+  return
+}
+# }}}
