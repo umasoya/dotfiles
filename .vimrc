@@ -124,6 +124,9 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     set visualbell t_vb=
     set noerrorbells
 
+    " Increment/Decrement config
+    set nrformats=alpha
+
     " }}}
 
     "{{{ Mapping
@@ -138,6 +141,10 @@ au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
     nnoremap <C-j> G
     nnoremap <C-k> gg
     nnoremap <C-l> $
+
+    " Do not leave visual mode after increment/derement.
+    vnoremap <C-a> <C-a>gv
+    vnoremap <C-x> <C-x>gv
     "}}}
 
     "{{{ dein settings
