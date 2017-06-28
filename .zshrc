@@ -264,7 +264,7 @@ if [[ -s "$NVM_DIR/nvm.sh" ]]; then
 fi
 #}}}
 
-# {{{ Custom `cd` command
+# {{{ cd command wrapper
 # If current directory is inside 'git project', `cd /` is goto 'Project Root'
 cd(){
   # If argument is not '/', regular `cd`
@@ -292,4 +292,12 @@ cd(){
   builtin cd "${projectRoot}"
   return
 }
+# }}}
+
+# {{{ profiling
+# If you want to profiling zsh configuration, uncommemnt zprof section in .zshenv
+# Later than zsh ver 5.0.7
+if (which zprof > /dev/null); then
+  zprof | less
+fi
 # }}}

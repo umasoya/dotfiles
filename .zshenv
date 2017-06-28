@@ -1,3 +1,6 @@
+# profiling
+#zmodload zsh/zprof && zprof
+
 # 重複したパスを登録しない
 typeset -U path
 
