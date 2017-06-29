@@ -2,8 +2,6 @@
 ## Make Synbolic-link to $HOME
 # ln -s <source> <target>
 
-set -eux
-
 files="$HOME/dotfiles/.??*"
 # Make array
 dotfile=()
@@ -30,7 +28,16 @@ done
 
 # Common configs on local
 gitconfigs="$HOME/dotfiles/etc/.??*"
+
+if [ ! -d "$HOME/configs" ];
+  mkdir "$HOME/configs"
+fi
+
 for i in ${gitconfigs}; do
   filename=`basename ${i}`
+  if [ ${filename} = ".gitignore" ];then
+    ln -s -f ${i} $HOME/configs/${filename}
+  else
   ln -s -f ${i} $HOME/${filename}
+  fi
 done
