@@ -190,19 +190,6 @@ if [ -n "$LS_COLORS" ]; then
 fi
 # }}}
 
-# {{{1 w3m
-#webブラウザが起動していれば新規タブに開く
-zstyle ':mime:*' browser-style running x
-autoload -Uz pick-web-browser
-alias -s html=pick-web-browser
-
-#
-# ホームページの設定
-# これでv3mを引数なしで起動できる
-#
-export WWW_HOME="google.co.jp"
-# }}}
-
  #{{{1 alias
 
 alias ...=`cd ../..` #　２つ上の階層に移動
