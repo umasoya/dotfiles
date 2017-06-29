@@ -297,7 +297,7 @@ cd(){
 # {{{ profiling
 # If you want to profiling zsh configuration, uncommemnt zprof section in .zshenv
 # Later than zsh ver 5.0.7
-if (which zprof > /dev/null); then
-  zprof | less
-fi
+#if (which zprof > /dev/null); then
+#  zprof | less
+#fi
 # }}}
