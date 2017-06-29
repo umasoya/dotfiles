@@ -2,6 +2,8 @@
 ## Make Synbolic-link to $HOME
 # ln -s <source> <target>
 
+set -eux
+
 files="$HOME/dotfiles/.??*"
 # Make array
 dotfile=()
@@ -24,4 +26,11 @@ for n in ${dotfile[@]}; do
 
 	filename=`basename $n`
 	ln -s -f $n $HOME/$filename
+done
+
+# Common configs on local
+gitconfigs="$HOME/dotfiles/etc/.??*"
+for i in ${gitconfigs}; do
+  filename=`basename ${i}`
+  ln -s -f ${i} $HOME/${filename}
 done

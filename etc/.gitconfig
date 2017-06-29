@@ -1,0 +1,3 @@
+# Common gitconfig on local
+[core]
+excludesfile = $HOME/configs/.gitinore

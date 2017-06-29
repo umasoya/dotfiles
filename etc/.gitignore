@@ -1,0 +1,7 @@
+# Common gitignore configs on Local
+*.tmp
+*.bak
+*.swp
+tmp/
+temp/
+local/
