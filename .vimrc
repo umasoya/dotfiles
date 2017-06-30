@@ -173,6 +173,7 @@ syntax enable
 "}}}
 
 "{{{1 Plugin settings
+
 " {{{2 Neocomplete
 " Enable Neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -187,6 +188,11 @@ let g:neocomplete#max_list = 20
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 " Max cache length
 let g:neocomplete#max_keyword_width = 10000
+" set dictionary path
+let s:neco_dicts_dir = $HOME . '/.vim/dicts'
+if isdirectory(s:neco_dicts_dir)
+  " load dict file
+endif
 " }}}
 
 " {{{2 Quickrun
