@@ -29,7 +29,7 @@ done
 # Common configs on local
 gitconfigs="$HOME/dotfiles/etc/.??*"
 
-if [ ! -d "$HOME/configs" ];
+if [ ! -d "$HOME/configs" ]; then
   mkdir "$HOME/configs"
 fi
 
