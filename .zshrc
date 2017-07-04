@@ -42,7 +42,7 @@ esac
 # }}}
 
 # {{{ load ${ZDOT_DIR}/*.zsh
-for i in ${ZDOT_DIR}/*;do
+for i in ${ZDOT_DIR}/*.zsh;do
   source ${i}
 done
 # }}}
