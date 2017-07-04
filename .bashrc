@@ -2,6 +2,15 @@
 ## Yasuto Souma
 ##
 
+# Environment variables
+export DOT_DIR="${HOME}/dotfiles"
+export BDOT_DIR="${HOME}/dotfiles/.bash"
+
+# Load ${BDOT_DIR}/*.bash
+for i in ${BDOT_DIR}/*.bash;do
+  source ${i}
+done
+
 # {{{1 General Settings
 # Set the pager to less
 export PAGER=less
@@ -12,20 +21,19 @@ export EDITOR=vim
 # }}}
 
 # {{{1 Color Settings
-export LS_COLORS
+export LS_COLORS=gxfxcxdxbxegedabagacad
 
-if [ -f ~/dotfiles/.dircolors ]; then
+if [ -f ~/.dircolors ]; then
     if type dircolors > /dev/null 2>&1; then
-        eval $(dircolors ~/dotfiles/.dircolors)
+        eval $(dircolors ~/.dircolors)
     elif type gdircolors > /dev/null 2>&1; then
-        eval $(gdircolors ~/dotfiles/.dircolors)
+        eval $(gdircolors ~/.dircolors)
     fi
 fi
 # }}}
 
-
 # Prompt custumize
-PS1="\n\[\e[0;36m\]\h@\u\n[\w]\[\e[00m\] \$ "
+#PS1="\n\[\e[0;36m\]\h@\u\n[\w]\[\e[00m\] \$ "
 
 # {{{1 alias
 alias ls='ls -CF'
