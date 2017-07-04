@@ -204,7 +204,7 @@ set splitbelow
 " }}}
 
 " vim-splash setting
-let g:splash#path = expand("~/.dotfiles/.vim" . '/splash.txt')
+let g:splash#path = expand("~/.dotfiles/.vim" . '/splash')
 
 "{{{2 php_localvarcheck
 let g:php_localvarcheck_enable = 1
