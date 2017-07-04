@@ -8,6 +8,7 @@ mkgo(){
 chpwd() {
     ls_abbrev
 }
+# {{{ ls_abbrev
 # If exist many files and directories
 ls_abbrev() {
     # -a : Do not ignore entries starting with ..
@@ -42,9 +43,11 @@ ls_abbrev() {
         echo "$ls_result"
     fi
 }
+# }}}
 
-# カレントディレクトリのパスをクリップボードにコピー
+# get current path
 alias path='echo -n `pwd` | pbcopy'
+
 # {{{ cd_wrapper
 # If current directory is inside 'git project', `cd /` is goto 'Project Root'
 cd(){
