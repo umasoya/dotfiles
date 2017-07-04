@@ -1,6 +1,5 @@
-## bashrc
-## Yasuto Souma
-##
+# bashrc
+# Yasuto Souma
 
 # Environment variables
 export DOT_DIR="${HOME}/dotfiles"
@@ -31,9 +30,6 @@ if [ -f ~/.dircolors ]; then
     fi
 fi
 # }}}
-
-# Prompt custumize
-#PS1="\n\[\e[0;36m\]\h@\u\n[\w]\[\e[00m\] \$ "
 
 # {{{1 alias
 alias ls='ls -CF'
