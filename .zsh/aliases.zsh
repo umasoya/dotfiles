@@ -1,3 +1,6 @@
+#{{{ suffix aliases
+#}}}
+
 alias la='ls -a'
 alias vi='vim'
 
