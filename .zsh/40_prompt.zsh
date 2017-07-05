@@ -4,12 +4,10 @@ promptinit
 # Change the color according to the return value of the previous command.
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 
-# Set screen_no if it exists.
-local window_no="${WINDOW:+"[$WINDOW]"}"
-
 PROMPT="
 %{$fg[cyan]%}%n@%m%{${reset_color}%} $github_status
 $p_color [%~] > %{${reset_color}%}"
+
 
 # {{{ Suggest prompt
 # Suggest like a google.
