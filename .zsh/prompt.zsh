@@ -1,14 +1,18 @@
-# 直前の返り値によって色変更
+# auto reload prompt
+autoload -U promptinit
+promptinit
+
+# Change the color according to the return value of the previous command.
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 
-#スクリーン番号を（あれば）変数に格納
+# Set screen_no if it exists.
 local window_no="${WINDOW:+"[$WINDOW]"}"
 
 PROMPT="
 %{$fg[cyan]%}%n@%m%{${reset_color}%} $github_status
 $p_color [%~] > %{${reset_color}%}"
 
-# Googleライクにサジェスト #
+# Suggest like a google.
 setopt correct
 SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
 -> "
