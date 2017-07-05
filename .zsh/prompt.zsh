@@ -1,5 +1,4 @@
 # auto reload prompt
-autoload -U promptinit
 promptinit
 
 # Change the color according to the return value of the previous command.

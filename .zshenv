@@ -1,29 +1,52 @@
 # profiling
 #zmodload zsh/zprof && zprof
 
-# 重複したパスを登録しない
-typeset -U path
+# Do not regist duplicate path.
+typeset -gx -U path
 
-# Set GOPATH
-export GOPATH="$HOME/Golang"
-
- #(N-/): 存在しないパスを登録しない
+ #(N-/): Do not regist path if it is not exist.
 path=(
 	/usr/local/bin(N-/)
 	/usr/bin(N-/)
 	/usr/local/sbin(N-/)
 	$HOME/local/bin(N-/)
-	$HOME/scripts(N-/)
-	$HOME/.rbenv(N-/)
-	$GOPATH(N-/)
-	$GOPATH/bin(N-/)
-	$HOME/.nodebrew/current/bin(N-/)
-	#node_modules
-	$HOME/.nodebrew/node/v6.2.1/lib/node_modules(N-/)
-	#rbenv
-	$HOME/.rbenv/bin(N-/)
 	$path
 )
 
-#export PATH="$HOME/.rbenv/bin:$PATH"
-#eval "$(rbenv init -)"
+# autoload
+autoload -Uz add-zsh-hook
+autoload -Uz terminfo
+autoload -Uz compinit; compinit
+autoload -Uz colors && colors
+autoload -Uz promptinit
+
+# character-set  UTF-8
+export LANG=ja_JP.UTF-8
+
+# Editor
+export EDITOR=vim
+export GIT_EDITOR=${EDITOR}
+
+# Pager
+export PAGER=less
+
+# {{{ ls coloring
+export LSCOLORS=gxfxcxdxbxegedabagacad
+if [ -f ~/.dircolors ]; then
+    if type dircolors > /dev/null 2>&1; then
+        eval $(dircolors ~/.dircolors)
+    elif type gdircolors > /dev/null 2>&1; then
+        eval $(gdircolors ~/.dircolors)
+    fi
+fi
+
+# Apply the suggest even .dircolor
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
+# }}}
+
+# Config Golang 
+export GOPATH="$HOME/Golang"
+export GOBIN="$GOPATH/bin"
+export PATH="$GOBIN:$PATH"
