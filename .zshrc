@@ -15,10 +15,6 @@
 # `--"                                            `----'   
 #                                                          
 
-# Environment variables
-export DOTDIR="$HOME/dotfiles"
-export ZDOT_DIR="$HOME/dotfiles/.zsh"
-
 # {{{1 Detect OSTYPE
 
 function detect_distribution(){
@@ -46,14 +42,6 @@ for i in ${ZDOT_DIR}/*.zsh;do
   source ${i}
 done
 # }}}
-
-#{{{ nvm settings
-NVM_DIR="$HOME/.nvm"
-# load nvm
-if [[ -s "$NVM_DIR/nvm.sh" ]]; then
-    source "$NVM_DIR/nvm.sh"
-fi
-#}}}
 
 # {{{ profiling
 # If you want to profiling zsh configuration, uncommemnt zprof section in .zshenv

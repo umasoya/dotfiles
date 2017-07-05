@@ -46,6 +46,10 @@ if [ -n "$LS_COLORS" ]; then
 fi
 # }}}
 
+# Set enveronment variables for zsh
+export DOTDIR="$HOME/dotfiles"
+export ZDOT_DIR="$HOME/dotfiles/.zsh"
+
 # Config Golang 
 export GOPATH="$HOME/Golang"
 export GOBIN="$GOPATH/bin"
