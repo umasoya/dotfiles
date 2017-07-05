@@ -33,3 +33,6 @@ setopt sh_word_split
 
 # When backgroundjob finished, nitification.
 setopt notify
+
+# deploy valiables in prompt
+setopt prompt_subst

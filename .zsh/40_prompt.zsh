@@ -11,16 +11,16 @@ PROMPT="
 %{$fg[cyan]%}%n@%m%{${reset_color}%} $github_status
 $p_color [%~] > %{${reset_color}%}"
 
+# {{{ Suggest prompt
 # Suggest like a google.
-setopt correct
-SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
--> "
+SPROMPT=`\cat << EOS
+( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
+=> 
+EOS
+`
+# }}}
 
 # {{{2 vcs_info
-
-autoload -Uz vcs_info
-setopt prompt_subst
-
 checkGitUser(){
   local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
   if [ ${insideProject} ];then
