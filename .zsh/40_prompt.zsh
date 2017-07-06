@@ -1,34 +1,3 @@
-# auto reload prompt
-promptinit
-
-# Change the color according to the return value of the previous command.
-local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
-
-PROMPT="
-%{$fg[cyan]%}%n@%m%{${reset_color}%} $github_status
-$p_color [%~] > %{${reset_color}%}"
-
-
-# {{{ Suggest prompt
-# Suggest like a google.
-SPROMPT=`\cat << EOS
-( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
-=> 
-EOS
-`
-# }}}
-
-# {{{2 vcs_info
-checkGitUser(){
-  local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
-  if [ ${insideProject} ];then
-    gitUser=`git config user.name 2>/dev/null`
-  else
-    gitUser=''
-  fi
-}
-add-zsh-hook chpwd checkGitUser
-
 # ${vcs_info_msg_0_} : normal message
 # ${vcs_info_msg_1_} : warning message
 # ${vcs_info_msg_2_} : error message
@@ -39,7 +8,48 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 
-precmd(){ vcs_info }
+
+# Change the color according to the return value of the previous command.
+local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
+
+# set position display mode
+#terminfo_down_left=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]
+#MODE="-- INSERT --"
+
+PROMPT="
+%{$fg[cyan]%}%n@%m%{${reset_color}%} $github_status
+$p_color [%~] > %{${reset_color}%}"
+
+
+# {{{1 RPROMPT
+add-zsh-hook precmd _update_git_status
+
+_update_git_status(){
+  LANG=C vcs_info
+  if [ -z "${vcs_info_msg_0_}" ];then
+    return 0
+  fi
+
+  checkGitUser
+}
+
+checkGitUser(){
+  local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
+  if [ ${insideProject} ];then
+    gitUser="`git config user.name 2>/dev/null` "
+  else
+    gitUser=''
+  fi
+
+  RPROMPT='${gitUser}${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
+}
 # }}}
 
-RPROMPT='${gitUser} ${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
+# {{{ Suggest prompt
+# Suggest like a google.
+SPROMPT=`\cat << EOS
+( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
+=> 
+EOS
+`
+# }}}
