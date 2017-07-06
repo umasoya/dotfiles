@@ -26,7 +26,7 @@ fpath=(
 autoload -Uz add-zsh-hook
 autoload -Uz terminfo
 autoload -Uz vcs_info
-autoload -Uz compinit; compinit
+autoload -Uz compinit; compinit -c
 autoload -Uz colors && colors
 autoload -Uz promptinit
 
