@@ -1,4 +1,4 @@
-# profiling
+# Load zmodule zprof
 #zmodload zsh/zprof && zprof
 
 # Do not regist duplicate path.
@@ -10,7 +10,16 @@ path=(
 	/usr/bin(N-/)
 	/usr/local/sbin(N-/)
 	$HOME/local/bin(N-/)
+	/usr/local/lib/zsh/5.3.1/zsh(N-/)
 	$path
+)
+
+# fpath
+typeset -gx -U fpath
+
+fpath=(
+	$HOME/dotfiles/.zsh/completions(N-/)
+	$fpath
 )
 
 # autoload
