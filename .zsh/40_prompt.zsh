@@ -27,6 +27,7 @@ add-zsh-hook precmd _update_git_status
 _update_git_status(){
   LANG=C vcs_info
   if [ -z "${vcs_info_msg_0_}" ];then
+    gitUser=''
     return 0
   fi
 
