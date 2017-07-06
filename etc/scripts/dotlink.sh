@@ -14,6 +14,7 @@ for i in $files; do
 done
 
 dotfile+=("$HOME/dotfiles/.vim")
+dotfile+=("$HOME/dotfiles/.zsh")
 
 # Make Synbolic-link
 for n in ${dotfile[@]}; do
