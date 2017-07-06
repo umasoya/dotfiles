@@ -44,9 +44,12 @@ done
 # }}}
 
 # {{{ profiling
-# If you want to profiling zsh configuration, uncommemnt zprof section in .zshenv
+# If you want to profiling zsh configuration, load zprof moduele in .zshenv
 # Later than zsh ver 5.0.7
-#if (which zprof > /dev/null); then
-  zprof > ~/.zprof
-#fi
+if type "zprof" > /dev/null 2>&1; then
+  if [ ! -d "$HOME/.zsh-profiles" ];then
+    mkdir "$HOME/.zsh-profiles"
+  fi
+  zprof > "$HOME/.zsh-profiles/profile_`date '+%F_%T'`"
+fi
 # }}}
