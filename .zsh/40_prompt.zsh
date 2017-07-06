@@ -16,10 +16,12 @@ local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 #terminfo_down_left=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]
 #MODE="-- INSERT --"
 
-PROMPT="
-%{$fg[cyan]%}%n@%m%{${reset_color}%} $github_status
-$p_color [%~] > %{${reset_color}%}"
+PROMPT_TOP=" %{$fg[cyan]%}%n@%m%{${reset_color}%}"
+PROMPT="$p_color [%~] > %{${reset_color}%}"
 
+precmd(){ 
+  print -P "\n ${PROMPT_TOP}${(r:($COLUMNS-${#PROMPT_TOP}-${#RPROMPT_TOP}):: :)}$RPROMPT_TOP" 
+}
 
 # {{{1 RPROMPT
 add-zsh-hook precmd _update_git_status
@@ -42,7 +44,8 @@ checkGitUser(){
     gitUser=''
   fi
 
-  RPROMPT='${gitUser}${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
+  RPROMPT_TOP="${gitUser}"
+  RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
 }
 # }}}
 
