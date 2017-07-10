@@ -19,10 +19,6 @@ local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 PROMPT_TOP=" %{$fg[cyan]%}%n@%m%{${reset_color}%}"
 PROMPT="$p_color [%~] > %{${reset_color}%}"
 
-precmd(){ 
-  print -P "\n ${PROMPT_TOP}${(r:($COLUMNS-${#PROMPT_TOP}-${#RPROMPT_TOP}):: :)}$RPROMPT_TOP" 
-}
-
 # {{{1 RPROMPT
 add-zsh-hook precmd _update_git_status
 
@@ -34,6 +30,7 @@ _update_git_status(){
   fi
 
   checkGitUser
+  print -P "\n ${PROMPT_TOP}${(r:($COLUMNS-${#PROMPT_TOP}-${#RPROMPT_TOP}):: :)}$RPROMPT_TOP" 
 }
 
 checkGitUser(){
