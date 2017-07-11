@@ -26,15 +26,20 @@ _update_git_status(){
   LANG=C vcs_info
   if [ -z "${vcs_info_msg_0_}" ];then
     gitUser=''
+    RPROMPT_TOP="${gitUser}"
+    RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
+    print -P "\n ${PROMPT_TOP}${(r:($COLUMNS-${#PROMPT_TOP}-${#RPROMPT_TOP}):: :)}$RPROMPT_TOP" 
     return 0
   fi
 
   checkGitUser
+
   print -P "\n ${PROMPT_TOP}${(r:($COLUMNS-${#PROMPT_TOP}-${#RPROMPT_TOP}):: :)}$RPROMPT_TOP" 
 }
 
 checkGitUser(){
   local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
+  #if [ -z "${insideProject}" ];then
   if [ ${insideProject} ];then
     gitUser="`git config user.name 2>/dev/null` "
   else
@@ -43,6 +48,8 @@ checkGitUser(){
 
   RPROMPT_TOP="${gitUser}"
   RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
+
+  #print -P "\n ${PROMPT_TOP}${(r:($COLUMNS-${#PROMPT_TOP}-${#RPROMPT_TOP}):: :)}$RPROMPT_TOP" 
 }
 # }}}
 
