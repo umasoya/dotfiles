@@ -1,5 +1,5 @@
 # Load zmodule zprof
-#zmodload zsh/zprof && zprof
+zmodload zsh/zprof && zprof 1>/dev/null
 
 # Do not regist duplicate path.
 typeset -gx -U path
