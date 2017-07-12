@@ -3,6 +3,7 @@
 
 alias la='ls -a'
 alias vi='vim'
+alias reboot='exec ${SHELL} -l'
 
 mkgo(){
 	mkdir $1 && cd $_
@@ -87,3 +88,4 @@ catn(){
 }
 alias cat="catn"
 # }}}
+
