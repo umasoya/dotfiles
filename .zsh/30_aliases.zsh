@@ -3,7 +3,7 @@
 
 alias la='ls -a'
 alias vi='vim'
-alias reboot='exec ${SHELL} -l'
+alias reshell='exec ${SHELL} -l'
 
 mkgo(){
 	mkdir $1 && cd $_
