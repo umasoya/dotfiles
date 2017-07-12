@@ -28,7 +28,7 @@ autoload -Uz terminfo
 autoload -Uz vcs_info
 autoload -Uz compinit; compinit -c
 autoload -Uz colors && colors
-autoload -Uz promptinit
+autoload -Uz promptinit && promptinit
 
 # character-set  UTF-8
 export LANG=ja_JP.UTF-8
