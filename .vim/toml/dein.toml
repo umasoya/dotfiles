@@ -1,0 +1,65 @@
+#-- Template --#
+#[[plugins]]
+#repo = 
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]] # Switch ft according to the context of the cursor position
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]] # Detect ft according to the context of the cursor position
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+
+[[plugins]]
+repo = 'thinca/vim-splash'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+
+[[plugins]]
+repo = 'flyinshadow/php_localvarcheck.vim'
+
+[[plugins]]
+repo = 'evanmiller/nginx-vim-syntax'
+
+#[[plugins]]
+#repo = 'jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}}
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'digitaltoad/vim-pug'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+
+[[plugins]]
+repo = 'moll/vim-node'
+
+[[plugins]]
+repo = 'ekalinin/Dockerfile.vim'
+
+[[plugins]]
+repo = 'alvan/vim-php-manual'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'vim-scripts/smarty-syntax'

@@ -144,22 +144,12 @@ set runtimepath+=~/.vim/dein.vim
 
 call dein#begin(expand('~/.vim/dein.vim'))
 
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/neocomplete.vim')
-call dein#add('thinca/vim-splash')
-call dein#add('mattn/emmet-vim')
-call dein#add('thinca/vim-quickrun')
-call dein#add('fatih/vim-go')
-call dein#add('flyinshadow/php_localvarcheck.vim')
-call dein#add('evanmiller/nginx-vim-syntax')
-call dein#add('jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}})
-call dein#add('scrooloose/nerdtree')
-call dein#add('digitaltoad/vim-pug')
-call dein#add('nathanaelkane/vim-indent-guides')
-call dein#add('moll/vim-node')
-call dein#add('ekalinin/Dockerfile.vim')
-call dein#add('alvan/vim-php-manual')
-call dein#add('tpope/vim-surround')
+let s:toml_dir  = $HOME . '/.vim/toml'
+let s:toml      = s:toml_dir . '/dein.toml'
+"let s:lazy_toml = s:toml_dir . '/dein_lazy.toml'
+
+call dein#load_toml(s:toml,   {'lazy': 0})
+"call dein#load_toml(s:lazy_toml,   {'lazy': 1})
 
 call dein#end()
 
