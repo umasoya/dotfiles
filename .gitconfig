@@ -8,4 +8,4 @@
 [color]
 	ui = auto
 [push]
-	default = matching
+	default = simple

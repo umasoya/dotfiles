@@ -1,3 +1,5 @@
 # Common gitconfig on local
 [core]
-excludesfile = $HOME/configs/.gitinore
+	excludesfile = $HOME/configs/.gitinore
+[push]
+	default = simple
