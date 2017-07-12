@@ -61,5 +61,13 @@ repo = 'alvan/vim-php-manual'
 [[plugins]]
 repo = 'tpope/vim-surround'
 
-[[plugins]]
+[[plugins]] # Syntax *.tpl
 repo = 'vim-scripts/smarty-syntax'
+
+# Toggle single line split to multi line / multi line join to single line
+# gS / gJ 
+[[plugins]]
+repo = 'AndrewRadev/splitjoin.vim'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
