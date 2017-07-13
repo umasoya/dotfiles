@@ -97,3 +97,9 @@ repo = 'AndrewRadev/splitjoin.vim'
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
+hook_add = '''
+  nmap // :TComment<CR>
+  " If visual-block mode, TCommentInline
+  " else TCommentBlock
+  vmap <expr> // mode() == '<C-v>'?':TCommentInline<CR>':':TCommentBlock<CR>'
+'''
