@@ -42,21 +42,61 @@ on_ft = 'toml'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
+hook_add = '''
+  " Enable Neocomplete
+  let g:neocomplete#enable_at_startup = 1
+  " Enable smart case
+  let g:neocomplete#enable_smart_case = 1
+  " Enable autocomplete separate underscore
+  let g:neocomplete#enable_underbar_completion = 1
+  let g:neocomplete#enable_camel_completion = 1
+  " Max list
+  let g:neocomplete#max_list = 20
+  " Min cache length
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+  " Max cache length
+  let g:neocomplete#max_keyword_width = 10000
+  " set dictionary path
+  let s:neco_dicts_dir = $HOME . '/.vim/dicts'
+  if isdirectory(s:neco_dicts_dir)
+    " load dict file
+  endif
+'''
 
 [[plugins]]
 repo = 'thinca/vim-splash'
+hook_add = 'let g:splash#path = expand("$HOME/dotfiles/.vim/splash.txt")'
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
+hook_add = '''
+  " emmet expand <C-y> + ,
+  let g:user_emmet_leader_key='<C-y>'
+  let g:user_emmet_settings = {
+        \'variables' : {
+        \'lang' : 'ja'
+        \},
+        \}
+'''
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
+hook_add = '''
+  let g:quickrun_config = {'*': {'split': ''}}
+  " Nice and split
+  set splitright
+  set splitbelow
+'''
 
 [[plugins]]
 repo = 'fatih/vim-go'
 
 [[plugins]]
 repo = 'flyinshadow/php_localvarcheck.vim'
+hook_add = '''
+  let g:php_localvarcheck_enable = 1
+  let g:php_localvarcheck_global = 0
+'''
 
 [[plugins]]
 repo = 'evanmiller/nginx-vim-syntax'
@@ -64,16 +104,30 @@ repo = 'evanmiller/nginx-vim-syntax'
 [[plugins]]
 repo = 'jelera/vim-javascript-syntax'
 on_ft = ['javascript']
-#repo = 'jelera/vim-javascript-syntax',{'autoload':{'filetypes':['javascript']}}
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+hook_add = 'nnoremap <silent><C-e> :NERDTreeToggle<CR>'
 
 [[plugins]]
 repo = 'digitaltoad/vim-pug'
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+  " autorun vim-indent-guide
+  let g:indent_guides_enable_on_vim_startup = 1
+  " disable auto-colors
+  let g:indent_guides_auto_colors=0
+  " set guide size
+  let g:indent_guides_guide_size = 2
+  " set bg color Odd
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
+  " set bg color Even
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=16
+  " set guide start revel
+  let g:indent_guides_start_level = 2
+'''
 
 [[plugins]]
 repo = 'moll/vim-node'
@@ -81,17 +135,17 @@ repo = 'moll/vim-node'
 [[plugins]]
 repo = 'ekalinin/Dockerfile.vim'
 
-[[plugins]]
+[[plugins]] # Read PHP manual on vim
 repo = 'alvan/vim-php-manual'
 
-[[plugins]]
+[[plugins]] # brackets
 repo = 'tpope/vim-surround'
 
 [[plugins]] # Syntax *.tpl
 repo = 'vim-scripts/smarty-syntax'
 
 # Toggle single line split to multi line / multi line join to single line
-# gS / gJ 
+# gS/gJ
 [[plugins]]
 repo = 'AndrewRadev/splitjoin.vim'
 
