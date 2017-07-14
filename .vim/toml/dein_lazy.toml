@@ -14,6 +14,10 @@ hook_add = '''
   let g:php_localvarcheck_global = 0
 '''
 
+[[plugins]]
+repo = 'shawncplus/phpcomplete.vim'
+on_ft = 'php'
+
 [[plugins]] # Syntax *.tpl
 repo = 'vim-scripts/smarty-syntax'
 on_ft = ['smarty']
