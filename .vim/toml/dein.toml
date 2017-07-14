@@ -137,12 +137,14 @@ repo = 'ekalinin/Dockerfile.vim'
 
 [[plugins]] # Read PHP manual on vim
 repo = 'alvan/vim-php-manual'
+on_ft = ['php']
 
 [[plugins]] # brackets
 repo = 'tpope/vim-surround'
 
 [[plugins]] # Syntax *.tpl
 repo = 'vim-scripts/smarty-syntax'
+on_ft = ['smarty']
 
 # Toggle single line split to multi line / multi line join to single line
 # gS/gJ
@@ -157,3 +159,26 @@ hook_add = '''
   " else TCommentBlock
   vmap <expr> // mode() == '<C-v>'?':TCommentInline<CR>':':TCommentBlock<CR>'
 '''
+
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
+
+[[plugins]]
+repo = 'ap/vim-css-color'
+on_ft = ['css']
+
+[[plugins]]
+repo = 'junegunn/vim-emoji'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = ['json']
+
+[[plugins]]
+repo = 'tpope/vim-speeddating'
+
+[[plugins]] # dummy-data generator :fake#gen({keyname})
+repo = 'tkhren/vim-fake'
+
+#[[plugins]]
+#repo = 'tmux-plugins/vim-tmux'
