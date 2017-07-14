@@ -136,10 +136,11 @@ vnoremap <C-a> <C-a>gv
 vnoremap <C-x> <C-x>gv
 "}}}
 
-"{{{ dein settings
+"{{{ dein configs
 if &compatible
   set nocompatible
 endif
+
 set runtimepath+=~/.vim/dein.vim
 
 if dein#load_state($HOME . '/.vim/dein.vim')
