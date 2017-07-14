@@ -22,6 +22,7 @@ setopt extended_glob
 
 # history ignore add duplicate command
 setopt hist_ignore_all_dups
+
 # history ignore add strat space
 setopt hist_ignore_space
 
@@ -36,3 +37,6 @@ setopt notify
 
 # deploy valiables in prompt
 setopt prompt_subst
+
+# Consider # and later as comment 
+setopt interactive_comments
