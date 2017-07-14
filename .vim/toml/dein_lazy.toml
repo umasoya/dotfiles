@@ -1,0 +1,35 @@
+[[plugins]]
+repo = 'ap/vim-css-color'
+on_ft = ['css']
+
+[[plugins]] # Read PHP manual on vim
+repo = 'alvan/vim-php-manual'
+on_ft = ['php']
+
+[[plugins]]
+repo = 'flyinshadow/php_localvarcheck.vim'
+on_ft = ['php']
+hook_add = '''
+  let g:php_localvarcheck_enable = 1
+  let g:php_localvarcheck_global = 0
+'''
+
+[[plugins]] # Syntax *.tpl
+repo = 'vim-scripts/smarty-syntax'
+on_ft = ['smarty']
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = ['json']

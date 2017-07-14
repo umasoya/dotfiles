@@ -36,10 +36,6 @@ depends = ['context_filetype.vim']
 [[plugins]] # Detect ft according to the context of the cursor position
 repo = 'Shougo/context_filetype.vim'
 
-[[plugins]] # toml syntax
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
-
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 hook_add = '''
@@ -89,21 +85,7 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'fatih/vim-go'
-
-[[plugins]]
-repo = 'flyinshadow/php_localvarcheck.vim'
-hook_add = '''
-  let g:php_localvarcheck_enable = 1
-  let g:php_localvarcheck_global = 0
-'''
-
-[[plugins]]
 repo = 'evanmiller/nginx-vim-syntax'
-
-[[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-on_ft = ['javascript']
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -135,16 +117,8 @@ repo = 'moll/vim-node'
 [[plugins]]
 repo = 'ekalinin/Dockerfile.vim'
 
-[[plugins]] # Read PHP manual on vim
-repo = 'alvan/vim-php-manual'
-on_ft = ['php']
-
 [[plugins]] # brackets
 repo = 'tpope/vim-surround'
-
-[[plugins]] # Syntax *.tpl
-repo = 'vim-scripts/smarty-syntax'
-on_ft = ['smarty']
 
 # Toggle single line split to multi line / multi line join to single line
 # gS/gJ
@@ -164,21 +138,10 @@ hook_add = '''
 repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
-repo = 'ap/vim-css-color'
-on_ft = ['css']
-
-[[plugins]]
 repo = 'junegunn/vim-emoji'
-
-[[plugins]]
-repo = 'elzr/vim-json'
-on_ft = ['json']
 
 [[plugins]]
 repo = 'tpope/vim-speeddating'
 
 [[plugins]] # dummy-data generator :fake#gen({keyname})
 repo = 'tkhren/vim-fake'
-
-#[[plugins]]
-#repo = 'tmux-plugins/vim-tmux'
