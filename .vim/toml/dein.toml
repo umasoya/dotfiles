@@ -65,7 +65,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'thinca/vim-splash'
-hook_add = 'let g:splash#path = expand("$HOME/dotfiles/.vim/splash.txt")'
+hook_add = 'let g:splash#path = expand("$HOME/dotfiles/.vim/splash")'
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
