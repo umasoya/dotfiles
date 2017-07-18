@@ -39,7 +39,6 @@ _update_git_status(){
 
 checkGitUser(){
   local insideProject=`git rev-parse --is-inside-work-tree 2>/dev/null`
-  #if [ -z "${insideProject}" ];then
   if [ ${insideProject} ];then
     gitUser="`git config user.name 2>/dev/null` "
   else
@@ -48,16 +47,10 @@ checkGitUser(){
 
   RPROMPT_TOP="${gitUser}"
   RPROMPT='${vcs_info_msg_0_}'"$p_color return:[%?] %{${reset_color}%} "
-
-  #print -P "\n ${PROMPT_TOP}${(r:($COLUMNS-${#PROMPT_TOP}-${#RPROMPT_TOP}):: :)}$RPROMPT_TOP" 
 }
 # }}}
 
 # {{{ Suggest prompt
 # Suggest like a google.
-SPROMPT=`\cat << EOS
-( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
-=> 
-EOS
-`
+SPROMPT=" %{$fg[red]%}Did you mean: %{${reset_color}%}%{$fg[blue]%}%r%{${reset_color}%}%{$fg[red]%}?%{${reset_color}%} [(y)es,(n)o,(a)bort,(e)dit] > "
 # }}}
