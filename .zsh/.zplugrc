@@ -3,6 +3,5 @@ zplug "zsh-users/zsh-syntax-highlighting", \
         defer:2, \
         from:github
 zplug "wting/autojump", \
-  from:github, \
+  from:"github", \
   as:command
-
