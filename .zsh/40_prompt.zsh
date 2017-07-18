@@ -52,5 +52,7 @@ checkGitUser(){
 
 # {{{ Suggest prompt
 # Suggest like a google.
-SPROMPT=" %{$fg[red]%}Did you mean: %{${reset_color}%}%{$fg[blue]%}%r%{${reset_color}%}%{$fg[red]%}?%{${reset_color}%} [(y)es,(n)o,(a)bort,(e)dit] > "
+SPROMPT=" %{$fg[red]%}Did you mean: \
+%{${reset_color}%}%{$fg[blue]%}%r%{${reset_color}%}%{$fg[red]%}?%{${reset_color}%} \
+[(y)es,(n)o,(a)bort,(e)dit] > "
 # }}}
