@@ -15,6 +15,8 @@
 # `--"                                            `----'   
 #                                                          
 
+umask 022
+
 # {{{1 Detect OSTYPE
 
 function detect_distribution(){
