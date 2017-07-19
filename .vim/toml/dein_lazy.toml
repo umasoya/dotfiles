@@ -31,6 +31,10 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
 [[plugins]]
+repo = 'stephpy/vim-yaml'
+on_ft = ['yml', 'yaml']
+
+[[plugins]]
 repo = 'jelera/vim-javascript-syntax'
 on_ft = ['javascript']
 

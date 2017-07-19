@@ -12,7 +12,8 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 
-add-zsh-hook precmd vcs_info
+_vcs_info(){ vcs_info }
+add-zsh-hook precmd _vcs_info
 
 # }}}
 
