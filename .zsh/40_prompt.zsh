@@ -12,12 +12,12 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 
-_vcs_info(){ vcs_info }
-add-zsh-hook precmd _vcs_info
+precmd(){ 
+  vcs_info
+  RPROMPT="${vcs_info_msg_0_}%{${p_color}%} return:[%?] %{${reset_color}%}"
+}
 
 # }}}
-
-RPROMPT="${vcs_info_msg_0_}%{${p_color}%} return:[%?] %{${reset_color}%}"
 
 # Change the color according to the return value of the previous command.
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
