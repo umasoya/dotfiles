@@ -4,6 +4,7 @@
 alias la='ls -a'
 alias vi='vim'
 alias reshell='exec ${SHELL} -l'
+alias rc='source ${HOME}/.zshrc'
 
 mkgo(){
 	mkdir $1 && cd $_
@@ -88,4 +89,3 @@ catn(){
 }
 alias cat="catn"
 # }}}
-
