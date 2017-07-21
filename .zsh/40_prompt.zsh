@@ -25,9 +25,8 @@ local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
 
 # {{{ PROMPT
 PROMPT="
-%{$fg[cyan]%}%n@%m
- [%~]%{${reset_color}%} \
-${p_color_bold}> %{${reset_color}%}"
+%{$fg[cyan]%}%n@%m [%~]%{${reset_color}%}
+ ${p_color_bold}>>> %{${reset_color}%}"
 # }}}
 
 # {{{ Suggest prompt
