@@ -9,19 +9,19 @@ local cmd="$fg[yellow]-- NORMAL --$reset_color"
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:git:*' formats "%F{green}[%b]%c%u%f"
-zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
+zstyle ':vcs_info:git:*' formats "%F{green}(%b)%c%u%f"
+zstyle ':vcs_info:git:*' actionformats '(%b | %a)'
 
 precmd(){ 
   vcs_info
-  RPROMPT="${vcs_info_msg_0_}%{${p_color}%} return:[%?] %{${reset_color}%}"
+  RPROMPT="${vcs_info_msg_0_}"
 }
 
 # }}}
 
 # Change the color according to the return value of the previous command.
-local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
-local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[magenta]}%})"
+local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
+local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
 
 # {{{ PROMPT
 PROMPT="
