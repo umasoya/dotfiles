@@ -18,13 +18,13 @@ hook_add = '''
 repo = 'shawncplus/phpcomplete.vim'
 on_ft = 'php'
 
-[[plugins]] # Syntax *.tpl
-repo = 'vim-scripts/smarty-syntax'
-on_ft = ['smarty']
-
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = ['go']
+
+[[plugins]] # Syntax *.tpl
+repo = 'vim-scripts/smarty-syntax'
+on_ft = ['smarty']
 
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
