@@ -3,6 +3,7 @@
 
 alias la='ls -a'
 alias vi='vim'
+alias vw='view'
 alias reshell='exec ${SHELL} -l'
 alias rc='source ${HOME}/.zshrc'
 
