@@ -1,5 +1,6 @@
-local insert="$fg[white]-- INSERT --$reset_color"
-local cmd="$fg[yellow]-- NORMAL --$reset_color"
+# mode
+local VIINS="$fg[white]-- INSERT --$reset_color"
+local VICMD="$fg[yellow]-- NORMAL --$reset_color"
 
 # {{{ vcs_info
 # ${vcs_info_msg_0_} : normal message
@@ -12,12 +13,13 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:git:*' formats "%F{green}(%b)%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '(%b | %a)'
 
-precmd(){ 
+# }}}
+
+_refresh_rprompt(){
   vcs_info
   RPROMPT="${vcs_info_msg_0_}"
 }
-
-# }}}
+add-zsh-hook precmd _refresh_rprompt
 
 # Change the color according to the return value of the previous command.
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
