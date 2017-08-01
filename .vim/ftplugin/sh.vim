@@ -1,7 +1,3 @@
-" .sh setting
-
-set expandtab
-set autoindent
 set cindent
 
 set tabstop=2

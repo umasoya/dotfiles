@@ -1,4 +1,3 @@
-set expandtab
 set cindent
 set tabstop=2
 set softtabstop=2

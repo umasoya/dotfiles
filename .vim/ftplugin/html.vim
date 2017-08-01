@@ -1,6 +1,3 @@
-" Change hardtab to softtab
-set expandtab
-
 " Choose one of autoindent,smartindent,cindent
 "set autoindent
 set smartindent

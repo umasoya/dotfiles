@@ -75,6 +75,9 @@ set backspace=indent,eol,start
 " Set syntax max col
 set synmaxcol=200
 
+" Set expandtab
+set expandtab
+
 "======================="
 " Fold setting
 "======================="
