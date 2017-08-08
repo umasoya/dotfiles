@@ -178,7 +178,7 @@ repo = 'fatih/vim-go'
 on_ft = ['go']
 
 [[plugins]] # Syntax *.tpl
-repo = 'vim-scripts/smarty-syntax'
+repo = 'blueyed/smarty.vim'
 on_ft = ['smarty']
 
 [[plugins]] # toml syntax
