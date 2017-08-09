@@ -53,6 +53,12 @@ if !isdirectory($HOME . '/.vim/undo')
 endif
 set undodir=$HOME/.vim/undo
 
+" Swap
+if !isdirectory($HOME . '/.vim/swap')
+  call mkdir($HOME . '/.vim/swap', "p")
+endif
+set directory=$HOME/.vim/swap
+
 " UTF-8
 set encoding=utf-8
 
@@ -73,7 +79,7 @@ set clipboard=unnamed
 set backspace=indent,eol,start
 
 " Set syntax max col
-set synmaxcol=200
+set synmaxcol=400
 
 " Set expandtab
 set expandtab
