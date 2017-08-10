@@ -153,9 +153,12 @@ repo = 'tpope/vim-speeddating'
 [[plugins]] # dummy-data generator :fake#gen({keyname})
 repo = 'tkhren/vim-fake'
 
+#[[plugins]]
+#repo = 'ap/vim-css-color'
+#on_ft = ['css']
+
 [[plugins]]
-repo = 'ap/vim-css-color'
-on_ft = ['css']
+repo = 'lilydjwg/colorizer'
 
 [[plugins]] # Read PHP manual on vim
 repo = 'alvan/vim-php-manual'
@@ -200,3 +203,21 @@ on_ft = ['json']
 [[plugins]] # sql syntax
 repo = 'shmup/vim-sql-syntax'
 on_ft = ['sql']
+
+[[plugins]] # syntax for nginx files
+repo = 'moskytw/nginx-contrib-vim'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+hook_add = '''
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+" Example: *vipga=*
+" *v*isual-select *i*nner *p*aragraph
+" Start EasyAlign cmd *ga*
+" Align around *=*
+xmap ga <Plug>(EasyAlign)
+" Example: *gaip=*
+" Start EasyAlign cmd *ga*
+" Align around*=*
+nmap ga <Plug>(EasyAlign)
+'''
