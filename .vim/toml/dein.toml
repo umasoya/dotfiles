@@ -221,3 +221,6 @@ xmap ga <Plug>(EasyAlign)
 " Align around*=*
 nmap ga <Plug>(EasyAlign)
 '''
+
+[[plugins]] # check http status
+repo = 'mattn/httpstatus-vim'
