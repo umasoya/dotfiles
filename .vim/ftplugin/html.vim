@@ -17,4 +17,4 @@ let g:html_indent_style1 = "inc"
 " set tag to increment indent
 let g:html_indent_inctags = "html,body,head,tbody"
 " set tag to disable increment indent
-let g:html_indent_autotags = "th,td,tr,tfoot,thead"
+" let g:html_indent_autotags = "th,td,tr,tfoot,thead"
