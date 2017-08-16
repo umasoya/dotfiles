@@ -5,8 +5,8 @@
 *~
 /tmp
 *.log
-/cookbooks/
 .vim/dein.vim
 .vim/tmp
 .vim/undo
 bin/osx_setting.sh
+.local_config/*

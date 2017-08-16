@@ -57,7 +57,7 @@ fi
 # }}}
 
 # Set enveronment variables for zsh
-export DOTDIR="$HOME/dotfiles"
+export DOT_DIR="$HOME/dotfiles"
 export ZDOT_DIR="$HOME/dotfiles/.zsh"
 
 # Config Golang 
