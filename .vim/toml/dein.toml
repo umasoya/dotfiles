@@ -66,6 +66,9 @@ hook_add = '''
   let g:neocomplete#text_mode_filetype = { "_" : 1 }
 '''
 
+[[plugins]] # Required +python module
+repo = 'editorconfig/editorconfig-vim'
+
 [[plugins]]
 repo = 'thinca/vim-splash'
 hook_add = 'let g:splash#path = expand("$HOME/dotfiles/.vim/splash")'
