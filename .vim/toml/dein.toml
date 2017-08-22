@@ -237,3 +237,20 @@ nmap ga <Plug>(EasyAlign)
 
 [[plugins]] # check http status
 repo = 'mattn/httpstatus-vim'
+
+[[plugins]] # Generate PHP document blocks
+repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
+on_ft = ['php']
+hook_add = '''
+inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
+nnoremap <C-P> :call PhpDocSingle()<CR>
+vnoremap <C-P> :call PhpDocRange()<CR>
+'''
+hook_post_source = '''
+let g:pdv_cfg_Type = "mixed"
+let g:pdv_cfg_Package = ""
+let g:pdv_cfg_Version = ""
+let g:pdv_cfg_Author = ""
+let g:pdv_cfg_Copyright = ""
+let g:pdv_cfg_License = ""
+'''
