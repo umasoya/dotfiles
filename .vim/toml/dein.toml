@@ -183,14 +183,8 @@ on_ft = 'php'
 repo = 'fatih/vim-go'
 on_ft = ['go']
 hook_add = '''
-let g:go_hightlight_functions = 1  
-let g:go_hightlight_methods = 1  
-let g:go_hightlight_structs = 1  
-let g:go_hightlight_interfaces = 1  
-let g:go_hightlight_operators = 1  
-let g:go_hightlight_build_constraints = 1  
-" Auto-run :GoFmt when writing file
-autocmd FileType go autocmd BufWritePre <buffer> GoFmt
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
 '''
 
 [[plugins]] # Syntax *.tpl
