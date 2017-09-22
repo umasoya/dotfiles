@@ -2,9 +2,6 @@
 	helper = osxkeychain
 [core]
 	excludesfile = ~/.gitignore
-[user]
-	name = yasuto777
-	email = basilisk.0331@icloud.com
 [color]
 	ui = auto
 [push]
