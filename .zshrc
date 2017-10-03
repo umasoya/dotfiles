@@ -44,7 +44,7 @@ for i in ${ZDOT_DIR}/*.zsh;do
   source ${i}
 done
 
-if [[ ${DOT_DIR}/.local_config/zsh/*.zsh ]]; then
+if [[ -f ${DOT_DIR}/.local_config/zsh/*.zsh ]]; then
   for i in ${DOT_DIR}/.local_config/zsh/*.zsh; do
     source ${i}
   done
