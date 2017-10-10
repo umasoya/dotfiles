@@ -98,6 +98,9 @@ hook_add = '''
 repo = 'evanmiller/nginx-vim-syntax'
 
 [[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = 'nnoremap <silent><C-e> :NERDTreeToggle<CR>'
 
