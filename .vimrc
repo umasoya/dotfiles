@@ -25,9 +25,9 @@ endif
 " Change cursorline color when entering insert mode
 augroup vimrc_change_cursorline_color
   autocmd!
-  "autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none 
-  autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
-  autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233 
+  "autocmd InsertEnter * highlight CursorLine ctermbg=none | highlight CursorColumn ctermbg=none
+  autocmd InsertEnter * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233
+  autocmd InsertLeave * highlight CursorLine ctermbg=233 | highlight CursorColumn ctermbg=233
   autocmd InsertEnter * highlight StatusLine ctermbg=172
   autocmd InsertLeave * highlight StatusLine ctermbg=248
 augroup END
@@ -113,7 +113,7 @@ set cursorcolumn
 augroup vimrcEx
   au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal g`\"" | endif
-augroup END 
+augroup END
 
 " In good time scroll
 set scrolloff=5
@@ -125,6 +125,8 @@ set noerrorbells
 " Increment/Decrement config
 set nrformats=alpha
 
+" load private help
+helptags $HOME/.vim/doc/
 " }}}
 
 "{{{ Mapping
@@ -169,7 +171,7 @@ if dein#load_state($HOME . '/.vim/dein.vim')
   call dein#save_state()
 endif
 
-syntax enable 
+syntax enable
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
