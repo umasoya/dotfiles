@@ -55,8 +55,9 @@ ls_abbrev() {
 # get current path
 alias path='echo -n `pwd` | pbcopy'
 
-# {{{ cd_wrapper
+# {{{ gitcd -- cd_wrapper
 # If current directory is inside 'git project', `cd /` is goto 'Project Root'
+# *@todo completion*
 gitcd(){
   # If argument is not '/' or '/path/to', regular `cd`
   if [[ ! "${1}" =~ "^/.*" || "${1}" =~ "^${HOME}.*" ]]; then
