@@ -20,6 +20,9 @@ setopt correct_all
 # completion use glob
 setopt extended_glob
 
+# match dot files
+setopt globdots
+
 # history ignore add duplicate command
 setopt hist_ignore_all_dups
 
@@ -38,5 +41,5 @@ setopt notify
 # deploy valiables in prompt
 setopt prompt_subst
 
-# Consider # and later as comment 
+# Consider # and later as comment
 setopt interactive_comments
