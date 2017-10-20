@@ -1,0 +1,53 @@
+*cheet.txt* Private Cheet Sheet
+
+Author : yasuto777 <basilisk.0331@icloud.com>
+Licencse : The MIT License {{{
+Copyright (c) 2015 "yasuto777
+Github:"yasuto777"
+Twitter:"@zomqyqzvto"
+Released undeer the MIT license.
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+}}}
+
+
+CONTENTS *cheet-contents*
+
+Introduction |cheet-introduction|
+Commands     |cheet-commamnds|
+
+====================================================================================================
+Introduction                                *cheet-introduction*
+
+*cheet* is a private vim cheet sheet.
+Originaly it is 78 characters in one line,
+but it is for yourself, so allow it.
+====================================================================================================
+Commands                                       *cheet-commamnds*
+
+*cheet-Replace* :置換
+	単語の大文字置換 : viwU
+	単語の小文字置換 : viwu
+
+*cheet-CustomSyntax* :カスタムシンタックス
+	グループを作成~
+	highlight <Group> cterm=color ctermbg=color
+	グループのルールを作成~
+	syntax region <Group> start=<Regix> end=<Regex> (containedin=<Group> oneline)
+	<conteinedin> : 指定したグループ内のみでルールを適応する
+	<Regex>       : start=+*+ end=+*+ で*で囲まれた文字列(+の部分は/でも-でも何でもいい)
+	<oneline>     : 改行を許可しない
+	グループ名の探し方~
+	$VIMRUNTIME/syntax/*.vim の中からそれっぽいグループ名を検索する。
+====================================================================================================
+vim:tw=100:ts=8:ft=help:norl:noet:fen:fdl=0:
