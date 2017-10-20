@@ -6,6 +6,7 @@ alias vi='vim'
 alias vw='view'
 alias reshell='exec ${SHELL} -l'
 alias rc='source ${HOME}/.zshrc'
+alias cd=gitcd
 
 mkgo(){
 	mkdir $1 && cd $_
@@ -56,7 +57,7 @@ alias path='echo -n `pwd` | pbcopy'
 
 # {{{ cd_wrapper
 # If current directory is inside 'git project', `cd /` is goto 'Project Root'
-cd(){
+gitcd(){
   # If argument is not '/' or '/path/to', regular `cd`
   if [[ ! "${1}" =~ "^/.*" || "${1}" =~ "^${HOME}.*" ]]; then
     builtin cd "${@}"
@@ -79,7 +80,12 @@ cd(){
     return
   fi
 
-  builtin cd "${projectRoot}${1}"
+  # If don't exist ${projectRoot}/path/to, move to /path/to.
+  if [ -d "${projectRoot}${1}" ]; then
+    builtin cd "${projectRoot}${1}"
+  else
+    builtin cd "${@}"
+  fi
   return
 }
 # }}}
