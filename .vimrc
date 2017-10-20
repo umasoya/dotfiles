@@ -190,3 +190,7 @@ endif
 colorscheme tender
 "}}}
 "}}}
+
+" {{{ Highlighting
+highlight Folded ctermfg=035 ctermbg=none
+" }}}
