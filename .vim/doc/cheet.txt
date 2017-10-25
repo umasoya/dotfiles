@@ -49,5 +49,9 @@ Commands                                       *cheet-commamnds*
 	<oneline>     : 改行を許可しない
 	グループ名の探し方~
 	$VIMRUNTIME/syntax/*.vim の中からそれっぽいグループ名を検索する。
+
+*cheet-pain* :画面分割(ペイン)操作
+	ペイン移動~
+	<C-w>hjkl
 ====================================================================================================
 vim:tw=100:ts=8:ft=help:norl:noet:fen:fdl=0:
