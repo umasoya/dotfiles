@@ -1,0 +1,2 @@
+--php-kinds=cfd
+--regex-php=/^[ \t]*const[ \t]+([a-z0-9_]+)/\1/d/i
