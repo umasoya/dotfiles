@@ -2,6 +2,8 @@
 #}}}
 
 alias la='ls -a'
+alias all='ls -al'
+alias lla='ls -al'
 alias vi='vim'
 alias vw='view'
 alias reshell='exec ${SHELL} -l'
