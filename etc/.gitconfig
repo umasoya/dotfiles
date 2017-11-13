@@ -3,3 +3,5 @@
 	excludesfile = $HOME/configs/.gitinore
 [push]
 	default = simple
+[color]
+        ui = auto
