@@ -19,14 +19,15 @@ umask 022
 
 # {{{1 Detect OSTYPE
 
+export DISTRIBUTION
 function detect_distribution(){
-	distribution=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'` 2>/dev/null
+	DISTRIBUTION=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'` 2>/dev/null
 }
 
 case "${OSTYPE}" in
 	*darwin*)
 		# OSX
-		distribution="OSX"
+		DISTRIBUTION="osx"
 		source "${ZDOT_DIR}/.zshrc_osx"
 		;;
 	*linux*)
@@ -37,6 +38,15 @@ case "${OSTYPE}" in
 		fi
 		;;
 esac
+
+is_mac() {
+        if [[ DISTRIBUTION == "osx" ]]; then
+                return 0
+        else
+                return 1
+        fi
+}
+alias is_osx=is_mac
 # }}}
 
 # {{{ load ${ZDOT_DIR}/*.zsh

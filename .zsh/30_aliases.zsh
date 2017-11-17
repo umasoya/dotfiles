@@ -1,6 +1,12 @@
 #{{{ suffix aliases
 #}}}
 
+if [[ DISTRIBUTION == "osx" ]]; then
+        alias ls="gls -F --color=auto"
+else
+        alias ls="ls --color=auto"
+fi
+
 alias la='ls -a'
 alias all='ls -al'
 alias lla='ls -al'

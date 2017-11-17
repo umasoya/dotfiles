@@ -1,7 +1,5 @@
 # Setting zsh  for OSX
-
-# alias gls
-alias ls="gls -F --color=auto"
+# *This file is going to delete*
 
 # alias airport command
 alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
