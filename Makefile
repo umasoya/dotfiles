@@ -18,9 +18,9 @@ install: update deploy ## Run make update, deploy
 
 update: ## Fetch changes for this repo
 	git fetch
-	# git submodule init
-	# git submodule update
-	# git submodule foreach git pull origin master
+	git submodule init
+	git submodule update
+	git submodule foreach git pull origin master
 	git rebase origin master
 
 clean: ## Unlink dotfiles and remove this repo
