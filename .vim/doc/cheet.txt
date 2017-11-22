@@ -39,6 +39,10 @@ Commands                                       *cheet-commamnds*
 	単語の大文字置換 : viwU
 	単語の小文字置換 : viwu
 
+*cheet-Delete* :削除
+	カーソル位置から、次に最初に出現する特定文字までを削除 : dt<character>
+	上記 + インサート : ct<character>
+
 *cheet-CustomSyntax* :カスタムシンタックス
 	グループを作成~
 	highlight <Group> cterm=color ctermbg=color
