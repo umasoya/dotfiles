@@ -1,9 +1,11 @@
-DOTPATH    := $(realpath $(HOME)/dotfiles)
-CANDIDATES := $(wildcard .??*)
-EXCLUSIONS := .DS_Store .git .gitconfig
-DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
+DOTPATH     := $(realpath $(HOME)/dotfiles)
+CANDIDATES  := $(wildcard .??*)
+EXCLUSIONS  := .DS_Store .git .gitconfig
+AUTOSTASH   := --autostash
+DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES)) $(ADDITIONALS)
 
 .DEFAULT_GOAL := help
+.PHONY: all
 
 list: ## Show dotfiles in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
@@ -16,12 +18,16 @@ deploy: ## Create Symlink to home directory
 install: update deploy ## Run make update, deploy
 	@exec $$SHELL
 
+init: ## Enable autostash
+	@git config rebase.autostash true
+
 update: ## Fetch changes for this repo
-	git fetch
-	git submodule init
-	git submodule update
-	git submodule foreach git pull origin master
-	git rebase origin master
+	@git fetch
+	@git submodule init
+	@git submodule update
+	@git submodule foreach git pull origin master
+	@# Enable autostash option is git version 1.8.4 or later
+	@git rebase --autostash origin master
 
 clean: ## Unlink dotfiles and remove this repo
 	@echo 'Remove dotfiles in your home directory...'
