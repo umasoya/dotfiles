@@ -1,8 +1,8 @@
 DOTPATH     := $(realpath $(HOME)/dotfiles)
 CANDIDATES  := $(wildcard .??*)
 EXCLUSIONS  := .DS_Store .git .gitconfig
-AUTOSTASH   := --autostash
-DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES)) $(ADDITIONALS)
+ADDITIONALS := etc/.gitconfig
+DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
 .PHONY: all
@@ -14,6 +14,7 @@ deploy: ## Create Symlink to home directory
 	@echo 'Create symlinks in your home directory.'
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
 
 install: update deploy ## Run make update, deploy
 	@exec $$SHELL
