@@ -9,7 +9,7 @@ let g:indent_guides_guide_size = 4
 " hilighting baselib methods
 let g:php_baselib = 1
 " hilighting sql query
-let g:php_sql_query = 1
+" let g:php_sql_query = 1
 " hilighting html strings
 let g:php_htmlInStrings = 1
 " no hilighting <?
