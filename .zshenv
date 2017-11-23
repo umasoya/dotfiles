@@ -4,22 +4,27 @@ zmodload zsh/zprof && zprof 1>/dev/null
 # Do not regist duplicate path.
 typeset -gx -U path
 
- #(N-/): Do not regist path if it is not exist.
+#(N-/): Do not regist path if it is not exist.
 path=(
-	/usr/local/bin(N-/)
-	/usr/bin(N-/)
-	/usr/local/sbin(N-/)
-	$HOME/local/bin(N-/)
-	/usr/local/lib/zsh/5.3.1/zsh(N-/)
-	$path
+        /usr/local/bin(N-/)
+        /usr/bin(N-/)
+        /usr/local/sbin(N-/)
+        $HOME/local/bin(N-/)
+        /usr/local/lib/zsh/5.3.1/zsh(N-/)
+        $path
 )
 
 # fpath
 typeset -gx -U fpath
 
 fpath=(
-	$HOME/dotfiles/.zsh/completions(N-/)
-	$fpath
+        $HOME/dotfiles/.zsh/completions(N-/)
+        $fpath
+)
+
+cdpath=(
+        $HOME
+        $HOME/dotfiles/
 )
 
 # autoload
@@ -43,16 +48,16 @@ export PAGER=less
 # {{{ ls coloring
 export LSCOLORS=gxfxcxdxbxegedabagacad
 if [ -f ~/.dircolors ]; then
-    if type dircolors > /dev/null 2>&1; then
-        eval $(dircolors ~/.dircolors)
-    elif type gdircolors > /dev/null 2>&1; then
-        eval $(gdircolors ~/.dircolors)
-    fi
+        if type dircolors > /dev/null 2>&1; then
+                eval $(dircolors ~/.dircolors)
+        elif type gdircolors > /dev/null 2>&1; then
+                eval $(gdircolors ~/.dircolors)
+        fi
 fi
 
 # Apply the suggest even .dircolor
 if [ -n "$LS_COLORS" ]; then
-    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+        zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 # }}}
 
