@@ -28,20 +28,20 @@
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
-hook_add = '''
-let g:context_filetype#filetypes = {
-      \ 'php' : [
-      \   {
-      \     'start': '\$sql\s\?=\s\?"',
-      \     'end': '";$', 'filetype' : 'sql',
-      \   },
-      \   {
-      \     'start': '\$query\s\?=\s\?"',
-      \     'end': '";$', 'filetype' : 'sql',
-      \   },
-      \  ],
-      \}
-'''
+# hook_add = '''
+# let g:context_filetype#filetypes = {
+#       \ 'php' : [
+#       \   {
+#       \     'start': '\$sql\s\?=\s\?"',
+#       \     'end': '";$', 'filetype' : 'sql',
+#       \   },
+#       \   {
+#       \     'start': '\$query\s\?=\s\?"',
+#       \     'end': '";$', 'filetype' : 'sql',
+#       \   },
+#       \  ],
+#       \}
+# '''
 
 [[plugins]] # Switch ft according to the context of the cursor position
 repo = 'osyo-manga/vim-precious'
