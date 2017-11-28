@@ -41,6 +41,17 @@ SPROMPT=" %{$fg[red]%}Did you mean: \
 [(y)es,(n)o,(a)bort,(e)dit] > "
 # }}}
 
+# {{{ when buffer is empty, prompt clear
+_reflesh(){
+        zle accept-line
+        if [[ -z "$BUFFER" ]]; then
+                clear
+        fi
+}
+zle -N _reflesh
+bindkey '^M' _reflesh
+# }}}
+
 # function zle-keymap-select zle-line-init zle-line-finish
 # {
 #   case ${KEYMAP} in
