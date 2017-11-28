@@ -15,6 +15,8 @@ deploy: ## Create Symlink to home directory
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
+	@echo 'Make directory for Golang.'
+	@mkdir -p $(HOME)/Golang/{src,bin}
 
 install: update deploy ## Run make update, deploy
 	@exec $$SHELL
