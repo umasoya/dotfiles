@@ -15,11 +15,13 @@ zstyle ':vcs_info:git:*' actionformats '(%b | %a)'
 
 # }}}
 
+#{{{1 RPROMPT
 _refresh_rprompt(){
   vcs_info
   RPROMPT="${vcs_info_msg_0_}"
 }
 add-zsh-hook precmd _refresh_rprompt
+#}}}
 
 # Change the color according to the return value of the previous command.
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
@@ -29,7 +31,7 @@ local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
  PROMPT="
  %{$fg[cyan]%}%n@%m [%~]%{${reset_color}%}
  ${p_color_bold}>>> %{${reset_color}%}"
-# DEFAULT_PROMPT=" 
+# DEFAULT_PROMPT="
 # %{$fg[cyan]%}%n@%m [%~]%{${reset_color}%} 
 #  ${p_color_bold}>>> %{${reset_color}%}"
 # }}}
