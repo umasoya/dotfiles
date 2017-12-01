@@ -8,5 +8,12 @@ highlight Emphasize ctermfg=203 ctermbg=black
 syntax match zshTilde '\~'
 highlight link zshTilde zshRedir
 
+" zplug
+syntax keyword zshCommands zplug
+syntax keyword zshKeyword  as use ignore from at rename-to dir if hook-build
+                          \ hook-load frozen on defer lazy depth
+syntax keyword zshDeref    plugin command theme github bitbucket gh-r gist
+                          \ oh-my-zsh prezto local
+
 set conceallevel=3
 set concealcursor=nc
