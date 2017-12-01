@@ -27,13 +27,10 @@ add-zsh-hook precmd _refresh_rprompt
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
 local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
 
-# {{{ PROMPT
- PROMPT="
+# {{{1 PROMPT
+PROMPT="
  %{$fg[cyan]%}%n@%m [%~]%{${reset_color}%}
  ${p_color_bold}>>> %{${reset_color}%}"
-# DEFAULT_PROMPT="
-# %{$fg[cyan]%}%n@%m [%~]%{${reset_color}%} 
-#  ${p_color_bold}>>> %{${reset_color}%}"
 # }}}
 
 # {{{ Suggest prompt
@@ -53,22 +50,3 @@ _reflesh(){
 zle -N _reflesh
 bindkey '^M' _reflesh
 # }}}
-
-# function zle-keymap-select zle-line-init zle-line-finish
-# {
-#   case ${KEYMAP} in
-#     main|viins)
-#       MODE="${VIINS}"
-#       ;;
-#     vicmd)
-#       MODE="${VICMD}"
-#       ;;
-#   esac
-#
-#   PROMPT="%{${MODE}%}%{${DEFAULT_PROMPT}%}"
-#   zle reset-prompt
-# }
-#
-# zle -N zle-line-init
-# zle -N zle-line-finish
-# zle -N zle-keymap-select

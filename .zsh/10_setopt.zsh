@@ -21,7 +21,7 @@ setopt correct_all
 setopt extended_glob
 
 # match dot files
-setopt globdots
+#setopt globdots
 
 # history ignore add duplicate command
 setopt hist_ignore_all_dups
