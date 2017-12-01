@@ -5,5 +5,8 @@ syntax region Emphasize start=+*+ end=+*+ containedin=zshComment oneline contain
 syntax match EmphasizeTag '*' containedin=Emphasize conceal
 highlight Emphasize ctermfg=203 ctermbg=black
 
+syntax match zshTilde '\~'
+highlight link zshTilde zshRedir
+
 set conceallevel=3
 set concealcursor=nc
