@@ -344,7 +344,23 @@ EXEC 01;31  # Unix
 .webm 33
 .wmv 33
 
+#Config files
+*Makefile 33
+.bashrc 33
+.zshrc 33
+.zshenv 33
+.dircolors 33
+.gitconfig 33
+.my.cnf 33
+.tmux.conf 33
+.vimrc 33
+
+# gitmodule
+.gitmodules 04;33
+
 ### Misc
+
+.gitignore 31
 
 # Binary document formats and multimedia source
 .doc 31
