@@ -6,6 +6,9 @@ binary_ext=\*.(jpg jpeg png gif pdf xlsx bak docx ico)
 text_ignore=\*.(swp tmp)
 editor_ignore=(~ .DS_Store ${binary_ext} ${text_ignore})
 
+# Enable use cache
+zstyle ':completion:*' use-cache true
+
 # Enable autocomplete
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
