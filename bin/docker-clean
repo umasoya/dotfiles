@@ -1,0 +1,5 @@
+#!/bin/bash
+# remove all docker images
+
+docker ps -aq | xargs docker rm && \
+  docker images -aq | xargs docker rmi

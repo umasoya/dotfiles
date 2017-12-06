@@ -10,6 +10,7 @@ path=(
         /usr/bin(N-/)
         /usr/local/sbin(N-/)
         $HOME/local/bin(N-/)
+        $HOME/dotfiles/bin(N-/)
         /usr/local/lib/zsh/5.3.1/zsh(N-/)
         $path
 )
