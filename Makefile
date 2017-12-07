@@ -15,6 +15,7 @@ deploy: ## Create Symlink to home directory
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
+	@if [[ -d ${HOME}/.ssh ]]; then ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/bitbucket) $(HOME)/.ssh/bitbucket; fi
 	@echo 'Make directory for Golang.'
 	@mkdir -p $(HOME)/Golang/{src,bin}
 	@mkdir -p ${HOME}/Golang/src/github.com/yasuto777
