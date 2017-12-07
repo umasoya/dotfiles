@@ -11,15 +11,19 @@ list: ## Show dotfiles in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
 
 deploy: ## Create Symlink to home directory
-	@echo 'Create symlinks in your home directory.'
-	@echo ''
+	@echo -e "\e[30;42mCreate symlinks in your home directory.\e[m"
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
-	@if [[ -d ${HOME}/.ssh ]]; then \
-		ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/bitbucket) $(HOME)/.ssh/bitbucket; \
-		ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/github) $(HOME)/.ssh/github; \
-		ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/config) $(HOME)/.ssh/config; \
-		fi
+
+	@# SSH config
+	@if [[ ! -d ${HOME}/.ssh ]]; then mkdir $(HOME)/.ssh; fi
+	@echo -e "\e[40;35mSet valid permission for SSH config files"
+	@chmod -c 600 $(DOTPATH)/.local/.ssh/{github,bitbucket}/id_rsa
+	@echo -e "\e[30;42mDeploy SSH config files\e[m"
+	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/bitbucket) $(HOME)/.ssh/bitbucket
+	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/github) $(HOME)/.ssh/github
+	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/config) $(HOME)/.ssh/config
+	@# Golang
 	@echo 'Make directory for Golang.'
 	@mkdir -p $(HOME)/Golang/{src,bin}
 	@mkdir -p ${HOME}/Golang/src/github.com/yasuto777
