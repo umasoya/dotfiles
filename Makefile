@@ -17,12 +17,12 @@ deploy: ## Create Symlink to home directory
 
 	@# SSH config
 	@if [[ ! -d ${HOME}/.ssh ]]; then mkdir $(HOME)/.ssh; fi
-	@echo -e "\e[40;35mSet valid permission for SSH config files"
-	@chmod -c 600 $(DOTPATH)/.local/.ssh/{github,bitbucket}/id_rsa
 	@echo -e "\e[30;42mDeploy SSH config files\e[m"
 	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/bitbucket) $(HOME)/.ssh/bitbucket
 	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/github) $(HOME)/.ssh/github
 	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/config) $(HOME)/.ssh/config
+	@echo -e "\e[40;35mSet valid permission for SSH config files"
+	@chmod -c 600 $(DOTPATH)/.local/.ssh/{github,bitbucket}/id_rsa
 	@# Golang
 	@echo 'Make directory for Golang.'
 	@mkdir -p $(HOME)/Golang/{src,bin}
