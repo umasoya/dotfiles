@@ -24,6 +24,7 @@ deploy: ## Create Symlink to home directory
 	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/config) $(HOME)/.ssh/config
 	@echo -e "\e[40;35mSet valid permission for SSH config files"
 	@chmod -c 600 $(DOTPATH)/.local/.ssh/{github,bitbucket}/id_rsa
+	@git remote set-url origin git@github.com:yasuto777/dotfiles.git
 	@# Golang
 	@echo 'Make directory for Golang.'
 	@mkdir -p $(HOME)/Golang/{src,bin}
