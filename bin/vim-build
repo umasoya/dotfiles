@@ -3,7 +3,7 @@
 # 雑だからそのうち整理するかも(?)
 #
 # depends
-# ncurses lua python ruby perl
+# ncurses-devel lua-devel python-devel ruby-devel perl-ExtUtils-Embed
 
 REPO=${HOME}/vim
 
@@ -13,7 +13,7 @@ fi
 
 cd ${REPO}
 
-sh configure \
+./configure \
   --enable-multibyte \
   --with-features=huge \
   --enable-luainterp \
