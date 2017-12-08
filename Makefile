@@ -1,3 +1,4 @@
+# vim: noexpandtab ft=make
 DOTPATH     := $(realpath $(HOME)/dotfiles)
 CANDIDATES  := $(wildcard .??*)
 EXCLUSIONS  := .DS_Store .git .gitconfig
@@ -28,11 +29,17 @@ deploy: ## Create Symlink to home directory
 	@mkdir -p $(HOME)/Golang/{src,bin}
 	@mkdir -p ${HOME}/Golang/src/github.com/yasuto777
 
-install: update deploy ## Run make update, deploy
+install: init deploy update ## Run make update, deploy
 	@exec $$SHELL
 
 init: ## Enable autostash
 	@git config rebase.autostash true
+	@sed -i -e 's/url.*/url = https:\/\/bitbucket\.org\/yasuto777\/dotfiles\.local\.git/g' $(DOTPATH)/.gitmodules
+	@git submodule sync
+	@git submodule init
+	@git submodule update
+	@sed -i -e 's/url.*/url = git@bitbucket\.org:yasuto777\/dotfiles\.local\.git/g' $(DOTPATH)/.gitmodules
+	@git submodule sync
 
 update: ## Fetch changes for this repo
 	@git fetch
