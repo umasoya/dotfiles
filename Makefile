@@ -34,11 +34,11 @@ install: init deploy update ## Run make update, deploy
 
 init: ## Enable autostash
 	@git config rebase.autostash true
-	@sed -i -e 's/url.*/url = https:\/\/bitbucket\.org\/yasuto777\/dotfiles\.local\.git/g' $(DOTPATH)/.gitmodules
+	@sed -i -e 's/url.*/url = https:\/\/bitbucket\.org\/yasuto777\/dotfiles\.local\.git/g' .gitmodules
 	@git submodule sync
 	@git submodule init
 	@git submodule update
-	@sed -i -e 's/url.*/url = git@bitbucket\.org:yasuto777\/dotfiles\.local\.git/g' $(DOTPATH)/.gitmodules
+	@git checkout .gitmodules
 	@git submodule sync
 
 update: ## Fetch changes for this repo
