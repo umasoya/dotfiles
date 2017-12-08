@@ -1,0 +1,49 @@
+#!/bin/bash
+# vim: ft=sh
+#
+# libevent ncurses
+
+set -eux
+
+usage() {
+  echo "Usage: "
+}
+
+# Get & Build libevent2 at CentOS7
+build_libevent() {
+  wget https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
+  tar zxf libevent-2.1.8-stable.tar.gz
+  cd libevent-2.1.8-stable
+  ./configure --prefix=/use/local
+  make
+  sudo make install
+}
+
+# build_ncurses() {}
+
+build_tmux() {
+  wget https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz
+  tar zxf tmux-2.6.tar.gz
+  cd tmux-2.6
+  ./configure
+  make
+  sudo make install
+}
+
+while getopts ln OPT
+do
+  case $OPT in
+    l)  # installl libevent
+      build_libevent
+      ;;
+    n) # install ncurses
+      build_ncurses
+      ;;
+    \?)
+      usage
+      exit
+      ;;
+  esac
+done
+
+build_tmux
