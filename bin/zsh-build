@@ -8,7 +8,10 @@ set -eux
 
 REPO=${HOME}/zsh
 
-# git clone https://github.com/zsh-users/zsh.git ${REPO}
+if [[ ! -e ${REPO} ]]; then
+  git clone https://github.com/zsh-users/zsh.git ${REPO}
+fi
+
 cd ${REPO}
 latest=`git describe --abbrev=0 --tags`
 
