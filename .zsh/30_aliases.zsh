@@ -1,14 +1,14 @@
 #{{{ suffix aliases
 #}}}
 
-if [[ DISTRIBUTION == "osx" ]]; then
+if [[ $DISTRIBUTION == "osx" ]]; then
         alias ls="gls -F --color=auto"
 else
         alias ls="ls --color=auto"
 fi
 
 alias la='ls -a'
-alias lla='\ls -al'
+# alias lla='\ls -al'
 alias vi='vim'
 alias vw='view'
 alias reshell='exec ${SHELL} -l'
