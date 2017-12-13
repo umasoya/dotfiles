@@ -1,0 +1,10 @@
+#!/bin/bash
+#vim: ft=sh
+
+# check argument
+if [[ -z $1 ]]; then
+  echo "too few argument"
+  exit 1
+fi
+
+git branch -D "$@"
