@@ -2,6 +2,7 @@
 # vim: ft=sh
 #
 # libevent ncurses
+# libevent-devel libevent-headers
 
 set -eux
 
@@ -11,6 +12,7 @@ usage() {
 
 # Get & Build libevent2 at CentOS7
 build_libevent() {
+  cd ${HOME}
   wget https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
   tar zxf libevent-2.1.8-stable.tar.gz
   cd libevent-2.1.8-stable
@@ -22,6 +24,7 @@ build_libevent() {
 # build_ncurses() {}
 
 build_tmux() {
+  cd ${HOME}
   wget https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz
   tar zxf tmux-2.6.tar.gz
   cd tmux-2.6
