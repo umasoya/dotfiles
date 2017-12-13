@@ -1,0 +1,19 @@
+#!/bin/bash
+#vim: ft=sh
+
+# check argument
+if [[ -z $1 ]]; then
+  echo "too few argument"
+  exit 1
+fi
+
+if [[ $# -gt 1 ]]; then
+  echo "too many arguments"
+  exit 1
+fi
+
+if [[ -z `git branch | grep -w $1` ]]; then
+  git checkout -b $1
+else
+  git checkout $1
+fi
