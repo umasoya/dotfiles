@@ -31,7 +31,7 @@ zstyle ':completion:*:manuals.(^1*)' insert-section true
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
 
-zstyle ':completion:*' list-separator '==>'
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 # }}}
 
 # Run tmux, if it is not running.
