@@ -1,5 +1,6 @@
 #!/bin/bash
 #vim: ft=sh
+# git new <new_branch> [<start_point>]
 
 # check argument
 if [[ -z $1 ]]; then
@@ -7,13 +8,13 @@ if [[ -z $1 ]]; then
   exit 1
 fi
 
-if [[ $# -gt 1 ]]; then
+if [[ $# -gt 2 ]]; then
   echo "too many arguments"
   exit 1
 fi
 
 if [[ -z `git branch | grep -w $1` ]]; then
-  git checkout -b $1
+  git checkout -b $1 $2
 else
-  git checkout $1
+  git checkout $1 $2
 fi
