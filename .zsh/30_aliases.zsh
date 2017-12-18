@@ -1,4 +1,5 @@
 #{{{ suffix aliases
+alias -s tar.gz='tar zxvf'
 #}}}
 
 if [[ $DISTRIBUTION == "osx" ]]; then
