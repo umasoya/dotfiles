@@ -100,8 +100,8 @@ gitcd(){
 # }}}
 
 #{{{ cat always show line number
-catn(){
-  \cat -n "$@"
-}
-alias cat="catn"
+# catn(){
+#   \cat -n "$@"
+# }
+# alias cat="catn"
 # }}}
