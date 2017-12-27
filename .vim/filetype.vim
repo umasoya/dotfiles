@@ -6,5 +6,4 @@ augroup filetypedetect
   au BufRead,BufNewFile *.go setfiletype go
   au BufRead,BufNewFile *.sh,*.zsh,.zplugrc,.zshrc setfiletype zsh
   au BufRead,BufNewFile *.html setfiletype html
-  au BufRead,BufNewFile nginx.conf setfiletype nginx
 augroup END
