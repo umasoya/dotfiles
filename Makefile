@@ -22,7 +22,10 @@ deploy: ## Create Symlink to home directory
 	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/bitbucket) $(HOME)/.ssh/bitbucket
 	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/github) $(HOME)/.ssh/github
 	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/config) $(HOME)/.ssh/config
-	@echo -e "\e[40;35mSet valid permission for SSH config files"
+	@sudo ln -sfnv $(abspath $(DOTPATH)/.config/multitail) /etc/multitail/conf
+	## permission error
+	@sudo echo "include:/etc/multitail/conf/multitail.conf" >> /etc/multitail.conf
+	@echo -e "\e[40;35mSet valid permission for SSH config files\e[m"
 	@chmod 600 $(DOTPATH)/.local/.ssh/{github,bitbucket}/id_rsa
 	@git remote set-url origin git@github.com:yasuto777/dotfiles.git
 	@# Golang
