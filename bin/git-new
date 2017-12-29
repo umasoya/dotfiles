@@ -13,8 +13,12 @@ if [[ $# -gt 2 ]]; then
   exit 1
 fi
 
+if [[ ! -z $2 ]]; then
+  start_point="origin/$1"
+fi
+
 if [[ -z `git branch | grep -w $1` ]]; then
-  git checkout -b $1 $2
+  git checkout -b "$1" "$2"
 else
   git checkout $1 $2
 fi
