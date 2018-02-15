@@ -209,6 +209,7 @@ on_ft = ['go']
 hook_add = '''
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
+let g:go_version_warning = 0
 '''
 
 [[plugins]] # Syntax *.tpl
@@ -289,3 +290,7 @@ map <silent> <leader>t :TlistToggle<CR>
 
 [[plugins]]
 repo = 'hotwatermorning/auto-git-diff'
+
+[[plugins]]
+repo = 'vim-scripts/autohotkey-ahk'
+on_ft = ['ahk']
