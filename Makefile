@@ -16,18 +16,6 @@ deploy: ## Create Symlink to home directory
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
 
-	@# SSH config
-	@if [[ ! -d ${HOME}/.ssh ]]; then mkdir $(HOME)/.ssh; fi
-	@echo -e "\e[30;42mDeploy SSH config files\e[m"
-	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/bitbucket) $(HOME)/.ssh/bitbucket
-	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/github) $(HOME)/.ssh/github
-	@ln -sfnv $(abspath $(DOTPATH)/.local/.ssh/config) $(HOME)/.ssh/config
-	@sudo ln -sfnv $(abspath $(DOTPATH)/.config/multitail) /etc/multitail/conf
-	## permission error
-	@sudo echo "include:/etc/multitail/conf/multitail.conf" >> /etc/multitail.conf
-	@echo -e "\e[40;35mSet valid permission for SSH config files\e[m"
-	@chmod 600 $(DOTPATH)/.local/.ssh/{github,bitbucket}/id_rsa
-	@git remote set-url origin git@github.com:yasuto777/dotfiles.git
 	@# Golang
 	@echo 'Make directory for Golang.'
 	@mkdir -p $(HOME)/Golang/{src,bin}
@@ -38,7 +26,6 @@ install: init deploy update ## Run make update, deploy
 
 init: ## Enable autostash
 	@git config rebase.autostash true
-	@sed -i -e 's/url.*/url = https:\/\/bitbucket\.org\/yasuto777\/dotfiles\.local\.git/g' .gitmodules
 	@git submodule sync
 	@git submodule init
 	@git submodule update
@@ -56,7 +43,7 @@ update: ## Fetch changes for this repo
 clean: ## Unlink dotfiles and remove this repo
 	@echo 'Remove dotfiles in your home directory...'
 	@-$(foreach val, $(DOTFILES), unlink $(HOME)/$(val);)
-	-rm -rf $(DOTPATH)
+	#-rm -rf $(DOTPATH)
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
