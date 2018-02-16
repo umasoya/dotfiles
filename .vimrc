@@ -127,6 +127,12 @@ set nrformats=alpha
 
 " load private help
 helptags $HOME/.vim/doc/
+
+" highlight multibyte space
+augroup highlightMultiByteSpace
+  autocmd!
+  autocmd VimEnter,Winenter * match ErrorMsg /　/
+augroup END
 " }}}
 
 "{{{1 Mapping
