@@ -178,6 +178,10 @@ if &compatible
   set nocompatible
 endif
 
+"if has('win32unix')
+        " let $HOME='C:\Users\hp-souma\.babun\cygwin\home\hp-souma'
+"endif
+
 set runtimepath+=~/.vim/dein.vim
 
 if dein#load_state($HOME . '/.vim/dein.vim')

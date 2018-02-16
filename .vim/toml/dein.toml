@@ -292,10 +292,6 @@ map <silent> <leader>t :TlistToggle<CR>
 repo = 'hotwatermorning/auto-git-diff'
 
 [[plugins]]
-repo = 'vim-scripts/autohotkey-ahk'
-on_ft = ['ahk']
-
-[[plugins]]
 repo = 'mattn/sonictemplate-vim'
 hook_add = '''
 let g:sonictemplate_vim_template_dir = '~/.vim/template'
