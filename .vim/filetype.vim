@@ -7,5 +7,5 @@ augroup filetypedetect
   au BufRead,BufNewFile *.sh,*.zsh,.zplugrc,.zshrc setfiletype zsh
   au BufRead,BufNewFile *.html setfiletype html
   au BufRead,BufNewFile *.py setfiletype python
-  au BufRead,BufNewFile *.ahk setfiletype ahk
+  au BufRead,BufNewFile autohotkey.ini,*.ahk setfiletype ahk
 augroup END
