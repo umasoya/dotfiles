@@ -12,6 +12,7 @@ path=(
         $HOME/local/bin(N-/)
         $HOME/dotfiles/bin(N-/)
         /usr/local/lib/zsh/5.3.1/zsh(N-/)
+        /home/vagrant/.gem/ruby/gems/bundler-1.16.1/bin(N-/)
         $path
 )
 
@@ -70,6 +71,10 @@ export ZDOT_DIR="$HOME/dotfiles/.zsh"
 export GOPATH="$HOME/Golang"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
+
+# Ruby
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # w3m
 export HTTP_HOME="google.com"
