@@ -5,6 +5,17 @@ EXCLUSIONS  := .DS_Store .git .gitconfig
 ADDITIONALS := etc/.gitconfig
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
+# colors
+BLACK       := \e[30m
+RED         := \e[31m
+GREEN       := \e[32m
+YELLOW      := \e[33m
+BLUE        := \e[34m
+MAGENTA     := \e[35m
+CYAN        := \e[36m
+WHITE       := \e[37m
+RESET_COLOR := \e[m
+
 .DEFAULT_GOAL := help
 .PHONY: all
 
@@ -12,7 +23,7 @@ list: ## Show dotfiles in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
 
 deploy: ## Create Symlink to home directory
-	@echo -e "\e[30;42mCreate symlinks in your home directory.\e[m"
+	@echo -e "$(GREEN)Create symlinks in your home directory.$(RESET_COLOR)"
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
 
@@ -25,11 +36,12 @@ install: init deploy update ## Run make update, deploy
 	@exec $$SHELL
 
 init: ## Enable autostash
+	# autostash option is available Git 1.8.4 or later
 	@git config rebase.autostash true
 	@git submodule sync
 	@git submodule init
 	@git submodule update
-	@git checkout .gitmodules
+	# @git checkout .gitmodules
 	@git submodule sync
 
 update: ## Fetch changes for this repo
@@ -37,13 +49,11 @@ update: ## Fetch changes for this repo
 	@git submodule init
 	@git submodule update
 	@git submodule foreach git pull origin master
-	@# Enable autostash option is git version 1.8.4 or later
 	@git rebase --autostash origin master
 
-clean: ## Unlink dotfiles and remove this repo
-	@echo 'Remove dotfiles in your home directory...'
+clean: ## Unlink dotfiles
+	@echo "$(RED)Clean home directory...$(RESET_COLOR)"
 	@-$(foreach val, $(DOTFILES), unlink $(HOME)/$(val);)
-	#-rm -rf $(DOTPATH)
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
