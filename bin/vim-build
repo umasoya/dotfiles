@@ -5,6 +5,8 @@
 # depends
 # ncurses-devel lua-devel python-devel ruby-devel perl-ExtUtils-Embed
 
+set -eux
+
 REPO=${HOME}/vim
 DEIN_DIR=${HOME}/dotfiles/.vim/dein.vim
 
@@ -12,9 +14,21 @@ if [[ ! -e ${REPO} ]]; then
   git clone https://github.com/vim/vim.git ${HOME}/vim
 fi
 
-git clone https://github.com/Shougo/dein.vim ${DEIN_DIR}
+if [[ ! -e ${DEIN_DIR} ]]; then
+  git clone https://github.com/Shougo/dein.vim ${DEIN_DIR}
+fi
 
 cd ${REPO}
+
+# とりあえずCentOSのみ対応
+if [[ ${DISTRIBUTION} = "CentOS" ]]; then
+  sudo yum -y install \
+    ncurses-devel \
+    lua-devel \
+    python-devel \
+    ruby-devel \
+    perl-ExtUtils-Embed
+fi
 
 ./configure \
   --enable-multibyte \
@@ -28,3 +42,4 @@ cd ${REPO}
   --enable-fail-if-missing
 
 make && sudo make install
+cd && rm -rf ${REPO}
