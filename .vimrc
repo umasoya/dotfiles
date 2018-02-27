@@ -133,6 +133,9 @@ augroup highlightMultiByteSpace
   autocmd!
   autocmd VimEnter,Winenter * match ErrorMsg /　/
 augroup END
+
+" git commit message
+au FileType gitcommit set tw=80
 " }}}
 
 "{{{1 Mapping
