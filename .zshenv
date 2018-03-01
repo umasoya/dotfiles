@@ -33,12 +33,13 @@ cdpath=(
 autoload -Uz add-zsh-hook
 autoload -Uz terminfo
 autoload -Uz vcs_info
-autoload -Uz compinit; compinit -c
+autoload -Uz compinit; compinit -C
 autoload -Uz colors && colors
 autoload -Uz promptinit && promptinit
 
 # character-set  UTF-8
 export LANG=ja_JP.UTF-8
+export LANGUAGE=ja
 
 # Editor
 export EDITOR=vim
@@ -48,13 +49,13 @@ export GIT_EDITOR=${EDITOR}
 export PAGER=less
 
 # {{{ ls coloring
-export LSCOLORS=gxfxcxdxbxegedabagacad
+export LSCOLORS=GxFxCxDxBxegedabagacad
 if [ -f ~/.dircolors ]; then
-  if type dircolors > /dev/null 2>&1; then
-    eval $(dircolors ~/.dircolors)
-  elif type gdircolors > /dev/null 2>&1; then
-    eval $(gdircolors ~/.dircolors)
-  fi
+    if type dircolors > /dev/null 2>&1; then
+        eval $(dircolors ~/.dircolors)
+    elif type gdircolors > /dev/null 2>&1; then
+        eval $(gdircolors ~/.dircolors)
+    fi
 fi
 
 # Apply the suggest even .dircolor

@@ -17,8 +17,8 @@ zstyle ':vcs_info:git:*' actionformats '(%b | %a)'
 
 #{{{1 RPROMPT
 _refresh_rprompt(){
-  vcs_info
-  RPROMPT="${vcs_info_msg_0_}"
+    vcs_info
+    RPROMPT="${vcs_info_msg_0_}"
 }
 add-zsh-hook precmd _refresh_rprompt
 #}}}
@@ -29,8 +29,8 @@ local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
 
 # {{{1 PROMPT
 PROMPT="
- %{$fg[cyan]%}%n@%m [%~]%{${reset_color}%}
- ${p_color_bold}>>> %{${reset_color}%}"
+%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%}
+${p_color_bold}>>> %{${reset_color}%}"
 # }}}
 
 # {{{ Suggest prompt
@@ -42,10 +42,10 @@ SPROMPT=" %{$fg_bold[red]%}Did you mean: \
 
 # {{{ when buffer is empty, prompt clear
 _reflesh(){
-        zle accept-line
-        if [[ -z "$BUFFER" ]]; then
-                clear
-        fi
+    zle accept-line
+    if [[ -z "$BUFFER" ]]; then
+        clear
+    fi
 }
 zle -N _reflesh
 bindkey '^M' _reflesh

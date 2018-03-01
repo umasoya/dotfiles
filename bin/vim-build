@@ -34,7 +34,6 @@ fi
   --enable-multibyte \
   --with-features=huge \
   --enable-luainterp \
-  --enable-perlinterp \
   --enable-pythoninterp \
   --with-python-config-dir=/usr/lib64/python2.7/config \
   --enable-rubyinterp \

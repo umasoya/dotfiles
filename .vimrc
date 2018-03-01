@@ -106,8 +106,8 @@ filetype plugin indent on
 set wildmenu wildmode=list:full
 
 set nohlsearch
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 
 " Restore cursor position
 augroup vimrcEx
