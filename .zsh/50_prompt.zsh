@@ -8,9 +8,9 @@ local VICMD="$fg[yellow]-- NORMAL --$reset_color"
 # ${vcs_info_msg_2_} : error message
 
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:git:*' formats "%F{green}(%b)%c%u%f"
+zstyle ':vcs_info:git:*' stagedstr "%{$fg_bold[yellow]%}!"
+zstyle ':vcs_info:git:*' unstagedstr "%{$fg_bold[red]%}+"
+zstyle ':vcs_info:git:*' formats "%{$fg_bold[green]%}(%b)%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '(%b | %a)'
 
 # }}}
@@ -35,9 +35,9 @@ PROMPT="
 
 # {{{ Suggest prompt
 # Suggest like a google.
-SPROMPT=" %{$fg[red]%}Did you mean: \
-%{${reset_color}%}%{$fg[blue]%}%r%{${reset_color}%}%{$fg[red]%}?%{${reset_color}%} \
-[(y)es,(n)o,(a)bort,(e)dit] > "
+SPROMPT=" %{$fg_bold[red]%}Did you mean: \
+    %{${reset_color}%}%{$fg_bold[cyan]%}%r%{${reset_color}%}%{$fg_bold[red]%}?%{${reset_color}%} \
+    [(y)es,(n)o,(a)bort,(e)dit] > "
 # }}}
 
 # {{{ when buffer is empty, prompt clear
