@@ -1,9 +1,0 @@
-export LS_COLOR=gxfxcxdxbxegedabagacad
-
-if [ -f ~/.dircolors ];then
-  if type dircolors > /dev/null 2>&1; then
-    eval $(dircolors ~/.dircolors)
-  elif type gdircolors > /dev/null 2>&1; then
-    eval $(gdircolors ~/.gdircolors)
-  fi
-fi
