@@ -5,7 +5,7 @@ case "${OSTYPE}" in
         ;;
     *linux*)
         export IS_LINUX=1
-        export DIST=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print1}'` 2>/dev/null
+        export DIST=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'` 2>/dev/null
         ;;
 esac
 # }}}
