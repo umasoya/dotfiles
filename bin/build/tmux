@@ -1,0 +1,42 @@
+#!/bin/bash
+# vim: ft=sh
+#
+# libevent ncurses
+# libevent-devel libevent-headers
+
+set -eux
+
+local repo=$HOME/tmux-2.6
+cd ${HOME}
+
+if (( $+IS_MAC )); then
+  pmg="brew"
+elif (( $+IS_LINUX )); then
+  case ${DIST} in
+    CentOS)
+      pmg="yum"
+      ;;
+    Ubuntu)
+      pmg="apt-get"
+      ;;
+  esac
+elif
+  exit
+fi
+
+# install ncurses libevent2
+#
+# WIP
+#
+# CentOS
+# sudo yum -y install ncurses-devel libevent-devel
+
+if [[ ! -e ${repo} ]]; then
+  curl -Lo tmux.tar.gz https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz
+  tar zxf tmux.tar.gz
+fi
+cd ${HOME}/tmux-2.6
+./configure && make
+sudo make install
+cd ${HOME}
+rm -rf tmux*
