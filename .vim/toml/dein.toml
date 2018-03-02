@@ -1,8 +1,3 @@
-## {{{ Template
-#[[plugins]]
-#repo = 
-## }}}
-
 ## {{{ Options
 # on_i = 1			: Load plugin when into insert mode.
 # on_event = 'InsertCharPre'	: Load plugin when event run.
@@ -28,20 +23,6 @@
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
-# hook_add = '''
-# let g:context_filetype#filetypes = {
-#       \ 'php' : [
-#       \   {
-#       \     'start': '\$sql\s\?=\s\?"',
-#       \     'end': '";$', 'filetype' : 'sql',
-#       \   },
-#       \   {
-#       \     'start': '\$query\s\?=\s\?"',
-#       \     'end': '";$', 'filetype' : 'sql',
-#       \   },
-#       \  ],
-#       \}
-# '''
 
 [[plugins]] # Switch ft according to the context of the cursor position
 repo = 'osyo-manga/vim-precious'
@@ -70,7 +51,18 @@ hook_add = '''
   let s:neco_dicts_dir = $HOME . '/.vim/dicts'
   if isdirectory(s:neco_dicts_dir)
     " load dict file
+    let g:neocomplete#sources#dictionary#dictionaries = {
+          \ 'ruby': s:neco_dicts_dir . '/ruby.dict',
+          \ 'javascript': s:neco_dicts_dir . '/jquery.dict',
+          \ 'php': s:neco_dicts_dir . '/php.dict',
+          \ }
   endif
+
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "\<CR>")
+  endfunction
+  inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 '''
 
 [[plugins]]
@@ -83,9 +75,9 @@ hook_add = '''
 [[plugins]] # Required +python module
 repo = 'editorconfig/editorconfig-vim'
 
-[[plugins]]
-repo = 'thinca/vim-splash'
-hook_add = 'let g:splash#path = expand("$HOME/dotfiles/.vim/splash")'
+#[[plugins]]
+#repo = 'thinca/vim-splash'
+#hook_add = 'let g:splash#path = expand("$HOME/dotfiles/.vim/splash")'
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
@@ -109,24 +101,14 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'chr4/nginx.vim'
-on_ft = ['nginx']
-hook_add = '''
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-let g:indent_guides_guide_size = 4
-'''
-
-[[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
-hook_add = 'nnoremap <silent><C-e> :NERDTreeToggle<CR>'
-
-[[plugins]]
-repo = 'digitaltoad/vim-pug'
+hook_add = '''
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+'''
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
@@ -144,12 +126,6 @@ hook_add = '''
   " set guide start revel
   let g:indent_guides_start_level = 2
 '''
-
-[[plugins]]
-repo = 'moll/vim-node'
-
-[[plugins]]
-repo = 'ekalinin/Dockerfile.vim'
 
 [[plugins]] # brackets
 repo = 'tpope/vim-surround'
@@ -180,64 +156,8 @@ repo = 'tpope/vim-speeddating'
 [[plugins]] # dummy-data generator :fake#gen({keyname})
 repo = 'tkhren/vim-fake'
 
-#[[plugins]]
-#repo = 'ap/vim-css-color'
-#on_ft = ['css']
-
 [[plugins]]
 repo = 'lilydjwg/colorizer'
-
-[[plugins]] # Read PHP manual on vim
-repo = 'alvan/vim-php-manual'
-on_ft = ['php']
-
-[[plugins]]
-repo = 'flyinshadow/php_localvarcheck.vim'
-on_ft = ['php']
-hook_add = '''
-  let g:php_localvarcheck_enable = 1
-  let g:php_localvarcheck_global = 0
-'''
-
-[[plugins]]
-repo = 'shawncplus/phpcomplete.vim'
-on_ft = 'php'
-
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = ['go']
-hook_add = '''
-let g:go_fmt_command = "goimports"
-let g:go_fmt_autosave = 1
-let g:go_version_warning = 0
-'''
-
-[[plugins]] # Syntax *.tpl
-repo = 'blueyed/smarty.vim'
-on_ft = ['smarty']
-
-[[plugins]] # toml syntax
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
-
-[[plugins]]
-repo = 'stephpy/vim-yaml'
-on_ft = ['yml', 'yaml']
-
-[[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'elzr/vim-json'
-on_ft = ['json']
-
-[[plugins]] # sql syntax
-repo = 'shmup/vim-sql-syntax'
-on_ft = ['sql']
-
-[[plugins]] # syntax for nginx files
-repo = 'moskytw/nginx-contrib-vim'
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
@@ -256,40 +176,6 @@ nmap ga <Plug>(EasyAlign)
 
 [[plugins]] # check http status
 repo = 'mattn/httpstatus-vim'
-
-[[plugins]] # Generate PHP document blocks
-repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
-on_ft = ['php']
-hook_add = '''
-inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
-nnoremap <C-P> :call PhpDocSingle()<CR>
-vnoremap <C-P> :call PhpDocRange()<CR>
-'''
-hook_post_source = '''
-let g:pdv_cfg_Type = "mixed"
-let g:pdv_cfg_Package = ""
-let g:pdv_cfg_Version = ""
-let g:pdv_cfg_Author = ""
-let g:pdv_cfg_Copyright = ""
-let g:pdv_cfg_License = ""
-'''
-
-[[plugins]]
-repo = 'stephpy/vim-php-cs-fixer'
-on_ft = ['php']
-
-[[plugins]]
-repo ='vim-scripts/taglist.vim'
-on_ft = ['php']
-hook_add = '''
-let g:Tlist_Show_One_File = 1
-let g:Tlist_Use_Right_Window = 1
-let g:Tlist_Exit_OnlyWindow = 1
-map <silent> <leader>t :TlistToggle<CR>
-'''
-
-[[plugins]]
-repo = 'hotwatermorning/auto-git-diff'
 
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'

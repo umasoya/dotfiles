@@ -1,3 +1,116 @@
+# --------------------------------------------------------------------------#
+# Docker
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'ekalinin/Dockerfile.vim'
+on_ft= ['Dockerfile']
+
+# --------------------------------------------------------------------------#
+# Git
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'hotwatermorning/auto-git-diff'
+
+# --------------------------------------------------------------------------#
+# Go
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+hook_add = '''
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
+let g:go_version_warning = 0
+'''
+
+# --------------------------------------------------------------------------#
+# Javascript
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'moll/vim-node'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ['javascript']
+
+# --------------------------------------------------------------------------#
+# json
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = ['json']
+
+# --------------------------------------------------------------------------#
+# nginx
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'chr4/nginx.vim'
+on_ft = ['nginx']
+hook_add = '''
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+let g:indent_guides_guide_size=4
+'''
+
+[[plugins]] # syntax for nginx files
+repo = 'moskytw/nginx-contrib-vim'
+on_ft = ['nginx']
+
+# --------------------------------------------------------------------------#
+# PHP
+# --------------------------------------------------------------------------#
+[[plugins]] # Read PHP manual on vim
+repo = 'alvan/vim-php-manual'
+on_ft = ['php']
+
+[[plugins]]
+repo = 'flyinshadow/php_localvarcheck.vim'
+on_ft = ['php']
+hook_add = '''
+  let g:php_localvarcheck_enable = 1
+  let g:php_localvarcheck_global = 0
+'''
+
+[[plugins]]
+repo = 'shawncplus/phpcomplete.vim'
+on_ft = 'php'
+
+[[plugins]] # Generate PHP document blocks
+repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
+on_ft = ['php']
+hook_add = '''
+inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
+nnoremap <C-P> :call PhpDocSingle()<CR>
+vnoremap <C-P> :call PhpDocRange()<CR>
+'''
+hook_post_source = '''
+let g:pdv_cfg_Type = "mixed"
+let g:pdv_cfg_Package = ""
+let g:pdv_cfg_Version = ""
+let g:pdv_cfg_Author = ""
+let g:pdv_cfg_Copyright = ""
+let g:pdv_cfg_License = ""
+'''
+
+[[plugins]]
+repo = 'stephpy/vim-php-cs-fixer'
+on_ft = ['php']
+
+[[plugins]]
+repo ='vim-scripts/taglist.vim'
+on_ft = ['php']
+hook_add = '''
+let g:Tlist_Show_One_File = 1
+let g:Tlist_Use_Right_Window = 1
+let g:Tlist_Exit_OnlyWindow = 1
+map <silent> <leader>t :TlistToggle<CR>
+'''
+
+# --------------------------------------------------------------------------#
+# Python
+# --------------------------------------------------------------------------#
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
 on_ft = ['python']
@@ -6,3 +119,31 @@ on_ft = ['python']
 repo = 'hdima/python-syntax'
 on_ft = ['python']
 hook_add = 'python_highlight_all = 1'
+
+# --------------------------------------------------------------------------#
+# Smarty
+# --------------------------------------------------------------------------#
+[[plugins]] # Syntax *.tpl
+repo = 'blueyed/smarty.vim'
+on_ft = ['smarty']
+
+# --------------------------------------------------------------------------#
+# SQL
+# --------------------------------------------------------------------------#
+[[plugins]] # sql syntax
+repo = 'shmup/vim-sql-syntax'
+on_ft = ['sql']
+
+# --------------------------------------------------------------------------#
+# toml
+# --------------------------------------------------------------------------#
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+# --------------------------------------------------------------------------#
+# yml
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'stephpy/vim-yaml'
+on_ft = ['yml', 'yaml']
