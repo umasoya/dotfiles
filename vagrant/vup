@@ -1,6 +1,0 @@
-#!/bin/bash
-
-dir=`basename "$PWD"`
-
-vagrant up
-ssh ${dir}

@@ -9,3 +9,5 @@ augroup filetypedetect
   au BufRead,BufNewFile *.py setfiletype python
   au BufRead,BufNewFile autohotkey.ini,*.ahk setfiletype ahk
 augroup END
+
+au FileType gitcommit set tw=80
