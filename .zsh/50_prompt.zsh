@@ -1,7 +1,3 @@
-# mode
-local VIINS="$fg[white]-- INSERT --$reset_color"
-local VICMD="$fg[yellow]-- NORMAL --$reset_color"
-
 # {{{ vcs_info
 # ${vcs_info_msg_0_} : normal message
 # ${vcs_info_msg_1_} : warning message
@@ -12,7 +8,6 @@ zstyle ':vcs_info:git:*' stagedstr "%{$fg_bold[yellow]%}!"
 zstyle ':vcs_info:git:*' unstagedstr "%{$fg_bold[red]%}+"
 zstyle ':vcs_info:git:*' formats "%{$fg_bold[green]%}(%b)%c%u%f"
 zstyle ':vcs_info:git:*' actionformats '(%b | %a)'
-
 # }}}
 
 #{{{1 RPROMPT
@@ -23,14 +18,35 @@ _refresh_rprompt(){
 add-zsh-hook precmd _refresh_rprompt
 #}}}
 
+# {{{1 prompt
 # Change the color according to the return value of the previous command.
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
 local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
 
-# {{{1 PROMPT
-PROMPT="
-%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%}
-${p_color_bold}>>> %{${reset_color}%}"
+position=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]$terminfo[cud1]
+left_down_prompt_preexec() {
+  print -rn -- $terminfo[el]
+}
+add-zsh-hook preexec left_down_prompt_preexec
+
+function zle-line-init zle-keymap-select
+{
+  case $KEYMAP in
+    main|viins)
+      MODE="$bg_bold[green]-- INSERT --$reset_color"
+      ;;
+    vicmd)
+      MODE="$bg_bold[red]-- NORMAL --$reset_color"
+      ;;
+  esac
+
+  PROMPT="
+%{$position$MODE$terminfo[rc]%}%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%}\
+$terminfo[cud1]%{${p_color_bold}%}>>> %{${reset_color}%}"
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 # }}}
 
 # {{{ Suggest prompt
