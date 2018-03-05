@@ -21,7 +21,7 @@ fi
 cd ${REPO}
 
 # とりあえずCentOSのみ対応
-if [[ ${DISTRIBUTION} = "CentOS" ]]; then
+if [[ ${DIST} = "CentOS" ]]; then
   sudo yum -y install \
     ncurses-devel \
     lua-devel \
