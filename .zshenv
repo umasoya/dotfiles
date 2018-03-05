@@ -80,6 +80,6 @@ if (( $+commands[rbenv] )); then
 fi
 
 # w3m
-if (( $+command[w3m] )); then
+if (( $+commands[w3m] )); then
   export HTTP_HOME="google.com"
 fi
