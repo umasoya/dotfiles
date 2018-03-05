@@ -3,6 +3,7 @@
 # ${vcs_info_msg_1_} : warning message
 # ${vcs_info_msg_2_} : error message
 
+zstyle ':vcs_info:*'     enable git
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%{$fg_bold[yellow]%}!"
 zstyle ':vcs_info:git:*' unstagedstr "%{$fg_bold[red]%}+"
