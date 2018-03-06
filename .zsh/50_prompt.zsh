@@ -24,25 +24,19 @@ add-zsh-hook precmd _refresh_rprompt
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
 local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
 
-position=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]$terminfo[cud1]
-left_down_prompt_preexec() {
-  print -rn -- $terminfo[el]
-}
-add-zsh-hook preexec left_down_prompt_preexec
-
 function zle-line-init zle-keymap-select
 {
   case $KEYMAP in
     main|viins)
-      MODE="$bg_bold[green]-- INSERT --$reset_color"
+      MODE="$bg_bold[green] -- INSERT --$reset_color"
       ;;
     vicmd)
-      MODE="$bg_bold[red]-- NORMAL --$reset_color"
+      MODE="$bg_bold[red] -- NORMAL -- $reset_color"
       ;;
   esac
 
   PROMPT="
-%{$position$MODE$terminfo[rc]%}%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%}\
+%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%} ${MODE}\
 $terminfo[cud1]%{${p_color_bold}%}>>> %{${reset_color}%}"
   zle reset-prompt
 }
