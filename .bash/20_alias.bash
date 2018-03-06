@@ -1,4 +1,5 @@
 alias rc='source ~/.bashrc'
+alias reshell='exec ${SHELL} -l'
 
 alias ls='ls -CF'
 alias ls='ls --color=auto'
