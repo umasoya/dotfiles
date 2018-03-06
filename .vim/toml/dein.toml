@@ -53,7 +53,7 @@ hook_add = '''
     " load dict file
     let g:neocomplete#sources#dictionary#dictionaries = {
           \ 'ruby': s:neco_dicts_dir . '/ruby.dict',
-          \ 'javascript': s:neco_dicts_dir . '/jquery.dict',
+          \ 'javascript': s:neco_dicts_dir . '/jquery.dict', s:neco_dicts_dir . 'javascript.dict',
           \ 'php': s:neco_dicts_dir . '/php.dict',
           \ }
   endif
