@@ -28,7 +28,7 @@ function zle-line-init zle-keymap-select
 {
   case $KEYMAP in
     main|viins)
-      MODE="$bg_bold[green] -- INSERT --$reset_color"
+      MODE="$bg_bold[green] -- INSERT -- $reset_color"
       ;;
     vicmd)
       MODE="$bg_bold[red] -- NORMAL -- $reset_color"
