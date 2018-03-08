@@ -74,7 +74,7 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 
 # Ruby
-if (( $+commands[rbenv] )); then
+if (( $+commands[ruby] )) && [[ -d $HOME/.rbenv ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 fi
