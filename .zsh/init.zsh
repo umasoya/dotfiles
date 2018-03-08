@@ -21,4 +21,8 @@ zplug "junegunn/fzf-bin", \
   rename-to:"fzf", \
   frozen:1
 
-zplug load
+zplug "b4b4r07/ssh-keyreg", \
+  as:command, \
+  use:bin
+
+zplug load --verbose 1>/dev/null
