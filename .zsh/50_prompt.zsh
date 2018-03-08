@@ -24,6 +24,10 @@ add-zsh-hook precmd _refresh_rprompt
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
 local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
 
+PROMPT="
+%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%} %{$bg_bold[green] -- INSERT -- $reset_color%}\
+$terminfo[cud1]%{${p_color_bold}%}>>> %{${reset_color}%}"
+
 function zle-line-init zle-keymap-select
 {
   case $KEYMAP in
