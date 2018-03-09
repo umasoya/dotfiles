@@ -42,7 +42,7 @@ function zle-line-init zle-keymap-select
   PROMPT="
 %{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%} ${MODE}\
 $terminfo[cud1]%{${p_color_bold}%}>>> %{${reset_color}%}"
-  zle reset-prompt
+  zle -N reset-prompt
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
