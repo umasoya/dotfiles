@@ -14,7 +14,7 @@ set undodir=$HOME/.vim/undo
 if !isdirectory($HOME . '/.vim/swap')
   call mkdir($HOME . '/.vim/swap', 'p')
 endif
-set undodir=$HOME/.vim/swap
+set directory=$HOME/.vim/swap
 
 " Help
 helptags $HOME/.vim/doc/
