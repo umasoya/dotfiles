@@ -47,6 +47,7 @@ set laststatus=2
 set synmaxcol=400
 set wildmenu wildmode=list:full
 set scrolloff=5
+set formatoptions=r
 
 " text visual
 set expandtab
