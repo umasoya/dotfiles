@@ -5,10 +5,10 @@
 
 zstyle ':vcs_info:*'     enable git
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%{$fg_bold[yellow]%}!"
-zstyle ':vcs_info:git:*' unstagedstr "%{$fg_bold[red]%}+"
-zstyle ':vcs_info:git:*' formats "%{$fg_bold[green]%}(%b)%c%u%f"
-zstyle ':vcs_info:git:*' actionformats '(%b | %a)'
+zstyle ':vcs_info:git:*' stagedstr "%{%F{226}%}!%f"
+zstyle ':vcs_info:git:*' unstagedstr "%{%F{196}%}+%f"
+zstyle ':vcs_info:git:*' formats "%{%F{118}%}(%b)%c%u%f"
+zstyle ':vcs_info:git:*' actionformats '[%b | %a]'
 # }}}
 
 #{{{1 RPROMPT
@@ -21,28 +21,30 @@ add-zsh-hook precmd _refresh_rprompt
 
 # {{{1 prompt
 # Change the color according to the return value of the previous command.
-local p_color="%(?.%{${fg[cyan]}%}.%{${fg[red]}%})"
-local p_color_bold="%(?.%{${fg_bold[cyan]}%}.%{${fg_bold[red]}%})"
+local p_color="%(?.%F{231}%}.%F{197})"
+
+local ins="%K{034}%F{255} -- INSERT -- %f%k"
+local cmd="%K{196}%F{255} -- NORMAL -- %f%k"
 
 PROMPT="
-%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%} %{$bg_bold[green] -- INSERT -- $reset_color%}\
-$terminfo[cud1]%{${p_color_bold}%}>>> %{${reset_color}%}"
+%{%F{255}%}%n@%m[%~]%{${reset_color}%} %{${ins}%}\
+$terminfo[cud1]%{${p_color}%}>>> %{${reset_color}%}"
 
 function zle-line-init zle-keymap-select
 {
   case $KEYMAP in
     main|viins)
-      MODE="$bg_bold[green] -- INSERT -- $reset_color"
+      mode=${ins}
       ;;
     vicmd)
-      MODE="$bg_bold[red] -- NORMAL -- $reset_color"
+      mode=${cmd}
       ;;
   esac
 
   PROMPT="
-%{$fg_bold[cyan]%}%n@%m [%~]%{${reset_color}%} ${MODE}\
-$terminfo[cud1]%{${p_color_bold}%}>>> %{${reset_color}%}"
-  zle -N reset-prompt
+%{%F{255}%}%n@%m[%~]%{${reset_color}%} ${mode}\
+$terminfo[cud1]%{${p_color}%}>>> %{${reset_color}%}"
+  zle reset-prompt
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
