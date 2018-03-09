@@ -49,7 +49,7 @@ export GIT_EDITOR=${EDITOR}
 export PAGER=less
 
 # {{{ ls coloring
-export LSCOLORS=GxFxCxDxBxegedabagacad
+export LSCOLORS=gxfxcxdxbxegedabagacad
 if [ -f ~/.dircolors ]; then
     if type dircolors > /dev/null 2>&1; then
         eval $(dircolors ~/.dircolors)
