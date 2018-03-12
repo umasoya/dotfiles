@@ -28,7 +28,7 @@ local cmd="%K{196}%F{255} -- NORMAL -- %f%k"
 
 PROMPT="
 %{%F{255}%}%n@%m[%~]%{${reset_color}%} %{${ins}%}\
-$terminfo[cud1]%{${p_color}%}>>> %{${reset_color}%}"
+$terminfo[cud1]%{${p_color}%}>>> %{%f%k%}"
 
 function zle-line-init zle-keymap-select
 {
@@ -43,7 +43,7 @@ function zle-line-init zle-keymap-select
 
   PROMPT="
 %{%F{255}%}%n@%m[%~]%{${reset_color}%} ${mode}\
-$terminfo[cud1]%{${p_color}%}>>> %{${reset_color}%}"
+$terminfo[cud1]%{${p_color}%}>>> %{%f%k%}"
   zle reset-prompt
 }
 zle -N zle-line-init
