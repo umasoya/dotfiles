@@ -68,6 +68,8 @@ fi
 export DOT_DIR="$HOME/dotfiles"
 export ZDOT_DIR="$HOME/dotfiles/.zsh"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Config Golang
 export GOPATH="$HOME/Golang"
 export GOBIN="$GOPATH/bin"
