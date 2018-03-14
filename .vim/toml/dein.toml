@@ -1,26 +1,3 @@
-## {{{ Options
-# on_i = 1			: Load plugin when into insert mode.
-# on_event = 'InsertCharPre'	: Load plugin when event run.
-# on_ft = ['ft']		: Load plugin when ft is 'ft'.
-# on_path = .*			: Load plugin when it is same buffer name.
-# on_source = ['other plugin']	: Load plugin when 'other plugin' loaded.
-# on_cmd = ['cmd']		: Load plugin when to run the 'cmd'.
-# on_map = ['mapping']		: Mapping version of on_cmd.
-# depends = ['depend plugin']	: If exist depens, load 'depend plugin' first.
-# if
-## }}}
-
-## {{{ Hooks
-##--------------------------------------------------------##
-#   name           |  When run         | lazy off | lazy on#
-#----------------------------------------------------------#
-# hook_add         | When load plugin  |    OK    |   NG   #
-# hook_source      | Before load plugin|    NG    |   OK   #
-# hook_post_source | After load plugin |    NG    |   OK   #
-# hook_post_updae  | When update plugin|    OK    |   OK   #
-##--------------------------------------------------------##
-## }}}
-
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -33,6 +10,7 @@ repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
+if = '! has("nvim")'
 hook_add = '''
   " Enable Neocomplete
   let g:neocomplete#enable_at_startup = 1
@@ -64,6 +42,9 @@ hook_add = '''
   endfunction
   inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 '''
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
 
 [[plugins]]
 repo = 'ujihisa/neco-look'

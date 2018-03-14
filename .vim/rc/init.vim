@@ -20,7 +20,6 @@ set directory=$HOME/.vim/swap
 helptags $HOME/.vim/doc/
 
 " system config
-set nocompatible
 set notimeout
 set ttimeout
 set timeoutlen=100

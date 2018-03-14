@@ -6,13 +6,8 @@
 "|___/_/_/ /_/ /_/_/   \___/  
 "                             
 
-if has('nvim')
-  let g:vim_home = expand($HOME . "/.nvim")
-  let g:rc_dir = expand($HOME . "/.nvim/rc")
-else
-  let g:vim_home = expand($HOME . "/.vim")
-  let g:rc_dir = expand($HOME . "/.vim/rc")
-endif
+let g:vim_home = expand($HOME . "/.vim")
+let g:rc_dir = expand($HOME . "/.vim/rc")
 
 function! s:source_rc(target)
   let rc_file = expand(g:rc_dir . '/' . a:target)
