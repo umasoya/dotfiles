@@ -1,0 +1,4 @@
+[[plugins]]
+repo = 'hdima/python-syntax'
+on_ft = ['python']
+hook_add = 'python_highlight_all = 1'

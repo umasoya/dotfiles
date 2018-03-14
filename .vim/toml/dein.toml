@@ -8,54 +8,6 @@ depends = ['context_filetype.vim']
 [[plugins]] # Detect ft according to the context of the cursor position
 repo = 'Shougo/context_filetype.vim'
 
-[[plugins]]
-repo = 'Shougo/neocomplete.vim'
-if = '! has("nvim")'
-on_i = 1
-hook_add = '''
-  " Enable Neocomplete
-  let g:neocomplete#enable_at_startup = 1
-  " Enable smart case
-  let g:neocomplete#enable_smart_case = 1
-  " Enable autocomplete separate underscore
-  let g:neocomplete#enable_underbar_completion = 1
-  let g:neocomplete#enable_camel_completion = 1
-  " Max list
-  let g:neocomplete#max_list = 20
-  " Min cache length
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-  " Max cache length
-  let g:neocomplete#max_keyword_width = 10000
-  " set dictionary path
-  let s:neco_dicts_dir = $HOME . '/.vim/dicts'
-  if isdirectory(s:neco_dicts_dir)
-    " load dict file
-    let g:neocomplete#sources#dictionary#dictionaries = {
-          \ 'ruby': s:neco_dicts_dir . '/ruby.dict',
-          \ 'javascript': s:neco_dicts_dir . '/javascript.dict',
-          \ 'php': s:neco_dicts_dir . '/php.dict',
-          \ }
-  endif
-
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "\<CR>")
-  endfunction
-  inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-'''
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_i = 1
-if = 'has("nvim")'
-
-[[plugins]]
-repo = 'ujihisa/neco-look'
-depends = ['neocomplete.vim']
-hook_add = '''
-  let g:neocomplete#text_mode_filetype = { "_" : 1 }
-'''
-
 [[plugins]] # Required +python module
 repo = 'editorconfig/editorconfig-vim'
 
