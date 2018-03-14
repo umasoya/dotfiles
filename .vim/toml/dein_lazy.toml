@@ -121,6 +121,11 @@ on_ft = ['python']
 hook_add = 'python_highlight_all = 1'
 if = '! has("nvim")'
 
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = ['python']
+if = 'has("nvim")'
+
 # --------------------------------------------------------------------------#
 # Smarty
 # --------------------------------------------------------------------------#
