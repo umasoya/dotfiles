@@ -3,6 +3,8 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
+export XDG_CONFIG_HOME=$HOME/.config
+
 export EDITOR=vim
 export GIT_EDITOR=vim
 export PAGER=less

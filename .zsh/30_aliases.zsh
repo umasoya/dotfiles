@@ -11,6 +11,8 @@ fi
 alias la='ls -a'
 alias ll='ls -l'
 alias vi='vim'
+alias nv='nvim'
+alias nvi='nvim'
 alias vw='view'
 alias reshell='exec ${SHELL} -l'
 alias rc='source ${HOME}/.zshrc'

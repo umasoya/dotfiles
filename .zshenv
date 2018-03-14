@@ -68,6 +68,8 @@ fi
 export DOT_DIR="$HOME/dotfiles"
 export ZDOT_DIR="$HOME/dotfiles/.zsh"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Config Golang
 export GOPATH="$HOME/Golang"
 export GOBIN="$GOPATH/bin"
@@ -77,6 +79,13 @@ export PATH="$GOBIN:$PATH"
 if (( $+commands[ruby] )) && [[ -d $HOME/.rbenv ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
+fi
+
+# Python
+if [[ -d $HOME/.pyenv ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
 fi
 
 # w3m
