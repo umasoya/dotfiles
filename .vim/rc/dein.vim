@@ -2,13 +2,19 @@ if &compatible
   set nocompatible
 endif
 
+" auto install
+let s:dein_dir = $HOME . '/.vim/dein.vim'
+if !isdirectory(s:dein_dir)
+  call system(`git clone https://github.com/Shougo/dein.vim.git ` . shellescape(s:dein_dir))
+endif
+
 set runtimepath+=~/.vim/dein.vim
 
-if dein#load_state($HOME . '/.vim/dein.vim')
+if dein#load_state(s:dein_dir)
 
   let g:dein#cache_directory = $HOME . '/.cache/dein'
 
-  call dein#begin(expand('~/.vim/dein.vim'))
+  call dein#begin(s:dein_dir)
 
   let s:toml_dir  = $HOME . '/.vim/toml'
   let s:toml      = s:toml_dir . '/dein.toml'
