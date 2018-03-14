@@ -11,6 +11,7 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 if = '! has("nvim")'
+on_i = 1
 hook_add = '''
   " Enable Neocomplete
   let g:neocomplete#enable_at_startup = 1
@@ -45,6 +46,8 @@ hook_add = '''
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+on_i = 1
+if = 'has("nvim")'
 
 [[plugins]]
 repo = 'ujihisa/neco-look'

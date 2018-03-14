@@ -81,6 +81,13 @@ if (( $+commands[ruby] )) && [[ -d $HOME/.rbenv ]]; then
   eval "$(rbenv init -)"
 fi
 
+# Python
+if [[ -d $HOME/.pyenv ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
+
 # w3m
 if (( $+commands[w3m] )); then
   export HTTP_HOME="google.com"
