@@ -47,6 +47,10 @@ set synmaxcol=400
 set wildmenu wildmode=list:full
 set scrolloff=5
 set formatoptions=r
+if has("nvim")
+  set cursorline
+  set cursorcolumn
+endif
 
 " text visual
 set expandtab
