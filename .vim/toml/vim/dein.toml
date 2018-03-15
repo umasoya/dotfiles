@@ -40,3 +40,15 @@ depends = ['neocomplete.vim']
 hook_add = '''
   let g:neocomplete#text_mode_filetype = { "_" : 1 }
 '''
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+depends = ['neocomplete']
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+depends = ['neocomplete']
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+depends = ['neocomplete']
