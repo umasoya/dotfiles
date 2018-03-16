@@ -5,7 +5,7 @@ endif
 " auto install
 let s:dein_dir = $HOME . '/.vim/dein.vim'
 if !isdirectory(s:dein_dir)
-  call system(`git clone https://github.com/Shougo/dein.vim.git ` . shellescape(s:dein_dir))
+  call system('git clone https://github.com/Shougo/dein.vim.git ' . shellescape(s:dein_dir))
 endif
 
 set runtimepath+=~/.vim/dein.vim
