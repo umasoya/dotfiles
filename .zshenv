@@ -76,9 +76,15 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 
 # Ruby
-if (( $+commands[ruby] )) && [[ -d $HOME/.rbenv ]]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
+if (( $+commands[ruby] )); then
+  if [[ -d $HOME/.rbenv ]]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+  else
+    git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+  fi
 fi
 
 # Python
