@@ -42,7 +42,11 @@ export LANG=ja_JP.UTF-8
 export LANGUAGE=ja
 
 # Editor
-export EDITOR=vim
+if (( $+commands[nvim] )); then
+    export EDITOR=nvim
+elif (( $+commands[vim] ));then
+    export EDITOR=vim
+fi
 export GIT_EDITOR=${EDITOR}
 
 # Pager

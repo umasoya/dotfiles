@@ -11,10 +11,7 @@ let g:deoplete#source#attribute#min_pattern_length = 3
 setlocal dictionary+=$HOME/dotfiles/.vim/dicts/php.dict
 setlocal dictionary+=$HOME/dotfiles/.vim/dicts/ruby.dict
 call deoplete#custom#source(
-            \ 'dictionary', 'php', ['php']
-            \ 'dictionary', 'ruby', ['ruby']
-            \ 'dictionary', 'javascript', ['javascript']
-            \ )
+            \ 'dictionary', 'php', ['php'])
 
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()

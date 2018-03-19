@@ -10,9 +10,15 @@ fi
 
 alias la='ls -a'
 alias ll='ls -l'
-alias vi='vim'
-alias nv='nvim'
-alias nvi='nvim'
+
+if (( $+commands[nvim] )); then
+    alias vi='nvim'
+    alias nv='nvim'
+    alias nvi='nvim'
+elif (( $+commands[vim] )); then
+    alias vi='vim'
+fi
 alias vw='view'
+
 alias reshell='exec ${SHELL} -l'
 alias rc='source ${HOME}/.zshrc'
