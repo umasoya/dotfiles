@@ -6,9 +6,9 @@ set -eux
 local repo=$HOME/tmux-2.6
 cd ${HOME}
 
-if (( $+IS_MAC )); then
+if (( $+is_mac )); then
   pm="brew"
-elif (( $+IS_LINUX )); then
+elif (( $+is_linux )); then
   case ${DIST} in
     CentOS)
       pm="yum"

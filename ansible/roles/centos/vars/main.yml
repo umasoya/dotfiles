@@ -1,0 +1,23 @@
+---
+packages:
+  - automake
+  - autoconf
+  - ncurses-devel
+  - lua-devel
+  - libevent-devel
+  - python-devel
+  - ruby-devel
+  - zlib-devel
+  - gcc
+  - bzip2
+  - bzip2-devel
+  - readline-devel
+  - sqlite
+  - sqlite-devel
+  - openssl-devel
+  - tk-devel
+  - libffi-devel
+
+epel-packages:
+  - epel-release
+  - neovim

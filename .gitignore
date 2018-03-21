@@ -5,9 +5,14 @@
 *~
 /tmp
 *.log
+
 .vim/dein.vim
 .vim/doc/tags
 .vim/tmp
 .vim/undo
-bin/osx_setting.sh
+
 .local_config/*
+
+.config/*
+!./config/nvim
+!./config/multitail
