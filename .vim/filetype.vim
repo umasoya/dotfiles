@@ -4,7 +4,7 @@ augroup filetypedetect
   au BufRead,BufNewFile *.vim setfiletype vim
   au BufRead,BufNewFile *.js setfiletype javascript
   au BufRead,BufNewFile *.go setfiletype go
-  au BufRead,BufNewFile *.sh,*.zsh,.zplugrc,.zshrc setfiletype zsh
+  au BufRead,BufNewFile *.sh,*.zsh,.zplugrc,.zshrc,.zshenv setfiletype zsh
   au BufRead,BufNewFile *.html setfiletype html
   au BufRead,BufNewFile *.py setfiletype python
   au BufRead,BufNewFile autohotkey.ini,*.ahk setfiletype ahk
