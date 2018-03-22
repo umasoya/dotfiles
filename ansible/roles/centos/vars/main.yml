@@ -18,6 +18,16 @@ packages:
   - tk-devel
   - libffi-devel
 
-epel-packages:
+epel_packages:
   - epel-release
   - neovim
+
+php_version: 72
+
+php:
+  - php
+  - php-mbstring
+  - php-pdo
+  - php-gd
+  - php-xml
+  - php-mcrypt

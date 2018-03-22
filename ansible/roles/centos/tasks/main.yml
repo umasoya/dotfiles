@@ -1,7 +1,48 @@
 ---
-- name: install packages from yum
+- block:
+  - name: install packages from yum
+    become: yes
+    yum: name={{ item }} state=latest
+    with_items:
+      - "{{ packages }}"
+      - "{{ epel_packages }}"
+
+  - name: install remi repo
+    become: yes
+    yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
+
+  tags: packages
+
+- name: install php
   become: yes
-  yum: name={{ item }} state=latest
-  with_items:
-    - "{{ packages }}"
-    - "{{ epel-packages }}"
+  yum: name={{ php }} state=latest enablerepo=remi,remi-php{{ php_version }}
+  tags: php
+
+- name: check composer
+  stat: path=/usr/local/bin/composer
+  register: composer_bin
+  tags: composer
+
+- block:
+  - name: download composer
+    get_url:
+      url: https://getcomposer.org/installer
+      dest: /tmp/installer
+
+  - name: install composer
+    become: yes
+    shell: cat /tmp/installer | php -- --install-dir=/usr/local/bin
+
+  - name: rename composer.phar to composer
+    become: yes
+    shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+
+  - name: composer executable
+    become: yes
+    file:
+      path: /usr/local/bin/composer
+      mode: a+x
+      state: file
+
+  when: not composer_bin.stat.exists
+  tags: composer
