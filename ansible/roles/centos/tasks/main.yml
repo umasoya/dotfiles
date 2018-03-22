@@ -50,11 +50,10 @@
 
 - block:
   - name: check git
-    shell: type git
-    register: exist_git
-    ignore_errors: yes
+    stat: path=/usr/local/bin/git
+    register: git
 
   - include_tasks: git.yml
-    when: exist_git|failed
+    when: not git.stat.exists
 
   tags: git
