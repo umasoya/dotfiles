@@ -46,3 +46,15 @@
 
   when: not composer_bin.stat.exists
   tags: composer
+
+
+- block:
+  - name: check git
+    shell: type git
+    register: exist_git
+    ignore_errors: yes
+
+  - include_tasks: git.yml
+    when: exist_git|failed
+
+  tags: git

@@ -1,22 +1,30 @@
 ---
 packages:
+  - asciidoc
   - automake
   - autoconf
-  - ncurses-devel
-  - lua-devel
-  - libevent-devel
-  - python-devel
-  - ruby-devel
-  - zlib-devel
-  - gcc
   - bzip2
   - bzip2-devel
+  - curl-devel
+  - docbook2X
+  - expat-devel
+  - gcc
+  - gettext-devel
+  - libevent-devel
+  - libffi-devel
+  - lua-devel
+  - ncurses-devel
+  - openssl-devel
+  - perl-devel
+  - perl-ExtUtils-MakeMaker
+  - python-devel
   - readline-devel
+  - ruby-devel
   - sqlite
   - sqlite-devel
-  - openssl-devel
   - tk-devel
-  - libffi-devel
+  - xmlto
+  - zlib-devel
 
 epel_packages:
   - epel-release
@@ -26,6 +34,7 @@ php_version: 72
 
 php:
   - php
+  - php-cli
   - php-mbstring
   - php-pdo
   - php-gd
