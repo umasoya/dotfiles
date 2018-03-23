@@ -1,12 +1,10 @@
 ---
 packages:
-  - asciidoc
   - automake
   - autoconf
   - bzip2
   - bzip2-devel
   - curl-devel
-  - docbook2X
   - expat-devel
   - gcc
   - gettext-devel
