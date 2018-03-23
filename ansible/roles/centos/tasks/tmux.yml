@@ -4,9 +4,12 @@
     become: yes
     yum: name={{ tmux_depends }} state=latest
 
-  - name: set tmux_path
+  - name: set tmux_version
     set_fact:
       tmux_version: 2.6
+
+  - name: set tmux_path
+    set_fact:
       tmux_path: /tmp/tmux-{{ tmux_version }}
 
   - name: download
