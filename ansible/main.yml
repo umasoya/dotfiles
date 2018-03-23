@@ -1,8 +1,6 @@
 ---
-#- hosts: localhost
-- hosts: targets
-  user: vagrant
-  # connection: local
+- hosts: localhost
+  connection: local
   roles:
    - {role: centos, when: "ansible_distribution == 'CentOS'"}
    - {role: macosx, when: "ansible_distribution == 'MacOSX'"}
