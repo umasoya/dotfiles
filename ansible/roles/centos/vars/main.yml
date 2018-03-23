@@ -4,17 +4,12 @@ packages:
   - autoconf
   - bzip2
   - bzip2-devel
-  - curl-devel
-  - expat-devel
   - gcc
-  - gettext-devel
   - libevent-devel
   - libffi-devel
   - lua-devel
   - ncurses-devel
-  - openssl-devel
   - perl-devel
-  - perl-ExtUtils-MakeMaker
   - python-devel
   - readline-devel
   - ruby-devel
@@ -27,7 +22,15 @@ epel_packages:
   - epel-release
   - neovim
 
-php_version: 72
+git_depends:
+  - curl-devel
+  - expat-devel
+  - gettext-devel
+  - openssl-devel
+  - perl-ExtUtils-MakeMaker
+
+tmux_depends:
+  - libevent-devel
 
 php:
   - php
@@ -37,5 +40,3 @@ php:
   - php-gd
   - php-xml
   - php-mcrypt
-
-tmux_version: 2.6

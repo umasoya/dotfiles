@@ -1,4 +1,8 @@
 ---
+- name: set php version
+  set_fact:
+    php_version: 72
+
 - name: install php
   become: yes
   yum: name={{ php }} state=latest enablerepo=remi,remi-php{{ php_version }}

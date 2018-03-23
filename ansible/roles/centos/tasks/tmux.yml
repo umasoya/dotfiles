@@ -2,10 +2,7 @@
 - block:
   - name: Dependency resolution
     become: yes
-    yum: name="{{ item }}" state=latest
-    with_items:
-      - ncurses-devel
-      - libevent-devel
+    yum: name={{ tmux_depends }} state=latest
 
   - name: set tmux_path
     set_fact:
