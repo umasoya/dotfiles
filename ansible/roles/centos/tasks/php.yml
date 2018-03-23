@@ -1,22 +1,7 @@
 ---
-- block:
-  - name: install packages from yum
-    become: yes
-    yum: name={{ item }} state=latest
-    with_items:
-      - "{{ packages }}"
-      - "{{ epel_packages }}"
-
-  - name: install remi repo
-    become: yes
-    yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
-
-  tags: packages
-
 - name: install php
   become: yes
   yum: name={{ php }} state=latest enablerepo=remi,remi-php{{ php_version }}
-  tags: php
 
 - name: check composer
   stat: path=/usr/local/bin/composer
@@ -46,24 +31,3 @@
 
   when: not composer_bin.stat.exists
   tags: composer
-
-
-- block:
-  - name: check git
-    stat: path=/usr/local/bin/git
-    register: git
-
-  - include_tasks: git.yml
-    when: not git.stat.exists
-
-  tags: git
-
-- block:
-  - name: check zsh
-    shell: type zsh
-    register: zsh
-    ignore_errors: yes
-
-  - include_tasks: zsh.yml
-    when: zsh|failed
-  tags: zsh
