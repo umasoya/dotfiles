@@ -55,3 +55,13 @@
     when: zsh|failed
 
   tags: zsh
+
+- block:
+  - name: check tmux
+    command: type tmux
+    register: tmux_cmd
+    ignore_errors: yes
+
+  - include_tasks: tmux.yml
+    when: tmux_cmd|failed
+  tags: tmux

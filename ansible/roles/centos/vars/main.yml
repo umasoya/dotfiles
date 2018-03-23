@@ -21,7 +21,6 @@ packages:
   - sqlite
   - sqlite-devel
   - tk-devel
-  - xmlto
   - zlib-devel
 
 epel_packages:
@@ -38,3 +37,5 @@ php:
   - php-gd
   - php-xml
   - php-mcrypt
+
+tmux_version: 2.6
