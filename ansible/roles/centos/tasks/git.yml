@@ -4,6 +4,11 @@
     set_fact:
       git_version: 2.16.2
 
+  - name: remove earlier git
+    becom: yes
+    yum: name=git state=absent
+    notify: remove earlier git
+
   - name: Dependency solution
     become: yes
     yum: name={{ git_depends }} state=latest
@@ -32,3 +37,4 @@
     with_items:
       - "/tmp/v{{ git_version }}.tar.gz"
       - "/tmp/git-{{ git_version }}"
+    notify: git installed

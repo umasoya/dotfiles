@@ -6,6 +6,7 @@
 - name: install php
   become: yes
   yum: name={{ php }} state=latest enablerepo=remi,remi-php{{ php_version }}
+  notify: php installed
 
 - name: check composer
   stat: path=/usr/local/bin/composer
@@ -32,6 +33,7 @@
       path: /usr/local/bin/composer
       mode: a+x
       state: file
+    notify: composer installed
 
   when: not composer_bin.stat.exists
   tags: composer

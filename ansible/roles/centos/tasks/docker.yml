@@ -19,6 +19,7 @@
   - name: Put user in docker group
     become: yes
     command: usermod -aG docker {{ ansible_env.USER }}
+    notify: docker installed
 
   - name: Get docker-compose
     become: yes
@@ -31,3 +32,4 @@
     file:
       path: /usr/local/bin/docker-compose
       mode: "a+x"
+    notify: docker-compose installed

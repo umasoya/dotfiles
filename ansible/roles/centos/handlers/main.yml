@@ -1,0 +1,21 @@
+---
+- name: remove earlier git
+  debug: msg="Earlier git uninstalled."
+
+- name: git installed
+  debug: msg="Successfully git installed."
+
+- name: zsh installed
+  include_tasks: chsh.yml
+
+- name: php installed
+  debug: msg="Successfully php{{ php_version }} installed."
+
+- name: composer installed
+  debug: msg="Successfully php composer installed."
+
+- name: docker installed
+  debug: msg="Please re-login to use docker command without 'sudo'."
+
+- name: docker-compose installed
+  debug: msg="Successfully docker-compose installed."

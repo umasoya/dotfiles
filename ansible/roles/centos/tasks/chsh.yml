@@ -1,0 +1,12 @@
+---
+- name: Get zsh path
+  command: which zsh
+  register: zsh_path
+
+- name: Add zsh to /etc/shells
+  become: yes
+  shell: echo {{ zsh_path.stdout }} >> /etc/shells
+
+- name: Change default login shell to zsh
+  become: yes
+  shell: chsh -s {{ zsh_path.stdout }} {{ ansible_env.USER }}

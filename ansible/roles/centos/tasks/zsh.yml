@@ -23,6 +23,7 @@
     shell: chdir=/tmp/zsh make install
     # Failed because build documents
     ignore_errors: yes
+    notify: zsh installed
 
   - name: delete repo
     file:

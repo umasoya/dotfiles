@@ -3,4 +3,4 @@
   connection: local
   roles:
    - {role: centos, when: "ansible_distribution == 'CentOS'"}
-   - {role: macosx, when: "ansible_distribution == 'MacOSX'"}
+   # - {role: macosx, when: "ansible_distribution == 'MacOSX'"}
