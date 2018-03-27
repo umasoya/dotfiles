@@ -1,6 +1,5 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: all
   roles:
    - {role: centos, when: "ansible_distribution == 'CentOS'"}
    # - {role: macosx, when: "ansible_distribution == 'MacOSX'"}
