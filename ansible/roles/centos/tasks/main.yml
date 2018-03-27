@@ -65,3 +65,13 @@
   - include_tasks: tmux.yml
     when: tmux_cmd|failed
   tags: tmux
+
+- block:
+  - name: check docker
+    command: type docker
+    register: docker_cmd
+    ignore_errors: yes
+
+  - include_tasks: docker.yml
+    when: docker_cmd|failed
+  tags: docker

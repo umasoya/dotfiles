@@ -32,6 +32,11 @@ git_depends:
 tmux_depends:
   - libevent-devel
 
+docker_depends:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+
 php:
   - php
   - php-cli

@@ -1,0 +1,33 @@
+---
+- block:
+  - name: check depends
+    become: yes
+    yum: name={{ docker_depends }} state=latest
+
+  - name: add repo
+    become: yes
+    command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+  - name: update package index
+    become: yes
+    command: yum makecache fast
+
+  - name: install docker
+    become: yes
+    yum: name="docker-ce" state=latest
+
+  - name: Put user in docker group
+    become: yes
+    command: usermod -aG docker {{ ansible_env.USER }}
+
+  - name: Get docker-compose
+    become: yes
+    get_url:
+      url: "https://github.com/docker/compose/releases/download/1.20.1/docker-compose-Linux-x86_64"
+      dest: /usr/local/bin/docker-compose
+
+  - name: Apply executable permissions to the docker-compose
+    become: yes
+    file:
+      path: /usr/local/bin/docker-compose
+      mode: "a+x"
