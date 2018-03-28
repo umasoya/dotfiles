@@ -5,7 +5,7 @@
       git_version: 2.16.2
 
   - name: remove earlier git
-    becom: yes
+    become: yes
     yum: name=git state=absent
     notify: remove earlier git
 
