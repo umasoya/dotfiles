@@ -1,3 +1,0 @@
-[submodule ".local"]
-	path = .local
-	url = https://bitbucket.org/yasuto777/dotfiles.local.git
