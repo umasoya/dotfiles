@@ -38,17 +38,9 @@ install: init deploy update ## Run make update, deploy
 init: ## Enable autostash
 	# autostash option is available Git 1.8.4 or later
 	@git config rebase.autostash true
-	@git submodule sync
-	@git submodule init
-	@git submodule update
-	# @git checkout .gitmodules
-	@git submodule sync
 
 update: ## Fetch changes for this repo
 	@git fetch
-	@git submodule init
-	@git submodule update
-	@git submodule foreach git pull origin master
 	@git rebase --autostash origin master
 
 clean: ## Unlink dotfiles
