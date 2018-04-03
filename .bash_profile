@@ -15,7 +15,7 @@ export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/dotfiles/bin
 
 # Go
-export GOPATH=$HOME/Golang
+export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 

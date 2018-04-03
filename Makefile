@@ -29,8 +29,8 @@ deploy: ## Create Symlink to home directory
 
 	@# Golang
 	@echo 'Make directory for Golang.'
-	@mkdir -p $(HOME)/Golang/{src,bin}
-	@mkdir -p ${HOME}/Golang/src/github.com/yasuto777
+	@mkdir -p $(HOME)/go/{src,bin}
+	@mkdir -p ${HOME}/go/src/github.com/yasuto777
 
 install: init deploy update ## Run make update, deploy
 	@exec $$SHELL

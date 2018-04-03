@@ -12,7 +12,6 @@ path=(
   $HOME/local/bin(N-/)
   $HOME/dotfiles/bin(N-/)
   /usr/local/lib/zsh/5.3.1/zsh(N-/)
-  /home/vagrant/.gem/ruby/gems/bundler-1.16.1/bin(N-/)
   $path
 )
 
@@ -77,7 +76,7 @@ export DOT_DIR="$HOME/dotfiles"
 export ZDOT_DIR="$HOME/dotfiles/.zsh"
 
 # {{{1 Golang
-export GOPATH="$HOME/Golang"
+export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 # }}}
