@@ -81,6 +81,7 @@
     when: docker_cmd|failed
   tags: docker
 
+# direnv
 - block:
   - name: check direnv
     command: type direnv
