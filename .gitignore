@@ -12,6 +12,7 @@
 .vim/undo
 
 .local_config/*
+.envrc
 
 .config/*
 !./config/nvim
