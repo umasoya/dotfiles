@@ -24,6 +24,7 @@
 
   tags: packages
 
+# php
 - block:
   - name: check php
     command: type php
@@ -35,6 +36,7 @@
 
   tags: php
 
+# latest version of git
 - block:
   - name: check git
     stat: path=/usr/local/bin/git
@@ -45,6 +47,7 @@
 
   tags: git
 
+# zsh
 - block:
   - name: check zsh
     shell: type zsh
@@ -56,6 +59,7 @@
 
   tags: zsh
 
+# tmux
 - block:
   - name: check tmux
     command: type tmux
@@ -66,6 +70,7 @@
     when: tmux_cmd|failed
   tags: tmux
 
+# Docker & docker-compose
 - block:
   - name: check docker
     command: type docker
@@ -75,3 +80,13 @@
   - include_tasks: docker.yml
     when: docker_cmd|failed
   tags: docker
+
+- block:
+  - name: check direnv
+    command: type direnv
+    register: direnv_cmd
+    ignore_errors: yes
+
+  - include_tasks: direnv.yml
+    when: direnv_cmd|failed
+  tags: direnv
