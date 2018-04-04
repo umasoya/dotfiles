@@ -1,39 +1,35 @@
 ---
 - block:
-  - name: Dependency resolution
+  - name: [tmux] Dependency resolution
     become: yes
     yum: name={{ tmux_depends }} state=latest
 
-  - name: set tmux_version
-    set_fact:
-      tmux_version: 2.6
+  - name: [tmux] Get the latest version
+    shell: curl {{ github_api }}/tmux/tmux/releases/latest | jq .tag_name -r
+    register: tmux_version
 
-  - name: set tmux_path
-    set_fact:
-      tmux_path: /tmp/tmux-{{ tmux_version }}
-
-  - name: download
+  - name: [tmux] Get src
     get_url:
-      url: https://github.com/tmux/tmux/releases/download/{{ tmux_version }}/tmux-{{ tmux_version }}.tar.gz
-      dest: /tmp
+      url: https://github.com/tmux/tmux/releases/download/{{ tmux_version.stdout }}/tmux-{{ tmux_version.stdout }}.tar.gz
+      dest: /tmp/tmux.tar.gz
 
-  - name: unarchive
-    command: chdir=/tmp tar zxvf tmux-{{ tmux_version }}.tar.gz
+  - name: [tmux] unarchive
+    command: chdir=/tmp tar zxvf tmux.tar.gz
 
-  - name: configure
-    command: chdir={{ tmux_path }} ./configure
+  - name: [tmux] configure
+    command: chdir=/tmp/tmux-{{ tmux_version.stdout }} ./configure
 
-  - name: make
-    command: chdir={{ tmux_path }} make
+  - name: [tmux] make
+    command: chdir=/tmp/tmux-{{ tmux_version.stdout }} make
 
-  - name: make install
+  - name: [tmux] make install
     become: yes
-    command: chdir={{ tmux_path }} make install
+    command: chdir=/tmp/tmux-{{ tmux_version.stdout }} make install
 
-  - name: clean /tmp
+  - name: [tmux] delete src
     file:
       path: "{{ item }}"
       state: absent
     with_items:
-      - "{{ tmux_path }}"
-      - "{{ tmux_path }}.tar.gz"
+      - /tmp/tmux
+      - /tmp/tmux.tar.gz

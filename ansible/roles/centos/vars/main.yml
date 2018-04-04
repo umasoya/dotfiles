@@ -45,3 +45,5 @@ php:
   - php-gd
   - php-xml
   - php-mcrypt
+
+github_api: https://api.github.com/repos
