@@ -1,32 +1,32 @@
 ---
 - block:
-  - name: [tmux] Dependency resolution
+  - name: "[tmux] Dependency resolution"
     become: yes
     yum: name={{ tmux_depends }} state=latest
 
-  - name: [tmux] Get the latest version
-    shell: curl {{ github_api }}/tmux/tmux/releases/latest | jq .tag_name -r
+  - name: "[tmux] Get the latest version"
+    shell: zsh -lc "curl {{ github_api }}/tmux/tmux/releases/latest | jq .tag_name -r"
     register: tmux_version
 
-  - name: [tmux] Get src
+  - name: "[tmux] Get src"
     get_url:
       url: https://github.com/tmux/tmux/releases/download/{{ tmux_version.stdout }}/tmux-{{ tmux_version.stdout }}.tar.gz
       dest: /tmp/tmux.tar.gz
 
-  - name: [tmux] unarchive
+  - name: "[tmux] unarchive"
     command: chdir=/tmp tar zxvf tmux.tar.gz
 
-  - name: [tmux] configure
+  - name: "[tmux] configure"
     command: chdir=/tmp/tmux-{{ tmux_version.stdout }} ./configure
 
-  - name: [tmux] make
+  - name: "[tmux] make"
     command: chdir=/tmp/tmux-{{ tmux_version.stdout }} make
 
-  - name: [tmux] make install
+  - name: "[tmux] make install"
     become: yes
     command: chdir=/tmp/tmux-{{ tmux_version.stdout }} make install
 
-  - name: [tmux] delete src
+  - name: "[tmux] delete src"
     file:
       path: "{{ item }}"
       state: absent

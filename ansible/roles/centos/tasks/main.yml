@@ -80,14 +80,3 @@
   - include_tasks: docker.yml
     when: docker_cmd|failed
   tags: docker
-
-# direnv
-- block:
-  - name: check direnv
-    command: type direnv
-    register: direnv_cmd
-    ignore_errors: yes
-
-  - include_tasks: direnv.yml
-    when: direnv_cmd|failed
-  tags: direnv

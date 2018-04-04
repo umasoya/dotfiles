@@ -15,6 +15,11 @@ zplug "stedolan/jq", \
   from:gh-r, \
   rename-to:"jq"
 
+zplug "direnv/direnv", \
+    as:command, \
+    from:gh-r, \
+    rename-to:"direnv"
+
 zplug "junegunn/fzf-bin", \
   as:command, \
   from:gh-r, \

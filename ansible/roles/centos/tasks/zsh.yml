@@ -1,31 +1,31 @@
 ---
 - block:
-  - name: clone zsh repo
+  - name: "[zsh] Get src"
     git: repo=https://github.com/zsh-users/zsh.git
       dest=/tmp/zsh
 
-  - name: check config
+  - name: "[zsh] Check config"
     stat: path=/tmp/zsh/configure
     register: zsh
 
-  - name: preconfig
+  - name: "[zsh] Preconfig"
     command: chdir=/tmp/zsh ./Util/preconfig
     when: not zsh.stat.exists
 
-  - name: configure
+  - name: "[zsh] Configure"
     shell: chdir=/tmp/zsh ./configure
 
-  - name: make
+  - name: "[zsh] Make"
     shell: chdir=/tmp/zsh make
 
-  - name: make install zsh
+  - name: "[zsh] Make install"
     become: yes
     shell: chdir=/tmp/zsh make install
     # Failed because build documents
     ignore_errors: yes
     notify: zsh installed
 
-  - name: delete repo
+  - name: "[zsh] Clean"
     file:
       path: /tmp/zsh
       state: absent

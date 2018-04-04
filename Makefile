@@ -27,21 +27,19 @@ deploy: ## Create Symlink to home directory
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
 
-	@# Golang
-	@echo 'Make directory for Golang.'
-	@mkdir -p $(HOME)/go/{src,bin}
-	@mkdir -p ${HOME}/go/src/github.com/yasuto777
-
-install: init deploy update ## Run make update, deploy
-	@exec $$SHELL
-
-init: ## Enable autostash
 	# autostash option is available Git 1.8.4 or later
 	@git config rebase.autostash true
 
-update: ## Fetch changes for this repo
-	@git fetch
-	@git rebase --autostash origin master
+	@# Golang
+	@echo 'Make directory for Golang.'
+	@mkdir -p $(HOME)/go/{src,bin}
+	@mkdir -p ${HOME}/go/src/github.com/umasoya
+
+install: deploy ansible ## Run make update, deploy
+	@exec $$SHELL
+
+ansible: ## Run ansible-playbook
+	ansible-playbook -i $(DOTPATH)/ansible/hosts.yml $(DOTPATH)/ansible/main.yml
 
 clean: ## Unlink dotfiles
 	@echo "$(RED)Clean home directory...$(RESET_COLOR)"
