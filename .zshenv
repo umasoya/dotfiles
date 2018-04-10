@@ -55,6 +55,9 @@ export GIT_EDITOR=${EDITOR}
 # Pager
 export PAGER=less
 
+# grep
+export GREP_OPTIONS='--color=auto'
+
 # {{{ ls coloring
 export LSCOLORS=gxfxcxdxbxegedabagacad
 if [ -f ~/.dircolors ]; then
