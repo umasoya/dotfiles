@@ -56,7 +56,7 @@ export GIT_EDITOR=${EDITOR}
 export PAGER=less
 
 # grep
-export GREP_OPTIONS='--color=auto'
+export GREP_OPTIONS='--color=auto -n'
 
 # {{{ ls coloring
 export LSCOLORS=gxfxcxdxbxegedabagacad
