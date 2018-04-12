@@ -30,3 +30,7 @@ ls_abbrev() {
     echo "$ls_result"
   fi
 }
+
+md() {
+    pandoc $1 -s | w3m -T text/html
+}

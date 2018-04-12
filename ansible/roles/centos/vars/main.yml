@@ -21,6 +21,7 @@ packages:
 epel_packages:
   - epel-release
   - neovim
+  - pandoc
 
 git_depends:
   - curl-devel
