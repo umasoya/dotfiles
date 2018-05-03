@@ -1,6 +1,6 @@
 # Common gitconfig on local
 [core]
-	excludesfile = $HOME/configs/.gitinore
+	excludesfile = ~/.gitignore
 [push]
 	default = simple
 [color]

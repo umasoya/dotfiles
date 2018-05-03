@@ -1,18 +1,9 @@
 # If add an exception, put a BOL "!"
 
-.DS_Store
-*.swp
-*~
-/tmp
-*.log
-
 .vim/dein.vim
 .vim/doc/tags
 .vim/tmp
 .vim/undo
-
-.local_config/*
-.envrc
 
 .config/*
 !./config/nvim

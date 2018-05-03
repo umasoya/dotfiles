@@ -1,7 +1,5 @@
 [credential]
 	helper = osxkeychain
-[core]
-	excludesfile = ~/.gitignore
 [color]
 	ui = auto
 [push]

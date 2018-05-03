@@ -1,7 +1,8 @@
-# Common gitignore configs on Local
-*.tmp
-*.bak
+# If add an exception, put a BOL "!"
+
+.DS_Store
 *.swp
-tmp/
-temp/
-local/
+*~
+*.log
+.curl.conf
+.envrc

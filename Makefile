@@ -1,8 +1,8 @@
 # vim: noexpandtab ft=make
 DOTPATH     := $(realpath $(HOME)/dotfiles)
 CANDIDATES  := $(wildcard .??*)
-EXCLUSIONS  := .DS_Store .git .gitconfig
-ADDITIONALS := etc/.gitconfig
+EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules
+ADDITIONALS := etc/.gitconfig etc/.gitignore
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 # colors
