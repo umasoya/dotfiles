@@ -103,12 +103,12 @@ nnoremap <C-P> :call PhpDocSingle()<CR>
 vnoremap <C-P> :call PhpDocRange()<CR>
 '''
 hook_post_source = '''
-let g:pdv_cfg_Type = "mixed"
-let g:pdv_cfg_Package = ""
-let g:pdv_cfg_Version = ""
-let g:pdv_cfg_Author = ""
+let g:pdv_cfg_Type      = "mixed"
+let g:pdv_cfg_Package   = ""
+let g:pdv_cfg_Version   = ""
+let g:pdv_cfg_Author    = ""
 let g:pdv_cfg_Copyright = ""
-let g:pdv_cfg_License = ""
+let g:pdv_cfg_License   = ""
 '''
 
 [[plugins]]
@@ -140,11 +140,18 @@ repo = 'blueyed/smarty.vim'
 on_ft = ['smarty']
 
 # --------------------------------------------------------------------------#
+# ejs
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'nikvdp/ejs-syntax'
+on_ft = ['ejs']
+
+# --------------------------------------------------------------------------#
 # SQL
 # --------------------------------------------------------------------------#
-[[plugins]] # sql syntax
-repo = 'shmup/vim-sql-syntax'
-on_ft = ['sql']
+#[[plugins]] # sql syntax
+#repo = 'shmup/vim-sql-syntax'
+#on_ft = ['sql']
 
 # --------------------------------------------------------------------------#
 # toml
