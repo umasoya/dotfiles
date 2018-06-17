@@ -79,7 +79,6 @@ export DOT_DIR="$HOME/dotfiles"
 export ZDOT_DIR="$HOME/dotfiles/.zsh"
 
 # {{{1 Golang
-export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 # }}}
