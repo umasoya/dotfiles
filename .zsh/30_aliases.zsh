@@ -11,6 +11,8 @@ fi
 alias la='ls -a'
 alias ll='ls -l'
 
+alias grep='grep --color=auto -n'
+
 if (( $+commands[nvim] )); then
     alias vi='nvim'
     alias nv='nvim'
