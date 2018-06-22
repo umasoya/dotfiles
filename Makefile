@@ -4,6 +4,7 @@ CANDIDATES  := $(wildcard .??*)
 EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules
 ADDITIONALS := etc/.gitconfig etc/.gitignore
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
+DIRCOLORS   = .dircolors
 
 # colors
 BLACK       := \e[30m
@@ -49,3 +50,10 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+dircolor:
+	@if [ $(IS_LINUX) && "$(DIST)"=="Ubuntu" ]; then\
+		echo "Linux && Ubuntu";\
+	else\
+		echo "Not Linux Or Not Ubuntu";\
+	fi
