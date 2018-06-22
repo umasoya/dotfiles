@@ -4,7 +4,7 @@ CANDIDATES  := $(wildcard .??*)
 EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules
 ADDITIONALS := etc/.gitconfig etc/.gitignore
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
-DIRCOLORS   = .dircolors
+DIRCOLORS   := .dircolors
 
 # colors
 BLACK       := \e[30m
@@ -28,6 +28,9 @@ deploy: ## Create Symlink to home directory
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
 
+	# call dircolors
+	@make dircolors
+
 	# autostash option is available Git 1.8.4 or later
 	@git config rebase.autostash true
 
@@ -35,6 +38,13 @@ deploy: ## Create Symlink to home directory
 	@echo 'Make directory for Golang.'
 	@mkdir -p $(HOME)/go/{src,bin}
 	@mkdir -p ${HOME}/go/src/github.com/umasoya
+
+dircolors: ## Create symlink .dircolors
+	@if [ $(IS_LINUX) ] && [ "$(DIST)"=="Ubuntu" ]; then\
+		ln -sfnv $(abspath $(addsuffix _wsl, $(DIRCOLORS))) $(HOME)/$(DIRCOLORS);\
+	else\
+		ln -sfnv $(abspath $(DIRCOLORS)) $(HOME)/$(DIRCOLORS);\
+	fi
 
 install: deploy ansible ## Run make update, deploy
 	@exec $$SHELL
@@ -50,10 +60,3 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-dircolor:
-	@if [ $(IS_LINUX) && "$(DIST)"=="Ubuntu" ]; then\
-		echo "Linux && Ubuntu";\
-	else\
-		echo "Not Linux Or Not Ubuntu";\
-	fi
