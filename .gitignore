@@ -6,5 +6,5 @@
 .vim/undo
 
 .config/*
-!./config/nvim
-!./config/multitail
+!.config/nvim
+!.config/multitail
