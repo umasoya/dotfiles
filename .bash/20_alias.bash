@@ -5,7 +5,12 @@ alias ls='ls -CF'
 alias ls='ls --color=auto'
 alias la='ls -a'
 
-alias vi='vim'
+if type "nvim" > /dev/null 2>&1; then
+  alias vi='nvim'
+else
+  alias vi='vim'
+fi
+
 alias vw='view'
 
 cdls(){
