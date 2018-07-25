@@ -125,6 +125,17 @@ let g:Tlist_Exit_OnlyWindow = 1
 map <silent> <leader>t :TlistToggle<CR>
 '''
 
+[[plugins]]
+repo = 'jwalton512/vim-blade'
+on_ft = ['blade']
+hook_add = '''
+let g:blade_custom_directives = ['datetime', 'javascript']
+let g:blade_custom_directives_pairs = {
+      \   'markdown': 'endmarkdown',
+      \   'cache': 'endcache',
+      \ }
+'''
+
 # --------------------------------------------------------------------------#
 # Python
 # --------------------------------------------------------------------------#

@@ -1,5 +1,6 @@
 augroup filetypedetect
   au BufRead,BufNewFile *.php setfiletype php
+  au BufRead,BufNewFile *.blade.php setfiletype blade
   au BufRead,BufNewFile *.rb setfiletype ruby
   au BufRead,BufNewFile *.vim setfiletype vim
   au BufRead,BufNewFile *.js setfiletype javascript
