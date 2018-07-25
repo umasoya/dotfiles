@@ -1,3 +1,11 @@
+# When used Chrome OS, run zsh
+if [ -f /etc/os-release ]; then
+	destribution=`awk -F= NR==2{print\ $2} /etc/os-release`
+	if [ "${destribution}"="Chrome OS" ]; then
+		exec /usr/local/bin/zsh
+	fi
+fi
+
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
