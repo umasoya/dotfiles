@@ -1,7 +1,7 @@
 # When used Chrome OS, run zsh
 if [ -f /etc/os-release ]; then
 	destribution=`awk -F= NR==2{print\ $2} /etc/os-release`
-	if [ "${destribution}"="Chrome OS" ]; then
+	if [ "${destribution}"="Chrome OS" ] && [ -f /usr/local/bin/zsh ]; then
 		exec /usr/local/bin/zsh
 	fi
 fi
