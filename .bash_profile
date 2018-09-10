@@ -1,3 +1,6 @@
+export DOT_DIR="$HOME/dotfiles"
+export BDOT_DIR="$HOME/dotfiles/.bash"
+
 # {{{1 When used ChromeOS and installed zsh, run zsh
 if [[ -f /etc/os-release ]]; then
     destribution=`awk -F= NR==2{print\ $2} /etc/os-release`
@@ -7,21 +10,27 @@ if [[ -f /etc/os-release ]]; then
 fi
 # }}}
 
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
-fi
-
+# nvim
 export XDG_CONFIG_HOME=$HOME/.config
 
-export EDITOR=vim
-export GIT_EDITOR=vim
+# {{{1 Editor
+if type nvim; then
+    EDITOR=nvim
+elif type vim; then
+    EDITOR=vim
+else
+    EDITOR=vi
+fi
+export EDITOR=$EDITOR
+export GIT_EDITOR=$EDITOR
 export PAGER=less
+# }}}
 
-# User specific environment and startup programs
+# {{{1 User specific environment and startup programs
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/dotfiles/bin
+# }}}
 
 # {{{1 Golang
 export GOPATH="$HOME/go"
