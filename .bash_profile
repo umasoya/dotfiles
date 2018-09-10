@@ -1,10 +1,11 @@
-# When used Chrome OS, run zsh
-if [ -f /etc/os-release ]; then
-	destribution=`awk -F= NR==2{print\ $2} /etc/os-release`
-	if [ "${destribution}"="Chrome OS" ] && [ -f /usr/local/bin/zsh ]; then
-		exec /usr/local/bin/zsh
-	fi
+# {{{1 When used ChromeOS and installed zsh, run zsh
+if [[ -f /etc/os-release ]]; then
+    destribution=`awk -F= NR==2{print\ $2} /etc/os-release`
+    if [[ "${destribution}" = "Chrome OS" ]] && type zsh; then
+        exec zsh
+    fi
 fi
+# }}}
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
@@ -22,20 +23,25 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/dotfiles/bin
 
-# Go
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
+# {{{1 Golang
+export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
+export PATH="$GOBIN:$PATH"
+# }}}
 
-# Ruby
-if [[ -d $HOME/.rbenv ]] && type ruby >/dev/null 2>&1
-then
-  export PATH=$PATH:$HOME/.rbenv/bin
-  eval "$(rbenv init -)"
+# {{{1 Python
+if [[ ! -d $HOME/.pyenv ]]; then
+    git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
 fi
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+# }}}
 
-# w3m
-if type w3m > /dev/null 2>&1
-then
-  export HTTP_HOME="google.com"
+# {{{1 nvm
+if [[ ! -d $HOME/.nvm ]]; then
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | PROFILE=/dev/null bash
 fi
+export NVM_DIR="$HOME/.nvm"
+[[ -s $NVM_DIR/nvm.sh ]] && \. "NVM_DIR/nvm.sh"
+# }}}
