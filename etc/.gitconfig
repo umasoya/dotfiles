@@ -7,5 +7,7 @@
 	ui = auto
 [branch]
     autosetuprebase = always
+[user]
+    useConfigOnly = true
 [ghq]
     root = ~/repos/src
