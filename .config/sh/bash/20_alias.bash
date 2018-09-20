@@ -5,13 +5,13 @@ alias ls='ls -CF'
 alias ls='ls --color=auto'
 alias la='ls -a'
 
-if type "nvim" > /dev/null 2>&1; then
-  alias vi='nvim'
-else
-  alias vi='vim'
+if type nvim > /dev/null 2>&1; then
+  alias vi=nvim
+elif type vim > /dev/null 2>&1; then
+  alias vi=vim
 fi
 
-alias vw='view'
+alias vw=view
 
 cdls(){
   \cd "$@" && la

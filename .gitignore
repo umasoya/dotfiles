@@ -8,3 +8,4 @@
 .config/*
 !.config/nvim
 !.config/multitail
+!.config/sh
