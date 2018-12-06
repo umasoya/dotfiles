@@ -1,3 +1,7 @@
+#
+# Already loaded plugins
+#
+
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -10,10 +14,6 @@ repo = 'Shougo/context_filetype.vim'
 
 [[plugins]] # Required +python module
 repo = 'editorconfig/editorconfig-vim'
-
-#[[plugins]]
-#repo = 'thinca/vim-splash'
-#hook_add = 'let g:splash#path = expand("$HOME/dotfiles/.vim/splash")'
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
@@ -52,7 +52,7 @@ hook_add = '''
   " autorun vim-indent-guide
   let g:indent_guides_enable_on_vim_startup = 1
   " disable auto-colors
-  let g:indent_guides_auto_colors=0
+  let g:indent_guides_auto_colors = 0
   " set guide size
   let g:indent_guides_guide_size = 2
   " set bg color Odd
@@ -119,5 +119,8 @@ hook_add = '''
 let g:sonictemplate_vim_template_dir = '~/.vim/template'
 '''
 
-[[plugins]]
+[[plugins]] # git diff in the gutter
 repo = 'airblade/vim-gitgutter'
+
+[[plugins]] #Stop making a file named like "hello.txt]" (extra character at the end!).
+repo = 'tyru/stoptypofile.vim'
