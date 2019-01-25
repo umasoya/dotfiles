@@ -1,8 +1,8 @@
 # vim: noexpandtab ft=make
 DOTPATH     := $(realpath $(HOME)/dotfiles)
 CANDIDATES  := $(wildcard .??*)
-EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules
-ADDITIONALS := etc/.gitconfig etc/.gitignore
+EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules .config
+ADDITIONALS := etc/.gitconfig etc/.gitignore .config/sh .config/nvim
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 DIRCOLORS   := .dircolors
 
@@ -26,13 +26,16 @@ list: ## Show dotfiles in this repo
 deploy: ## Create Symlink to home directory
 	@echo -e "$(GREEN)Create symlinks in your home directory.$(RESET_COLOR)"
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+
+	@if [ ! -d $(HOME)/.config ]; then\
+		@echo -e "$(YELLOW)Create .config directory in your home directory.$(RESET_COLOR)"
+		@mkdir $(HOME)/.config; \
+	fi
+
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
 
 	# call dircolors
 	@make dircolors
-
-	# autostash option is available Git 1.8.4 or later
-	@git config rebase.autostash true
 
 	@# Golang
 	@echo 'Make directory for Golang.'
@@ -46,15 +49,13 @@ dircolors: ## Create symlink .dircolors
 		ln -sfnv $(abspath $(DIRCOLORS)) $(HOME)/$(DIRCOLORS);\
 	fi
 
-install: deploy ansible ## Run make update, deploy
+install: deploy ## Run make update, deploy
 	@exec $$SHELL
 
-ansible: ## Run ansible-playbook
-	ansible-playbook -i $(DOTPATH)/ansible/hosts.yml $(DOTPATH)/ansible/main.yml
-
 clean: ## Unlink dotfiles
-	@echo "$(RED)Clean home directory...$(RESET_COLOR)"
+	@echo -e "$(RED)Clean home directory...$(RESET_COLOR)"
 	@-$(foreach val, $(DOTFILES), unlink $(HOME)/$(val);)
+	@-$(foreach val, $(ADDITIONALS), unlink $(HOME)/$(val);)
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
