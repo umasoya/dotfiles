@@ -2,7 +2,8 @@
 DOTPATH     := $(realpath $(HOME)/dotfiles)
 CANDIDATES  := $(wildcard .??*)
 EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules .config
-ADDITIONALS := etc/.gitconfig etc/.gitignore .config/sh .config/nvim
+ADDITIONALS := etc/.gitconfig etc/.gitignore
+CONFIGS		:= .config/sh .config/nvim
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 DIRCOLORS   := .dircolors
 
@@ -28,11 +29,12 @@ deploy: ## Create Symlink to home directory
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
 	@if [ ! -d $(HOME)/.config ]; then\
-		@echo -e "$(YELLOW)Create .config directory in your home directory.$(RESET_COLOR)"
+		@echo "$(YELLOW)Create .config directory in your home directory.$(RESET_COLOR)" \
 		@mkdir $(HOME)/.config; \
 	fi
 
 	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
+	@$(foreach val, $(CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
 	# call dircolors
 	@make dircolors
@@ -53,7 +55,7 @@ install: deploy ## Run make update, deploy
 	@exec $$SHELL
 
 clean: ## Unlink dotfiles
-	@echo -e "$(RED)Clean home directory...$(RESET_COLOR)"
+	@echo "$(RED)Clean home directory...$(RESET_COLOR)"
 	@-$(foreach val, $(DOTFILES), unlink $(HOME)/$(val);)
 	@-$(foreach val, $(ADDITIONALS), unlink $(HOME)/$(val);)
 
