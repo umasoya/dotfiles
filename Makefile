@@ -39,11 +39,6 @@ deploy: ## Create Symlink to home directory
 	# call dircolors
 	@make dircolors
 
-	@# Golang
-	@echo 'Make directory for Golang.'
-	@mkdir -p $(HOME)/go/{src,bin}
-	@mkdir -p ${HOME}/go/src/github.com/umasoya
-
 dircolors: ## Create symlink .dircolors
 	@if [ $(IS_LINUX) ] && [ "$(DIST)"=="Ubuntu" ]; then\
 		ln -sfnv $(abspath $(addsuffix _wsl, $(DIRCOLORS))) $(HOME)/$(DIRCOLORS);\
