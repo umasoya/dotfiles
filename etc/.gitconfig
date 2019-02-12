@@ -19,5 +19,5 @@
     cho = checkout
     aa = add .
     au = add -u
-    reseth = reset --hard
+    rh = reset --hard
     f = fetch
