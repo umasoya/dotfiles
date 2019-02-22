@@ -124,3 +124,37 @@ repo = 'airblade/vim-gitgutter'
 
 [[plugins]] #Stop making a file named like "hello.txt]" (extra character at the end!).
 repo = 'tyru/stoptypofile.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_i = 1
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case =1
+let g:deoplete#max_list = 50
+let g:deoplete#source#attribute#min_pattern_length = 3
+
+setlocal dictionary+=$HOME/dotfiles/.vim/dicts/php.dict
+setlocal dictionary+=$HOME/dotfiles/.vim/dicts/ruby.dict
+call deoplete#custom#source(
+            \ 'dictionary', 'php', ['php'])
+
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "\<CR>")
+endfunction
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+'''
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+depends = ['deoplete.nvim']

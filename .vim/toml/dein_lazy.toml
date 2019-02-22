@@ -143,6 +143,10 @@ let g:blade_custom_directives_pairs = {
 repo = 'davidhalter/jedi-vim'
 on_ft = ['python']
 
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = ['python']
+
 # --------------------------------------------------------------------------#
 # Smarty
 # --------------------------------------------------------------------------#
