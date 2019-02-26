@@ -54,13 +54,13 @@ hook_add = '''
   " disable auto-colors
   let g:indent_guides_auto_colors = 0
   " set guide size
-  let g:indent_guides_guide_size = 2
+  let g:indent_guides_guide_size = 0
   " set bg color Odd
   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
   " set bg color Even
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=16
   " set guide start revel
-  let g:indent_guides_start_level = 2
+  let g:indent_guides_start_level = 1
 '''
 
 [[plugins]] # brackets
@@ -86,14 +86,9 @@ repo = 'jiangmiao/auto-pairs'
 [[plugins]]
 repo = 'junegunn/vim-emoji'
 
+# enable to increment dates, times, and more
 [[plugins]]
 repo = 'tpope/vim-speeddating'
-
-[[plugins]] # dummy-data generator :fake#gen({keyname})
-repo = 'tkhren/vim-fake'
-
-[[plugins]]
-repo = 'lilydjwg/colorizer'
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
@@ -108,15 +103,6 @@ xmap ga <Plug>(EasyAlign)
 " Start EasyAlign cmd *ga*
 " Align around*=*
 nmap ga <Plug>(EasyAlign)
-'''
-
-[[plugins]] # check http status
-repo = 'mattn/httpstatus-vim'
-
-[[plugins]]
-repo = 'mattn/sonictemplate-vim'
-hook_add = '''
-let g:sonictemplate_vim_template_dir = '~/.vim/template'
 '''
 
 [[plugins]] # git diff in the gutter
@@ -158,3 +144,44 @@ depends = ['deoplete.nvim']
 [[plugins]]
 repo = 'ujihisa/neco-look'
 depends = ['deoplete.nvim']
+
+# vim-lsp
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+depends = ['async.vim']
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+hook_add = '''
+" tab completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+" force refresh completion
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+
+let g:asyncomplete_auto_popup = 0
+" To enable fuzzy smart completion
+let g:asyncomplete_smart_completion = 1
+" remove duplicates
+let g:asyncomplete_remove_duplicates = 1
+
+" To auto close preview window when completion is done
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" tab to show the autocomplete
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+'''
