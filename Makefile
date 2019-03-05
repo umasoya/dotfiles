@@ -40,11 +40,7 @@ deploy: ## Create Symlink to home directory
 	@make dircolors
 
 dircolors: ## Create symlink .dircolors
-	@if [ $(IS_LINUX) ] && [ "$(DIST)"=="Ubuntu" ]; then\
-		ln -sfnv $(abspath $(addsuffix _wsl, $(DIRCOLORS))) $(HOME)/$(DIRCOLORS);\
-	else\
-		ln -sfnv $(abspath $(DIRCOLORS)) $(HOME)/$(DIRCOLORS);\
-	fi
+	@ln -sfnv $(abspath $(DIRCOLORS)) $(HOME)/$(DIRCOLORS);\
 
 install: deploy ## Run make update, deploy
 	@exec $$SHELL
