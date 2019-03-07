@@ -8,6 +8,9 @@ all: bash docker go php yaml ;
 bash:
 	@npm i -g bash-language-server
 
+css:
+	@npm i -g vscode-css-languageserver-bin
+
 docker:
 	@npm i -g dockerfile-language-server-nodejs
 

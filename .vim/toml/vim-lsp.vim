@@ -28,6 +28,18 @@ if &ft == 'sh'
 endif
 " }}}
 
+" {{{2 css
+if &ft == 'css' || &ft == 'sass' || &ft == 'scss' || &ft == 'less'
+    if executable('css-languageserver')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'css-languageserver',
+            \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver', '--stdio']}
+            \ 'whitelist': ['css', 'sass', 'scss', 'less'],
+        })
+    endif
+endif
+" }}}
+
 " {{{2 docker
 if &ft == 'dockerfile'
     if executable('docker-langserver')
