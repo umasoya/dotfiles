@@ -1,10 +1,11 @@
-" signs
+"{{{1 signs
 let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 
 let g:lsp_signs_error = {'text': '☒'}
 let g:lsp_signs_warning = {'text': '‼'}
 let g:lsp_signs_hint = {'text': '>'}
+" }}}
 
 " {{{1 debug
 let g:lsp_log_verbose = 1
@@ -13,8 +14,9 @@ let g:lsp_log_file = expand('/tmp/vim-lsp.log')
 let g:asyncomplete_log_file = expand('/tmp/asyncomplete.log')
 " }}}
 
+" {{{1 language server configurations
 
-" bash
+" {{{2 bash
 if executable('bash-language-server')
   au User lsp_setup call lsp#register_server({
     \ 'name': 'bash-language-server',
@@ -22,8 +24,9 @@ if executable('bash-language-server')
     \ 'whitelist': ['sh'],
     \ })
 endif
+" }}}
 
-" docker
+" {{{2 docker
 if executable('docker-langserver')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'docker-langserver',
@@ -31,8 +34,9 @@ if executable('docker-langserver')
         \ 'whitelist': ['dockerfile'],
         \ })
 endif
+" }}}
 
-" go
+" {{{2 go
 if executable('go-langserver')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'go-langserver',
@@ -40,9 +44,9 @@ if executable('go-langserver')
         \ 'whitelist': ['go'],
         \ })
 endif
+" }}}
 
-
-" PHP
+" {{{2 PHP
 if executable('php-language-server')
     au User lsp_setup call lsp#register_server({
          \ 'name': 'php-language-server',
@@ -57,8 +61,9 @@ if executable('intelephense')
          \ 'whitelist': ['php'],
          \ })
 endif
+" }}}
 
-" yaml
+" {{{2 yaml
 if executable('yaml-language-server')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'yaml-language-server',
@@ -66,3 +71,6 @@ if executable('yaml-language-server')
         \ 'whitelist': ['yaml'],
         \ })
 endif
+" }}}
+
+" }}}
