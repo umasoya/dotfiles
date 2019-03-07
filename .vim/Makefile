@@ -14,6 +14,9 @@ docker:
 go:
 	@go get -u github.com/sourcegraph/go-langserver
 
+javascript:
+	@npm i -g typescript typescript-language-server
+
 php:
 	@composer global require jetbrains/phpstorm-stubs:dev-master
 	@composer global require felixfbecker/language-server

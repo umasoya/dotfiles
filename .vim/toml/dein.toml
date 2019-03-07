@@ -93,8 +93,5 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 '''
 
-[[plugins]] # git diff in the gutter
-repo = 'airblade/vim-gitgutter'
-
 [[plugins]] #Stop making a file named like "hello.txt]" (extra character at the end!).
 repo = 'tyru/stoptypofile.vim'

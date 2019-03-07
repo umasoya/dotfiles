@@ -52,6 +52,18 @@ if &ft == 'go'
 endif
 " }}}
 
+" {{{2 javascript
+if &ft == 'javascript'
+    if executable('typescript-language-server')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'javascript support using typescript-language-server',
+            \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server', '--stdio']},
+            \ 'whitelist': ['javascript', 'javascript.jsx'],
+            \ })
+    endif
+endif
+"" }}}
+
 " {{{2 PHP
 if &ft == 'php'
     if executable('php-language-server')

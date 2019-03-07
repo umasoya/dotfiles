@@ -30,10 +30,6 @@ repo = 'hotwatermorning/auto-git-diff'
 # Javascript
 # --------------------------------------------------------------------------#
 [[plugins]]
-repo = 'moll/vim-node'
-on_ft = ['javascript']
-
-[[plugins]]
 repo = 'jelera/vim-javascript-syntax'
 on_ft = ['javascript']
 
@@ -72,17 +68,13 @@ on_ft = ['nginx']
 # --------------------------------------------------------------------------#
 # PHP
 # --------------------------------------------------------------------------#
-# [[plugins]]
-# repo = 'flyinshadow/php_localvarcheck.vim'
-# on_ft = ['php']
-# hook_add = '''
-#   let g:php_localvarcheck_enable = 1
-#   let g:php_localvarcheck_global = 0
-# '''
-# [[plugins]]
-# repo = 'stephpy/vim-php-cs-fixer'
-# on_ft = ['php']
-# 
+[[plugins]]
+repo = 'flyinshadow/php_localvarcheck.vim'
+on_ft = ['php']
+hook_add = '''
+  let g:php_localvarcheck_enable = 1
+  let g:php_localvarcheck_global = 0
+'''
 
 # --------------------------------------------------------------------------#
 # Python
