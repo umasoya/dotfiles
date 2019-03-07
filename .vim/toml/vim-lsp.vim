@@ -1,3 +1,19 @@
+" signs
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+
+let g:lsp_signs_error = {'text': '☒'}
+let g:lsp_signs_warning = {'text': '‼'}
+let g:lsp_signs_hint = {'text': '>'}
+
+" {{{1 debug
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('/tmp/vim-lsp.log')
+" for asyncomplete.vim log
+let g:asyncomplete_log_file = expand('/tmp/asyncomplete.log')
+" }}}
+
+
 " bash
 if executable('bash-language-server')
   au User lsp_setup call lsp#register_server({
@@ -37,8 +53,7 @@ endif
 if executable('intelephense')
     au User lsp_setup call lsp#register_server({
          \ 'name': 'intelephense',
-         \ 'cmd': {server_info->['intelephense', '--stdio']},
-         \ 'initialization_options': {"storagePath": "/tmp/intelephence"},
+         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'intelephense', '--stdio']},
          \ 'whitelist': ['php'],
          \ })
 endif
