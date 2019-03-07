@@ -72,63 +72,17 @@ on_ft = ['nginx']
 # --------------------------------------------------------------------------#
 # PHP
 # --------------------------------------------------------------------------#
-[[plugins]] # Read PHP manual on vim
-repo = 'alvan/vim-php-manual'
-on_ft = ['php']
-
-[[plugins]]
-repo = 'flyinshadow/php_localvarcheck.vim'
-on_ft = ['php']
-hook_add = '''
-  let g:php_localvarcheck_enable = 1
-  let g:php_localvarcheck_global = 0
-'''
-
-[[plugins]]
-repo = 'shawncplus/phpcomplete.vim'
-on_ft = 'php'
-
-[[plugins]] # Generate PHP document blocks
-repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
-on_ft = ['php']
-hook_add = '''
-inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
-nnoremap <C-P> :call PhpDocSingle()<CR>
-vnoremap <C-P> :call PhpDocRange()<CR>
-'''
-hook_post_source = '''
-let g:pdv_cfg_Type      = "mixed"
-let g:pdv_cfg_Package   = ""
-let g:pdv_cfg_Version   = ""
-let g:pdv_cfg_Author    = ""
-let g:pdv_cfg_Copyright = ""
-let g:pdv_cfg_License   = ""
-'''
-
-[[plugins]]
-repo = 'stephpy/vim-php-cs-fixer'
-on_ft = ['php']
-
-[[plugins]]
-repo ='vim-scripts/taglist.vim'
-on_ft = ['php']
-hook_add = '''
-let g:Tlist_Show_One_File = 1
-let g:Tlist_Use_Right_Window = 1
-let g:Tlist_Exit_OnlyWindow = 1
-map <silent> <leader>t :TlistToggle<CR>
-'''
-
-[[plugins]]
-repo = 'jwalton512/vim-blade'
-on_ft = ['blade']
-hook_add = '''
-let g:blade_custom_directives = ['datetime', 'javascript']
-let g:blade_custom_directives_pairs = {
-      \   'markdown': 'endmarkdown',
-      \   'cache': 'endcache',
-      \ }
-'''
+# [[plugins]]
+# repo = 'flyinshadow/php_localvarcheck.vim'
+# on_ft = ['php']
+# hook_add = '''
+#   let g:php_localvarcheck_enable = 1
+#   let g:php_localvarcheck_global = 0
+# '''
+# [[plugins]]
+# repo = 'stephpy/vim-php-cs-fixer'
+# on_ft = ['php']
+# 
 
 # --------------------------------------------------------------------------#
 # Python

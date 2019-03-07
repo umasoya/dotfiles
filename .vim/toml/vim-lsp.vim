@@ -25,6 +25,24 @@ if executable('go-langserver')
         \ })
 endif
 
+
+" PHP
+if executable('php-language-server')
+    au User lsp_setup call lsp#register_server({
+         \ 'name': 'php-language-server',
+         \ 'cmd': {server_info->['php', 'php-language-server']},
+         \ 'whitelist': ['php'],
+         \ })
+endif
+if executable('intelephense')
+    au User lsp_setup call lsp#register_server({
+         \ 'name': 'intelephense',
+         \ 'cmd': {server_info->['intelephense', '--stdio']},
+         \ 'initialization_options': {"storagePath": "/tmp/intelephence"},
+         \ 'whitelist': ['php'],
+         \ })
+endif
+
 " yaml
 if executable('yaml-language-server')
     au User lsp_setup call lsp#register_server({

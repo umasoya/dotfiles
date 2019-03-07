@@ -1,9 +1,9 @@
 # vim: noexpandtab ft=make
+COMPOSER_PATH := $(realpath $(HOME)/.config/composer/vendor)
 
 .PHONY: all
 
-all: bash docker go yaml ;
-	@echo 'hoge'
+all: bash docker go php yaml ;
 
 bash:
 	@npm i -g bash-language-server
@@ -17,7 +17,9 @@ go:
 php:
 	@composer global require jetbrains/phpstorm-stubs:dev-master
 	@composer global require felixfbecker/language-server
-	@composer run-script --working-dir=${HOME}/.config/composer/vendor/felixfbecker/language-server parse-stubs
+	@composer run-script --working-dir=$(COMPOSER_PATH)/felixfbecker/language-server parse-stubs
+	@mv $(COMPOSER_PATH)/bin/php-language-server.php $(COMPOSER_PATH)/bin/php-language-server
+	@npm i -g intelephense
 
 yaml:
 	@npm i -g yaml-language-server
