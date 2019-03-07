@@ -2,7 +2,7 @@
 
 .PHONY: all
 
-all: bash docker yaml ;
+all: bash docker go yaml ;
 	@echo 'hoge'
 
 bash:
@@ -10,6 +10,9 @@ bash:
 
 docker:
 	@npm i -g dockerfile-language-server-nodejs
+
+go:
+	@go get -u github.com/sourcegraph/go-langserver
 
 yaml:
 	@npm i -g yaml-language-server

@@ -16,6 +16,15 @@ if executable('docker-langserver')
         \ })
 endif
 
+" go
+if executable('go-langserver')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'go-langserver',
+        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion', '-lint-tool', 'golint']},
+        \ 'whitelist': ['go'],
+        \ })
+endif
+
 " yaml
 if executable('yaml-language-server')
     au User lsp_setup call lsp#register_server({
