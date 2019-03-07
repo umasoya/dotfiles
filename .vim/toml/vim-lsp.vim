@@ -17,59 +17,69 @@ let g:asyncomplete_log_file = expand('/tmp/asyncomplete.log')
 " {{{1 language server configurations
 
 " {{{2 bash
-if executable('bash-language-server')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'bash-language-server',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
-    \ 'whitelist': ['sh'],
-    \ })
+if &ft == 'sh'
+    if executable('bash-language-server')
+      au User lsp_setup call lsp#register_server({
+        \ 'name': 'bash-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+        \ 'whitelist': ['sh'],
+        \ })
+    endif
 endif
 " }}}
 
 " {{{2 docker
-if executable('docker-langserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'docker-langserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
-        \ 'whitelist': ['dockerfile'],
-        \ })
+if &ft == 'dockerfile'
+    if executable('docker-langserver')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'docker-langserver',
+            \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
+            \ 'whitelist': ['dockerfile'],
+            \ })
+    endif
 endif
 " }}}
 
 " {{{2 go
-if executable('go-langserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'go-langserver',
-        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion', '-lint-tool', 'golint']},
-        \ 'whitelist': ['go'],
-        \ })
+if &ft == 'go'
+    if executable('go-langserver')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'go-langserver',
+            \ 'cmd': {server_info->['go-langserver', '-gocodecompletion', '-lint-tool', 'golint']},
+            \ 'whitelist': ['go'],
+            \ })
+    endif
 endif
 " }}}
 
 " {{{2 PHP
-if executable('php-language-server')
-    au User lsp_setup call lsp#register_server({
-         \ 'name': 'php-language-server',
-         \ 'cmd': {server_info->['php', 'php-language-server']},
-         \ 'whitelist': ['php'],
-         \ })
-endif
-if executable('intelephense')
-    au User lsp_setup call lsp#register_server({
-         \ 'name': 'intelephense',
-         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'intelephense', '--stdio']},
-         \ 'whitelist': ['php'],
-         \ })
+if &ft == 'php'
+    if executable('php-language-server')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'php-language-server',
+            \ 'cmd': {server_info->['php', 'php-language-server']},
+            \ 'whitelist': ['php'],
+            \ })
+    endif
+    if executable('intelephense')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'intelephense',
+            \ 'cmd': {server_info->[&shell, &shellcmdflag, 'intelephense', '--stdio']},
+            \ 'whitelist': ['php'],
+            \ })
+    endif
 endif
 " }}}
 
 " {{{2 yaml
-if executable('yaml-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'yaml-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'yaml-language-server --stdio']},
-        \ 'whitelist': ['yaml'],
-        \ })
+if &ft == 'yaml'
+    if executable('yaml-language-server')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'yaml-language-server',
+            \ 'cmd': {server_info->[&shell, &shellcmdflag, 'yaml-language-server --stdio']},
+            \ 'whitelist': ['yaml'],
+            \ })
+    endif
 endif
 " }}}
 
