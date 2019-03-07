@@ -33,7 +33,6 @@ repo = 'ujihisa/neco-look'
 depends = ['deoplete.nvim']
 
 
-
 [[plugins]]
 repo = 'prabirshrestha/async.vim'
 
@@ -45,9 +44,6 @@ source ~/.vim/toml/vim-lsp.vim
 '''
 
 [[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-
-[[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
 hook_add = '''
 " tab completion
@@ -57,7 +53,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " force refresh completion
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 
-let g:asyncomplete_auto_popup = 0
+let g:asyncomplete_auto_popup = 1
 " To enable fuzzy smart completion
 let g:asyncomplete_smart_completion = 1
 " remove duplicates
@@ -78,3 +74,7 @@ inoremap <silent><expr> <TAB>
   \ asyncomplete#force_refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+depends = ['asyncomplete.vim', 'vim-lsp']
