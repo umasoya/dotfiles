@@ -3,7 +3,7 @@ DOTPATH     := $(realpath $(HOME)/dotfiles)
 CANDIDATES  := $(wildcard .??*)
 EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules .config
 ADDITIONALS := etc/.gitconfig etc/.gitignore
-CONFIGS		:= .config/sh .config/nvim
+CONFIGS		:= .config/sh .config/nvim/colors .config/nvim/init.vim
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 DIRCOLORS   := .dircolors
 
