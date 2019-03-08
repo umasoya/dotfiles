@@ -21,13 +21,10 @@ add-zsh-hook precmd _refresh_rprompt
 
 # {{{1 prompt
 # Change the color according to the return value of the previous command.
-local p_color="%(?.%F{231}%}.%F{197})"
+local p_color="%(?.%F{046}%}.%F{197})"
 
 local ins="%K{034}%F{255} -- INSERT -- %f%k"
 local cmd="%K{196}%F{255} -- NORMAL -- %f%k"
-
-#PROMPT="%{%K{0}%F{255}%}%n@%m[%~]%{${reset_color}%} %{${ins}%}\
-#$terminfo[cud1]%{${p_color}%}>>> %{%f%k%}"
 
 function zle-line-init zle-keymap-select
 {
@@ -40,7 +37,7 @@ function zle-line-init zle-keymap-select
       ;;
   esac
 
-  PROMPT="%{%K{0}%F{255}%}%n@%m[%~]%{${reset_color}%} ${mode}\
+  PROMPT="%{%K{0}%F{255}%}%n@%m %F{039}%~%f %{${reset_color}%} ${mode}\
 $terminfo[cud1]%{${p_color}%}>>> %{%f%k%}"
   zle reset-prompt
 }
