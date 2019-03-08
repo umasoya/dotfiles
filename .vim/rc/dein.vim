@@ -19,8 +19,8 @@ if dein#load_state(s:dein_dir)
   let s:toml_dir  = $HOME . '/.vim/toml'
 
   let s:toml      = s:toml_dir . '/dein.toml'
-  let s:lazy_toml = s:toml_dir . '/dein_lazy.toml'
   let s:lsp_toml  = s:toml_dir . '/dein_lsp.toml'
+  let s:lazy_toml = s:toml_dir . '/dein_lazy.toml'
 
   " eager loading
   call dein#load_toml(s:toml,      {'lazy': 0})
