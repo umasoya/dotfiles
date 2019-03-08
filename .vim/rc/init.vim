@@ -1,3 +1,6 @@
+" Runtime path
+set runtimepath+=~/.vim
+
 " Backup
 if !isdirectory($HOME . '/.vim/tmp')
   call mkdir($HOME . '/.vim/tmp', 'p')
