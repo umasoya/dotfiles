@@ -5,6 +5,8 @@
 .vim/tmp
 .vim/undo
 
+.tmux/plugins
+
 .config/*
 !.config/nvim
 !.config/multitail
