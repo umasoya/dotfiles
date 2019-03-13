@@ -10,7 +10,7 @@ augroup filetypedetect
   au BufRead,BufNewFile autohotkey.ini,*.ahk                setfiletype ahk
   au BufRead,BufNewFile */nginx/*/*.conf                    setfiletype nginx
   au BufRead,BufNewFile */httpd/*/*.conf,*/apache2/*/*.conf setfiletype apache
-  au BufRead,BufNewFile .tmux.conf                          setfiletype tmux
+  au BufRead,BufNewFile .tmux.conf,*.tmux                   setfiletype tmux
 augroup END
 
 au FileType gitcommit set tw=80
