@@ -41,3 +41,11 @@ fe() {
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 # }}}
+
+# {{{ fe(): Open the selected file with the default pager
+fl() {
+  local files
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${PAGER:-less} "${files[@]}"
+}
+# }}}
