@@ -33,3 +33,11 @@ fbr() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 # }}}
+
+# {{{ fe(): Open the selected file with the default editor
+fe() {
+  local files
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+# }}}
