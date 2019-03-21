@@ -1,5 +1,8 @@
+#
 ## Later than zsh ver 5.0.7
-## If you want to profiling zsh configuration, load zprof module in .zshenv
+## If you want to profiling zsh configuration, load zprof module in .zshenv and this
+#
+
 #if type "zprof" > /dev/null 2>&1; then
 #  if [ ! -d "$HOME/.zsh-profiles" ]; then
 #    mkdir "$HOME/.zsh-profiles"

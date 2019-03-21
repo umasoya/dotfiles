@@ -1,8 +1,5 @@
-chpwd() {
-  ls_abbrev
-}
-
-ls_abbrev() {
+#{{{ chpwd_ls(): Omitted, if too many files.
+chpwd_ls() {
   local cmd_ls='ls'
   local -a opt_ls
   opt_ls=('-CF' '--color=always')
@@ -30,7 +27,6 @@ ls_abbrev() {
     echo "$ls_result"
   fi
 }
+# }}}
 
-md() {
-    pandoc $1 -s | w3m -T text/html
-}
+add-zsh-hook chpwd chpwd_ls
