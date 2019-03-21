@@ -16,3 +16,11 @@ available_filter() {
   return 1
 }
 # }}}
+
+# {{{ repo(): ghq + filter
+repo() {
+  local filter=$(available_filter ${FILTER})
+  local to=$(ghq root)/$(ghq list | ${filter})
+  \cd ${to}
+}
+# }}}
