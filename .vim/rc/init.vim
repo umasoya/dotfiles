@@ -76,6 +76,6 @@ endif
 " text visual
 set expandtab
 set foldmethod=marker
-set list
-set listchars=tab:>-
+" set list
+" set listchars=tab:>-
 set nohlsearch
