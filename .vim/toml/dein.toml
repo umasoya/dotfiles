@@ -101,6 +101,7 @@ repo = 'tyru/stoptypofile.vim'
 # --------------------------------------------------------------------------#
 [[plugins]]
 repo = 'mattn/emmet-vim'
+on_ft = ['html', 'php']
 hook_add = '''
   " emmet expand <C-y> + ,
   let g:user_emmet_leader_key='<C-y>'
@@ -110,11 +111,11 @@ hook_add = '''
         \},
         \}
 '''
-on_ft = ['html', 'php']
 
 # --------------------------------------------------------------------------#
 # coloresque
 # --------------------------------------------------------------------------#
+[[plugins]]
 repo = 'gorodinskiy/vim-coloresque'
 on_ft = ['html', 'css', 'less', 'sass', 'scss', 'stylus', 'vim']
 
