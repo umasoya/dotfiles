@@ -35,7 +35,7 @@ repo = 'prabirshrestha/async.vim'
 repo = 'prabirshrestha/vim-lsp'
 depends = ['async.vim']
 hook_add = '''
-source ~/.vim/toml/vim-lsp.vim
+source ~/.vim/toml/dein_lsp.vim
 '''
 
 [[plugins]]
