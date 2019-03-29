@@ -48,11 +48,15 @@ endif
 
 " {{{2 go
 if executable('go-langserver')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'go-langserver',
-    \ 'cmd': {server_info->['go-langserver', '-gocodecompletion', '-lint-tool', 'golint']},
-    \ 'whitelist': ['go'],
-    \ })
+  augroup LspGo
+    au!
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'go-langserver',
+      \ 'cmd': {server_info->['go-langserver', '-gocodecompletion', '-lint-tool', 'golint']},
+      \ 'whitelist': ['go'],
+      \ })
+    au FileType go call MappingLsp()
+  augroup end
 endif
 " }}}
 
@@ -68,18 +72,14 @@ endif
 
 " {{{2 PHP
 if executable('php-language-server')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'php-language-server',
-    \ 'cmd': {server_info->['php', 'php-language-server']},
-    \ 'whitelist': ['php'],
-    \ })
-endif
-if executable('intelephense')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'intelephense',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'intelephense', '--stdio']},
-    \ 'whitelist': ['php'],
-    \ })
+  augroup LspPhp
+    au!
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'php-language-server',
+      \ 'cmd': {server_info->['php', 'php-language-server']},
+      \ 'whitelist': ['php'],
+      \ })
+  augroup end
 endif
 " }}}
 
@@ -94,3 +94,14 @@ endif
 " }}}
 
 " }}}
+
+function! MappingLsp()
+  nnoremap <buffer><silent> gd :<C-u>LspDefinition<CR>
+  nnoremap <buffer><silent> gR :<C-u>LspReferences<CR>
+  nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+  nnoremap <buffer><silent> gw :<C-u>LspWorkspaceSymbol<CR>
+  nnoremap <buffer><silent> gq :<C-u>LspDocumentFormat<CR>
+  nnoremap <buffer><silent> gq :LspDocumentRangeFormat<CR>
+  nnoremap <buffer><silent> gi :<C-u>LspImplementation<CR>
+  nnoremap <buffer><silent> gr :<C-u>LspRename<CR>
+endfunction

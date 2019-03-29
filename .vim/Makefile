@@ -25,7 +25,7 @@ php:
 	@composer global require felixfbecker/language-server
 	@composer run-script --working-dir=$(COMPOSER_PATH)/felixfbecker/language-server parse-stubs
 	@mv $(COMPOSER_PATH)/bin/php-language-server.php $(COMPOSER_PATH)/bin/php-language-server
-	@npm i -g intelephense
+	# @npm i -g intelephense
 
 yaml:
 	@npm i -g yaml-language-server
