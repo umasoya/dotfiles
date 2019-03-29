@@ -1,9 +1,3 @@
-"Press <return> in normal mode, insert a new line
-noremap <CR> o<ESC>
-
-" Press <Space> in normal mode, insert space
-noremap <space> i<space><ESC>l
-
 " Press <Ctrl + [h,j,k,l]>, move max
 nnoremap <C-h> ^
 nnoremap <C-j> G
@@ -29,7 +23,3 @@ nnoremap TL <C-w>L
 " position rotate
 nnoremap TR <C-w>r
 "}}}
-
-" Do not leave visual mode after increment/derement.
-vnoremap <C-a> <C-a>gv
-vnoremap <C-x> <C-x>gv
