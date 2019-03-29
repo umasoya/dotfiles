@@ -1,5 +1,14 @@
 source $HOME/dotfiles/.config/sh/.env
 
+# Setup fzf
+# ---------
+if [[ -d $GOPATH/src/github.com/junegunn/fzf ]]; then
+  export FZF="$GOPATH/src/github.com/junegunn/fzf"
+  export PATH="$FZF/bin:$PATH"
+  [[ $- == *i* ]] && source "$FZF/shell/completion.zsh" 2> /dev/null
+  source "$FZF/shell/key-bindings.zsh"
+fi
+
 # Load zmodule zprof
 #zmodload zsh/zprof && zprof 1>/dev/null
 
