@@ -11,3 +11,4 @@
 !.config/nvim
 !.config/multitail
 !.config/sh
+.config/sh/zsh/zz*
