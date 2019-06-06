@@ -3,7 +3,7 @@
 # --------------------------------------------------------------------------#
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft = ['html', 'php', 'blade']
+on_ft = ['html', 'php', 'blade', 'ejs']
 hook_add = '''
   " emmet expand <C-y> + ,
   let g:user_emmet_leader_key='<C-y>'
