@@ -95,3 +95,6 @@ nmap ga <Plug>(EasyAlign)
 
 [[plugins]] #Stop making a file named like "hello.txt]" (extra character at the end!).
 repo = 'tyru/stoptypofile.vim'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'

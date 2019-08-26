@@ -23,3 +23,5 @@ nnoremap TL <C-w>L
 " position rotate
 nnoremap TR <C-w>r
 "}}}
+
+inoremap <silent> jj <ESC>

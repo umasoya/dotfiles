@@ -6,3 +6,4 @@
 *.log
 .curl.conf
 .envrc
+.bin/
