@@ -98,3 +98,18 @@ repo = 'tyru/stoptypofile.vim'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+let g:ale_linters = {
+      \ 'javascript': ['eslint'],
+      \ }
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_save  = 1
+let g:ale_lint_on_text_changed = 1
+
+let g:ale_open_list = 1
+" Close window when there are no errors or warnings.
+let g:ale_keep_list_window_open = 0
+'''
