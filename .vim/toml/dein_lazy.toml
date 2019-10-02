@@ -121,3 +121,10 @@ on_ft = ['ejs']
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
+
+# --------------------------------------------------------------------------#
+# Debug Client for PHP,Python,Perl,Ruby,etc,
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo = 'vim-vdebug/vdebug'
+on_ft = ['php', 'python', 'perl', 'ruby']
