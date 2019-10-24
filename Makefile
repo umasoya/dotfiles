@@ -27,7 +27,7 @@ install: ## Create Symlink to home directory
 
 	@if [ ! -d $(HOME)/.config ]; then \
 		@echo -e "$(YELLOW)Create .config directory in your home directory.$(RESET_COLOR)"; \
-		@mkdir $(HOME)/.config; \
+		mkdir $(HOME)/.config; \
 	fi
 	@$(foreach val, $(CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
