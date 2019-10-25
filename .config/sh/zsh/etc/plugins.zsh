@@ -1,5 +1,10 @@
 zplug mafredri/zsh-async, from:github
 zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
+if zplug check "sindresorhus/pure"; then
+  zstyle :prompt:pure:git:branch color magenta
+  zstyle :prompt:pure:user color blue
+  zstyle :prompt:pure:host color blue
+fi
 
 zplug "zsh-users/zsh-completions"
 
