@@ -1,4 +1,5 @@
-set cindent
+set autoindent
+set smartindent
 set noexpandtab
 
 set tabstop=4

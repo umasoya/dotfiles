@@ -1,9 +1,5 @@
-" Choose one of autoindent,smartindent,cindent
-set cindent
-
-" Like C lang indent
-" If you want to customize 'cindent', you should search 'cinoptions-values' at help
-"set cindent
+set autoindent
+set smartindent
 
 set tabstop=2
 set softtabstop=2
