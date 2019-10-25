@@ -2,10 +2,14 @@
 alias -s tar.gz='tar zxvf'
 #}}}
 
-if (( $+IS_MAC )); then
-  alias ls="gls -F --color=auto"
+if (( $+commands[exa] )); then
+  alias ls='exa'
 else
-  alias ls="ls --color=auto"
+  if (( $+IS_MAC )); then
+    alias ls="gls -F --color=auto"
+  else
+    alias ls="ls --color=auto"
+  fi
 fi
 
 alias la='ls -a'
