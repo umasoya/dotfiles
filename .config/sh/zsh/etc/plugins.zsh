@@ -2,6 +2,8 @@ zplug mafredri/zsh-async, from:github
 zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 if zplug check "sindresorhus/pure"; then
   zstyle :prompt:pure:git:branch color magenta
+  zstyle :prompt:pure:git:branch:cached color yellow
+  zstyle :prompt:pure:git:dirty color 091
   zstyle :prompt:pure:user color blue
   zstyle :prompt:pure:host color blue
 fi
