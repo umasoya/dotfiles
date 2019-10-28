@@ -23,3 +23,11 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan,bold'
 ## cursor position's brackets
 # ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
+
+## fzf
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+  export FZF_COMPLETION_TRIGGER=''
+  bindkey '^T' fzf-completion
+  bindkey '^I' $fzf_default_completion
+fi
