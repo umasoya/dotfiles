@@ -21,7 +21,7 @@ for i in $paths; do
 done
 
 fpath=(
-  $HOME/dotfiles/.zsh/completions(N-/)
+  $HOME/.config/sh/zsh/completions(N-/)
   $fpath
 )
 
