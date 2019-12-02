@@ -22,6 +22,10 @@ set directory=$HOME/.vim/swap
 " Help
 helptags $HOME/.vim/doc/
 
+" Log
+set verbosefile=/tmp/vim.log
+set verbose=20
+
 " system config
 set notimeout
 set ttimeout
