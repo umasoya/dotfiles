@@ -23,8 +23,8 @@ set directory=$HOME/.vim/swap
 helptags $HOME/.vim/doc/
 
 " Log
-set verbosefile=/tmp/vim.log
-set verbose=20
+" set verbosefile=/tmp/vim.log
+" set verbose=20
 
 " system config
 set notimeout
@@ -36,6 +36,9 @@ set encoding=utf-8
 set clipboard=unnamed
 set backspace=indent,eol,start
 set nrformats=alpha
+" Use regexpengine for regexp
+" @see https://www.soum.co.jp/misc/vim-advanced/3/
+set regexpengine=1
 
 filetype plugin indent on
 
