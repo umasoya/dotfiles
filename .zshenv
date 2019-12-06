@@ -16,9 +16,11 @@ fi
 typeset -gx -U path cdpath fpath
 
 #(N-/): Do not regist path if it is not exist.
-for i in $paths; do
-    path=($path "${i}(N-/)")
-done
+path=(
+  $paths
+  $path
+)
+
 
 fpath=(
   $HOME/.config/sh/zsh/completions(N-/)
