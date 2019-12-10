@@ -22,15 +22,11 @@ for i in ${ZDOT_DIR}/*.zsh;do
 done
 # }}}
 
-# {{{1 zplug
-# check init.zsh file
-if [[ ! -f $HOME/.zplug/init.zsh ]]; then
-  curl -sL --proto-redir -all,https "https://raw.githubusercontent.com/zplug/installer/master/installer.zsh"| zsh
-fi
-export ZPLUG_LOADFILE=$ZDOT_DIR/etc/plugins.zsh
-source $HOME/.zplug/init.zsh
-
-if ! zplug check; then
-  zplug install
-fi
-# }}}
+### Added by Zplugin's installer
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin installer's chunk
+source ${ZDOT_DIR}/etc/zplugin.zsh
+autoload -U compinit
+compinit
