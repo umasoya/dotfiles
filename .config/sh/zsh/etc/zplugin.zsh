@@ -59,3 +59,8 @@ zplugin load motemen/ghq
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/pt"
 zplugin load monochromegane/the_platinum_searcher
+
+# cheat
+# -------------------------------
+zplugin ice as"program" from"gh-r" bpick"${BPICK}" mv"cheat-* -> cheat"
+zplugin load cheat/cheat
