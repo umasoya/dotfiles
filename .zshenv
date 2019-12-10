@@ -23,7 +23,6 @@ path=(
 
 
 fpath=(
-  $HOME/.config/sh/zsh/completions(N-/)
   /usr/share/zsh/git-completions(N-/)
   $fpath
 )
