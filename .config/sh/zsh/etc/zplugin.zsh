@@ -9,6 +9,16 @@ fi
 zplugin ice wait blockf atpull'zplugin creinstall -q .'
 zplugin light zsh-users/zsh-completions
 
+# docker completions
+# -------------------------------
+zplugin ice as"completion"
+zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+
+# docker-compose
+# -------------------------------
+zplugin ice from"gh-r" as"program" mv"docker* -> docker-compose" bpick"${BPICK}"
+zplugin load docker/compose
+
 # zsh-autosuggestions
 # -------------------------------
 zplugin ice wait atload"_zsh_autosuggest_start"
@@ -41,11 +51,6 @@ zplugin light direnv/direnv
 zplugin ice from"gh-r" as"program"
 zplugin load junegunn/fzf-bin
 
-# docker-compose
-# -------------------------------
-zplugin ice from"gh-r" as"program" mv"docker* -> docker-compose" bpick"${BPICK}"
-zplugin load docker/compose
-
 # jq
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" mv"jq-* -> jq"
@@ -59,6 +64,8 @@ zplugin load motemen/ghq
 # hub
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/bin/hub"
+zplugin ice wait lucid as"completion" from"gh-r" id-as"hub-completion" \
+  mv"hub*/etc/hub.zsh_completion -> _hub" pick"_hub"
 zplugin light github/hub
 
 # pt
@@ -70,3 +77,7 @@ zplugin load monochromegane/the_platinum_searcher
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" mv"cheat-* -> cheat"
 zplugin load cheat/cheat
+
+# autopair
+# -------------------------------
+# zplugin load "hlissner/zsh-autopair"
