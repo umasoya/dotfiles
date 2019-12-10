@@ -1,9 +1,0 @@
-BUILD_ID=10575.58.0
-NAME=Chrome OS
-ID_LIKE=chromiumos
-GOOGLE_CRASH_ID=ChromeOS
-VERSION_ID=67
-BUG_REPORT_URL=https://crbug.com/new
-VERSION=67
-HOME_URL=https://www.chromium.org/chromium-os
-ID=chromeos
