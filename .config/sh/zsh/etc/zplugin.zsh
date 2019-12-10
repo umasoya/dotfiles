@@ -58,8 +58,8 @@ zplugin load motemen/ghq
 
 # hub
 # -------------------------------
-zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/hub"
-zplugin load github/hub
+zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/bin/hub"
+zplugin light github/hub
 
 # pt
 # -------------------------------
