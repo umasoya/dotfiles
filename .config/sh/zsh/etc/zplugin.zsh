@@ -21,14 +21,15 @@ zplugin light zdharma/fast-syntax-highlighting
 
 # pure
 # -------------------------------
-zplugin ice pick"async.zsh" src"pure.zsh"
-zplugin light sindresorhus/pure
-
 zstyle :prompt:pure:git:branch color magenta
 zstyle :prompt:pure:git:branch:cached color yellow
 zstyle :prompt:pure:git:dirty color 091
 zstyle :prompt:pure:user color blue
 zstyle :prompt:pure:host color blue
+
+zplugin ice pick"async.zsh" src"pure.zsh"
+zplugin light sindresorhus/pure
+
 
 # direnv
 # -------------------------------
@@ -54,6 +55,11 @@ zplugin load stedolan/jq
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/ghq"
 zplugin load motemen/ghq
+
+# hub
+# -------------------------------
+zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/hub"
+zplugin load github/hub
 
 # pt
 # -------------------------------
