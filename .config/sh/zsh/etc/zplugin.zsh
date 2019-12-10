@@ -77,7 +77,3 @@ zplugin load monochromegane/the_platinum_searcher
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" mv"cheat-* -> cheat"
 zplugin load cheat/cheat
-
-# autopair
-# -------------------------------
-# zplugin load "hlissner/zsh-autopair"
