@@ -1,7 +1,7 @@
 if [ "$(uname -s)" = 'Linux' ]; then
   BPICK="(*linux*64)|(*linux*amd*)"
 else
-  BPICK="(darwin)|(*Darwin*)|(*osx*)"
+  BPICK="(*darwin*)|(*Darwin*)|(*osx*)"
 fi
 
 # zsh-completions
