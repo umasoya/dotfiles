@@ -63,9 +63,9 @@ zplugin load motemen/ghq
 # hub
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/bin/hub"
+zplugin light github/hub
 zplugin ice wait lucid as"completion" from"gh-r" id-as"hub-completion" \
   mv"hub*/etc/hub.zsh_completion -> _hub" pick"_hub"
-zplugin light github/hub
 
 # pt
 # -------------------------------
