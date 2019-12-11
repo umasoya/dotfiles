@@ -2,9 +2,6 @@
 
 .vim/dein.vim
 .vim/doc/tags
-.vim/tmp
-.vim/undo
-.vim/swap
 
 .tmux/plugins
 
