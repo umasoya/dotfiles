@@ -1,0 +1,23 @@
+#!/bin/bash
+
+deploy() {
+  e_newline
+  e_header "Deploy dotfiles..."
+
+  if [ ! -d $DOTPATH ]; then
+    log_fail "$DOTPATH: not found"
+    exit 1
+  fi
+
+  for path in `find $DOTPATH -maxdepth 1 -name ".??*"`;
+  do
+    name=`basename $path`
+    if [[ $name =~ .git* ]] || [[ $name == .DS_Store ]]; then
+      continue
+    fi
+    # ln -sfnv $path ~/$name && e_success "$name"
+    e_success "$name"
+  done
+
+  e_newline && e_done "Deploy dotfiles"
+}

@@ -1,43 +1,16 @@
 # vim: noexpandtab ft=make
-DOTPATH     := $(realpath $(HOME)/dotfiles)
-CANDIDATES  := $(wildcard .??*)
-EXCLUSIONS  := .DS_Store .git .gitconfig .gitignore .gitmodules
-ADDITIONALS := etc/.gitconfig etc/.gitignore
-DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
-DIRCOLORS   := .dircolors
-
-# colors
-BLACK       := \e[30m
-RED         := \e[31m
-GREEN       := \e[32m
-YELLOW      := \e[33m
-BLUE        := \e[34m
-MAGENTA     := \e[35m
-CYAN        := \e[36m
-WHITE       := \e[37m
-RESET_COLOR := \e[m
 
 .DEFAULT_GOAL := help
 .PHONY: all
 
 install: ## Create Symlink to home directory
-	@echo -e "$(GREEN)Create symlinks in your home directory.$(RESET_COLOR)"
-	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
-	@$(foreach val, $(ADDITIONALS), ln -sfnv $(abspath $(val)) $(HOME)/$(notdir $(val));)
-
-	# call dircolors
-	@make dircolors
-
-dircolors: ## Create symlink .dircolors
-	@ln -sfnv $(abspath $(DIRCOLORS)) $(HOME)/$(DIRCOLORS);\
+	@./etc/setup/install
 
 clean: ## Unlink dotfiles
-	@echo "$(RED)Clean home directory...$(RESET_COLOR)"
-	@-$(foreach val, $(DOTFILES), unlink $(HOME)/$(val);)
-	@-$(foreach val, $(ADDITIONALS), unlink $(HOME)/$(val);)
+	@./etc/setup/clean
 
-list: ## Show dotfiles in this repo
-	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
+test: ## test
+	@./etc/setup/e_test
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
