@@ -48,13 +48,7 @@ zplugin light direnv/direnv
 
 # fzf
 # -------------------------------
-zplugin ice from"gh-r" as"program"
-zplugin load junegunn/fzf-bin
-
-# fzf-tmux
-# -------------------------------
-zplugin ice multisrc"shell/{completion,key-bindings}.zsh" pick"bin/fzf-tmux" as"program"
-zplugin light junegunn/fzf
+zplugin pack for fzf
 
 # jq
 # -------------------------------
