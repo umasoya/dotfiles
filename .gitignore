@@ -4,6 +4,7 @@
 .vim/doc/tags
 .vim/tmp
 .vim/undo
+.vim/swap
 
 .tmux/plugins
 
@@ -11,4 +12,4 @@
 !.config/nvim
 !.config/multitail
 !.config/sh
-.config/sh/zsh/zz*
+!.config/cheat
