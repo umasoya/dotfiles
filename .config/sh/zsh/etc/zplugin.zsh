@@ -76,3 +76,14 @@ zplugin load monochromegane/the_platinum_searcher
 # -------------------------------
 zplugin ice as"program" from"gh-r" bpick"${BPICK}" mv"cheat-* -> cheat"
 zplugin load cheat/cheat
+
+# enhancd
+# -------------------------------
+zplugin ice pick"init.sh" lucid \
+  atload'export ENHANCD_FILTER=`available_filter ${FILTER}`; export ENHANCD_DOT_SHOW_FULLPATH=1'
+zplugin light b4b4r07/enhancd
+
+# ccat
+# -------------------------------
+zplugin ice lucid as"program" from"gh-r" bpick"${BPICK}" pick"*/ccat" atload"alias cat=ccat"
+zplugin light jingweno/ccat
