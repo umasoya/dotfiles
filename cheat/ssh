@@ -1,0 +1,7 @@
+---
+syntax: ssh
+tags: [ ssh ]
+---
+
+# PortForward to <target> via <bation>
+ssh <bation> -L <local_port>:<target>:<target_port>
