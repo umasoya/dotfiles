@@ -52,22 +52,22 @@ augroup END
 set number
 set ruler
 
-" filename
-set statusline=%<%F
-" modified flg
-set statusline+=\ %m
-" separate
-set statusline+=%=
-" read only
-set statusline+=%r
-" encoding
-set statusline+=[enc:%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}]
-" filetype
-set statusline+=[ft:%{&filetype}]
-" line & column number
-set statusline+=[L:%l/%L\ C:%v]
-" fileformat
-set statusline+=[%{&fileformat}]
+" " filename
+" set statusline=%<%F
+" " modified flg
+" set statusline+=\ %m
+" " separate
+" set statusline+=%=
+" " read only
+" set statusline+=%r
+" " encoding
+" set statusline+=[enc:%{has('multi_byte')&&\&fileencoding!=''?&fileencoding:&encoding}]
+" " filetype
+" set statusline+=[ft:%{&filetype}]
+" " line & column number
+" set statusline+=[L:%l/%L\ C:%v]
+" " fileformat
+" set statusline+=[%{&fileformat}]
 
 set laststatus=2
 
