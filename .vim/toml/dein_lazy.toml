@@ -61,7 +61,7 @@ on_ft = ['markdown']
 # --------------------------------------------------------------------------#
 [[plugins]]
 repo = 'chr4/nginx.vim'
-on_ft = ['nginx']
+on_ft = ['conf.nginx']
 hook_add = '''
 set tabstop=4
 set softtabstop=4
@@ -71,7 +71,7 @@ let g:indent_guides_guide_size=4
 
 [[plugins]] # syntax for nginx files
 repo = 'moskytw/nginx-contrib-vim'
-on_ft = ['nginx']
+on_ft = ['conf.nginx']
 
 # --------------------------------------------------------------------------#
 # PHP
@@ -128,3 +128,9 @@ on_ft = ['toml']
 [[plugins]]
 repo = 'vim-vdebug/vdebug'
 on_ft = ['php', 'python', 'perl', 'ruby']
+
+# ansible
+# -----------
+[[plugins]]
+repo='pearofducks/ansible-vim'
+on_ft = ['yaml.ansible']
