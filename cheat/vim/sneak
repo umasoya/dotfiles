@@ -1,3 +1,8 @@
+---
+syntax: vim
+tags: [ search, vim, nvim ]
+---
+
 # s に続けて2文字入力(ea)するとその2文字で検索する
  ex) `sea`
 

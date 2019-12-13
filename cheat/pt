@@ -1,3 +1,7 @@
+---
+syntax: sh
+tags: [ sh, bash, zsh ]
+---
 # ディレクトリを指定して検索
 pt PATTERN dir1 dir2
 
