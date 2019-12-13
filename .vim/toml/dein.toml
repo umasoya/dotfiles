@@ -139,3 +139,9 @@ let g:airline_powerline_fonts = 1
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
+
+# vim-numbertoggle
+# ----------
+[[plugins]]
+repo = 'jeffkreeftmeijer/vim-numbertoggle'
+hook_add = 'set number relativenumber'

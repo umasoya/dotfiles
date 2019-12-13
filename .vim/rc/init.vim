@@ -1,19 +1,23 @@
 " Runtime path
+" -------------------
 set runtimepath+=~/.vim
 
 " Backup
+" -------------------
 if !isdirectory($HOME . '/.vim/tmp')
   call mkdir($HOME . '/.vim/tmp', 'p')
 endif
 set backupdir=$HOME/.vim/tmp
 
 " Undo
+" -------------------
 if !isdirectory($HOME . '/.vim/undo')
   call mkdir($HOME . '/.vim/undo', 'p')
 endif
 set undodir=$HOME/.vim/undo
 
 " Swap
+" -------------------
 if !isdirectory($HOME . '/.vim/swap')
   call mkdir($HOME . '/.vim/swap', 'p')
 endif
@@ -27,6 +31,7 @@ helptags $HOME/.vim/doc/
 " set verbose=20
 
 " system config
+" -------------------
 set notimeout
 set ttimeout
 set timeoutlen=100
@@ -38,18 +43,21 @@ set backspace=indent,eol,start
 set nrformats=alpha
 " Use regexpengine for regexp
 " @see https://www.soum.co.jp/misc/vim-advanced/3/
+" -------------------
 set regexpengine=1
 
 filetype plugin indent on
 
 " Restore cursor position
+" -------------------
 augroup vimrcEx
   au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal g`\"" | endif
 augroup END
 
 " system visual
-set number
+" -------------------
+" set number
 set ruler
 
 " " filename
@@ -83,6 +91,7 @@ if has("nvim")
 endif
 
 " text visual
+" -------------------
 set expandtab
 set foldmethod=marker
 " set list
