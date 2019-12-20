@@ -6,27 +6,27 @@ fi
 
 # zsh-completions
 # -------------------------------
-zplugin ice wait blockf atpull'zplugin creinstall -q .'
+zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
 zplugin light zsh-users/zsh-completions
 
 # docker completions
 # -------------------------------
-zplugin ice as"completion"
+zplugin ice lucid as"completion"
 zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
 # docker-compose
 # -------------------------------
-zplugin ice from"gh-r" as"program" mv"docker* -> docker-compose" bpick"${BPICK}"
+zplugin ice lucid from"gh-r" as"program" mv"docker* -> docker-compose" bpick"${BPICK}"
 zplugin load docker/compose
 
 # zsh-autosuggestions
 # -------------------------------
-zplugin ice wait atload"_zsh_autosuggest_start"
+zplugin ice wait lucid atload"_zsh_autosuggest_start"
 zplugin light zsh-users/zsh-autosuggestions
 
 # fast-syntax-highlighting
 # -------------------------------
-zplugin ice wait atinit"zpcompinit; zpcdreplay"
+zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"
 zplugin light zdharma/fast-syntax-highlighting
 
 # pure
