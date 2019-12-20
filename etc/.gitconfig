@@ -11,6 +11,8 @@
     autostash = true
 [user]
     useConfigOnly = true
+	name = umasoya
+	email = basilisk.0331@icloud.com
 [ghq]
     root = ~/repos/src
 [alias]
