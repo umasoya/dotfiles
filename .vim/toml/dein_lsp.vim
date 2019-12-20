@@ -65,7 +65,7 @@ if executable('typescript-language-server')
   au User lsp_setup call lsp#register_server({
     \ 'name': 'javascript support using typescript-language-server',
     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server', '--stdio']},
-    \ 'whitelist': ['javascript', 'javascript.jsx'],
+    \ 'whitelist': ['javascript', 'javascript.jsx', 'typescript'],
     \ })
 endif
 "" }}}
