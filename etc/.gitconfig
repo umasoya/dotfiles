@@ -26,3 +26,5 @@
     f = fetch
 [merge]
 	ff = false
+[pull]
+	ff = only
