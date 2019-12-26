@@ -34,12 +34,17 @@ on_ft = ['html', 'css', 'less', 'sass', 'scss', 'stylus', 'vim', 'blade']
 [[plugins]]
 repo = 'hotwatermorning/auto-git-diff'
 
-# --------------------------------------------------------------------------#
 # Javascript
-# --------------------------------------------------------------------------#
+# -----------
 [[plugins]]
 repo = 'jelera/vim-javascript-syntax'
 on_ft = ['javascript']
+
+# typescript
+# -----------
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = ['typescript']
 
 # --------------------------------------------------------------------------#
 # json

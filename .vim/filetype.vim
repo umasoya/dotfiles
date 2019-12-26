@@ -4,7 +4,7 @@ augroup filetypedetect
   au BufRead,BufNewFile *.rb                                setfiletype ruby
   au BufRead,BufNewFile *.vim                               setfiletype vim
   au BufRead,BufNewFile *.js                                setfiletype javascript
-  au BufRead,BufNewFile *.ts                                setfiletype typescript
+  au BufRead,BufNewFile *.ts                                if &ft == 'xml' | set ft=typescript | endif
   au BufRead,BufNewFile *.zsh,.zshrc,.zshenv                setfiletype zsh
   au BufRead,BufNewFile *.html                              setfiletype html
   au BufRead,BufNewFile *.py                                setfiletype python
