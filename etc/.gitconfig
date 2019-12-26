@@ -24,3 +24,5 @@
     au = add -u
     rh = reset --hard
     f = fetch
+[merge]
+	ff = false
