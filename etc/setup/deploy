@@ -15,8 +15,7 @@ deploy() {
     if [[ $name =~ .git* ]] || [[ $name == .DS_Store ]]; then
       continue
     fi
-    # ln -sfnv $path ~/$name && e_success "$name"
-    e_success "$name"
+    ln -sfnv $path ~/$name && e_success "$name"
   done
 
   e_newline && e_done "Deploy dotfiles"
