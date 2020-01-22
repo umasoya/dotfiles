@@ -22,11 +22,13 @@ for i in ${ZDOT_DIR}/*.zsh;do
 done
 # }}}
 
-### Added by Zplugin's installer
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-### End of Zplugin installer's chunk
-source ${ZDOT_DIR}/etc/zplugin.zsh
+### Added by Zinit's installer
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit installer's chunk
+
+# load zinit config
+source ${ZDOT_DIR}/etc/zinit.zsh
 autoload -U compinit
 compinit
