@@ -28,6 +28,7 @@ repo = 'Shougo/neco-syntax'
 depends = ['deoplete.nvim']
 
 [[plugins]]
+# required 'words'
 repo = 'ujihisa/neco-look'
 depends = ['deoplete.nvim']
 
