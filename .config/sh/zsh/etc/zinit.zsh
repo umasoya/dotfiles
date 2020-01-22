@@ -4,6 +4,13 @@ else
   BPICK="(*darwin*)|(*Darwin*)|(*osx*)"
 fi
 
+# zinit (zplugin)
+# -------------------------------
+if [[ ! -d $HOME/.zinit ]]; then
+  mkdir $HOME/.zinit
+  git clone  https://github.com/zdharma/zinit.git ~/.zinit/bin
+fi
+
 # zsh-completions
 # -------------------------------
 zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
@@ -37,7 +44,7 @@ zstyle :prompt:pure:git:dirty color 091
 zstyle :prompt:pure:user color blue
 zstyle :prompt:pure:host color blue
 
-zplugin ice pick"async.zsh" src"pure.zsh"
+zplugin ice pick"async.zsh" src"pure.zsh" atclone"npm install --global pure-prompt"
 zplugin light sindresorhus/pure
 
 
