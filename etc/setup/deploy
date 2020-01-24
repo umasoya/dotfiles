@@ -18,5 +18,11 @@ deploy() {
     ln -sfnv $path ~/$name && e_success "$name"
   done
 
+  for path in `find $DOTPATH/etc -maxdepth 1 -name ".git*"`;
+  do
+    name=`basename $path`
+    ln -sfnv $path ~/$name && e_success "$name"
+  done
+
   e_newline && e_done "Deploy dotfiles"
 }
