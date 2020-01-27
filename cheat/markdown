@@ -1,0 +1,15 @@
+---
+syntax: markdown
+tags: [markdown]
+---
+
+# リンク
+[title](path/to/link)
+
+# リンクをidで宣言して使う(画像も使える)
+[title][1]
+[1]:path/to/url
+
+# idを省略
+[github][]
+[github]:path/to/url
