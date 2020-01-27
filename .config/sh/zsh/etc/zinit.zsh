@@ -86,9 +86,9 @@ zplugin load cheat/cheat
 
 # enhancd
 # -------------------------------
-zplugin ice lucid as"program" pick"init.sh" \
+zplugin ice as"program" src"init.sh" \
   atload'export ENHANCD_FILTER=`available_filter ${FILTER}`; export ENHANCD_DOT_SHOW_FULLPATH=1'
-zplugin light b4b4r07/enhancd
+zplugin load b4b4r07/enhancd
 
 # ccat
 # -------------------------------
