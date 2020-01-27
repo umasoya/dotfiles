@@ -97,4 +97,5 @@ zplugin light jingweno/ccat
 
 # tmux-xpanes
 # -------------------------------
+zplugin ice lucid as"program" pick"bin/*"
 zplugin light greymd/tmux-xpanes
