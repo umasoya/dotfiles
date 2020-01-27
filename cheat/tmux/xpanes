@@ -1,0 +1,66 @@
+---
+syntax: sh
+tags: [tmux, ssh]
+---
+
+# Qiita
+[qiita](https://qiita.com/greymd/items/8744d1c4b0b2b3004147)
+
+# いっぺんに複数分割
+```
+$ xpanes 1 2 3 4
+
+$ echo 1    | $ echo 2
+1           | 2
+            |
+            |
+----------------------------
+$ echo 3    | $ echo 4
+3           | 4
+            |
+            |
+```
+
+# 任意のコマンドを実行
+```
+$ xpanes -c 'seq {}' 1 2 3 4
+
+$ seq 1     | $ seq 2
+1           | 1
+            | 2
+            |
+----------------------------
+$ echo 3    | $ echo 4
+1           | 1
+2           | 2
+3           | 3
+            | 4
+```
+
+# 引数に置換される文字列の変更
+```
+$ xpanes -I@ 'seq@' 1 2 3 4
+# 結果は↑と同じ
+```
+
+# 複数ホストにsshする
+```
+$ xpanes --ssh user@vm{01..04}
+# user@vm01 user@vm02 user@vm03 user@vm04
+```
+
+# 複数ペインの同時入力をoff
+`$ xpanes -d --ssh vm@{01..04}`
+
+# 操作ログの保存
+```
+$ xpanes --logs=/var/log/xpanes/opr_log --ssh vm{01,02} host1 host2
+# ......... something to do .....................
+
+$ ls /var/log/xpanes/
+host1-1.log.2020-01-01_00-00-00
+host2-1.log.2020-01-01_00-00-00
+```
+
+# ログのファイル名のフォーマットを変更
+`$ xpanes --log-format='[:ARG:].log.%Y-%m-%d_%H-%M-%S'`
