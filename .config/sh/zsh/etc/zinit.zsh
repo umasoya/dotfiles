@@ -94,3 +94,8 @@ zplugin light b4b4r07/enhancd
 # -------------------------------
 zplugin ice lucid as"program" from"gh-r" bpick"${BPICK}" pick"*/ccat" atload"alias cat=ccat"
 zplugin light jingweno/ccat
+
+# tmux-xpanes
+# -------------------------------
+zplugin ice lucid as"program" from"gh-r" pick"*bin/*"
+zplugin light greymd/tmux-xpanes
