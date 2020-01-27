@@ -86,7 +86,7 @@ zplugin load cheat/cheat
 
 # enhancd
 # -------------------------------
-zplugin ice pick"init.sh" lucid \
+zplugin ice lucid as"program" pick"init.sh" \
   atload'export ENHANCD_FILTER=`available_filter ${FILTER}`; export ENHANCD_DOT_SHOW_FULLPATH=1'
 zplugin light b4b4r07/enhancd
 
@@ -97,5 +97,4 @@ zplugin light jingweno/ccat
 
 # tmux-xpanes
 # -------------------------------
-zplugin ice lucid as"program" from"gh-r" pick"*bin/*"
 zplugin light greymd/tmux-xpanes
