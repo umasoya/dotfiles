@@ -28,7 +28,7 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
 # suggest spelling similar
-setopt correct_all
+# setopt correct_all
 
 # completion use glob
 setopt extended_glob
