@@ -1,4 +1,6 @@
 augroup filetypedetect
+  au!
+  " set filetype
   au BufRead,BufNewFile *.php                               setfiletype php
   au BufRead,BufNewFile *.blade.php                         if &ft == 'php' | set ft=blade | endif
   au BufRead,BufNewFile *.rb                                setfiletype ruby
@@ -13,6 +15,9 @@ augroup filetypedetect
   au BufRead,BufNewFile */httpd/*/*.conf,*/apache2/*/*.conf setfiletype conf.apache
   au BufRead,BufNewFile .tmux.conf,*.tmux                   setfiletype tmux
   au BufRead,BufNewFile */playbooks/*.yml                   setfiletype yaml.ansible
+
+  " load template
+  " au BufNewFile $HOME/dotfiles/cheat/*/* 0r $HOME/.vim/template/cheat
 augroup END
 
 au FileType gitcommit set tw=80
