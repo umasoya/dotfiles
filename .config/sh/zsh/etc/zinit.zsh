@@ -64,8 +64,8 @@ zplugin load stedolan/jq
 
 # ghq
 # -------------------------------
-zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/ghq"
-zplugin load motemen/ghq
+#zplugin ice as"program" from"gh-r" bpick"${BPICK}" pick"*/ghq"
+#zplugin load motemen/ghq
 
 # hub
 # -------------------------------
