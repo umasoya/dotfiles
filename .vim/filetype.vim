@@ -14,7 +14,7 @@ augroup filetypedetect
   au BufRead,BufNewFile */nginx/*/*.conf                    setfiletype conf.nginx
   au BufRead,BufNewFile */httpd/*/*.conf,*/apache2/*/*.conf setfiletype conf.apache
   au BufRead,BufNewFile .tmux.conf,*.tmux                   setfiletype tmux
-  au BufRead,BufNewFile */playbooks/*.yml                   setfiletype yaml.ansible
+  au BufRead,BufNewFile *.yml,*.yaml                        setfiletype yaml
 
   " load template
   " au BufNewFile $HOME/dotfiles/cheat/*/* 0r $HOME/.vim/template/cheat
