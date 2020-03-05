@@ -1,0 +1,7 @@
+---
+syntax: sh
+tags: [git]
+---
+
+# ローカルで変更したファイルをステージングさせずに `.gitignore` にも追加しない
+git update-index --assume-unchanged [file1, file2...]
