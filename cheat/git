@@ -5,3 +5,6 @@ tags: [git]
 
 # ローカルで変更したファイルをステージングさせずに `.gitignore` にも追加しない
 git update-index --assume-unchanged [file1, file2...]
+
+# diff に出てくるファイルをまとめて上記に追加
+git update-index --assume-unchanged `git diff --name-only`
