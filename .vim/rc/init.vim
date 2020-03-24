@@ -41,6 +41,8 @@ set encoding=utf-8
 set clipboard=unnamed
 set backspace=indent,eol,start
 set nrformats=alpha
+set modeline
+set modelines=5
 " Use regexpengine for regexp
 " @see https://www.soum.co.jp/misc/vim-advanced/3/
 " -------------------
