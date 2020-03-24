@@ -6,6 +6,5 @@
 *.log
 .curl.conf
 .envrc
-.bin/
 .local/
 **/*.local.*
