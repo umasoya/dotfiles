@@ -7,8 +7,7 @@ fi
 # zinit (zplugin)
 # -------------------------------
 if [[ ! -d $HOME/.zinit ]]; then
-  mkdir $HOME/.zinit
-  git clone  https://github.com/zdharma/zinit.git ~/.zinit/bin
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 fi
 
 # zsh-completions
