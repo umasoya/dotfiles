@@ -159,3 +159,15 @@ endif
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 let g:airline_theme = 'tender'
 '''
+
+# switch
+# ----------
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'
+hook_add = '''
+let g:switch_mapping = "-"
+let g:switch_custom_definitions =
+      \ [
+      \   ['+', '-']
+      \ ]
+'''
