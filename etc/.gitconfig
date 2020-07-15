@@ -1,6 +1,7 @@
 # Common gitconfig on local
 [core]
 	excludesfile = ~/.gitignore
+	autoCRLF = false
 [push]
 	default = simple
 [color]
