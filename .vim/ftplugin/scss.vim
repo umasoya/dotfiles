@@ -1,3 +1,5 @@
+set cindent
+
 " foldmarker
 set foldmarker={,}
 " all open

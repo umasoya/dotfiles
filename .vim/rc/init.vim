@@ -48,6 +48,8 @@ set modelines=5
 " -------------------
 set regexpengine=1
 
+set autoindent
+set smartindent
 filetype plugin indent on
 
 " Restore cursor position

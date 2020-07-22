@@ -1,22 +1,22 @@
 augroup filetypedetect
   au!
   " set filetype
-  au BufRead,BufNewFile *.php                               setfiletype php
-  au BufRead,BufNewFile *.blade.php                         if &ft == 'php' | set ft=blade | endif
-  au BufRead,BufNewFile *.rb                                setfiletype ruby
-  au BufRead,BufNewFile *.vim                               setfiletype vim
-  au BufRead,BufNewFile *.go                                setfiletype go
-  au BufRead,BufNewFile *.js                                setfiletype javascript
-  au BufRead,BufNewFile *.ts                                if &ft == 'xml' | set ft=typescript | endif
-  au BufRead,BufNewFile *.sh,*.bash                         setfiletype sh
-  au BufRead,BufNewFile *.zsh,.zshrc,.zshenv                setfiletype zsh
-  au BufRead,BufNewFile *.html                              setfiletype html
-  au BufRead,BufNewFile *.py                                setfiletype python
-  au BufRead,BufNewFile autohotkey.ini,*.ahk                setfiletype ahk
-  au BufRead,BufNewFile */nginx/*/*.conf                    setfiletype conf.nginx
-  au BufRead,BufNewFile */httpd/*/*.conf,*/apache2/*/*.conf setfiletype conf.apache
-  au BufRead,BufNewFile .tmux.conf,*.tmux                   setfiletype tmux
-  au BufRead,BufNewFile *.yml,*.yaml                        setfiletype yaml
+  au BufRead,BufNewFile *.blade.php                         set ft=blade
+  au BufRead,BufNewFile *.php                               set ft=php
+  au BufRead,BufNewFile *.rb                                set ft=ruby
+  au BufRead,BufNewFile *.vim                               set ft=vim
+  au BufRead,BufNewFile *.go                                set ft=go
+  au BufRead,BufNewFile *.js                                set ft=javascript
+  au BufRead,BufNewFile *.ts                                set ft=typescript
+  au BufRead,BufNewFile *.sh,*.bash                         set ft=sh
+  au BufRead,BufNewFile *.zsh,.zshrc,.zshenv                set ft=zsh
+  au BufRead,BufNewFile *.html                              set ft=html
+  au BufRead,BufNewFile *.py                                set ft=python
+  au BufRead,BufNewFile autohotkey.ini,*.ahk                set ft=ahk
+  au BufRead,BufNewFile */nginx/*/*.conf                    set ft=conf.nginx
+  au BufRead,BufNewFile */httpd/*/*.conf,*/apache2/*/*.conf set ft=conf.apache
+  au BufRead,BufNewFile .tmux.conf,*.tmux                   set ft=tmux
+  au BufRead,BufNewFile *.yml,*.yaml                        set ft=yaml
 
   " load template
   " au BufNewFile $HOME/dotfiles/cheat/*/* 0r $HOME/.vim/template/cheat
