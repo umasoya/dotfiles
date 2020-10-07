@@ -3,7 +3,7 @@
 # --------------------------------------------------------------------------#
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft = ['html', 'php', 'blade', 'ejs']
+on_ft = ['html', 'php', 'blade', 'ejs', 'jinja.html']
 hook_add = '''
   " emmet expand <C-y> + ,
   let g:user_emmet_leader_key='<C-y>'
@@ -139,3 +139,10 @@ on_ft = ['php', 'python', 'perl', 'ruby']
 [[plugins]]
 repo='pearofducks/ansible-vim'
 on_ft = ['yaml.ansible']
+
+# --------------------------------------------------------------------------#
+# nunjucks
+# --------------------------------------------------------------------------#
+[[plugins]]
+repo='Glench/Vim-Jinja2-Syntax'
+on_ft = ['njk']

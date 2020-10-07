@@ -8,6 +8,7 @@ augroup filetypedetect
   au BufRead,BufNewFile *.go                                set ft=go
   au BufRead,BufNewFile *.js                                set ft=javascript
   au BufRead,BufNewFile *.ts                                set ft=typescript
+  au BufRead,BufNewFile *.scss                              set ft=scss
   au BufRead,BufNewFile *.sh,*.bash                         set ft=sh
   au BufRead,BufNewFile *.zsh,.zshrc,.zshenv                set ft=zsh
   au BufRead,BufNewFile *.html                              set ft=html

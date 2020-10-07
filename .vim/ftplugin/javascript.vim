@@ -1,7 +1,7 @@
 set cindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set foldmethod=indent
 
-let g:indent_guides_guide_size = 4
+let g:indent_guides_guide_size = 2
