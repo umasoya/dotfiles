@@ -104,6 +104,7 @@ repo = 'dense-analysis/ale'
 hook_add = '''
 let g:ale_linters = {
       \ 'javascript': ['eslint'],
+      \ 'typescript': [],
       \ 'sh': ['bash-language-server'],
       \ 'go': ['gofmt'],
       \ 'php': ['phan', 'php-cs-fixer'],
