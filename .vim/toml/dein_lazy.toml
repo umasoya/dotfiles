@@ -155,4 +155,4 @@ on_ft = ['yaml.ansible']
 # --------------------------------------------------------------------------#
 [[plugins]]
 repo='Glench/Vim-Jinja2-Syntax'
-on_ft = ['njk']
+on_ft = ['jinja.html']

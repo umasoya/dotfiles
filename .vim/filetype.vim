@@ -9,11 +9,13 @@ augroup filetypedetect
   au BufRead,BufNewFile *.js                                set ft=javascript
   au BufRead,BufNewFile *.ts                                set ft=typescript
   au BufRead,BufNewFile *.vue                               set ft=vue
+  au BufRead,BufNewFile *.njk                               set ft=jinja.html
   au BufRead,BufNewFile *.scss                              set ft=scss
   au BufRead,BufNewFile *.sh,*.bash                         set ft=sh
   au BufRead,BufNewFile *.zsh,.zshrc,.zshenv                set ft=zsh
   au BufRead,BufNewFile *.html                              set ft=html
   au BufRead,BufNewFile *.py                                set ft=python
+  au BufRead,BufNewFile *.sql                               set ft=sql
   au BufRead,BufNewFile autohotkey.ini,*.ahk                set ft=ahk
   au BufRead,BufNewFile */nginx/*/*.conf                    set ft=conf.nginx
   au BufRead,BufNewFile */httpd/*/*.conf,*/apache2/*/*.conf set ft=conf.apache
