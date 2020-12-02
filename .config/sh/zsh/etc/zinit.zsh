@@ -97,7 +97,7 @@ zinit load b4b4r07/enhancd
 # ccat
 # -------------------------------
 zinit ice lucid as"program" from"gh-r" bpick"${BPICK}" pick"*/ccat" atload"alias cat=ccat"
-zinit light jingweno/ccat
+zinit light owenthereal/ccat
 
 # tmux-xpanes
 # -------------------------------
