@@ -5,7 +5,9 @@ augroup highlightMultiByteSpace
 augroup END
 
 " set colorscheme
-colorscheme tender
+" colorscheme tender
+set background=light
+colorscheme solarized
 
 if has('mac')
     " {{{1 mac
