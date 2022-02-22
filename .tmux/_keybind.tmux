@@ -8,10 +8,10 @@ bind C-r source-file ~/.tmux.conf\; \
     display "reload $HOME/.tmux.conf"
 
 # Split pane
-bind \ splitw -hc "#{pane_current_path}"
+bind \\ splitw -hc "#{pane_current_path}"
 bind - splitw -vc "#{pane_current_path}"
 # without prefix
-bind -n M-\ splitw -hc "#{pane_current_path}"
+bind -n M-\\ splitw -hc "#{pane_current_path}"
 bind -n M-- splitw -vc "#{pane_current_path}"
 
 # Move pane like vim
