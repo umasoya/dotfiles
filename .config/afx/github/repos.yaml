@@ -1,0 +1,43 @@
+github:
+- name: jq
+  description: Command-line JSON processor
+  owner: stedolan
+  repo: jq
+  release:
+    name: jq
+    tag: jq-1.6
+  command:
+    link:
+    - from: '*jq*'
+      to: jq
+- name: enhancd
+  description: A next-generation cd command with your interactive filter
+  owner: b4b4r07
+  repo: enhancd
+  plugin:
+    env:
+      ENHANCD_FILTER: fzf --height 25% --reverse --ansi:fzy
+    sources:
+    - init.sh
+- name: zdharma-continuum/fast-syntax-highlighting # Similar to zsh-users/zsh-syntax-highlighting
+  description: Syntax-highlighting for Zshell
+  owner: zdharma-continuum
+  repo: fast-syntax-highlighting
+  plugin:
+    sources:
+      - fast-syntax-highlighting.plugin.zsh
+- name: sindresorhus/pure
+  description: Pretty, minimal and fast ZSH prompt
+  owner: sindresorhus
+  repo: pure
+  plugin:
+    env:
+    snippet-prepare: |
+      fpath+=$HOME/.afx/github.com/sindresorhus/pure
+      zstyle :prompt:pure:git:branch color magenta
+      zstyle :prompt:pure:git:branch:cached color yellow
+      zstyle :prompt:pure:git:dirty color 091
+      zstyle :prompt:pure:user color blue
+      zstyle :prompt:pure:host color blue
+    sources:
+      - pure.zsh

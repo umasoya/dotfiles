@@ -1,0 +1,78 @@
+github:
+- name: neovim/neovim
+  description: Vim-fork focused on extensibility and usability
+  owner: neovim
+  repo: neovim
+  release:
+    name: nvim
+    tag: v0.6.1
+  command:
+    alias:
+      vim: nvim
+    link:
+    - from: '**/bin/nvim'
+      to: nvim
+        # - name: ogham/exa
+        #   description: A modern version of 'ls'.
+        #   owner: ogham
+        #   repo: exa
+        #   release:
+        #     name: exa
+        #     tag: v0.9.0
+        #   command:
+        #     alias:
+        #       l: exa --group-directories-first -T --git-ignore --level 2
+        #       la: exa --group-directories-first -a --header --git
+        #       ll: exa --group-directories-first -l --header --git
+        #       lla: exa --group-directories-first -la --header --git
+        #       ls: exa --group-directories-first
+        #     link:
+        #     - from: '*exa*'
+        #       to: exa
+- name: docker-compose
+  description: Define and run multi-container applications with Docker
+  owner: docker
+  repo: compose
+  release:
+    name: docker-compose
+    tag: v2.2.3
+# - name: x-motemen/ghq
+#   description: Remote repository management made easy
+#   owner: x-motemen
+#   repo: ghq
+#   release:
+#     name: ghq
+#     tag: v1.2.1
+# - name: github/hub
+#   description: A command-line tool that makes git easier to use with GitHub.
+#   owner: github
+#   repo: hub
+#   release:
+#     name: hub
+#     tag: v2.14.2
+#   command:
+#     link:
+#       - from: '**/bin/hub'
+- name: direnv/direnv
+  description: Unclutter your .profile
+  owner: direnv
+  repo: direnv
+  release:
+    name: direnv
+    tag: v2.30.3
+    asset:
+      filename: '{{ .Release.Name  }}.{{ .OS  }}-{{ .Arch  }}'
+- name: junegunn/fzf-bin
+  description: A command-line fuzzy finder
+  owner: junegunn
+  repo: fzf-bin
+  release:
+    name: fzf
+    tag: 0.23.0
+
+# todo
+# - ccat
+# - fzf
+# - tmux-xpanes
+# - zsh-completions
+# - git-completions
