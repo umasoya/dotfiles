@@ -1,34 +1,37 @@
 github:
-- name: neovim/neovim
-  description: Vim-fork focused on extensibility and usability
-  owner: neovim
-  repo: neovim
+#/**
+# * From github releases don't work, but the ones from `brew install` do.
+# */
+# - name: neovim/neovim
+#   description: Vim-fork focused on extensibility and usability
+#   owner: neovim
+#   repo: neovim
+#   release:
+#     name: nvim
+#     tag: v0.6.1
+#   command:
+#     alias:
+#       vi: nvim
+#     link:
+#     - from: '**/bin/nvim'
+#       to: nvim
+- name: ogham/exa
+  description: A modern version of 'ls'.
+  owner: ogham
+  repo: exa
   release:
-    name: nvim
-    tag: v0.6.1
+    name: exa
+    tag: v0.9.0
   command:
     alias:
-      vim: nvim
+      l: exa --group-directories-first -T --git-ignore --level 2
+      la: exa --group-directories-first -a --header --git
+      ll: exa --group-directories-first -l --header --git
+      lla: exa --group-directories-first -la --header --git
+      ls: exa --group-directories-first
     link:
-    - from: '**/bin/nvim'
-      to: nvim
-        # - name: ogham/exa
-        #   description: A modern version of 'ls'.
-        #   owner: ogham
-        #   repo: exa
-        #   release:
-        #     name: exa
-        #     tag: v0.9.0
-        #   command:
-        #     alias:
-        #       l: exa --group-directories-first -T --git-ignore --level 2
-        #       la: exa --group-directories-first -a --header --git
-        #       ll: exa --group-directories-first -l --header --git
-        #       lla: exa --group-directories-first -la --header --git
-        #       ls: exa --group-directories-first
-        #     link:
-        #     - from: '*exa*'
-        #       to: exa
+    - from: '*exa*'
+      to: exa
 - name: docker-compose
   description: Define and run multi-container applications with Docker
   owner: docker
@@ -36,6 +39,9 @@ github:
   release:
     name: docker-compose
     tag: v2.2.3
+  command:
+    link:
+      - from: '**/docker-compose'
 # - name: x-motemen/ghq
 #   description: Remote repository management made easy
 #   owner: x-motemen
@@ -43,6 +49,9 @@ github:
 #   release:
 #     name: ghq
 #     tag: v1.2.1
+#   command:
+#     link:
+#       - from: '**/ghq'
 # - name: github/hub
 #   description: A command-line tool that makes git easier to use with GitHub.
 #   owner: github
@@ -60,15 +69,19 @@ github:
   release:
     name: direnv
     tag: v2.30.3
-    asset:
-      filename: '{{ .Release.Name  }}.{{ .OS  }}-{{ .Arch  }}'
-- name: junegunn/fzf-bin
-  description: A command-line fuzzy finder
-  owner: junegunn
-  repo: fzf-bin
-  release:
-    name: fzf
-    tag: 0.23.0
+  command:
+    link:
+      - from: direnv
+# - name: junegunn/fzf-bin
+#   description: A command-line fuzzy finder
+#   owner: junegunn
+#   repo: fzf-bin
+#   release:
+#     name: fzf
+#     tag: 0.23.0
+#   command:
+#     link:
+#       - from: '**/fzf'
 
 # todo
 # - ccat
