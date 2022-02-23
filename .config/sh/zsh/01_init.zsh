@@ -1,15 +1,3 @@
-# {{{1 Check system
-case "${OSTYPE}" in
-    *darwin*)
-        export IS_MAC=1
-        ;;
-    *linux*)
-        export IS_LINUX=1
-        export DIST=`cat /etc/os-release | awk -F'["]' 'NR==1{print $2}' | awk '{print $1}'` 2>/dev/null
-        ;;
-esac
-# }}}
-
 bindkey -v
 
 # {{{1 options
