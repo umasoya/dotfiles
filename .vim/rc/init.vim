@@ -50,6 +50,7 @@ set regexpengine=1
 
 set autoindent
 set smartindent
+set cindent
 filetype plugin indent on
 
 " Restore cursor position
