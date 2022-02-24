@@ -4,10 +4,6 @@ augroup highlightMultiByteSpace
   autocmd VimEnter,Winenter * match ErrorMsg /　/
 augroup END
 
-" set colorscheme
-" colorscheme tender
-colorscheme solarized
-
 if has('mac')
   set background=dark
 else

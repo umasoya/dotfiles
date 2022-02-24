@@ -15,6 +15,9 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]] # Required +python module
 repo = 'editorconfig/editorconfig-vim'
 
+[[plugins]] # Colorscheme
+repo = 'altercation/vim-colors-solarized'
+
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 hook_add = '''

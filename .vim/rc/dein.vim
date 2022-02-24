@@ -33,6 +33,7 @@ if dein#load_state(s:dein_dir)
 endif
 
 syntax enable
+colorscheme solarized
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
