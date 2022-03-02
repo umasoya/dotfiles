@@ -2,19 +2,19 @@ github:
 #/**
 # * From github releases don't work, but the ones from `brew install` do.
 # */
-# - name: neovim/neovim
-#   description: Vim-fork focused on extensibility and usability
-#   owner: neovim
-#   repo: neovim
-#   release:
-#     name: nvim
-#     tag: v0.6.1
-#   command:
-#     alias:
-#       vi: nvim
-#     link:
-#     - from: '**/bin/nvim'
-#       to: nvim
+- name: neovim/neovim
+  description: Vim-fork focused on extensibility and usability
+  owner: neovim
+  repo: neovim
+  release:
+    name: nvim
+    tag: v0.6.1
+  command:
+    alias:
+      vi: nvim
+    link:
+    - from: '**/bin/nvim'
+      to: nvim
 - name: ogham/exa
   description: A modern version of 'ls'.
   owner: ogham

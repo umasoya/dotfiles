@@ -2,21 +2,21 @@ github:
 #/**
 # * From github releases don't work, but the ones from `brew install` do.
 # */
-# - name: jq
-#   description: Command-line JSON processor
-#   owner: stedolan
-#   repo: jq
-#   release:
-#     name: jq
-#     tag: jq-1.6
-#     asset:
-#       filename: jq-{{ .OS }}-{{ .Arch }}
-#       replacements:
-#         darwin: osx
-#         arm64: amd64
-#   command:
-#     link:
-#     - from: jq
+- name: jq
+  description: Command-line JSON processor
+  owner: stedolan
+  repo: jq
+  release:
+    name: jq
+    tag: jq-1.6
+    asset:
+      filename: jq-{{ .OS }}-{{ .Arch }}
+      replacements:
+        darwin: osx
+        arm64: amd64
+  command:
+    link:
+    - from: jq
 - name: enhancd
   description: A next-generation cd command with your interactive filter
   owner: b4b4r07

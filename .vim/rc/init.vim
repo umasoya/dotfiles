@@ -83,3 +83,7 @@ endif
 set expandtab
 set foldmethod=marker
 set nohlsearch
+
+" popup color
+" -------------------
+set pumblend=10
