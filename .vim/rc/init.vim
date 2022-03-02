@@ -48,6 +48,8 @@ set modelines=5
 " -------------------
 set regexpengine=1
 
+" indent
+" -------------------
 set autoindent
 set smartindent
 set cindent
@@ -62,7 +64,7 @@ augroup END
 
 " system visual
 " -------------------
-" set number
+set number
 set ruler
 
 set laststatus=2

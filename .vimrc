@@ -19,5 +19,4 @@ endfunction
 call s:source_rc('init.vim')
 call s:source_rc('color.vim')
 call s:source_rc('mapping.vim')
-call s:source_rc('template.vim')
 call s:source_rc('dein.vim')
