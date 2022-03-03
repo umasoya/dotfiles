@@ -1,12 +1,22 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+tap "rcmdnk/rcmdnkcask"
+brew "docker"
 brew "go"
 brew "mas"
 brew "the_platinum_searcher"
 brew "tmux"
 brew "tree"
+cask "appcleaner"
+cask "docker"
+cask "font-migu1m"
+cask "google-chrome"
+cask "iterm2"
 cask "multipass"
+cask "onyx"
+cask "spotify"
+cask "visual-studio-code"
 mas "1Password 7", id: 1333542190
 mas "Alfred", id: 405843582
 mas "GarageBand", id: 682658836

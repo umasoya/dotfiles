@@ -4,6 +4,10 @@
 
 ```
 brew bundle dump
+
+# override
+
+brew bundle dump -f
 ```
 
 ## Brewfileからパッケージのインストール
