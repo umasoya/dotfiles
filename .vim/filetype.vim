@@ -4,7 +4,7 @@ augroup filetypedetect
   au BufRead,BufNewFile *.blade.php                         set ft=blade
   au BufRead,BufNewFile *.php                               set ft=php
   au BufRead,BufNewFile *.rb                                set ft=ruby
-  au BufRead,BufNewFile *.vim                               set ft=vim
+  au BufRead,BufNewFile *.vim,.vimrc                        set ft=vim
   au BufRead,BufNewFile *.go                                set ft=go
   au BufRead,BufNewFile *.js                                set ft=javascript
   au BufRead,BufNewFile *.ts                                set ft=typescript
