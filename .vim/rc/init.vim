@@ -48,6 +48,8 @@ set modelines=5
 " -------------------
 set regexpengine=1
 
+" indent
+" -------------------
 set autoindent
 set smartindent
 filetype plugin indent on
@@ -61,7 +63,7 @@ augroup END
 
 " system visual
 " -------------------
-" set number
+set number
 set ruler
 
 set laststatus=2
@@ -82,3 +84,7 @@ endif
 set expandtab
 set foldmethod=marker
 set nohlsearch
+
+" popup color
+" -------------------
+set pumblend=10

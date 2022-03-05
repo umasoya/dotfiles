@@ -4,7 +4,7 @@ augroup filetypedetect
   au BufRead,BufNewFile *.blade.php                         set ft=blade
   au BufRead,BufNewFile *.php                               set ft=php
   au BufRead,BufNewFile *.rb                                set ft=ruby
-  au BufRead,BufNewFile *.vim                               set ft=vim
+  au BufRead,BufNewFile *.vim,.vimrc                        set ft=vim
   au BufRead,BufNewFile *.go                                set ft=go
   au BufRead,BufNewFile *.js                                set ft=javascript
   au BufRead,BufNewFile *.ts                                set ft=typescript
@@ -21,6 +21,7 @@ augroup filetypedetect
   au BufRead,BufNewFile */httpd/*/*.conf,*/apache2/*/*.conf set ft=conf.apache
   au BufRead,BufNewFile .tmux.conf,*.tmux                   set ft=tmux
   au BufRead,BufNewFile *.yml,*.yaml                        set ft=yaml
+  au BufRead,BufNewFile *.toml                              set ft=toml
 
   " load template
   " au BufNewFile $HOME/dotfiles/cheat/*/* 0r $HOME/.vim/template/cheat

@@ -24,6 +24,7 @@ path=(
 
 fpath=(
   /usr/share/zsh/git-completions(N-/)
+  /usr/local/share/zsh/site-functions(N-/)
   $fpath
 )
 

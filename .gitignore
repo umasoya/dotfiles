@@ -6,6 +6,7 @@
 .tmux/plugins
 
 .config/*
+!.config/afx
 !.config/nvim
 !.config/multitail
 !.config/sh

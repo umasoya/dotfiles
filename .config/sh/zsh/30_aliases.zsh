@@ -5,11 +5,7 @@ alias -s tar.gz='tar zxvf'
 if (( $+commands[exa] )); then
   alias ls='exa'
 else
-  if (( $+IS_MAC )); then
-    alias ls="gls -F --color=auto"
-  else
-    alias ls="ls --color=auto"
-  fi
+  alias ls="ls --color=auto"
 fi
 
 alias la='ls -a'
