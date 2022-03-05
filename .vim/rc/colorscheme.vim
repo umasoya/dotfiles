@@ -7,7 +7,3 @@
 
   colorscheme tender
 " }}}
-
-" {{{ solarized
-  " colorscheme solarized
-" }}}
