@@ -42,26 +42,26 @@ github:
   command:
     link:
       - from: '**/docker-compose'
-# - name: x-motemen/ghq
-#   description: Remote repository management made easy
-#   owner: x-motemen
-#   repo: ghq
-#   release:
-#     name: ghq
-#     tag: v1.2.1
-#   command:
-#     link:
-#       - from: '**/ghq'
-# - name: github/hub
-#   description: A command-line tool that makes git easier to use with GitHub.
-#   owner: github
-#   repo: hub
-#   release:
-#     name: hub
-#     tag: v2.14.2
-#   command:
-#     link:
-#       - from: '**/bin/hub'
+- name: x-motemen/ghq
+  description: Remote repository management made easy
+  owner: x-motemen
+  repo: ghq
+  release:
+    name: ghq
+    tag: v1.2.1
+  command:
+    link:
+      - from: '**/ghq'
+- name: github/hub
+  description: A command-line tool that makes git easier to use with GitHub.
+  owner: github
+  repo: hub
+  release:
+    name: hub
+    tag: v2.14.2
+  command:
+    link:
+      - from: '**/bin/hub'
 - name: direnv/direnv
   description: Unclutter your .profile
   owner: direnv
