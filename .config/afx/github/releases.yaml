@@ -82,10 +82,19 @@ github:
   command:
     link:
       - from: '**/fzf'
+- name: muesli/gitomatic
+  description: A tool to monitor git repositories and automatically pull & push changes
+  owner: muesli
+  repo: gitomatic
+  release:
+    name: gitomatic
+    tag: v0.2
+  command:
+    link:
+      - from: gitomatic
 
 # todo
 # - ccat
-# - fzf
 # - tmux-xpanes
 # - zsh-completions
 # - git-completions
