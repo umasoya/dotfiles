@@ -17,6 +17,10 @@
             <key>Minute</key>
             <integer>0</integer>
         </dict>
+        <key>RunAtLoad</key>
+        <true />
+        <key>ExitTimeOut</key>
+        <integer>600</integer>
         <key>KeepAlive</key>
         <dict>
             <key>PathState</key>
