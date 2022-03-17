@@ -10,7 +10,7 @@
             <string>-privkey</string>
             <string>/Users/umasoya/.ssh/conf.d/github/id_ed25519</string>
             <string>-interval</string>
-            <string>1d</string>
+            <string>1h</string>
             <string>/Users/umasoya/inkdrop</string>
         </array>
         <key>RunAtLoad</key>
@@ -28,6 +28,6 @@
         <key>StandardOutPath</key>
         <string>/dev/null</string>
         <key>StandardErrorPath</key>
-        <string>/var/log/gitomatic.log</string>
+        <string>/var/log/umasoya.gitomatic.daily.error</string>
     </dict>
 </plist>
