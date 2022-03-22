@@ -11,10 +11,10 @@ let g:rc_dir = expand($HOME . "/.vim/rc")
 
 function! s:source_rc(target)
   let rc_file = expand(g:rc_dir . '/' . a:target)
-    echo "cannot read: " . rc_file
   if filereadable(rc_file)
     execute 'source' rc_file
   else
+    echo "cannot read: " . rc_file
   endif
 endfunction
 
