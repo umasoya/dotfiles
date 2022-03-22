@@ -3,7 +3,6 @@
   if (has("termguicolors"))
    set termguicolors
   endif
-  echo 'load colorscheme.vim'
 
   colorscheme tender
 " }}}
