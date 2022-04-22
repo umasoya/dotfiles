@@ -1,0 +1,30 @@
+#cloud-config
+
+# set timezone
+timezone: Asia/Tokyo
+# set locale
+locale: ja_JP.utf8
+
+# update & upgrade
+package_update: true
+package_upgrade: true
+
+# install packages
+packages:
+  - tree
+  - nodejs
+  - npm
+  - git
+
+# reboot (Does not work properly at multipass?) 
+# power_state:
+#   delay: now
+#   mode: reboot
+#   message: reboot this instance
+
+runcmd:
+  # deploy my dotfiles 
+  - cd /home/ubuntu
+  - git clone https://github.com/umasoya/dotfiles.git
+  - cd dotfiles
+  - make install
