@@ -85,6 +85,10 @@ set expandtab
 set foldmethod=marker
 set nohlsearch
 
-" popup color
+" Neovim or not
 " -------------------
-set pumblend=10
+if has('nvim')
+  " popup color
+  set pumblend=10
+else
+endif
