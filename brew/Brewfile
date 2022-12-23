@@ -5,6 +5,7 @@ tap "rcmdnk/rcmdnkcask"
 brew "docker", link: false
 brew "go"
 brew "mas"
+brew "php"
 brew "the_platinum_searcher"
 brew "tmux"
 brew "tree"
@@ -30,3 +31,4 @@ mas "LINE", id: 539883307
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "PopClip", id: 445189367
+mas "Xcode", id: 497799835
