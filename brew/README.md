@@ -7,7 +7,7 @@ brew bundle dump
 
 # override
 
-brew bundle dump -f
+brew bundle dump -f --describe
 ```
 
 ## Brewfileからパッケージのインストール

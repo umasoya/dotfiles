@@ -2,33 +2,53 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "rcmdnk/rcmdnkcask"
+# Pack, ship and run any application as a lightweight container
 brew "docker", link: false
+# Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Mac App Store command-line interface
 brew "mas"
+# General-purpose scripting language
 brew "php"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
+# Multi-platform code-search similar to ack and ag
 brew "the_platinum_searcher"
+# Terminal multiplexer
 brew "tmux"
+# Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Application uninstaller
 cask "appcleaner"
+# App to build and share containerized applications and microservices
 cask "docker"
 cask "font-migu1m"
+# Web browser
 cask "google-chrome"
 cask "google-japanese-ime"
+# Markdown editor
 cask "inkdrop"
+# Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Create, manage and debug system- and user services
 cask "launchcontrol"
+# Orchestrates virtual Ubuntu instances
 cask "multipass"
+# Verify system files structure, run miscellaneous maintenance and more
 cask "onyx"
+# Music streaming service
 cask "spotify"
+# Open-source code editor
 cask "visual-studio-code"
-mas "1Password 7", id: 1333542190
 mas "Alfred", id: 405843582
 mas "feedly", id: 865500966
-mas "GarageBand", id: 682658836
+mas "Fotor Photo Editor", id: 503039729
+mas "GIPHY CAPTURE", id: 668208984
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "LINE", id: 539883307
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "PopClip", id: 445189367
+mas "Tag Editor Free", id: 984278082
 mas "Xcode", id: 497799835
