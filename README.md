@@ -1,13 +1,19 @@
 # dotfiles
 
-## install
+## Dependence
 
-Run this:
+- GNU-stow
+
+## deploy
 
 ```
-git clone git@github.com:umasoya/dotfiles.git
-cd dotfiles
-make install
+./deploy.sh
+```
+
+## removal
+
+```
+./removal.sh
 ```
 
 ### MacOS
@@ -28,9 +34,3 @@ brew bundle
 - tmux
 - iterm2
 - brew
-
-## bugs
-
-### deploy script
-A symlink to the **.config/** will created.
-Thus, unnecessary files may also be included in the repository.
