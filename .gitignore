@@ -1,13 +1,13 @@
 # If add an exception, put a BOL "!"
 
-.vim/dein.vim
-.vim/doc/tags
+vim/.vim/dein.vim
+vim/.vim/doc/tags
 
-.tmux/plugins
+tmux/.tmux/plugins
 
-.config/*
-!.config/afx
-!.config/nvim
-!.config/multitail
-!.config/sh
-!.config/cheat
+config/.config/*
+!config/.config/afx
+!config/.config/nvim
+!config/.config/multitail
+!config/.config/sh
+!config/.config/cheat

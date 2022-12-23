@@ -1,4 +1,4 @@
-source $HOME/dotfiles/.config/sh/.env
+source $HOME/dotfiles/config/.config/sh/.env
 
 # Setup fzf
 # ---------
