@@ -1,0 +1,78 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入しますauto[]
+[
+    {
+        "key": "ctrl+j",
+        "command": "-editor.action.joinLines",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "-extension.vim_ctrl+j",
+        "when": "editorTextFocus && vim.active && vim.use<C-j> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "cmd+down",
+        "command": "-selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "down",
+        "command": "-selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "up",
+        "command": "-selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "cmd+up",
+        "command": "-selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "-extension.vim_ctrl+k",
+        "when": "editorTextFocus && vim.active && vim.use<C-k> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "acceptSelectedSuggestion",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "tab",
+        "command": "-acceptSelectedSuggestion",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "shift+space",
+        "command": "editor.action.triggerSuggest",
+        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+space",
+        "command": "-editor.action.triggerSuggest",
+        "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+    }
+]

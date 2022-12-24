@@ -1,0 +1,80 @@
+{
+    /*
+     * workbench
+     */
+    "workbench.colorTheme": "Tokyo Night",
+
+    /*
+     * terminal
+     */
+    "terminal.external.osxExec": "iTerm.app",
+
+    /*
+     * editor
+     */
+    "editor.fontFamily": "'Migu 1M', Menlo, Monaco, 'Courier New', monospace",
+    "editor.renderLineHighlight": "all",
+    "editor.quickSuggestions": {
+        "comments": false,
+        "strings": true,
+        "other": true
+    },
+    "editor.acceptSuggestionoaOnEnter": "off",
+
+    /*
+     * extensions
+     */
+    // vim
+    "vim.incsearch": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+          "before": ["j", "j"],
+          "after": ["<Esc>"]
+        }
+    ],
+
+    // Better Comments
+    "better-comments.multilineComments": true,
+    "markdown-preview-enhanced.codeBlockTheme": "github.css",
+    "redhat.telemetry.enabled": true,
+    "git.ignoreMissingGitWarning": true,
+    "bracketPairColorizer.depreciation-notice": false,
+    "explorer.confirmDelete": false,
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        },
+        "Command Prompt": {
+            "path": [
+                "${env:windir}\\Sysnative\\cmd.exe",
+                "${env:windir}\\System32\\cmd.exe"
+            ],
+            "args": [],
+            "icon": "terminal-cmd"
+        },
+        "Git Bash": {
+            "source": "Git Bash"
+        },
+        "Ubuntu (WSL)": {
+            "path": "C:\\Windows\\System32\\wsl.exe",
+            "args": [
+                "-d",
+                "Ubuntu"
+            ]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+    "files.trimTrailingWhitespace": true,
+    "xml.server.binary.trustedHashes": [
+        "34f51b1d8c3b85bf8af72502c3a52ca841d11cf76f848be198631e0dd2b7e169"
+    ],
+    "editor.minimap.enabled": false,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "workbench.editor.enablePreview": false,
+
+    // php
+    // "php.executablePath": "C:\php\php-7.4.28",
+    // "php.debug.executablePath": "C:\php\php-7.4.28",
+}
