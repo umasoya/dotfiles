@@ -22,6 +22,8 @@ echo -e "${COLOR_GREEN}Start deploying dotfiles... ${COLOR_OFF}"
 
 # Run Deploy
 stow -vR ${TARGETS[@]}
+# For VSCode
+stow -vR -t ~/Library/Application\ Support/Code/User/ code
 
 echo -e "${COLOR_GREEN}Finish deploying dotfiles‼️ ${COLOR_OFF}"
 

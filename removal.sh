@@ -22,6 +22,8 @@ echo -e "${COLOR_GREEN}Start removal dotfiles... ${COLOR_OFF}"
 
 # Run Deploy
 stow -vD ${TARGETS[@]}
+# For VSCode
+stow -vD -t ~/Library/Application\ Support/Code/User/ code
 
 echo -e "${COLOR_GREEN}Finish removal dotfiles‼️ ${COLOR_OFF}"
 
