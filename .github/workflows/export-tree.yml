@@ -16,18 +16,24 @@ jobs:
           timezoneMacos: "Asia/Tokyo"
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Check exists sips command
-        run: which sips
-        continue-on-error: true
-      - name: Install sips command
-        if: ${{ failure() }}
+          # - name: Check exists sips command
+          #   run: which sips
+          #   continue-on-error: true
+          # - name: Install sips command
+          #   if: ${{ failure() }}
+          #   run: brew install sips
+          # - name: Check tree command
+          #   run: which tree
+          #   continue-on-error: true
+          # - name: Install tree command
+          #   if: ${{ failure() }}
+          #   run: brew install tree
+      - name: Install sips command if not exists
         run: brew install sips
-      - name: Check tree command
-        run: which tree
-        continue-on-error: true
-      - name: Install tree command
-        if: ${{ failure() }}
+        if: ! type sips
+      - name: Install tree command if not exists
         run: brew install tree
+        if: ! type tree
       - name: Execute tree command
         run: |
           tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist > tree-result
