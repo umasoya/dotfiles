@@ -33,7 +33,7 @@ jobs:
         if: which sips
       - name: Install tree command if not exists
         run: brew install tree
-        if: `which tree` != 0
+        if: which tree
       - name: Execute tree command
         run: |
           tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist > tree-result
