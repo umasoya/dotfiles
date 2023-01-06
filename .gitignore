@@ -11,3 +11,4 @@ config/.config/*
 !config/.config/multitail
 !config/.config/sh
 !config/.config/cheat
+!config/.config/karabiner

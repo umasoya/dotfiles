@@ -1,0 +1,43 @@
+{
+  "title": "Swap Space And Shift+Space",
+  "maintainers": [
+    "umasoya"
+  ],
+  "rules": [
+    {
+      "description": "Swap Space And Shift+Space",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar"
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                  "shift"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
