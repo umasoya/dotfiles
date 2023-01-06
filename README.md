@@ -60,6 +60,7 @@ brew bundle
 │       ├── dlv
 │       ├── hub
 │       ├── iterm2
+│       ├── karabiner
 │       ├── multitail
 │       ├── mume
 │       ├── nvim
@@ -118,6 +119,6 @@ brew bundle
     ├── .zshenv
     └── .zshrc
 
-38 directories, 38 files
-2022/12/25 01:05:53
+40 directories, 38 files
+2023/01/06 15:05:03
 ```
