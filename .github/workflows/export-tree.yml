@@ -18,11 +18,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Check exists sips command
         run: which sips
+        continue-on-error: true
       - name: Install sips command
         if: ${{ failure() }}
         run: brew install sips
       - name: Check tree command
         run: which tree
+        continue-on-error: true
       - name: Install tree command
         if: ${{ failure() }}
         run: brew install tree
