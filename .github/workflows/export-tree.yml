@@ -30,10 +30,10 @@ jobs:
           #   run: brew install tree
       - name: Install sips command if not exists
         run: brew install sips
-        if: ! `type sips`
+        if: `type sips` != 0
       - name: Install tree command if not exists
         run: brew install tree
-        if: ! `type tree`
+        if: `type tree` != 0
       - name: Execute tree command
         run: |
           tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist > tree-result
