@@ -4,8 +4,12 @@ tap "homebrew/core"
 tap "rcmdnk/rcmdnkcask"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c", link: true
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Tools and libraries to manipulate images in many formats
+brew "imagemagick"
 # Mac App Store command-line interface
 brew "mas"
 # General-purpose scripting language
