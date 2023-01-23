@@ -22,6 +22,7 @@ augroup filetypedetect
   au BufRead,BufNewFile .tmux.conf,*.tmux                   set ft=tmux
   au BufRead,BufNewFile *.yml,*.yaml                        set ft=yaml
   au BufRead,BufNewFile *.toml                              set ft=toml
+  au BufRead,BufNewFile *.md                                set ft=markdown
 
   " load template
   " au BufNewFile $HOME/dotfiles/cheat/*/* 0r $HOME/.vim/template/cheat
