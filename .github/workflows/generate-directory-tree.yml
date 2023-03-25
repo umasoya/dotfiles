@@ -16,12 +16,13 @@ jobs:
          timezoneMacos: "Asia/Tokyo"
      - name: Checkout repository
        uses: actions/checkout@v3
-     - name: Check exists tree command
-       run: which tree
-       continue-on-error: true
+     # - name: Check exists tree command
+     #   run: which tree
+       # continue-on-error: true
      - name: Install tree command
-       if: ${{ failure() }}
+       # if: ${{ failure() }}
        run: brew install tree
      - name: Execute tree command
+       # if: ${{ failure() }}
        run: |
         tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist && date "+%Y/%m/%d %H:%M:%S"
