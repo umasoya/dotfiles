@@ -12,8 +12,19 @@
     autostash = true
 [user]
     useConfigOnly = true
-	name = umasoya
-	email = umasoya.0331@gmail.com
+    name = umasoya
+    email = umasoya.0331@gmail.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbXBzcYfTCR8+2EEi994eVPAKmO2r9NkqUHzq8wZfHT
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+
 [ghq]
     root = ~/repos/src
 [alias]

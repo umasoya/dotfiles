@@ -1,6 +1,6 @@
 # If add an exception, put a BOL "!"
 
-.DS_Store
+**/.DS_Store
 *.swp
 *~
 *.log

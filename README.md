@@ -10,6 +10,12 @@
 ./deploy.sh
 ```
 
+**When deploying for the first time**
+
+Symbolic links for '.gitignore' are not created due to the 'stow' specification.
+To avoid this, you need to deploy '.stow-global-ignore' to your home directory first.
+In conclusion, you need to run the deploy.sh twice.
+
 ## removal dotfiles
 
 ```

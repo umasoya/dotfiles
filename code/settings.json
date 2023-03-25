@@ -3,12 +3,10 @@
      * workbench
      */
     "workbench.colorTheme": "Tokyo Night",
-
     /*
      * terminal
      */
     "terminal.external.osxExec": "iTerm.app",
-
     /*
      * editor
      */
@@ -20,7 +18,6 @@
         "other": true
     },
     "editor.acceptSuggestionoaOnEnter": "off",
-
     /*
      * extensions
      */
@@ -29,11 +26,15 @@
     "vim.hlsearch": true,
     "vim.insertModeKeyBindings": [
         {
-          "before": ["j", "j"],
-          "after": ["<Esc>"]
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
         }
     ],
-
     // Better Comments
     "better-comments.multilineComments": true,
     "markdown-preview-enhanced.codeBlockTheme": "github.css",
@@ -73,7 +74,14 @@
     "editor.minimap.enabled": false,
     "editor.unicodeHighlight.nonBasicASCII": false,
     "workbench.editor.enablePreview": false,
-
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "explorer.confirmDragAndDrop": false,
+    "typescript.updateImportsOnFileMove.enabled": "never",
+    "git.autofetch": true,
     // php
     // "php.executablePath": "C:\php\php-7.4.28",
     // "php.debug.executablePath": "C:\php\php-7.4.28",
