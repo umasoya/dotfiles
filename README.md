@@ -43,6 +43,8 @@ brew bundle
 
 ## Directory structure
 
+![DirectoryTree.jpeg](etc/img/directoryTree.jpeg)
+
 `tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist && date "+%Y/%m/%d %H:%M:%S"`
 
 ```
