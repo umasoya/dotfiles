@@ -51,6 +51,7 @@ jobs:
 
     - name: add jpeg file
       run: |
+        git fetch
         git config user.email action@github.com
         git add etc/img/directoryTree.jpeg
         git commit -m '[GitHubActions] Generate DirectoryTree.jpeg'
