@@ -44,7 +44,7 @@ brew bundle
 ## Directory structure
 
 <details>
-    <summary>directoryTree.jpeg</summary>
+    <summary>directory tree</summary>
 
 ![DirectoryTree.jpeg](etc/img/directoryTree.jpeg)
 </details>
