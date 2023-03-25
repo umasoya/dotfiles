@@ -46,5 +46,5 @@ brew bundle
 <details>
     <summary>directoryTree.jpeg</summary>
 
-    ![DirectoryTree.jpeg](etc/img/directoryTree.jpeg)
+![DirectoryTree.jpeg](etc/img/directoryTree.jpeg)
 </details>

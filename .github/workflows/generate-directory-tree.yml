@@ -31,8 +31,6 @@ jobs:
         cache-dependency-path: ./package-lock.json
     - name: Install node modules
       run: npm install -G node-html-to-image
-    - name: npm update
-      run: npm update --dry-run
 
     - name: Install tree command
       run: brew install tree
