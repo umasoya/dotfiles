@@ -21,6 +21,10 @@ jobs:
     - name: Execute tree command
       run: |
        echo "TREE_DATE=`date '+%Y/%m/%d %H:%M:%S'`" >> $GITHUB_ENV
-       echo "TREE_RESULT=`tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist`"  >> $GITHUB_ENV
+       echo "TREE_RESULT<<EOF" >> $GITHUB_ENV
+       echo "`tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist`" >> $GITHUB_ENV
+       echo "EOF" >> $GITHUB_ENV
     - name: Execute envsubst command
       run: envsubst < etc/templates/directoryTree.html > /tmp/directoryTree.html
+    - name: check result
+      run: cat /tmp/directoryTree.html
