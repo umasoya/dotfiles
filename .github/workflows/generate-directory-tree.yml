@@ -38,7 +38,7 @@ jobs:
       run: |
        echo "TREE_DATE=`date '+%Y/%m/%d %H:%M:%S'`" >> $GITHUB_ENV
        echo "TREE_RESULT<<EOF" >> $GITHUB_ENV
-       echo "`tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist`" >> $GITHUB_ENV
+       echo "`tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist -I node_modules`" >> $GITHUB_ENV
        echo "EOF" >> $GITHUB_ENV
     - name: Execute envsubst command
       run: envsubst < etc/templates/directoryTree.html > /tmp/directoryTree.html
@@ -46,5 +46,12 @@ jobs:
     - name: check result
       run: cat /tmp/directoryTree.html
 
-    - name: generate jpg file
+    - name: generate jpeg file
       run: npx node-html-to-image-cli /tmp/directoryTree.html etc/img/directoryTree.jpeg
+
+    - name: add jpeg file
+      run: |
+        git config user.email action@github.com
+        git add etc/img/directoryTree.jpeg
+        git commit -m '[GitHubActions] Generate DirectoryTree.jpeg'
+        git push
