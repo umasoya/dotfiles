@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "node-html-to-image": "^3.3.0"
+  }
+}
