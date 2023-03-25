@@ -1,15 +1,15 @@
-name: Run Tree Command
+name: Generate Directory Tree Image
 on:
   push:
     branches:
-      - master
-      - tree-img
+      - main
   pull_request:
-    branches: [master]
+    branches: [main]
 jobs:
   Run-Tree-Command:
    runs-on: macos-12
    steps:
+    # set timezone
     - name: Set timezone
       uses: szenius/set-timezone@v1.0
       with:
@@ -17,6 +17,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # set nodejs
     - name: Setup node
       uses: actions/setup-node@v3
       with:
@@ -32,6 +33,7 @@ jobs:
     - name: Install node modules
       run: npm install -G node-html-to-image
 
+    # install tree
     - name: Install tree command
       run: brew install tree
     - name: Execute tree command
@@ -43,12 +45,11 @@ jobs:
     - name: Execute envsubst command
       run: envsubst < etc/templates/directoryTree.html > /tmp/directoryTree.html
 
-    - name: check result
-      run: cat /tmp/directoryTree.html
-
-    - name: generate jpeg file
+    # generate image file
+    - name: generate tree image file
       run: npx node-html-to-image-cli /tmp/directoryTree.html etc/img/directoryTree.jpeg
 
+    # add image to repo
     - name: add jpeg file
       run: |
         git fetch
