@@ -1,0 +1,27 @@
+name: Run Tree Command
+on:
+  push:
+    branches:
+      - master
+      - tree-img
+  pull_request:
+    branches: [master]
+jobs:
+  Run-Tree-Command:
+   runs-on: macos-12
+   steps:
+     - name: Set timezone
+       uses: szenius/set-timezone@v1.0
+       with:
+         timezoneMacos: "Asia/Tokyo"
+     - name: Checkout repository
+       uses: actions/checkout@v3
+     - name: Check exists tree command
+       run: which tree
+       continue-on-error: true
+     - name: Install tree command
+       if: ${{ failure() }}
+       run: brew install tree
+     - name: Execute tree command
+       run: |
+        tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist && date "+%Y/%m/%d %H:%M:%S"
