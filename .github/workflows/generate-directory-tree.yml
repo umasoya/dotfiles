@@ -10,19 +10,17 @@ jobs:
   Run-Tree-Command:
    runs-on: macos-12
    steps:
-     - name: Set timezone
-       uses: szenius/set-timezone@v1.0
-       with:
-         timezoneMacos: "Asia/Tokyo"
-     - name: Checkout repository
-       uses: actions/checkout@v3
-     # - name: Check exists tree command
-     #   run: which tree
-       # continue-on-error: true
-     - name: Install tree command
-       # if: ${{ failure() }}
-       run: brew install tree
-     - name: Execute tree command
-       # if: ${{ failure() }}
-       run: |
-        tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist && date "+%Y/%m/%d %H:%M:%S"
+    - name: Set timezone
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneMacos: "Asia/Tokyo"
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Install tree command
+      run: brew install tree
+    - name: Execute tree command
+      run: |
+       echo "TREE_DATE=`date '+%Y/%m/%d %H:%M:%S'`" >> $GITHUB_ENV
+       echo "TREE_RESULT=`tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist`"  >> $GITHUB_ENV
+    - name: Execute envsubst command
+      run: envsubst < etc/templates/directoryTree.html > /tmp/directoryTree.html
