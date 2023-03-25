@@ -1,0 +1,58 @@
+name: Run Tree Command
+on:
+  push:
+    branches:
+      - master
+      - tree-img
+  pull_request:
+    branches: [master]
+jobs:
+  Run-Tree-Command:
+   runs-on: macos-12
+   steps:
+    - name: Set timezone
+      uses: szenius/set-timezone@v1.0
+      with:
+        timezoneMacos: "Asia/Tokyo"
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: npm
+    - name: Cache npm directory
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-npm-
+        cache-dependency-path: ./package-lock.json
+    - name: Install node modules
+      run: npm install -G node-html-to-image
+
+    - name: Install tree command
+      run: brew install tree
+    - name: Execute tree command
+      run: |
+       echo "TREE_DATE=`date '+%Y/%m/%d %H:%M:%S'`" >> $GITHUB_ENV
+       echo "TREE_RESULT<<EOF" >> $GITHUB_ENV
+       echo "`tree -aL 3 -I \.DS_Store -I \.git -I \.netrwhist -I node_modules`" >> $GITHUB_ENV
+       echo "EOF" >> $GITHUB_ENV
+    - name: Execute envsubst command
+      run: envsubst < etc/templates/directoryTree.html > /tmp/directoryTree.html
+
+    - name: check result
+      run: cat /tmp/directoryTree.html
+
+    - name: generate jpeg file
+      run: npx node-html-to-image-cli /tmp/directoryTree.html etc/img/directoryTree.jpeg
+
+    - name: add jpeg file
+      run: |
+        git fetch
+        git config user.email action@github.com
+        git add etc/img/directoryTree.jpeg
+        git commit -m '[GitHubActions] Generate DirectoryTree.jpeg'
+        git push

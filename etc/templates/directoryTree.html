@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Directory Tree</title>
+        <style>
+            html, body {
+                width: 800px;
+                padding: 1em 2em;
+                font-family: 'sans-serif'
+            }
+            body {
+                background-color: #161B22;
+                color: white;
+            }
+            #date {
+                display: flex;
+                justify-content: flex-end;
+                font-size: 1.2em;
+            }
+            #tree {
+                white-space: pre;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="tree">
+${TREE_RESULT}
+        </div>
+        <div id="date">
+            <span>${TREE_DATE}</span>
+        </div>
+    </body>
+</html>
