@@ -1,0 +1,10 @@
+github:
+- name: yusukebe/gh-markdown-preview
+  description: GitHub CLI extension to preview Markdown looks like GitHub.
+  owner: yusukebe
+  repo: gh-markdown-preview
+  as:
+    gh-extension:
+      name: gh-markdown-preview
+      tag: v1.4.0
+      rename-to: gh-md

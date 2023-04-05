@@ -21,7 +21,7 @@ github:
   repo: exa
   release:
     name: exa
-    tag: v0.9.0
+    tag: v0.10.1
   command:
     alias:
       l: exa --group-directories-first -T --git-ignore --level 2
@@ -30,25 +30,30 @@ github:
       lla: exa --group-directories-first -la --header --git
       ls: exa --group-directories-first
     link:
-    - from: '*exa*'
+    - from: '**/bin/exa'
       to: exa
-- name: docker-compose
-  description: Define and run multi-container applications with Docker
-  owner: docker
-  repo: compose
-  release:
-    name: docker-compose
-    tag: v2.2.3
-  command:
-    link:
-      - from: '**/docker-compose'
+# - name: docker-compose
+#   description: Define and run multi-container applications with Docker
+#   owner: docker
+#   repo: compose
+#   release:
+#     name: docker-compose
+#     tag: v2.17.2
+#     asset:
+#       filename: 'docker-compose-{{ .OS }}-{{ .Arch }}'
+#       replacements:
+#         arm64: x86_64
+#   command:
+#     link:
+#       - from: 'docker-compose'
+#         to: docker-compose
 - name: x-motemen/ghq
   description: Remote repository management made easy
   owner: x-motemen
   repo: ghq
   release:
     name: ghq
-    tag: v1.2.1
+    tag: v1.4.1
   command:
     link:
       - from: '**/ghq'
@@ -68,7 +73,7 @@ github:
   repo: direnv
   release:
     name: direnv
-    tag: v2.30.3
+    tag: v2.32.2
   command:
     link:
       - from: direnv
@@ -78,20 +83,10 @@ github:
   repo: fzf-bin
   release:
     name: fzf
-    tag: 0.23.0
+    tag: 0.23.1
   command:
     link:
       - from: '**/fzf'
-- name: muesli/gitomatic
-  description: A tool to monitor git repositories and automatically pull & push changes
-  owner: muesli
-  repo: gitomatic
-  release:
-    name: gitomatic
-    tag: v0.2
-  command:
-    link:
-      - from: gitomatic
 
 # todo
 # - ccat
