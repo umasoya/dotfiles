@@ -1,11 +1,18 @@
+tap "harelba/q"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "rcmdnk/rcmdnkcask"
+# Automate deployment, configuration, and upgrading
+brew "ansible"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
 # C/C++ and Java libraries for Unicode and globalization
 brew "icu4c", link: true
+# GitHub command-line tool
+brew "gh"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Tools and libraries to manipulate images in many formats
@@ -14,6 +21,8 @@ brew "imagemagick"
 brew "mas"
 # General-purpose scripting language
 brew "php"
+# Persistent key-value database, with built-in net interface
+brew "redis"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Multi-platform code-search similar to ack and ag
@@ -22,6 +31,8 @@ brew "the_platinum_searcher"
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Run SQL directly on CSV or TSV files, and on multiple sqlite databases
+brew "harelba/q/q"
 # Application uninstaller
 cask "appcleaner"
 # App to build and share containerized applications and microservices
@@ -45,9 +56,9 @@ cask "spotify"
 # Open-source code editor
 cask "visual-studio-code"
 mas "Alfred", id: 405843582
-mas "feedly", id: 865500966
 mas "Fotor Photo Editor", id: 503039729
 mas "GIPHY CAPTURE", id: 668208984
+mas "Image2icon", id: 992115977
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "LINE", id: 539883307
