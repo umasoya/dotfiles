@@ -32,21 +32,6 @@ github:
     link:
     - from: '**/bin/exa'
       to: exa
-# - name: docker-compose
-#   description: Define and run multi-container applications with Docker
-#   owner: docker
-#   repo: compose
-#   release:
-#     name: docker-compose
-#     tag: v2.17.2
-#     asset:
-#       filename: 'docker-compose-{{ .OS }}-{{ .Arch }}'
-#       replacements:
-#         arm64: x86_64
-#   command:
-#     link:
-#       - from: 'docker-compose'
-#         to: docker-compose
 - name: x-motemen/ghq
   description: Remote repository management made easy
   owner: x-motemen
