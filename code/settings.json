@@ -82,6 +82,9 @@
     "explorer.confirmDragAndDrop": false,
     "typescript.updateImportsOnFileMove.enabled": "never",
     "git.autofetch": true,
+    "docker-compose.files": [
+        "docker-compose.yaml"
+    ],
     // php
     // "php.executablePath": "C:\php\php-7.4.28",
     // "php.debug.executablePath": "C:\php\php-7.4.28",
