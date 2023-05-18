@@ -14,11 +14,7 @@
     useConfigOnly = true
     name = umasoya
     email = umasoya.0331@gmail.com
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFbXBzcYfTCR8+2EEi994eVPAKmO2r9NkqUHzq8wZfHT
-
-[gpg]
-  format = ssh
-
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIH48wUpWUT6R2wG77/yJfwnj8v4AvkCp26sM0+qdVY+ umasoya
 [commit]
   gpgsign = true
 
@@ -39,3 +35,5 @@
 	ff = only
 [init]
 	defaultBranch = main
+[gpg]
+	format = ssh
