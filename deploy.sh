@@ -9,7 +9,7 @@ COLOR_GREEN="\033[32m"
 
 TARGETS=(
   config
-  git
+  # git
   misc
   mysql
   pt
