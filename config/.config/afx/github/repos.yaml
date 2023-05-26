@@ -10,10 +10,10 @@ github:
     name: jq
     tag: jq-1.6
     asset:
-      filename: jq-{{ .OS }}-{{ .Arch }}
+      filename: jq-{{ .OS }}
       replacements:
-        darwin: osx
-        arm64: amd64
+        darwin: osx-amd64
+        linux: linux64
   command:
     link:
     - from: jq
