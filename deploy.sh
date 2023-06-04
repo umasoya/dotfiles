@@ -14,7 +14,6 @@ TARGETS=(
   mysql
   pt
   tmux
-  vim
   zsh
 )
 

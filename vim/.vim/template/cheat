@@ -1,7 +1,0 @@
----
-syntax: sh
-tags: [vim, template]
----
-
-# this is template
-echo "this is template"
