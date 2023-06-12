@@ -29,6 +29,7 @@
     au = add -u
     rh = reset --hard
     f = fetch
+	untracked = ls-files --others --exclude-standard
 [merge]
 	ff = false
 [pull]
