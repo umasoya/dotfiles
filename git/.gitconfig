@@ -3,6 +3,7 @@
 	excludesfile = ~/.gitignore
 	autoCRLF = false
     commentChar = ";"
+    editor = nvim
 [push]
 	default = simple
 [color]
