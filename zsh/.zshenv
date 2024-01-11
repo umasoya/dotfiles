@@ -46,3 +46,10 @@ autoload -Uz promptinit && promptinit
 if [ -n "$LS_COLORS" ]; then
   zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
+
+
+# Command History Rec Status
+export REC_STATUS=
+# Command History Rec Save Dir(default: /var/tmp)
+export REC_DIR=
+export REC_FILENAME=

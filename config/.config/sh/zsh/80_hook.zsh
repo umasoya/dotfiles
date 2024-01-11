@@ -27,6 +27,5 @@ chpwd_ls() {
     echo "$ls_result"
   fi
 }
-# }}}
-
 add-zsh-hook chpwd chpwd_ls
+# }}}
