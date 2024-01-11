@@ -1,5 +1,9 @@
 source $HOME/dotfiles/config/.config/sh/.env
 
+if [[ -d $HOME/linuxbrew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # Setup fzf
 # ---------
 if [[ -d $GOPATH/src/github.com/junegunn/fzf ]]; then
