@@ -21,13 +21,6 @@ repo = 'jacoborus/tender.vim'
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 
-# [[plugins]]
-# repo = 'scrooloose/nerdtree'
-# hook_add = '''
-# nnoremap <silent><C-e> :NERDTreeToggle<CR>
-# let NERDTreeShowHidden=1
-# '''
-
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
@@ -121,34 +114,6 @@ repo = 'justinmk/vim-sneak'
 hook_add = '''
 let g:sneak#label = 1
 '''
-
-# vim-airline
-# ----------
-[[plugins]]
-repo = 'vim-airline/vim-airline'
-hook_add = '''
-let g:airline#extentions#tabline#enable = 1
-let g:airline_powerline_fonts = 0
-
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
-endif
-
-let g:airline_symbols = {
-      \ 'readonly': 'RO',
-      \ 'whitespace': '!',
-      \ 'linenr': ' ln:',
-      \ 'maxlinenr': '',
-      \ 'colnr': ' cn:',
-      \ 'branch': '',
-      \ 'notexists': '?',
-      \ 'crypt': 'cr',
-      \ 'dirty': '!',
-      \ }
-'''
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
 
 # switch
 # ----------
