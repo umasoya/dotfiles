@@ -27,13 +27,15 @@ for i in ${ZDOT_DIR}/*.zsh;do
 done
 # }}}
 
+# {{{1 load ${COMMON_DIR}/*.sh
+for i in ${COMMON_DIR}/*.sh; do
+  source ${i}
+done
+# }}}
+
 # enable autocomplete
 autoload -U compinit
 compinit
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
