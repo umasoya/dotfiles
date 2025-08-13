@@ -15,7 +15,7 @@
 [user]
     useConfigOnly = true
     name = umasoya
-    email = umasoya.0331@gmail.com
+    email = 11560565+umasoya@users.noreply.github.com
 	signingkey = C9E2257C34098FE8
 [commit]
 	gpgsign = true
