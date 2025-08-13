@@ -1,14 +1,37 @@
-let g:rc_dir = expand($HOME . "/.vim/rc")
+" Ward off unexpected things that your distro might have made, as
+" well as sanely reset options when re-sourcing .vimrc
+set nocompatible
 
-function! s:source_rc(target)
-  let rc_file = expand(g:rc_dir . "/" . a:target)
-  if filereadable(rc_file)
-    execute 'source' rc_file
-  endif
-endfunction
+" Set Dein base path (required)
+let s:dein_base = '/home/umasoya/.cache/dein'
 
-call s:source_rc('init.vim')
-call s:source_rc('color.vim')
-call s:source_rc('mapping.vim')
-call s:source_rc('dein.vim')
-call s:source_rc('colorscheme.vim')
+" Set Dein source path (required)
+let s:dein_src = '/home/umasoya/.cache/dein/repos/github.com/Shougo/dein.vim'
+
+" Set Dein runtime path (required)
+execute 'set runtimepath+=' . s:dein_src
+
+" Call Dein initialization (required)
+call dein#begin(s:dein_base)
+
+call dein#add(s:dein_src)
+
+" Your plugins go here:
+"call dein#add('Shougo/neosnippet.vim')
+"call dein#add('Shougo/neosnippet-snippets')
+
+" Finish Dein initialization (required)
+call dein#end()
+
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+filetype indent plugin on
+
+" Enable syntax highlighting
+syntax enable
+
+" Uncomment if you want to install not-installed plugins on startup.
+"if dein#check_install()
+" call dein#install()
+"endif
