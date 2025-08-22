@@ -1,3 +1,10 @@
+---
+name: Feature
+about: 新しい機能の追加や改善を提案する
+title: ""
+labels: feature
+assignees: "umasoya"
+---
 ## 概要
 <!-- 提案する機能や改善点を簡潔に記載 -->
 
