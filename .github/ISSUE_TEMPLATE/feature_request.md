@@ -2,7 +2,7 @@
 name: Feature
 about: 新しい機能の追加や改善を提案する
 title: ""
-labels: feature
+labels: 🔧feature
 assignees: "umasoya"
 ---
 ## 概要

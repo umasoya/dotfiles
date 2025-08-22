@@ -1,9 +1,9 @@
-docs:
+📄docs:
   - any:
     - changed-files:
       - any-glob-to-any-file: 'README.md'
 
-github/actions:
+⚙️github/actions:
   - all:
     - changed-files:
       - any-glob-to-any-file: '.github/**'

@@ -6,21 +6,21 @@
 #---------------#
 # Issue label
 #---------------#
-- name: feature
+- name: 🔧feature
   description: Feature
   color: '859900'
 
-- name: bug
+- name: 🐛bug
   description: Bug
   color: 'dc322f'
 
 #---------------#
 # Pull Request label
 #---------------#
-- name: docs
+- name: 📄docs
   description: Changes to documents
   color: 'fdf6e3'
 
-- name: github/actions
+- name: ⚙️github/actions
   description: Changes to github actions configurations
   color: '657b83'
