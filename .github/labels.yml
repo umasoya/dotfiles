@@ -1,0 +1,26 @@
+#
+# https://qiita.com/ymdymd/items/4c8b12e6f75a13ccb46f
+# Solarized dark
+#
+
+#---------------#
+# Issue label
+#---------------#
+- name: feature
+  description: Feature
+  color: '859900'
+
+- name: bug
+  description: Bug
+  color: 'dc322f'
+
+#---------------#
+# Pull Request label
+#---------------#
+- name: docs
+  description: Changes to documents
+  color: 'fdf6e3'
+
+- name: github/actions
+  description: Changes to github actions configurations
+  color: '657b83'
