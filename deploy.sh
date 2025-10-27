@@ -18,16 +18,20 @@ TARGETS=(
   zsh
 )
 
+echo ""
 echo -e "${COLOR_GREEN}Start deploying dotfiles... ${COLOR_OFF}"
+echo ""
 
 # Run Deploy
 stow -vR ${TARGETS[@]}
-# For mac VSCode
-if [[ -d "~/Library/Application\ Support/Code/User/ code" ]]; then
-  stow -vR -t ~/Library/Application\ Support/Code/User/ code
-fi
 
-echo -e "${COLOR_GREEN}Finish deploying dotfiles‼️ ${COLOR_OFF}"
+echo ""
+echo -e "${COLOR_GREEN}✅Finish deploying dotfiles‼️ ${COLOR_OFF}"
+echo ""
+
+echo "Next steps:"
+echo "  1. 【Required】Create a .gitconfig.local file in the ~/dotfiles/git/ directory."
+echo ""
 
 # Error Handling
 on_err(){
