@@ -16,7 +16,6 @@
     useConfigOnly = true
     name = umasoya
     email = 11560565+umasoya@users.noreply.github.com
-	#signingkey = C9E2257C34098FE8
 
 [ghq]
     root = ~/repos/src
