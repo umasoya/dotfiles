@@ -5,7 +5,7 @@ vim/.vim/doc/tags
 
 tmux/.tmux/plugins
 
-git/.gitconfig.local
+.gitconfig.local
 
 config/.config/*
 !config/.config/afx
