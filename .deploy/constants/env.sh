@@ -3,12 +3,12 @@
 # OS･Distributionを定数として定義する
 
 # Debian系
-readonly UBUNTU=0
+readonly ENV_UBUNTU=0
 
 # Red Hat系
-readonly AL2023=10
-readonly ROCKY=11
-readonly ALMA=12
+readonly ENV_AL2023=10
+readonly ENV_ROCKY=11
+readonly ENV_ALMA=12
 
 # MacOS
-readonly MACOS=50
+readonly ENV_MACOS=50
