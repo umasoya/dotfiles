@@ -1,9 +1,0 @@
-[credential]
-	helper = osxkeychain
-[color]
-	ui = auto
-[push]
-	default = simple
-[user]
-	name = umasoya
-	email = umasoya.0331@gmail.com
