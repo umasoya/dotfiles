@@ -1,7 +1,7 @@
 # Common gitconfig on local
 [core]
-	excludesfile = ~/.gitignore
-	autoCRLF = false
+    excludesfile = ~/.gitignore
+    autoCRLF = false
     commentChar = ";"
     editor = nvim
 [push]
@@ -28,7 +28,8 @@
     au = add -u
     rh = reset --hard
     f = fetch
-	untracked = ls-files --others --exclude-standard
+    sw = switch
+    untracked = ls-files --others --exclude-standard
 [merge]
 	ff = false
 [pull]
