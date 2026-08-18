@@ -13,10 +13,9 @@ if [ ! -d "${DOTFILES_DIR}/.git" ]; then
 fi
 
 # Install afx
-if ! command -v afx &> /dev/null; then
+if [ ! -d "${HOME}/bin/afx" ]; then
     echo "Installing afx..."
     curl -sL https://raw.githubusercontent.com/babarot/afx/HEAD/hack/install | bash
-    afx install
 fi
 
 # Deploy dotfiles using GNU Stow
@@ -35,7 +34,7 @@ deploy_symlinks(){
         stow --dir="${DOTFILES_DIR}" -t "$target" -vR "$item"
     done
 }
-deploy_symlinks
+#deploy_symlinks
 
 # Show post-installation TODOs
 print_todo(){
@@ -43,12 +42,10 @@ print_todo(){
     local CYAN='\033[36m'
     local RESET='\033[0m'
 
-    echo
-    printf '%b\n' "${YELLOW}📝 TODO:${RESET}"
-    echo "  🔑 Change the dotfiles repository remote to SSH"
-    printf '     %b%s%b\n' \
-        "${CYAN}" \
-        "git -C \"${DOTFILES_DIR}\" remote set-url origin git@github.com:umasoya/dotfiles.git" \
-        "${RESET}"
+    msg=
+    msg+="${YELLOW}📝 TODO:${RESET}\n"
+    msg+="✔ Change the dotfiles repository remote to SSH. ${CYAN}\`git -C \"${DOTFILES_DIR}\" remote set-url origin git@github.com:umasoya/dotfiles.git\`${RESET} \n"
+    msg+="✔ Install plugins using afx. ${CYAN}\`${HOME}/bin/afx install\`${RESET} \n"
+    echo -e "${msg}"
 }
 print_todo
