@@ -57,6 +57,8 @@ deploy_symlinks(){
         "$HOME:$HOME/dotfiles/git/.gitconfig"
         "$HOME:$HOME/dotfiles/git/.gitignore"
         "$XDG_CONFIG_HOME:$HOME/dotfiles/afx"
+        "$XDG_CONFIG_HOME:$HOME/dotfiles/config/iterm2"
+        "$XDG_CONFIG_HOME:$HOME/dotfiles/config/karabiner"
     )
     for item in "${items[@]}"; do
         IFS=':' read -r target item <<< "$item"
