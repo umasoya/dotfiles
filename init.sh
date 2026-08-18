@@ -6,6 +6,37 @@ DOTFILES_REPO="https://github.com/umasoya/dotfiles.git"
 DOTFILES_DIR="${HOME}/dotfiles"
 XDG_CONFIG_HOME="${HOME}/.config"
 
+# Detect operating system and print "mac" or "linux"
+detect_os() {
+    local kernel_name
+    kernel_name="$(uname -s)"
+
+    case "${kernel_name}" in
+        Darwin)
+            printf 'mac\n'
+            ;;
+        Linux)
+            printf 'linux\n'
+            ;;
+        *)
+            echo "Unsupported OS: ${kernel_name}" >&2
+            return 1
+            ;;
+    esac
+}
+OS="$(detect_os)"
+
+# Install Homebrew if not already installed (for macOS)
+install_homebrew() {
+    if command -v brew >/dev/null 2>&1; then
+        return 0
+    fi
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+}
+if [ "${OS}" = "mac" ]; then
+    install_homebrew
+fi
+
 # Clone dotfiles repository if it doesn't exist
 if [ ! -d "${DOTFILES_DIR}/.git" ]; then
     echo "Cloning dotfiles..."
@@ -13,28 +44,29 @@ if [ ! -d "${DOTFILES_DIR}/.git" ]; then
 fi
 
 # Install afx
-if [ ! -d "${HOME}/bin/afx" ]; then
+if [ ! -f "${HOME}/bin/afx" ]; then
     echo "Installing afx..."
     curl -sL https://raw.githubusercontent.com/babarot/afx/HEAD/hack/install | bash
 fi
 
-# Deploy dotfiles using GNU Stow
+# Deploy dotfiles using symlinks
 deploy_symlinks(){
     # 配置先ディレクトリ:ターゲットで擬似的なタプルのように定義
     local items=(
-        "$HOME:.bashrc"
-        "$HOME:git"
-        "$XDG_CONFIG_HOME:afx"
+        "$HOME:$HOME/dotfiles/.bashrc"
+        "$HOME:$HOME/dotfiles/git/.gitconfig"
+        "$HOME:$HOME/dotfiles/git/.gitignore"
+        "$XDG_CONFIG_HOME:$HOME/dotfiles/afx"
     )
     for item in "${items[@]}"; do
         IFS=':' read -r target item <<< "$item"
         if [ ! -d "$target" ]; then
             mkdir -p "$target"
         fi
-        stow --dir="${DOTFILES_DIR}" -t "$target" -vR "$item"
+        ln -sf "$item" "$target"
     done
 }
-#deploy_symlinks
+deploy_symlinks
 
 # Show post-installation TODOs
 print_todo(){
