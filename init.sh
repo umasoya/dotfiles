@@ -55,10 +55,12 @@ deploy_symlinks(){
     local items=(
         "$HOME:$HOME/dotfiles/.bash_profile"
         "$HOME:$HOME/dotfiles/.bashrc"
+        "$HOME:$HOME/dotfiles/.zprofile"
         "$HOME:$HOME/dotfiles/.zshenv"
         "$HOME:$HOME/dotfiles/.zshrc"
         "$HOME:$HOME/dotfiles/git/.gitconfig"
         "$HOME:$HOME/dotfiles/git/.gitignore"
+
         "$XDG_CONFIG_HOME:$HOME/dotfiles/afx"
         "$XDG_CONFIG_HOME:$HOME/dotfiles/config/iterm2"
         "$XDG_CONFIG_HOME:$HOME/dotfiles/config/karabiner"
