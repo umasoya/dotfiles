@@ -1,5 +1,7 @@
 # bash/zsh 共通の環境変数
 
+export PATH="$HOME/bin:$PATH"
+
 # Config roots
 export XDG_CONFIG_HOME="$HOME/.config"
 export DOT_DIR="$HOME/dotfiles"
