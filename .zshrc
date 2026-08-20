@@ -27,6 +27,9 @@ source <(afx init)
 # load afx completion
 source <(afx completion zsh)
 
+# Pure
+RPROMPT='%F{242}%D{%H:%M:%S}%f'
+
 # Hook direnv
 if (( $+commands[direnv] )); then
     eval "$(direnv hook zsh)"
