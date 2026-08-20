@@ -25,3 +25,6 @@ export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse --extended --cycle
 
 # gh
 export GH_REPO_CLONE_PATH="$HOME/repos/src/github.com"
+
+# nvm
+export NVM_DIR="$HOME/.config/nvm"
