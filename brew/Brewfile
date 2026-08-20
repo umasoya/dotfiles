@@ -7,6 +7,10 @@ tap "rcmdnk/rcmdnkcask"
 brew "ansible"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Static analysis tool for shell scripts
+brew "shellcheck"
+# Shell script formatter
+brew "shfmt"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
 # C/C++ and Java libraries for Unicode and globalization

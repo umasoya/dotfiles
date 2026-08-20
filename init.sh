@@ -43,6 +43,9 @@ if [ ! -d "${DOTFILES_DIR}/.git" ]; then
     git clone "${DOTFILES_REPO}" "${DOTFILES_DIR}"
 fi
 
+# Use the version-controlled Git hooks in this repository
+git -C "${DOTFILES_DIR}" config core.hooksPath .githooks
+
 # Install afx
 if [ ! -f "${HOME}/bin/afx" ]; then
     echo "Installing afx..."
@@ -50,7 +53,7 @@ if [ ! -f "${HOME}/bin/afx" ]; then
 fi
 
 # Deploy dotfiles using symlinks
-deploy_symlinks(){
+deploy_symlinks() {
     # 配置先ディレクトリ:ターゲットで擬似的なタプルのように定義
     local items=(
         "$HOME:$HOME/dotfiles/.bash_profile"
@@ -66,7 +69,7 @@ deploy_symlinks(){
         "$XDG_CONFIG_HOME:$HOME/dotfiles/config/karabiner"
     )
     for item in "${items[@]}"; do
-        IFS=':' read -r target item <<< "$item"
+        IFS=':' read -r target item <<<"$item"
         if [ ! -d "$target" ]; then
             mkdir -p "$target"
         fi
@@ -76,7 +79,7 @@ deploy_symlinks(){
 deploy_symlinks
 
 # Show post-installation TODOs
-print_todo(){
+print_todo() {
     local YELLOW='\033[33m'
     local CYAN='\033[36m'
     local RESET='\033[0m'
@@ -85,6 +88,11 @@ print_todo(){
     msg+="${YELLOW}📝 TODO:${RESET}\n"
     msg+="✔ Change the dotfiles repository remote to SSH. ${CYAN}\`git -C \"${DOTFILES_DIR}\" remote set-url origin git@github.com:umasoya/dotfiles.git\`${RESET} \n"
     msg+="✔ Install plugins using afx. ${CYAN}\`${HOME}/bin/afx install\`${RESET} \n"
+    if [ "${OS}" = "mac" ]; then
+        msg+="✔ Install tools for pre-commit checks. ${CYAN}\`brew install shellcheck shfmt\`${RESET} \n"
+    else
+        msg+="✔ Install tools for pre-commit checks. ${CYAN}\`sudo apt update && sudo apt install shellcheck shfmt\`${RESET} \n"
+    fi
     echo -e "${msg}"
 }
 print_todo

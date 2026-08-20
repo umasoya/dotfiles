@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+bash_files=()
+zsh_files=()
+
+while IFS= read -r -d '' file; do
+    [ -f "${file}" ] || continue
+
+    case "${file}" in
+        .bash_profile | .bashrc | sh/env | *.sh)
+            bash_files+=("${file}")
+            ;;
+        .zprofile | .zshenv | .zshrc | *.zsh)
+            zsh_files+=("${file}")
+            ;;
+    esac
+done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+if ((${#bash_files[@]} > 0)); then
+    for command_name in shellcheck shfmt; do
+        if ! command -v "${command_name}" >/dev/null 2>&1; then
+            echo "pre-commit: ${command_name} is required. Run: brew install shellcheck shfmt" >&2
+            exit 1
+        fi
+    done
+
+    echo "Checking Bash syntax..."
+    bash -n "${bash_files[@]}"
+
+    echo "Running ShellCheck..."
+    shellcheck --shell=bash "${bash_files[@]}"
+
+    echo "Checking shell formatting..."
+    shfmt -d -i 4 -ci "${bash_files[@]}"
+fi
+
+if ((${#zsh_files[@]} > 0)); then
+    if ! command -v zsh >/dev/null 2>&1; then
+        echo "pre-commit: zsh is required to check Zsh files." >&2
+        exit 1
+    fi
+
+    echo "Checking Zsh syntax..."
+    zsh -n "${zsh_files[@]}"
+fi
+
+echo "pre-commit checks passed."

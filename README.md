@@ -15,6 +15,7 @@ curl https://raw.githubusercontent.com/umasoya/dotfiles/refs/heads/main/init.sh 
 - OSを判定（macOS / Linux）
 - macOSでHomebrewが未導入の場合はインストール
 - このリポジトリを `~/dotfiles` にclone
+- リポジトリで管理しているGit hookを有効化
 - afxが未導入の場合は `~/bin/afx` にインストール
 - シェル設定やGit設定などのシンボリックリンクを作成
 
@@ -63,6 +64,43 @@ macOSでBrewfileに定義したパッケージを導入する場合は、次を�
 
 ```sh
 brew bundle --file="$HOME/dotfiles/brew/Brewfile"
+```
+
+## Git hooks
+
+`init.sh`は`core.hooksPath`に`.githooks`を設定し、コミット前の検査を有効にします。
+pre-commit hookでは、変更対象のシェルファイルに対して次の検査を行います。
+
+- Bashの構文検査
+- ShellCheckによる静的解析
+- shfmtによるフォーマット検査
+- Zshの構文検査
+
+ShellCheckとshfmtはBrewfileに含まれています。macOSで個別に導入する場合は、次のコマンドを実行します。
+
+```sh
+brew install shellcheck shfmt
+```
+
+Ubuntuでは、APTで導入します。
+
+```sh
+sudo apt update
+sudo apt install shellcheck shfmt
+```
+
+パッケージが見つからない場合は、`universe`リポジトリを有効にしてから導入します。
+
+```sh
+sudo add-apt-repository universe
+sudo apt update
+sudo apt install shellcheck shfmt
+```
+
+既にclone済みで`init.sh`を再実行しない場合は、次のコマンドでhookを有効にできます。
+
+```sh
+git config core.hooksPath .githooks
 ```
 
 ## Main configuration
