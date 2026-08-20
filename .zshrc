@@ -3,10 +3,15 @@
 # for directories: 777 - umask 022 = 755
 umask 022
 
-# load afx
-source <(afx init)
-# load afx completion
-source <(afx completion zsh)
+# load dircolors
+[ -r "$HOME/dotfiles/sh/dircolors.sh" ] && . "$HOME/dotfiles/sh/dircolors.sh"
+
+# -----------------------------------------------------------------------------
+# Autoload
+# -----------------------------------------------------------------------------
+autoload -Uz add-zsh-hook
+autoload -Uz terminfo
+autoload -Uz colors && colors
 
 # enable autocomplete
 autoload -U compinit
@@ -17,6 +22,11 @@ autoload -U +X bashcompinit && bashcompinit
 # -----------------------------------------------------------------------------
 # Tools
 # -----------------------------------------------------------------------------
+# load afx
+source <(afx init)
+# load afx completion
+source <(afx completion zsh)
+
 # Hook direnv
 if (( $+commands[direnv] )); then
     eval "$(direnv hook zsh)"
@@ -82,6 +92,11 @@ bindkey '^[[Z' reverse-menu-complete
 # -----------------------------------------------------------------------------
 # Completion
 # -----------------------------------------------------------------------------
+# Apply the suggest even .dircolor
+if [ -n "$LS_COLORS" ]; then
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
+
 editor_ignore=(
   '~'
   '.DS_Store'
