@@ -53,7 +53,10 @@ fi
 deploy_symlinks(){
     # 配置先ディレクトリ:ターゲットで擬似的なタプルのように定義
     local items=(
+        "$HOME:$HOME/dotfiles/.bash_profile"
         "$HOME:$HOME/dotfiles/.bashrc"
+        "$HOME:$HOME/dotfiles/.zshenv"
+        "$HOME:$HOME/dotfiles/.zshrc"
         "$HOME:$HOME/dotfiles/git/.gitconfig"
         "$HOME:$HOME/dotfiles/git/.gitignore"
         "$XDG_CONFIG_HOME:$HOME/dotfiles/afx"
