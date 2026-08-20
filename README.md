@@ -1,42 +1,83 @@
 # dotfiles
 
-## Dependence
+Bash/Zsh、Git、Homebrew、afxなどの個人用設定を管理するdotfilesリポジトリです。
 
-- GNU-stow
+## Setup
 
-## deploy dotfiles
+以下のコマンドで `init.sh` を実行します。
 
-```
-./deploy.sh
-```
-
-**When deploying for the first time**
-
-Symbolic links for '.gitignore' are not created due to the 'stow' specification.
-To avoid this, you need to deploy '.stow-global-ignore' to your home directory first.
-In conclusion, you need to run the deploy.sh twice.
-
-## removal dotfiles
-
-```
-./removal.sh
+```sh
+curl https://raw.githubusercontent.com/umasoya/dotfiles/refs/heads/main/init.sh | bash
 ```
 
-### MacOS
+`init.sh` は次の処理を行います。
 
-On MacOS, run this to install various thing after installing **homebrew**.
+- OSを判定（macOS / Linux）
+- macOSでHomebrewが未導入の場合はインストール
+- このリポジトリを `~/dotfiles` にclone
+- afxが未導入の場合は `~/bin/afx` にインストール
+- シェル設定やGit設定などのシンボリックリンクを作成
 
+既に `~/dotfiles` にcloneされている場合、リポジトリの再取得や更新は行いません。
+
+## Post-installation
+
+GitHubへの接続にSSHを使用する場合は、リモートURLを変更します。
+
+```sh
+git -C "$HOME/dotfiles" remote set-url origin git@github.com:umasoya/dotfiles.git
 ```
-cd brew
-brew bundle
+
+afxで管理しているツールとZshプラグインをインストールします。
+
+```sh
+"$HOME/bin/afx" install
 ```
 
-## Configuration files included
+設定を現在のシェルへ反映するには、ログインシェルを起動し直します。
 
-- zsh
-    - afx
-- neovim
-    - dein.vim
+```sh
+exec "$SHELL" -l
+```
+
+## Symlinks
+
+`init.sh` は次の設定を配置します。
+
+| リポジトリ内 | 配置先 |
+| --- | --- |
+| `.bash_profile` | `~/.bash_profile` |
+| `.bashrc` | `~/.bashrc` |
+| `.zprofile` | `~/.zprofile` |
+| `.zshenv` | `~/.zshenv` |
+| `.zshrc` | `~/.zshrc` |
+| `git/.gitconfig` | `~/.gitconfig` |
+| `git/.gitignore` | `~/.gitignore` |
+| `afx` | `~/.config/afx` |
+| `config/iterm2` | `~/.config/iterm2` |
+| `config/karabiner` | `~/.config/karabiner` |
+
+## Homebrew packages
+
+macOSでBrewfileに定義したパッケージを導入する場合は、次を実行します。
+
+```sh
+brew bundle --file="$HOME/dotfiles/brew/Brewfile"
+```
+
+## Main configuration
+
+- Bash / Zsh
+  - 共通環境変数: `sh/env`
+  - Homebrew環境: `sh/brew.sh`
+  - dircolors: `sh/dircolors.sh`、`sh/.dircolors`
+- afx
+  - CLIツール、GitHub CLI拡張、Zshプラグイン
+  - Pure prompt、fzf、direnv、nvmなどのシェル連携
+- Git
+- Homebrew
+- Neovim / Vim
 - tmux
-- iterm2
-- brew
+- iTerm2
+- Karabiner-Elements
+- Visual Studio Code
