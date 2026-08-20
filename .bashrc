@@ -3,6 +3,44 @@ case $- in
     *i*) ;;
       *) return;;
 esac
+# -----------------------------------------------------------------------------
+# prompt
+# -----------------------------------------------------------------------------
+PS1="\n\[\e[0;36m\]\h@\u [\w]\n>>>\[\e[00m\] "
+
+# -----------------------------------------------------------------------------
+# Key Bindings
+# -----------------------------------------------------------------------------
+# TAB completion
+bind TAB:menu-complete
+
+# -----------------------------------------------------------------------------
+# Optrions
+# -----------------------------------------------------------------------------
+# -s: enable
+# -u: disable
+
+shopt -s autocd
+shopt -u cdable_vars
+shopt -u cdspell
+shopt -s checkhash
+shopt -s checkjobs
+shopt -u checkwinsize
+shopt -s cmdhist
+shopt -u compat31
+shopt -u compat32
+shopt -u compat40
+shopt -u compat41
+shopt -s dirspell
+shopt -u dotglob
+shopt -u execfail
+shopt -s expand_aliases
+shopt -u extdebug
+shopt -s extglob
+shopt -s extquote
+shopt -u failglob
+shopt -s force_fignore
+shopt -u globstar
 
 # history に記録するルールを指定する環境変数
 HISTCONTROL=ignoreboth
@@ -41,15 +79,22 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
 fi
 
+# -----------------------------------------------------------------------------
 # Aliases
+# -----------------------------------------------------------------------------
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+alias reshell='exec ${SHELL} -l'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# -----------------------------------------------------------------------------
+# Completion
+# -----------------------------------------------------------------------------
 # タブ補完
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -59,6 +104,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# -----------------------------------------------------------------------------
+# Tools
+# -----------------------------------------------------------------------------
 # Hook direnv
 if command -v direnv >/dev/null 2>&1; then
     eval "$(direnv hook bash)"
