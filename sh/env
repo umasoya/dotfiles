@@ -1,6 +1,6 @@
 # bash/zsh 共通の環境変数
 
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # Config roots
 export XDG_CONFIG_HOME="$HOME/.config"
