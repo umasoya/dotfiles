@@ -8,6 +8,7 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 | 場所 | 管理対象 |
 | --- | --- |
 | `flake.nix` / `flake.lock` / `nix/packages.nix` | CLIと固定した依存バージョン |
+| `init.sh` / `sh/setup-tools.sh` / `deploy.sh` | 初回セットアップ・ツール導入・設定配置 |
 | `.bash*` / `.zsh*` / `sh/` | シェルと共通環境変数 |
 | `git/` | 共通Git設定とローカル設定の参照 |
 | `vim/` | Vim設定 |
@@ -26,24 +27,63 @@ VS Codeは[Settings Sync](https://code.visualstudio.com/docs/configure/settings-
 
 ## セットアップ
 
-GitとBashが使える状態で、リポジトリを取得します。WSLではUbuntu側のホームに置きます。
+Git・curl・Bashが使える状態で、GitHubのraw URLから実行します。
+WSLではUbuntu側で実行してください。
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/umasoya/dotfiles/main/init.sh | bash
+```
+
+`init.sh`は`~/dotfiles`へcloneし、次の順序でセットアップします。
+
+1. `deploy.sh --dry-run`で配置先の競合を確認
+2. 未導入なら公式インストーラーでNixを導入し、共通CLIの専用プロファイルを作成
+3. Macでは未導入ならHomebrewを導入し、Brewfileの不足アプリを導入
+4. `deploy.sh`で設定を配置
+
+Nix・Homebrew本体の導入時は端末からの入力と管理者権限が必要になるため、対話端末から実行してください。
+公式インストーラーは一時ファイルへダウンロードして実行し、終了時に一時ファイルを削除します。
+Nixの新規導入にはmulti-user方式を使います。WSL2ではsystemdを有効にしたUbuntuを使用してください。
+Git・curlは事前に用意します（MacではCommand Line Toolsも必要です）。
+
+既存のcheckoutがあればその内容を使い、自動pullやブランチ変更はしません。
+Nixの既存専用プロファイルは検証して再利用し、自動更新しません。
+`flake.lock`も更新せず、Macアプリは`brew bundle --no-upgrade`で不足分のみ導入します。
+途中で失敗した場合は原因を解消して同じコマンドを再実行できます。既存設定は自動上書きしません。
+完了後は新しいログインシェルを開いてください。
+作業ブランチを試す場合はraw URLの`main`とclone対象の`DOTFILES_REF`を揃えます。
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/umasoya/dotfiles/chore/nix-agent-environment/init.sh \
+  | DOTFILES_REF=chore/nix-agent-environment bash
+```
+
+上のURLは変更をGitHubへpushした後に利用できます。`main`のURLはマージ後に利用してください。
+`DOT_DIR`を指定するとclone先を変更できます。
+配置内容を先に確認したい場合は、次のように手動で取得します。
 
 ```sh
 git clone https://github.com/umasoya/dotfiles.git "$HOME/dotfiles"
 cd "$HOME/dotfiles"
 bash deploy.sh --dry-run
-bash deploy.sh
+bash init.sh
 ```
+
+`bash init.sh --dry-run`は競合確認だけを行い、本体・パッケージの導入と設定配置はしません。
+raw URLから`bash -s -- --dry-run`へ渡す場合も同様ですが、未取得のリポジトリはcloneします。
+設定配置だけを行う場合は`bash deploy.sh`を使います。
 
 `deploy.sh`はソフトウェアをインストールしません。配置先に別のファイル・ディレクトリ・リンクがあれば、
 一覧を表示して変更前に停止します。既存設定を確認し、必要なものを自分のバックアップ先へ移動してから再実行してください。
 同じリンクの再配置はスキップします。`--force`で上書きする機能はありません。
-`init.sh`はリポジトリ取得と`deploy.sh`呼び出し用の入口として残しています。
+`sh/setup-tools.sh`は`init.sh`から呼ばれるツール導入処理です。
 
 ### 共通CLI
 
-[Nix公式の導入手順](https://nix.dev/install-nix)に従ってNixを導入し、シェルを起動し直します。
-既存のNix設定に次の項目を追加して、`nix-command`と`flakes`を有効化してください。
+[Nix公式の導入手順](https://nix.dev/install-nix)を使う本体導入と、共通CLIの導入は`init.sh`が行います。
+以下は手動導入・更新用の手順です。
+`init.sh`は実行時のオプションで`nix-command`と`flakes`を有効にし、既存のNix設定を書き換えません。
+下記のNixコマンドをそのまま使う場合は、既存のNix設定に次の項目を追加して有効化してください。
 既存の設定ファイル全体を置き換える必要はありません。
 
 ```ini
@@ -79,11 +119,14 @@ nix profile upgrade \
 
 ### Macアプリ
 
-[Homebrew](https://brew.sh/)を導入したMacで実行します。
+Macでは`init.sh`が[Homebrew](https://brew.sh/)本体と不足アプリを導入します。
+手動で不足分だけを導入する場合は、次を実行します。
 
 ```sh
-brew bundle --file="$HOME/dotfiles/brew/Brewfile"
+HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file="$HOME/dotfiles/brew/Brewfile" --no-upgrade
 ```
+
+アプリを明示的に更新する場合は`HOMEBREW_NO_AUTO_UPDATE=1`と`--no-upgrade`を外して実行します。
 
 対象はGhostty、Karabiner-Elements、Docker Desktopです。
 アプリの初回起動・必要なOS権限の設定は各Macで行います。
