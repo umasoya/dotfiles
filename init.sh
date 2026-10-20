@@ -54,8 +54,10 @@ main() {
     fi
     bash "$dotfiles_dir/sh/setup-tools.sh" "$dotfiles_dir" </dev/null
     bash "$dotfiles_dir/deploy.sh" </dev/null
-    printf '%s\n' "Setup complete: $dotfiles_dir" \
-        'Open a new login shell to use the installed CLI tools.'
+    printf '\n%s\n' "✅ Setup complete: $dotfiles_dir"
+    printf '%s\n' '🔄 Open a new login shell to use the installed CLI tools.' \
+        '' '📝 TODO: Switch this repository to SSH:'
+    printf '  git -C "%s" remote set-url origin git@github.com:umasoya/dotfiles.git\n' "$dotfiles_dir"
 }
 
 main "$@"
