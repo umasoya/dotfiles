@@ -31,13 +31,23 @@ autoload -U +X bashcompinit && bashcompinit
 # -----------------------------------------------------------------------------
 # Tools
 # -----------------------------------------------------------------------------
-# load afx
-if (( $+commands[afx] )); then
-    source <(afx init)
-    source <(afx completion zsh)
+# enhancd from the dedicated Nix profile.
+if [[ -r "$XDG_STATE_HOME/nix/profiles/dotfiles/share/enhancd/init.sh" ]]; then
+    export ENHANCD_FILTER='fzf --height 25% --reverse --ansi:fzy'
+    source "$XDG_STATE_HOME/nix/profiles/dotfiles/share/enhancd/init.sh"
 fi
 
 # Pure
+if (( $+functions[prompt_pure_setup] )) || [[ -r "$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/site-functions/prompt_pure_setup" ]]; then
+    zstyle :prompt:pure:git:branch color magenta
+    zstyle :prompt:pure:git:branch:cached color yellow
+    zstyle :prompt:pure:git:dirty color 091
+    zstyle :prompt:pure:user color blue
+    zstyle :prompt:pure:host color blue
+    autoload -Uz promptinit
+    promptinit
+    prompt pure
+fi
 RPROMPT='%F{242}%D{%H:%M:%S}%f'
 
 # Hook direnv
@@ -159,4 +169,9 @@ alias reshell='exec ${SHELL} -l'
 # Machine-specific interactive settings.
 if [ -r "$HOME/.zshrc.local" ]; then
     . "$HOME/.zshrc.local"
+fi
+
+# Load highlighting after widgets and key bindings have been configured.
+if [[ -r "$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]]; then
+    source "$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 fi

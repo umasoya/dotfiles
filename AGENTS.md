@@ -11,7 +11,6 @@ Read README.md for the current setup.
 - Shell entry points: .bash_profile, .bashrc, .zprofile, .zshenv, .zshrc.
 - sh/: shared environment, Homebrew initialization, and dircolors.
 - flake.nix, flake.lock, nix/: shared CLI tools and pinned dependencies.
-- afx/: transitional Zsh plugin and gh extension definitions.
 - brew/Brewfile: Mac GUI applications only.
 - git/: shared Git settings; git/.gitconfig.local is machine-specific.
 - config/: Herdr, Ghostty, Karabiner. vim/: retained Vim settings.
@@ -21,7 +20,7 @@ Read README.md for the current setup.
 ## Issue #15 migration
 
 - Manage common CLI tools with Nix and Mac applications with Homebrew.
-- Migrate afx gradually; consider CLI tools and shell plugins separately.
+- Manage enhancd, fast-syntax-highlighting, and Pure with Nix; load them in .zshrc.
 - Support Codex and Claude Code, Ghostty on Mac, Windows Terminal on Windows,
   and Herdr for agent terminal sessions.
 - Keep Karabiner and Vim. VS Code uses Settings Sync. Preserve tmux until the

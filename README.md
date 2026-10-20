@@ -18,7 +18,6 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 | `agents/AGENTS.md` | Codex・Claude Codeの共通ユーザー指示 |
 | `agents/skills/` | Codexの共有スキル |
 | `AGENTS.md` / `CLAUDE.md` | このリポジトリで作業するエージェントへの指示 |
-| `afx/` | 段階的な移行のため残すZshプラグイン・gh拡張 |
 | `tmux/` | Herdrへの移行が完了するまで保管する旧設定 |
 
 VS Codeは[Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync)に任せます。
@@ -149,7 +148,6 @@ NixのDockerパッケージはクライアントだけで、Dockerデーモン�
 | `.bash_profile` / `.bashrc` / `.zprofile` / `.zshenv` / `.zshrc` | `~/`の同名ファイル | 共通 |
 | `git/.gitconfig` / `git/.gitignore` | `~/.gitconfig` / `~/.gitignore` | 共通 |
 | `vim/.vimrc` / `vim/.vim` | `~/.vimrc` / `~/.vim` | 共通 |
-| `afx/` | `$XDG_CONFIG_HOME/afx` | 共通 |
 | `config/herdr/config.toml` | `$XDG_CONFIG_HOME/herdr/config.toml` | 共通 |
 | `agents/AGENTS.md` | `$CODEX_HOME/AGENTS.md`、`~/.claude/CLAUDE.md` | 共通 |
 | `agents/skills/github-pr-create/` | `$CODEX_HOME/skills/github-pr-create` | 共通 |
@@ -191,9 +189,12 @@ Codexの共有スキルは`agents/skills/`で管理し、スキルごとにリ�
 既存のtmuxインストールやホーム内のリンクも自動では削除しません。
 Herdrの分割・コピー・ペイン移動を両環境で確認してから、tmux設定の削除を判断します。
 
-afxのCLI定義はNixへ移しました。Zshプラグインとgh拡張の定義は移行期間中残しています。
-afxが既にある環境では`afx install`で導入でき、Zsh起動時に読み込みます。
-新環境ではafxは必須ではありません。afxやHomebrewの既存CLIを自動アンインストールする処理はありません。
+enhancd・fast-syntax-highlighting・PureもNixで管理し、`.zshrc`から専用プロファイル内のファイルを読み込みます。
+enhancdのソースは`nix/packages.nix`でコミットとハッシュを固定し、残り2つは固定済みnixpkgsのパッケージを使います。
+プラグインが未導入なら読み込みをスキップします。既存プロファイルへの反映には、上記の`nix profile upgrade`を実行してください。
+afxと未使用のgh-markdown-previewの定義は削除しました。
+既存環境のafx本体・`~/.afx`・`$XDG_CONFIG_HOME/afx`、インストール済みのgh拡張は自動削除しません。
+動作を確認した後、不要なものを手動で整理してください。
 
 Vimは既存のdein設定を維持しています。初回起動でプラグインを取得するためネットワーク接続が必要です。
 
