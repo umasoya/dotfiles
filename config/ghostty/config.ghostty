@@ -1,0 +1,3 @@
+# Shared baseline; use the platform font and shell defaults.
+# Add machine-specific settings to this untracked optional file.
+config-file = ?local.config

@@ -1,0 +1,7 @@
+# Initial tmux-inspired bindings. Keep tmux/ until migration is verified.
+[keys]
+prefix = "ctrl+t"
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"

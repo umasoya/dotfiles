@@ -1,17 +1,9 @@
-# README
+# macOSアプリ
 
-## Brewfile生成
+共通CLIはNixで管理します。このBrewfileはMacアプリ専用です。
 
-```
-brew bundle dump
-
-# override
-
-brew bundle dump -f --describe
+```sh
+brew bundle --file="$HOME/dotfiles/brew/Brewfile"
 ```
 
-## Brewfileからパッケージのインストール
-
-```
-brew bundle
-```
+`brew bundle dump`でCLIや個人用アプリを混ぜないでください。

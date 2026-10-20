@@ -1,16 +1,21 @@
-# If add an exception, put a BOL "!"
-
+# Machine-specific settings and generated files
+.gitconfig.local
+.env.local
+config/ghostty/local.config
+config/karabiner/automatic_backups/
 vim/.vim/dein.vim
 vim/.vim/doc/tags
-
+vim/.vim/.netrwhist
+vim/.vim/tmp/*
+!vim/.vim/tmp/.gitignore
+vim/.vim/swap/*
+!vim/.vim/swap/.gitignore
+vim/.vim/undo/*
+!vim/.vim/undo/.gitignore
 tmux/.tmux/plugins
+result
+result-*
+__pycache__/
 
-.gitconfig.local
-
+# Keep pre-existing machine-local XDG data out of Git.
 config/.config/*
-!config/.config/afx
-!config/.config/nvim
-!config/.config/multitail
-!config/.config/sh
-!config/.config/cheat
-!config/.config/karabiner
