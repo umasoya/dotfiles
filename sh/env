@@ -42,5 +42,7 @@ unset -f _dotfiles_prepend_path
 
 export FILTER="fzf:peco:fzy"
 export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse --extended --cycle"
+# Disable Pure's background fetch to avoid SSH authentication prompts.
+export PURE_GIT_PULL=0
 export GH_REPO_CLONE_PATH="$HOME/repos/src/github.com"
 export NVM_DIR="${NVM_DIR:-$XDG_CONFIG_HOME/nvm}"
