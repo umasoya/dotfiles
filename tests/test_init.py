@@ -115,7 +115,13 @@ if args[0] == "clone":
 
     def test_missing_deploy_script_stops(self):
         (self.home / "dotfiles/.git").mkdir(parents=True)
-        self.assertIn("Missing deploy.sh", self.run_init(success=False).stderr)
+        self.env["DOTFILES_REF"] = "feature/setup"
+        result = self.run_init(success=False)
+        self.assertIn("Missing deploy.sh", result.stderr)
+        self.assertIn("DOTFILES_REF defaults to main", result.stderr)
+        self.assertIn("not updated or switched automatically", result.stderr)
+        self.assertFalse((self.home / "git-calls").exists())
+        self.assertFalse((self.home / "setup-calls").exists())
 
     def test_invalid_arguments_do_not_clone(self):
         self.run_init("--force", success=False)

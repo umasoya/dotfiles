@@ -73,6 +73,43 @@ class DeploymentTests(unittest.TestCase):
         self.assertFalse((self.home / ".bashrc").exists())
         self.assertFalse((self.home / "git-called").exists())
 
+    def default_bashrc(self):
+        skeleton = Path("/etc/skel/.bashrc")
+        if not skeleton.is_file():
+            self.skipTest("No system default .bashrc on this platform")
+        target = self.home / ".bashrc"
+        target.write_bytes(skeleton.read_bytes())
+        return target
+
+    def test_default_bashrc_is_replaced(self):
+        target = self.default_bashrc()
+        self.run_deploy()
+        self.assertTrue(target.is_symlink())
+        self.assertEqual(target.resolve(), ROOT / ".bashrc")
+        self.run_deploy()
+
+    def test_default_bashrc_dry_run_preserves_file(self):
+        target = self.default_bashrc()
+        original = target.read_bytes()
+        self.assertIn("Replace default .bashrc:", self.run_deploy("--dry-run").stdout)
+        self.assertFalse(target.is_symlink())
+        self.assertEqual(target.read_bytes(), original)
+
+    def test_other_conflict_preserves_default_bashrc(self):
+        target = self.default_bashrc()
+        original = target.read_bytes()
+        (self.home / ".vimrc").write_text("keep me")
+        self.run_deploy(success=False)
+        self.assertFalse(target.is_symlink())
+        self.assertEqual(target.read_bytes(), original)
+
+    def test_custom_bashrc_is_preserved(self):
+        target = self.default_bashrc()
+        target.write_text(target.read_text() + "\n# custom settings\n")
+        self.run_deploy(success=False)
+        self.assertFalse(target.is_symlink())
+        self.assertIn("# custom settings", target.read_text())
+
     def test_broken_symlink_is_preserved(self):
         target = self.home / ".vimrc"
         target.symlink_to("missing")

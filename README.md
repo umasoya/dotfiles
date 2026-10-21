@@ -58,6 +58,18 @@ curl -fsSL https://raw.githubusercontent.com/umasoya/dotfiles/chore/nix-agent-en
 ```
 
 上のURLは変更をGitHubへpushした後に利用できます。`main`のURLはマージ後に利用してください。
+パイプで渡されたスクリプトから取得元URLは分からないため、URLだけを変更してもclone対象は`main`のままです。
+
+`DOTFILES_REF`を指定せずに実行して`Missing deploy.sh`で停止した場合は、既に作成されたcheckoutを切り替えます。
+`DOTFILES_REF`を付けて再実行するだけでは、既存checkoutのブランチは変わりません。
+作業中の変更がある場合は内容を確認して保存してから、次を実行してください。
+
+```sh
+git -C "$HOME/dotfiles" fetch origin chore/nix-agent-environment
+git -C "$HOME/dotfiles" switch chore/nix-agent-environment
+bash "$HOME/dotfiles/init.sh"
+```
+
 `DOT_DIR`を指定するとclone先を変更できます。
 配置内容を先に確認したい場合は、次のように手動で取得します。
 
@@ -73,7 +85,9 @@ raw URLから`bash -s -- --dry-run`へ渡す場合も同様ですが、未取得
 設定配置だけを行う場合は`bash deploy.sh`を使います。
 
 `deploy.sh`はソフトウェアをインストールしません。配置先に別のファイル・ディレクトリ・リンクがあれば、
-一覧を表示して変更前に停止します。既存設定を確認し、必要なものを自分のバックアップ先へ移動してから再実行してください。
+一覧を表示して変更前に停止します。ただし、`~/.bashrc`が`/etc/skel/.bashrc`と完全に一致する通常ファイルなら、
+未変更の標準設定としてバックアップせずdotfilesのリンクへ置き換えます。`--dry-run`では置き換え予定だけを表示します。
+編集済みの`.bashrc`や別のリンクは保護します。競合した既存設定を確認し、必要なものを自分のバックアップ先へ移動してから再実行してください。
 同じリンクの再配置はスキップします。`--force`で上書きする機能はありません。
 `sh/setup-tools.sh`は`init.sh`から呼ばれるツール導入処理です。
 

@@ -43,7 +43,10 @@ main() {
         fi
     fi
     if [[ ! -f "$dotfiles_dir/deploy.sh" ]]; then
-        echo "Missing deploy.sh in $dotfiles_dir. Update the checkout before retrying." >&2
+        echo "Missing deploy.sh in $dotfiles_dir." >&2
+        echo "The raw script URL does not select the clone branch; DOTFILES_REF defaults to main." >&2
+        echo "Existing checkouts are not updated or switched automatically, even when DOTFILES_REF is set." >&2
+        echo "Fetch and switch the checkout to the intended branch, then run its init.sh again." >&2
         return 1
     fi
     # Detect configuration conflicts before downloading or installing software.

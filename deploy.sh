@@ -40,6 +40,12 @@ if [[ "$(uname -s)" == Darwin ]]; then
     add_link config/ghostty "$CONFIG_HOME/ghostty"
 fi
 
+# Ubuntu's unchanged skeleton file can be replaced on first-time setup.
+is_default_bashrc() {
+    [[ "$1" == "$HOME/.bashrc" && -f "$1" && ! -L "$1" && -f /etc/skel/.bashrc ]] &&
+        cmp -s -- "$1" /etc/skel/.bashrc
+}
+
 # Check every destination before making any changes, including dangling symlinks.
 conflicts=0
 for i in "${!sources[@]}"; do
@@ -59,6 +65,8 @@ for i in "${!sources[@]}"; do
         conflicts=1
     elif [[ -L "$target" && "$(readlink "$target")" == "$source_path" ]]; then
         continue
+    elif is_default_bashrc "$target"; then
+        continue
     elif [[ -e "$target" || -L "$target" ]]; then
         echo "Conflict: $target (move it to a backup before deploying)" >&2
         conflicts=1
@@ -72,10 +80,17 @@ for i in "${!sources[@]}"; do
     target="${targets[$i]}"
     [[ -L "$target" ]] && continue
     if "$dry_run"; then
+        if is_default_bashrc "$target"; then
+            printf 'Replace default .bashrc: %s\n' "$target"
+        fi
         printf 'Link: %s -> %s\n' "$target" "${sources[$i]}"
     else
         mkdir -p -- "$(dirname -- "$target")"
-        ln -s -- "${sources[$i]}" "$target"
+        if is_default_bashrc "$target"; then
+            ln -sf -- "${sources[$i]}" "$target"
+        else
+            ln -s -- "${sources[$i]}" "$target"
+        fi
     fi
 done
 if ! "$dry_run"; then
