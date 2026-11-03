@@ -38,6 +38,10 @@ with pkgs; [
   shellcheck
   shfmt
   docker-client
+  # Runtimes for the shared MCP launchers.
+  python313
+  nodejs_22
+  uv
   codex
   claude-code
   herdr
