@@ -87,7 +87,8 @@ raw URLから`bash -s -- --dry-run`へ渡す場合も同様ですが、未取得
 一覧を表示して変更前に停止します。ただし、`~/.bashrc`が`/etc/skel/.bashrc`と完全に一致する通常ファイルなら、
 未変更の標準設定としてバックアップせずdotfilesのリンクへ置き換えます。`--dry-run`では置き換え予定だけを表示します。
 編集済みの`.bashrc`や別のリンクは保護します。競合した既存設定を確認し、必要なものを自分のバックアップ先へ移動してから再実行してください。
-同じ参照先へのリンクは、相対パス・絶対パスの違いに関係なく再配置をスキップします。
+同じ実体を参照する配置先は、相対リンク・絶対リンク・親ディレクトリのリンク経由の違いに関係なく再配置をスキップします。
+旧セットアップのKarabinerディレクトリリンクもそのまま使えます。
 `--force`で上書きする機能はありません。
 `sh/setup-tools.sh`は`init.sh`から呼ばれるツール導入処理です。
 
@@ -161,6 +162,7 @@ NixのDockerパッケージはクライアントだけで、Dockerデーモン�
 | --- | --- | --- |
 | `.bash_profile` / `.bashrc` / `.zprofile` / `.zshenv` / `.zshrc` | `~/`の同名ファイル | 共通 |
 | `git/.gitconfig` / `git/.gitignore` | `~/.gitconfig` / `~/.gitignore` | 共通 |
+| `git/.gitconfig.local`（存在する場合のみ） | `~/.gitconfig.local` | 共通 |
 | `vim/.vimrc` / `vim/.vim` | `~/.vimrc` / `~/.vim` | 共通 |
 | `config/herdr/config.toml` | `$XDG_CONFIG_HOME/herdr/config.toml` | 共通 |
 | `agents/AGENTS.md` | `$CODEX_HOME/AGENTS.md`、`~/.claude/CLAUDE.md` | 共通 |
@@ -187,7 +189,7 @@ Codexの共有スキルは`agents/skills/`で管理し、スキルごとにリ�
 [Claude Codeのメモリ設定](https://code.claude.com/docs/en/memory)の仕様に従い、
 このリポジトリの作業指示は`AGENTS.md`に集約し、`CLAUDE.md`から参照します。
 
-- Gitのマシン固有設定: `git/.gitconfig.local`（追跡対象外）
+- Gitのマシン固有設定: `git/.gitconfig.local`（追跡対象外）。`deploy.sh`が`~/.gitconfig.local`へリンクし、カスタム`DOT_DIR`でも選択したcheckoutの設定を読み込みます。ファイルを後から作成した場合は`deploy.sh`を再実行してください。既存の`~/.gitconfig.local`が別の実体なら、他の設定と同様に競合として保護します。
 - 対話シェルの追加設定: `~/.bashrc.local`、`~/.zshrc.local`
 - Ghosttyの追加設定: `config/ghostty/local.config`（追跡対象外）
 

@@ -1,6 +1,7 @@
 """Exercise deployment without touching the user's home or repository Git config."""
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -25,9 +26,9 @@ class DeploymentTests(unittest.TestCase):
             path.chmod(0o755)
         self.env = {"HOME": str(self.home), "PATH": f"{self.bin}:/usr/bin:/bin"}
 
-    def run_deploy(self, *args, success=True):
+    def run_deploy(self, *args, success=True, checkout=ROOT):
         result = subprocess.run(
-            ["bash", str(ROOT / "deploy.sh"), *args], env=self.env,
+            ["bash", str(checkout / "deploy.sh"), *args], env=self.env,
             text=True, capture_output=True,
         )
         if success:
@@ -35,6 +36,79 @@ class DeploymentTests(unittest.TestCase):
         else:
             self.assertNotEqual(result.returncode, 0)
         return result
+
+    def make_checkout(self):
+        checkout = Path(self.temp.name) / "custom checkout"
+        checkout.mkdir()
+        for name in ("deploy.sh", ".bash_profile", ".bashrc", ".zprofile", ".zshenv", ".zshrc"):
+            shutil.copy2(ROOT / name, checkout / name)
+        for name in ("vim", "agents"):
+            (checkout / name).symlink_to(ROOT / name, target_is_directory=True)
+        (checkout / "git").mkdir()
+        for name in (".gitconfig", ".gitignore"):
+            shutil.copy2(ROOT / "git" / name, checkout / "git" / name)
+        for name in ("herdr", "ghostty", "karabiner"):
+            shutil.copytree(ROOT / "config" / name, checkout / "config" / name,
+                            ignore=shutil.ignore_patterns("automatic_backups", "local.config"))
+        return checkout
+
+    def test_legacy_karabiner_parent_link_is_preserved(self):
+        checkout = self.make_checkout()
+        self.env["TEST_OS"] = "Darwin"
+        parent = self.home / ".config/karabiner"
+        parent.parent.mkdir()
+        relative = os.path.relpath(checkout / "config/karabiner", parent.parent)
+        parent.symlink_to(relative, target_is_directory=True)
+        config = checkout / "config/karabiner/karabiner.json"
+        original = config.read_bytes()
+        assets = sorted((checkout / "config/karabiner/assets").rglob("*"))
+        self.run_deploy("--dry-run", checkout=checkout)
+        self.assertFalse((self.home / ".bashrc").exists())
+        self.run_deploy(checkout=checkout)
+        self.run_deploy(checkout=checkout)
+        self.assertEqual(os.readlink(parent), relative)
+        self.assertFalse((parent / "karabiner.json").is_symlink())
+        self.assertEqual(config.read_bytes(), original)
+        self.assertEqual(sorted((checkout / "config/karabiner/assets").rglob("*")), assets)
+
+    def test_custom_checkout_loads_its_local_git_config(self):
+        checkout = self.make_checkout()
+        local = checkout / "git/.gitconfig.local"
+        local.write_text('[review]\ncheckout = selected\n')
+        stale = self.home / "dotfiles/git/.gitconfig.local"
+        stale.parent.mkdir(parents=True)
+        stale.write_text('[review]\ncheckout = stale\n')
+        self.env["DOT_DIR"] = str(checkout)
+        self.run_deploy("--dry-run", checkout=checkout)
+        self.assertFalse((self.home / ".gitconfig.local").exists())
+        self.run_deploy(checkout=checkout)
+        self.run_deploy(checkout=checkout)
+        result = subprocess.run(
+            ["/usr/bin/git", "config", "--global", "--includes", "--get", "review.checkout"],
+            cwd=self.home, env={**self.env, "GIT_CONFIG_NOSYSTEM": "1"},
+            text=True, capture_output=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), "selected")
+        self.assertEqual((self.home / ".gitconfig.local").resolve(), local)
+
+    def test_local_git_config_can_be_added_after_initial_deployment(self):
+        checkout = self.make_checkout()
+        self.run_deploy(checkout=checkout)
+        self.assertFalse((self.home / ".gitconfig.local").is_symlink())
+        local = checkout / "git/.gitconfig.local"
+        local.write_text('[review]\ncheckout = selected\n')
+        self.run_deploy(checkout=checkout)
+        self.assertEqual((self.home / ".gitconfig.local").resolve(), local)
+
+    def test_existing_home_local_git_config_is_preserved(self):
+        checkout = self.make_checkout()
+        (checkout / "git/.gitconfig.local").write_text('[review]\ncheckout = selected\n')
+        target = self.home / ".gitconfig.local"
+        target.write_text('[review]\ncheckout = keep\n')
+        self.run_deploy(success=False, checkout=checkout)
+        self.assertEqual(target.read_text(), '[review]\ncheckout = keep\n')
+        self.assertFalse((self.home / ".bashrc").exists())
 
     def test_dry_run_has_no_side_effects(self):
         self.assertIn("Link:", self.run_deploy("--dry-run").stdout)

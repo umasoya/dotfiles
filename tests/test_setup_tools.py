@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import pty
+import shlex
 import subprocess
 import tempfile
 import termios
@@ -27,6 +28,13 @@ class ToolSetupTests(unittest.TestCase):
             'export PATH="$HOME/.nix-profile/bin:$PATH"\n')
         (self.checkout / "sh/brew.sh").write_text(
             'export PATH="$HOME/testbrew/bin:$PATH"\n')
+        # Virtualize the absolute system fallback as well as HOME and PATH.
+        # Otherwise an installed host Nix bypasses the first-install mocks.
+        self.system_nix = self.home / "system nix/bin/nix"
+        self.setup_script = self.checkout / "sh/setup-tools.sh"
+        script = (ROOT / "sh/setup-tools.sh").read_text()
+        self.setup_script.write_text(script.replace(
+            "/nix/var/nix/profiles/default/bin/nix", shlex.quote(str(self.system_nix))))
         self.env = {"HOME": str(self.home), "PATH": f"{self.bin}:/usr/bin:/bin",
                     "TMPDIR": self.temp.name}
         self.write_tool("uname", '#!/bin/sh\nprintf "%s\\n" "${TEST_OS:-Linux}"\n')
@@ -93,7 +101,7 @@ Path(args[args.index("-o") + 1]).write_text(
 
             kwargs.update(preexec_fn=attach_terminal, pass_fds=(slave,))
         result = subprocess.run(
-            ["bash", str(ROOT / "sh/setup-tools.sh"), str(self.checkout)],
+            ["bash", str(self.setup_script), str(self.checkout)],
             env=self.env, stdin=subprocess.DEVNULL, capture_output=True, text=True,
             **kwargs,
         )
@@ -151,6 +159,14 @@ Path(args[args.index("-o") + 1]).write_text(
     def test_missing_terminal_stops_before_downloading(self):
         self.assertIn("terminal is required", self.run_setup(success=False).stderr)
         self.assertEqual(self.calls(), [])
+
+    def test_system_nix_outside_path_is_reused(self):
+        self.system_nix.parent.mkdir(parents=True)
+        self.system_nix.write_text(self.nix_script)
+        self.system_nix.chmod(0o755)
+        self.run_setup()
+        self.assertTrue(any(call[0] == "nix" for call in self.calls()))
+        self.assertFalse(any(call[0] == "curl" for call in self.calls()))
 
     def test_failed_nix_install_stops_before_brew_and_can_resume(self):
         self.write_tool("nix", self.nix_script)

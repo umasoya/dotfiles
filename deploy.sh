@@ -28,6 +28,9 @@ for name in .bash_profile .bashrc .zprofile .zshenv .zshrc; do
 done
 add_link git/.gitconfig "$HOME/.gitconfig"
 add_link git/.gitignore "$HOME/.gitignore"
+if [[ -f "$DOTFILES_DIR/git/.gitconfig.local" ]]; then
+    add_link git/.gitconfig.local "$HOME/.gitconfig.local"
+fi
 add_link vim/.vimrc "$HOME/.vimrc"
 add_link vim/.vim "$HOME/.vim"
 add_link config/herdr/config.toml "$CONFIG_HOME/herdr/config.toml"
@@ -63,7 +66,7 @@ for i in "${!sources[@]}"; do
     if [[ ! -e "$source_path" ]]; then
         echo "Missing source: $source_path" >&2
         conflicts=1
-    elif [[ -L "$target" && "$target" -ef "$source_path" ]]; then
+    elif [[ "$target" -ef "$source_path" ]]; then
         continue
     elif is_default_bashrc "$target"; then
         continue
@@ -78,7 +81,7 @@ fi
 
 for i in "${!sources[@]}"; do
     target="${targets[$i]}"
-    [[ -L "$target" ]] && continue
+    [[ "$target" -ef "${sources[$i]}" ]] && continue
     if "$dry_run"; then
         if is_default_bashrc "$target"; then
             printf 'Replace default .bashrc: %s\n' "$target"
