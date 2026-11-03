@@ -1,5 +1,5 @@
-# 共通環境変数の読み込み
-[ -r "$HOME/dotfiles/sh/env" ] && . "$HOME/dotfiles/sh/env"
-[ -r "$HOME/dotfiles/sh/brew.sh" ] && . "$HOME/dotfiles/sh/brew.sh"
-# bashrcの読み込み
+# shellcheck disable=SC1090,SC1091
+[ -r "${DOT_DIR:-$HOME/dotfiles}/sh/brew.sh" ] && . "${DOT_DIR:-$HOME/dotfiles}/sh/brew.sh"
+[ -r "${DOT_DIR:-$HOME/dotfiles}/sh/nix.sh" ] && . "${DOT_DIR:-$HOME/dotfiles}/sh/nix.sh"
+[ -r "${DOT_DIR:-$HOME/dotfiles}/sh/env" ] && . "${DOT_DIR:-$HOME/dotfiles}/sh/env"
 [ -r "$HOME/.bashrc" ] && . "$HOME/.bashrc"

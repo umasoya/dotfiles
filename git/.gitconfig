@@ -37,4 +37,4 @@
 [init]
 	defaultBranch = main
 [include]
-	path = ~/dotfiles/git/.gitconfig.local
+	path = .gitconfig.local

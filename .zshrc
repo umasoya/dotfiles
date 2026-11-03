@@ -3,8 +3,12 @@
 # for directories: 777 - umask 022 = 755
 umask 022
 
+[ -r "${DOT_DIR:-$HOME/dotfiles}/sh/brew.sh" ] && . "${DOT_DIR:-$HOME/dotfiles}/sh/brew.sh"
+[ -r "${DOT_DIR:-$HOME/dotfiles}/sh/nix.sh" ] && . "${DOT_DIR:-$HOME/dotfiles}/sh/nix.sh"
+[ -r "${DOT_DIR:-$HOME/dotfiles}/sh/env" ] && . "${DOT_DIR:-$HOME/dotfiles}/sh/env"
+
 # load dircolors
-[ -r "$HOME/dotfiles/sh/dircolors.sh" ] && . "$HOME/dotfiles/sh/dircolors.sh"
+[ -r "$DOT_DIR/sh/dircolors.sh" ] && . "$DOT_DIR/sh/dircolors.sh"
 
 # -----------------------------------------------------------------------------
 # Autoload
@@ -12,6 +16,11 @@ umask 022
 autoload -Uz add-zsh-hook
 autoload -Uz terminfo
 autoload -Uz colors && colors
+
+# Completion files from the dedicated Nix profile.
+if [[ -d "$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/site-functions" ]]; then
+    fpath=("$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/site-functions" $fpath)
+fi
 
 # enable autocomplete
 autoload -U compinit
@@ -22,12 +31,23 @@ autoload -U +X bashcompinit && bashcompinit
 # -----------------------------------------------------------------------------
 # Tools
 # -----------------------------------------------------------------------------
-# load afx
-source <(afx init)
-# load afx completion
-source <(afx completion zsh)
+# enhancd from the dedicated Nix profile.
+if [[ -r "$XDG_STATE_HOME/nix/profiles/dotfiles/share/enhancd/init.sh" ]]; then
+    export ENHANCD_FILTER='fzf --height 25% --reverse --ansi:fzy'
+    source "$XDG_STATE_HOME/nix/profiles/dotfiles/share/enhancd/init.sh"
+fi
 
 # Pure
+if (( $+functions[prompt_pure_setup] )) || [[ -r "$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/site-functions/prompt_pure_setup" ]]; then
+    zstyle :prompt:pure:git:branch color magenta
+    zstyle :prompt:pure:git:branch:cached color yellow
+    zstyle :prompt:pure:git:dirty color 091
+    zstyle :prompt:pure:user color blue
+    zstyle :prompt:pure:host color blue
+    autoload -Uz promptinit
+    promptinit
+    prompt pure
+fi
 RPROMPT='%F{242}%D{%H:%M:%S}%f'
 
 # Hook direnv
@@ -136,43 +156,6 @@ zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
 
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-editor_ignore=(
-  '~'
-  '.DS_Store'
-  '*.(jpg|jpeg|png|gif|pdf|xlsx|bak|docx|ico)'
-  '*.(swp|tmp)'
-)
-
-zstyle ':completion:*:*:(vi|vim|less):*files' \
-  ignored-patterns "${editor_ignore[@]}"
-
-# Enable use cache
-zstyle ':completion:*' use-cache true
-
-# Enable autocomplete
-zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
-# Ignore completion matches pattern
-zstyle ':completion:*:*:(vi|vim|less):*files' ignored-patterns ${editor_ignore}
-# Ignore completion if selected parent dir
-zstyle ':completion:*:(cd|mv|cp):*' ignore-parents parent pwd
-# if not exists target at current candidate target at parent dir
-zstyle ':completion:*:(cd):*' tag-order local-directories path-directories
-# Ignore already in the line
-zstyle ':completion:*:(rm|kill|diff):*' ignore-line yes
-zstyle ':completion:*:(git add):*' ignore-line yes
-
-# Completion man pages
-zstyle ':completion:*:manuals' separate-sections true
-zstyle ':completion:*:manuals.(^1*)' insert-section true
-
-# Completion kill command
-zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:kill:*' force-list always
-
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-
 # -----------------------------------------------------------------------------
 # Aliases
 # -----------------------------------------------------------------------------
@@ -182,3 +165,13 @@ alias ll='ls -l'
 alias grep='grep --color=auto -n'
 
 alias reshell='exec ${SHELL} -l'
+
+# Machine-specific interactive settings.
+if [ -r "$HOME/.zshrc.local" ]; then
+    . "$HOME/.zshrc.local"
+fi
+
+# Load highlighting after widgets and key bindings have been configured.
+if [[ -r "$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]]; then
+    source "$XDG_STATE_HOME/nix/profiles/dotfiles/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+fi

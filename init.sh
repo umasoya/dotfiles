@@ -1,98 +1,66 @@
 #!/usr/bin/env bash
+# Keep the streamed script together before running commands that may read stdin.
+main() {
+    set -euo pipefail
 
-set -euo pipefail
-
-DOTFILES_REPO="https://github.com/umasoya/dotfiles.git"
-DOTFILES_DIR="${HOME}/dotfiles"
-XDG_CONFIG_HOME="${HOME}/.config"
-
-# Detect operating system and print "mac" or "linux"
-detect_os() {
-    local kernel_name
-    kernel_name="$(uname -s)"
-
-    case "${kernel_name}" in
-        Darwin)
-            printf 'mac\n'
-            ;;
-        Linux)
-            printf 'linux\n'
-            ;;
+    case "${1:-}" in
+        "" | --dry-run) ;;
         *)
-            echo "Unsupported OS: ${kernel_name}" >&2
+            echo "Usage: init.sh [--dry-run]" >&2
+            return 2
+            ;;
+    esac
+    if (($# > 1)); then
+        echo "Usage: init.sh [--dry-run]" >&2
+        return 2
+    fi
+    case "$(uname -s)" in
+        Darwin | Linux) ;;
+        *)
+            echo "Unsupported operating system" >&2
             return 1
             ;;
     esac
-}
-OS="$(detect_os)"
-
-# Install Homebrew if not already installed (for macOS)
-install_homebrew() {
-    if command -v brew >/dev/null 2>&1; then
-        return 0
+    if ! command -v git >/dev/null 2>&1; then
+        echo "Git is required. Install Git, then run this script again." >&2
+        return 1
     fi
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-}
-if [ "${OS}" = "mac" ]; then
-    install_homebrew
-fi
 
-# Clone dotfiles repository if it doesn't exist
-if [ ! -d "${DOTFILES_DIR}/.git" ]; then
-    echo "Cloning dotfiles..."
-    git clone "${DOTFILES_REPO}" "${DOTFILES_DIR}"
-fi
-
-# Use the version-controlled Git hooks in this repository
-git -C "${DOTFILES_DIR}" config core.hooksPath .githooks
-
-# Install afx
-if [ ! -f "${HOME}/bin/afx" ]; then
-    echo "Installing afx..."
-    curl -sL https://raw.githubusercontent.com/babarot/afx/HEAD/hack/install | bash
-fi
-
-# Deploy dotfiles using symlinks
-deploy_symlinks() {
-    # 配置先ディレクトリ:ターゲットで擬似的なタプルのように定義
-    local items=(
-        "$HOME:$HOME/dotfiles/.bash_profile"
-        "$HOME:$HOME/dotfiles/.bashrc"
-        "$HOME:$HOME/dotfiles/.zprofile"
-        "$HOME:$HOME/dotfiles/.zshenv"
-        "$HOME:$HOME/dotfiles/.zshrc"
-        "$HOME:$HOME/dotfiles/git/.gitconfig"
-        "$HOME:$HOME/dotfiles/git/.gitignore"
-
-        "$XDG_CONFIG_HOME:$HOME/dotfiles/afx"
-        "$XDG_CONFIG_HOME:$HOME/dotfiles/config/iterm2"
-        "$XDG_CONFIG_HOME:$HOME/dotfiles/config/karabiner"
-    )
-    for item in "${items[@]}"; do
-        IFS=':' read -r target item <<<"$item"
-        if [ ! -d "$target" ]; then
-            mkdir -p "$target"
-        fi
-        ln -sf "$item" "$target"
-    done
-}
-deploy_symlinks
-
-# Show post-installation TODOs
-print_todo() {
-    local YELLOW='\033[33m'
-    local CYAN='\033[36m'
-    local RESET='\033[0m'
-
-    msg=
-    msg+="${YELLOW}📝 TODO:${RESET}\n"
-    msg+="✔ Change the dotfiles repository remote to SSH. ${CYAN}\`git -C \"${DOTFILES_DIR}\" remote set-url origin git@github.com:umasoya/dotfiles.git\`${RESET} \n"
-    msg+="✔ Install plugins using afx. ${CYAN}\`${HOME}/bin/afx install\`${RESET} \n"
-    if [ "${OS}" = "mac" ]; then
-        msg+="✔ Install tools for pre-commit checks. ${CYAN}\`brew install shellcheck shfmt\`${RESET} \n"
+    local script_dir="" dotfiles_dir
+    if [[ -n "${BASH_SOURCE[0]:-}" ]]; then
+        script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+    fi
+    if [[ -n "$script_dir" && -f "$script_dir/deploy.sh" ]]; then
+        dotfiles_dir="$script_dir"
     else
-        msg+="✔ Install tools for pre-commit checks. ${CYAN}\`sudo apt update && sudo apt install shellcheck shfmt\`${RESET} \n"
+        dotfiles_dir="${DOT_DIR:-$HOME/dotfiles}"
+        if [[ ! -e "$dotfiles_dir" && ! -L "$dotfiles_dir" ]]; then
+            git clone --branch "${DOTFILES_REF:-main}" -- \
+                https://github.com/umasoya/dotfiles.git "$dotfiles_dir" </dev/null
+        elif [[ ! -d "$dotfiles_dir/.git" && ! -f "$dotfiles_dir/.git" ]]; then
+            echo "Conflict: $dotfiles_dir is not a Git checkout" >&2
+            return 1
+        fi
     fi
-    echo -e "${msg}"
+    if [[ ! -f "$dotfiles_dir/deploy.sh" ]]; then
+        echo "Missing deploy.sh in $dotfiles_dir." >&2
+        echo "The raw script URL does not select the clone branch; DOTFILES_REF defaults to main." >&2
+        echo "Existing checkouts are not updated or switched automatically, even when DOTFILES_REF is set." >&2
+        echo "Fetch and switch the checkout to the intended branch, then run its init.sh again." >&2
+        return 1
+    fi
+    # Detect configuration conflicts before downloading or installing software.
+    bash "$dotfiles_dir/deploy.sh" --dry-run </dev/null
+    if [[ "${1:-}" == --dry-run ]]; then
+        printf '%s\n' 'Dry run: software installation and configuration deployment were skipped.'
+        return
+    fi
+    bash "$dotfiles_dir/sh/setup-tools.sh" "$dotfiles_dir" </dev/null
+    bash "$dotfiles_dir/deploy.sh" </dev/null
+    printf '\n%s\n' "✅ Setup complete: $dotfiles_dir"
+    printf '%s\n' '🔄 Open a new login shell to use the installed CLI tools.' \
+        '' '📝 TODO: Switch this repository to SSH:'
+    printf '  git -C "%s" remote set-url origin git@github.com:umasoya/dotfiles.git\n' "$dotfiles_dir"
 }
-print_todo
+
+main "$@"
