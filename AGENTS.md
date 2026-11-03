@@ -15,7 +15,6 @@ Read README.md for the current setup.
 - git/: shared Git settings; git/.gitconfig.local is machine-specific.
 - config/: Herdr, Ghostty, Karabiner. vim/: retained Vim settings.
 - agents/AGENTS.md: shared Codex and Claude Code user instructions.
-- tmux/: retained reference until Herdr migration is verified; not deployed.
 
 ## Issue #15 migration
 
@@ -23,8 +22,8 @@ Read README.md for the current setup.
 - Manage enhancd, fast-syntax-highlighting, and Pure with Nix; load them in .zshrc.
 - Support Codex and Claude Code, Ghostty on Mac, Windows Terminal on Windows,
   and Herdr for agent terminal sessions.
-- Keep Karabiner and Vim. VS Code uses Settings Sync. Preserve tmux until the
-  user confirms the Herdr migration is complete.
+- Keep Karabiner and Vim. VS Code uses Settings Sync.
+- Use Herdr for terminal multiplexing; legacy tmux settings have been removed.
 
 ## Editing and validation
 

@@ -1,4 +1,13 @@
-# Initial tmux-inspired bindings. Keep tmux/ until migration is verified.
+onboarding = false
+
+[ui.toast]
+delivery = "system"
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+# Terminal prefix and Vim-style pane navigation.
 [keys]
 prefix = "ctrl+t"
 focus_pane_left = "prefix+h"

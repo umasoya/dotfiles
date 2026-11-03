@@ -63,7 +63,7 @@ for i in "${!sources[@]}"; do
     if [[ ! -e "$source_path" ]]; then
         echo "Missing source: $source_path" >&2
         conflicts=1
-    elif [[ -L "$target" && "$(readlink "$target")" == "$source_path" ]]; then
+    elif [[ -L "$target" && "$target" -ef "$source_path" ]]; then
         continue
     elif is_default_bashrc "$target"; then
         continue

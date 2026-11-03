@@ -58,6 +58,32 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual((target / "SKILL.md").read_text(), "keep me")
         self.assertFalse((self.home / ".bashrc").exists())
 
+    def test_equivalent_relative_links_are_preserved(self):
+        for platform in ("Linux", "Darwin"):
+            with self.subTest(platform=platform):
+                self.env["TEST_OS"] = platform
+                for name, source in ((".vimrc", "vim/.vimrc"), (".vim", "vim/.vim")):
+                    target = self.home / name
+                    if target.is_symlink():
+                        target.unlink()
+                    relative = os.path.relpath(ROOT / source, self.home)
+                    target.symlink_to(relative)
+                self.run_deploy("--dry-run")
+                self.run_deploy()
+                for name, source in ((".vimrc", "vim/.vimrc"), (".vim", "vim/.vim")):
+                    target = self.home / name
+                    self.assertEqual(os.readlink(target), os.path.relpath(ROOT / source, self.home))
+
+    def test_symlink_to_different_file_is_preserved(self):
+        other = self.home / "other-vimrc"
+        other.write_text("keep me")
+        target = self.home / ".vimrc"
+        target.symlink_to(other.name)
+        self.run_deploy(success=False)
+        self.assertEqual(os.readlink(target), other.name)
+        self.assertEqual(other.read_text(), "keep me")
+        self.assertFalse((self.home / ".bashrc").exists())
+
     def test_other_skills_are_preserved(self):
         target = self.home / ".codex/skills/other-skill"
         target.mkdir(parents=True)

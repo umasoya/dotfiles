@@ -18,7 +18,6 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 | `agents/AGENTS.md` | Codex・Claude Codeの共通ユーザー指示 |
 | `agents/skills/` | Codexの共有スキル |
 | `AGENTS.md` / `CLAUDE.md` | このリポジトリで作業するエージェントへの指示 |
-| `tmux/` | Herdrへの移行が完了するまで保管する旧設定 |
 
 VS Codeは[Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync)に任せます。
 ユーザー設定・キーバインドなどが対象ですが、マシン固有設定とWSLなどのリモート拡張機能は同期対象外です。
@@ -88,7 +87,8 @@ raw URLから`bash -s -- --dry-run`へ渡す場合も同様ですが、未取得
 一覧を表示して変更前に停止します。ただし、`~/.bashrc`が`/etc/skel/.bashrc`と完全に一致する通常ファイルなら、
 未変更の標準設定としてバックアップせずdotfilesのリンクへ置き換えます。`--dry-run`では置き換え予定だけを表示します。
 編集済みの`.bashrc`や別のリンクは保護します。競合した既存設定を確認し、必要なものを自分のバックアップ先へ移動してから再実行してください。
-同じリンクの再配置はスキップします。`--force`で上書きする機能はありません。
+同じ参照先へのリンクは、相対パス・絶対パスの違いに関係なく再配置をスキップします。
+`--force`で上書きする機能はありません。
 `sh/setup-tools.sh`は`init.sh`から呼ばれるツール導入処理です。
 
 ### 共通CLI
@@ -193,15 +193,15 @@ Codexの共有スキルは`agents/skills/`で管理し、スキルごとにリ�
 
 仕事用の設定は、共有できる部分だけを後から取り込んでください。
 
-## Herdrと移行中の設定
+## Herdrとシェルプラグイン
 
 `herdr`で起動します。旧tmuxから`Ctrl+t`のprefixと`h/j/k/l`のペイン移動を引き継いだ初期設定です。
+既存環境のtokyo-nightテーマ・システム通知・初回案内済みの設定も共有しています。
 分割などの操作は`Ctrl+t`の後に`?`で確認できます。
 [設定仕様](https://herdr.dev/docs/configuration/)に従い、変更後は`herdr server reload-config`で再読み込みします。
 
-`tmux/`は比較用に残しており、新セットアップでは配置しません。
-既存のtmuxインストールやホーム内のリンクも自動では削除しません。
-Herdrの分割・コピー・ペイン移動を両環境で確認してから、tmux設定の削除を判断します。
+tmuxの旧設定はHerdrへの移行に伴い削除しました。
+既存環境のtmux本体やホーム内の旧リンクは自動削除しません。
 
 enhancd・fast-syntax-highlighting・PureもNixで管理し、`.zshrc`から専用プロファイル内のファイルを読み込みます。
 Pureの自動fetchは、SSH認証で1Passwordの解除を求められないよう、Bash・Zsh共通の`sh/env`で`PURE_GIT_PULL=0`に設定しています。
