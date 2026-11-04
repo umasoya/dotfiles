@@ -178,4 +178,8 @@ APM本体を使った登録・再実行・競合・認証参照のテストは�
 APM_TEST_EXECUTABLE="$(command -v apm)" python3 -m unittest discover -s tests -p test_mcp.py -v
 ```
 
-`APM_TEST_EXECUTABLE`未指定時はAPM統合テストだけをスキップします。
+`APM_TEST_EXECUTABLE`はAPM本体と共通Nixプロファイルのラッパーのどちらも指定できます。
+テスト用の偽`uvx`は元の`PATH`へ戻してから指定コマンドを起動し、ラッパーの`uvx`呼び出しが再帰しないようにします。
+ラッパーを指定した場合、実際のuvxによるAPM・Python依存の取得が必要になる場合があります。
+本体の配布バイナリを指定すれば、統合テストはネットワーク接続なしで実行できます。
+`APM_TEST_EXECUTABLE`未指定時も再帰防止の回帰テストは実行し、APM統合テストだけをスキップします。
