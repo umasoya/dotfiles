@@ -39,21 +39,21 @@ class MCPSetupTests(unittest.TestCase):
     def test_dry_run_never_invokes_clients(self):
         run, output = self.main("--dry-run")
         run.assert_not_called()
-        self.assertEqual(output.count("Add:"), 14)
+        self.assertEqual(output.count("Add:"), 12)
         self.assertFalse((self.home / ".codex").exists())
 
     def test_conflict_in_second_client_prevents_all_registration(self):
-        existing = {"claude": {"postgres": {"command": "private-local-command"}}}
+        existing = {"claude": {"docker": {"command": "private-local-command"}}}
         with patch("sys.argv", ["setup.py"]), \
                 patch.object(SETUP, "existing_servers", side_effect=lambda client: existing.get(client, {})), \
                 patch.object(SETUP.subprocess, "run") as run:
-            with self.assertRaisesRegex(ValueError, "claude/postgres"):
+            with self.assertRaisesRegex(ValueError, "claude/docker"):
                 SETUP.main()
             run.assert_not_called()
 
     def test_existing_definitions_and_extra_local_settings_are_preserved(self):
         existing = {client: SETUP.definitions(client) for client in ("codex", "claude")}
-        existing["codex"]["postgres"]["enabled"] = False
+        existing["codex"]["docker"]["enabled"] = False
         existing["codex"]["github"]["enabled_tools"] = ["get_me"]
         run, output = self.main(existing=existing)
         run.assert_not_called()
@@ -61,7 +61,7 @@ class MCPSetupTests(unittest.TestCase):
 
     def test_client_selection_and_token_references(self):
         run, _ = self.main("--client", "claude")
-        self.assertEqual(run.call_count, 7)
+        self.assertEqual(run.call_count, 6)
         for call in run.call_args_list:
             argv = call.args[0]
             self.assertEqual(argv[:5], ["claude", "mcp", "add-json", "--scope", "user"])
@@ -83,9 +83,9 @@ class MCPSetupTests(unittest.TestCase):
 
     def test_custom_xdg_path_is_passed_without_copying_secrets(self):
         with patch.dict(os.environ, {**self.env, "XDG_CONFIG_HOME": "/custom config", "DATABASE_URI": "private-value"}, clear=True):
-            config = SETUP.definitions("codex")["postgres"]
+            config = SETUP.definitions("codex")["docker"]
             self.assertEqual(config["env"], {"XDG_CONFIG_HOME": "/custom config"})
-            argv = SETUP.add_command("codex", "postgres", config)
+            argv = SETUP.add_command("codex", "docker", config)
             self.assertIn("XDG_CONFIG_HOME=/custom config", argv)
             self.assertNotIn("private-value", " ".join(argv))
 
@@ -110,20 +110,28 @@ class MCPLauncherTests(unittest.TestCase):
         return subprocess.run(["bash", str(ROOT / "agents/mcp/run.sh"), *args],
                               env={**self.env, **(env or {})}, text=True, capture_output=True)
 
-    def test_postgres_without_uri_fails_before_starting_server(self):
-        result = self.launch("postgres")
-        self.assertNotEqual(result.returncode, 0)
-        self.assertEqual(result.stdout, "")
+    def test_postgres_is_not_registered(self):
+        for client in ("codex", "claude"):
+            self.assertNotIn("postgres", SETUP.definitions(client))
 
-    def test_local_env_and_read_only_mode(self):
+    def test_postgres_is_blocked_before_dependency_download_or_connection(self):
+        for env in ({}, {"DATABASE_URI": "postgresql://fake:secret@localhost/test",
+                             "XDG_CONFIG_HOME": str(self.home / "custom config")}):
+            with self.subTest(env=env):
+                result = self.launch("postgres", env=env)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertEqual(result.stdout, "")
+                self.assertIn("CVE-2026-85620", result.stderr)
+                self.assertNotIn("secret", result.stderr)
+                self.assertNotIn("~/.config", result.stderr)
+
+    def test_local_env_with_custom_xdg_path(self):
         config = self.home / "custom config"
         (config / "dotfiles").mkdir(parents=True)
-        (config / "dotfiles/mcp.env").write_text("DATABASE_URI='postgresql://fake:secret@localhost/test'\n")
-        result = self.launch("postgres", env={"XDG_CONFIG_HOME": str(config)})
+        (config / "dotfiles/mcp.env").write_text("DOCKER_HOST='unix:///tmp/local docker.sock'\n")
+        result = self.launch("docker", env={"XDG_CONFIG_HOME": str(config)})
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("--access-mode=restricted", result.stdout)
-        self.assertIn("URI=postgresql://fake:secret@localhost/test", result.stdout)
-        self.assertNotIn("secret", result.stderr)
+        self.assertIn("HOST=unix:///tmp/local docker.sock", result.stdout)
 
     def test_docker_respects_context_and_explicit_host(self):
         result = self.launch("docker")

@@ -183,9 +183,10 @@ Codexの共有スキルは`agents/skills/`で管理し、スキルごとにリ�
 `github-pr-create`は`$github-pr-create 今の変更からPRを作成して`で呼び出せます。
 既存の同名スキルがある場合は、内容を確認してバックアップ先へ移動してから`deploy.sh`を実行してください。
 `$CODEX_HOME/skills`全体は置き換えず、他のスキルはそのまま残します。
-Serena・GitHub・Docker・Postgres・Cloudflare・Chrome DevTools・Context7のMCP定義は
+Serena・GitHub・Docker・Cloudflare・Chrome DevTools・Context7のMCP定義は
 `agents/mcp/`で管理します。[登録・認証手順](agents/mcp/README.md)に従って、
 `python3 agents/mcp/setup.py --dry-run`で確認後、`python3 agents/mcp/setup.py`で登録します。
+Postgres MCPは既知の脆弱性のため登録・起動を停止しています。
 `init.sh`や`deploy.sh`では自動登録しません。MCP起動用のPython・Node.js・uvは共通Nixプロファイルに含みます。
 認証情報・接続文字列・マシン固有パスはローカル設定に残し、モデル・権限・仕事用設定も各クライアントで管理します。
 登録処理は同名定義の競合を検出し、既存の認証情報・権限設定を変更しません。

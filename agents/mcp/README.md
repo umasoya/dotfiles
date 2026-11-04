@@ -9,14 +9,20 @@
 | serena | [Serena](https://github.com/oraios/serena)、起動ディレクトリをプロジェクトとして検出 | 対象言語の開発環境 |
 | github | [GitHub公式](https://github.com/github/github-mcp-server/blob/main/docs/installation-guides/install-codex.md)、HTTP | `GITHUB_MCP_TOKEN` |
 | docker | [mcp-server-docker](https://github.com/ckreiling/mcp-server-docker)、コンテナ・イメージ・Compose操作 | 起動済みDockerデーモン |
-| postgres | [Postgres MCP Pro](https://github.com/crystaldba/postgres-mcp)、`restricted`モード | `DATABASE_URI`、読み取り専用DBロール |
 | cloudflare | [Cloudflare公式](https://developers.cloudflare.com/agents/model-context-protocol/cloudflare/servers-for-cloudflare/)、アカウント操作 | 各クライアントでOAuth認証 |
 | chrome-devtools | [Chrome DevTools公式](https://github.com/ChromeDevTools/chrome-devtools-mcp)、ブラウザー操作 | Chrome、必要に応じて接続先・実行ファイル |
 | context7 | [Context7公式](https://context7.com/docs/resources/all-clients)、ライブラリドキュメント参照 | `CONTEXT7_API_KEY` |
 
-DockerとPostgresはコミュニティ実装です。Docker MCP Gatewayとは別のサーバーを使います。
+Dockerはコミュニティ実装です。Docker MCP Gatewayとは別のサーバーを使います。
 SerenaはGitコミット、Python/npmのMCPはバージョンを`run.sh`で固定しています。
 HTTPサーバーの実装バージョンはサービス側で管理されます。
+
+Postgres MCPは[CVE-2026-85620](https://github.com/advisories/GHSA-cm87-gp55-7cgj)の
+`restricted`モード回避と[依存解決の不具合](https://github.com/crystaldba/postgres-mcp/issues/237)のため、
+共通登録から除外し、`run.sh postgres`も依存取得・DB接続前に停止します。
+検証済みの修正版を採用するまで再開しません。
+既に登録済みの場合は、`codex mcp remove postgres`および`claude mcp remove --scope user postgres`で削除してください。
+`setup.py`は既存のローカル定義を自動削除しません。
 
 ## 登録
 
@@ -52,8 +58,7 @@ chmod 600 "${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/mcp.env"
 ```
 
 このファイルは信頼するローカルのシェルファイルとして、stdioサーバーの起動時に読み込みます。
-プロジェクト内の`.env`は読み込みません。`DATABASE_URI`をここに設定してください。
-接続先未設定のPostgresは起動時にエラーとなるため、使う前に設定します。
+プロジェクト内の`.env`は読み込みません。
 
 GitHubとContext7はHTTP接続なので、エージェント本体のプロセスにトークンをexportする必要があります。
 シークレット管理ツールから渡すか、上記ファイルに`export`付きで保存し、
@@ -81,7 +86,7 @@ WSLから到達できるURLを指定してください。接続用ポートは�
 具体的な起動・接続方法は[Chrome公式の接続手順](https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/main/docs/advanced-usage.md#connecting-to-a-running-chrome-instance)を参照してください。
 
 初回のstdio起動ではuvx/npxが依存をダウンロードします。ネットワーク接続が必要です。
-初回にタイムアウトする場合は、使うサーバーを`bash agents/mcp/run.sh postgres`などで一度起動して依存を取得し、終了後にクライアントから再接続します。
+初回にタイムアウトする場合は、使うサーバーを`bash agents/mcp/run.sh docker`などで一度起動して依存を取得し、終了後にクライアントから再接続します。
 接続確認は`codex mcp list`、`claude mcp list`、各クライアント内の`/mcp`で行います。
 
 クライアント側の設定仕様は[Codex公式](https://developers.openai.com/codex/mcp)と

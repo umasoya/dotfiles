@@ -35,11 +35,8 @@ case "$server" in
         exec uvx --python python3.13 mcp-server-docker==0.3.0
         ;;
     postgres)
-        if [[ -z "${DATABASE_URI:-}" ]]; then
-            echo 'Set DATABASE_URI in ~/.config/dotfiles/mcp.env before using Postgres MCP.' >&2
-            exit 1
-        fi
-        exec uvx --python python3.13 postgres-mcp==0.3.0 --access-mode=restricted
+        echo 'Postgres MCP is disabled pending a verified fix for CVE-2026-85620.' >&2
+        exit 1
         ;;
     chrome-devtools)
         args=()
