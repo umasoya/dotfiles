@@ -52,6 +52,25 @@ class DeploymentTests(unittest.TestCase):
                             ignore=shutil.ignore_patterns("automatic_backups", "local.config"))
         return checkout
 
+    def test_apm_links_follow_selected_checkout(self):
+        checkout = self.make_checkout()
+        self.run_deploy("--dry-run", checkout=checkout)
+        self.assertFalse((self.home / ".apm").exists())
+        self.run_deploy(checkout=checkout)
+        self.run_deploy(checkout=checkout)
+        self.assertEqual((self.home / ".apm/apm.yml").resolve(), (checkout / "agents/mcp/apm.yml").resolve())
+        self.assertEqual((self.home / ".apm/dotfiles-mcp.sh").resolve(), (checkout / "agents/mcp/run.sh").resolve())
+        self.assertFalse((self.home / ".apm/apm.lock.yaml").exists())
+
+    def test_existing_apm_manifest_prevents_all_changes(self):
+        target = self.home / ".apm/apm.yml"
+        target.parent.mkdir()
+        target.write_text("name: personal\n")
+        self.run_deploy(success=False)
+        self.assertEqual(target.read_text(), "name: personal\n")
+        self.assertFalse((self.home / ".bashrc").exists())
+        self.assertFalse((self.home / ".apm/dotfiles-mcp.sh").exists())
+
     def test_legacy_karabiner_parent_link_is_preserved(self):
         checkout = self.make_checkout()
         self.env["TEST_OS"] = "Darwin"

@@ -1,93 +1,115 @@
 """Verify MCP registration and launchers with isolated configuration and fake tools."""
 
-import contextlib
-import importlib.util
-import io
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
+import tomllib
 import unittest
-from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = importlib.util.spec_from_file_location("mcp_setup", ROOT / "agents/mcp/setup.py")
-SETUP = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(SETUP)
+APM = os.environ.get("APM_TEST_EXECUTABLE")
+NAMES = {"serena", "github", "docker", "cloudflare", "chrome-devtools"}
 
 
-class MCPSetupTests(unittest.TestCase):
+@unittest.skipUnless(APM, "Set APM_TEST_EXECUTABLE to run APM integration tests")
+class APMIntegrationTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(prefix="dotfiles-mcp-test-")
+        self.temp = tempfile.TemporaryDirectory(prefix="dotfiles-apm-test-")
         self.addCleanup(self.temp.cleanup)
         self.home = Path(self.temp.name) / "home with spaces"
         self.home.mkdir()
-        self.env = {"HOME": str(self.home), "PATH": "/usr/bin:/bin"}
+        state = self.home / ".apm"
+        state.mkdir()
+        # Use a copy: tests must never let APM mutate the shared manifest.
+        shutil.copy2(ROOT / "agents/mcp/apm.yml", state / "apm.yml")
+        (state / "dotfiles-mcp.sh").symlink_to(ROOT / "agents/mcp/run.sh")
+        self.codex = self.home / "custom codex"
+        self.claude = self.home / "custom claude"
+        self.codex.mkdir()
+        self.claude.mkdir()
+        self.bin = self.home / "bin"
+        self.bin.mkdir()
+        uvx = self.bin / "uvx"
+        # Exercise the real repository wrapper, with uvx download replaced by
+        # the explicitly selected APM executable. No network or real home.
+        uvx.write_text('#!/bin/sh\nshift 5\nexec "$APM_TEST_EXECUTABLE" "$@"\n')
+        uvx.chmod(0o755)
+        self.env = {
+            "APM_TEST_EXECUTABLE": str(Path(APM).resolve()),
+            "HOME": str(self.home), "PATH": f"{self.bin}:/usr/bin:/bin",
+            "XDG_CONFIG_HOME": str(self.home / "custom config"),
+            "CODEX_HOME": str(self.codex), "CLAUDE_CONFIG_DIR": str(self.claude),
+            "GITHUB_MCP_TOKEN": "test-secret-never-store",
+        }
 
-    def main(self, *args, existing=None):
-        output = io.StringIO()
-        with patch.dict(os.environ, self.env, clear=True), \
-                patch("sys.argv", ["setup.py", *args]), \
-                patch.object(SETUP, "existing_servers", side_effect=lambda client: (existing or {}).get(client, {})), \
-                patch.object(SETUP.shutil, "which", return_value="/fake/client"), \
-                patch.object(SETUP.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)) as run, \
-                contextlib.redirect_stdout(output):
-            SETUP.main()
-        return run, output.getvalue()
+    def install(self, *args, success=True):
+        result = subprocess.run(["bash", str(ROOT / "agents/mcp/apm.sh"), "install", "--global", "--only", "mcp", *args],
+                                cwd=self.home, env=self.env, stdin=subprocess.DEVNULL, text=True, capture_output=True)
+        if success:
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        else:
+            self.assertNotEqual(result.returncode, 0)
+        return result
 
-    def test_dry_run_never_invokes_clients(self):
-        run, output = self.main("--dry-run")
-        run.assert_not_called()
-        self.assertEqual(output.count("Add:"), 12)
-        self.assertFalse((self.home / ".codex").exists())
+    def configs(self):
+        return (tomllib.loads((self.codex / "config.toml").read_text()),
+                json.loads((self.claude / ".claude.json").read_text()))
 
-    def test_conflict_in_second_client_prevents_all_registration(self):
-        existing = {"claude": {"docker": {"command": "private-local-command"}}}
-        with patch("sys.argv", ["setup.py"]), \
-                patch.object(SETUP, "existing_servers", side_effect=lambda client: existing.get(client, {})), \
-                patch.object(SETUP.subprocess, "run") as run:
-            with self.assertRaisesRegex(ValueError, "claude/docker"):
-                SETUP.main()
-            run.assert_not_called()
+    def test_dry_run_does_not_write_client_configuration(self):
+        self.install("--dry-run")
+        self.assertFalse((self.codex / "config.toml").exists())
+        self.assertFalse((self.claude / ".claude.json").exists())
+        self.assertFalse((self.home / ".apm/apm.lock.yaml").exists())
 
-    def test_existing_definitions_and_extra_local_settings_are_preserved(self):
-        existing = {client: SETUP.definitions(client) for client in ("codex", "claude")}
-        existing["codex"]["docker"]["enabled"] = False
-        existing["codex"]["github"]["enabled_tools"] = ["get_me"]
-        run, output = self.main(existing=existing)
-        run.assert_not_called()
-        self.assertIn("already registered", output)
+    def test_install_repeat_preserves_unrelated_settings_and_secret_references(self):
+        (self.codex / "config.toml").write_text('model = "local-model"\n[mcp_servers.personal]\ncommand = "personal"\n')
+        (self.claude / ".claude.json").write_text(json.dumps({"custom": True, "mcpServers": {"personal": {"command": "personal"}}}))
+        self.install()
+        first = self.configs()
+        self.install()
+        self.assertEqual(first, self.configs())
+        codex, claude = first
+        self.assertEqual(codex["model"], "local-model")
+        self.assertTrue(claude["custom"])
+        self.assertEqual(set(codex["mcp_servers"]), NAMES | {"personal"})
+        self.assertEqual(set(claude["mcpServers"]), NAMES | {"personal"})
+        self.assertEqual(codex["mcp_servers"]["github"]["bearer_token_env_var"], "GITHUB_MCP_TOKEN")
+        self.assertEqual(claude["mcpServers"]["github"]["headers"]["Authorization"], "Bearer ${GITHUB_MCP_TOKEN}")
+        self.assertEqual(codex["mcp_servers"]["docker"]["env"]["XDG_CONFIG_HOME"], self.env["XDG_CONFIG_HOME"])
+        # Check native configs and local APM ownership/lock data for leaked values.
+        for path in self.home.rglob("*"):
+            if path.is_file() and not path.is_symlink():
+                self.assertNotIn(b"test-secret-never-store", path.read_bytes(), str(path))
 
-    def test_client_selection_and_token_references(self):
-        run, _ = self.main("--client", "claude")
-        self.assertEqual(run.call_count, 6)
-        for call in run.call_args_list:
-            argv = call.args[0]
-            self.assertEqual(argv[:5], ["claude", "mcp", "add-json", "--scope", "user"])
-        github = SETUP.definitions("claude")["github"]
-        self.assertEqual(github["headers"]["Authorization"], "Bearer ${GITHUB_MCP_TOKEN}")
-        argv = SETUP.add_command("codex", "github", SETUP.definitions("codex")["github"])
-        self.assertEqual(argv[-2:], ["--bearer-token-env-var", "GITHUB_MCP_TOKEN"])
+    def test_conflicting_personal_connection_is_preserved(self):
+        path = self.codex / "config.toml"
+        path.write_text('[mcp_servers.serena]\ncommand = "personal-command"\n')
+        self.install(success=False)
+        self.assertEqual(tomllib.loads(path.read_text())["mcp_servers"]["serena"]["command"], "personal-command")
 
-    def test_custom_configuration_homes(self):
-        codex = self.home / "custom codex"
-        claude = self.home / "custom claude"
-        codex.mkdir()
-        claude.mkdir()
-        (codex / "config.toml").write_text('[mcp_servers.custom]\ncommand = "custom"\n')
-        (claude / ".claude.json").write_text(json.dumps({"mcpServers": {"custom": {"command": "custom"}}}))
-        with patch.dict(os.environ, {**self.env, "CODEX_HOME": str(codex), "CLAUDE_CONFIG_DIR": str(claude)}, clear=True):
-            for client in ("codex", "claude"):
-                self.assertEqual(SETUP.existing_servers(client)["custom"]["command"], "custom")
-
-    def test_custom_xdg_path_is_passed_without_copying_secrets(self):
-        with patch.dict(os.environ, {**self.env, "XDG_CONFIG_HOME": "/custom config", "DATABASE_URI": "private-value"}, clear=True):
-            config = SETUP.definitions("codex")["docker"]
-            self.assertEqual(config["env"], {"XDG_CONFIG_HOME": "/custom config"})
-            argv = SETUP.add_command("codex", "docker", config)
-            self.assertIn("XDG_CONFIG_HOME=/custom config", argv)
-            self.assertNotIn("private-value", " ".join(argv))
+    def test_registered_launcher_uses_custom_xdg_environment(self):
+        self.install()
+        codex, claude = self.configs()
+        config = Path(self.env["XDG_CONFIG_HOME"]) / "dotfiles"
+        config.mkdir(parents=True)
+        (config / "mcp.env").write_text("DOCKER_HOST='unix:///tmp/local docker.sock'\n")
+        tools = self.home / "launcher bin"
+        tools.mkdir()
+        uvx = tools / "uvx"
+        uvx.write_text('#!/bin/sh\nprintf "%s\\n" "$DOCKER_HOST"\n')
+        uvx.chmod(0o755)
+        for server in (codex["mcp_servers"]["docker"], claude["mcpServers"]["docker"]):
+            env = {"HOME": str(self.home), "PATH": f"{tools}:/usr/bin:/bin"}
+            # Claude resolves ${VAR} references when launching, Codex receives literals.
+            for key, value in server.get("env", {}).items():
+                env[key] = self.env[key] if value == "${" + key + "}" else value
+            result = subprocess.run([server["command"], *server["args"]], env=env,
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("unix:///tmp/local docker.sock", result.stdout)
 
 
 class MCPLauncherTests(unittest.TestCase):
@@ -110,20 +132,14 @@ class MCPLauncherTests(unittest.TestCase):
         return subprocess.run(["bash", str(ROOT / "agents/mcp/run.sh"), *args],
                               env={**self.env, **(env or {})}, text=True, capture_output=True)
 
-    def test_postgres_is_not_registered(self):
-        for client in ("codex", "claude"):
-            self.assertNotIn("postgres", SETUP.definitions(client))
-
     def test_postgres_is_blocked_before_dependency_download_or_connection(self):
-        for env in ({}, {"DATABASE_URI": "postgresql://fake:secret@localhost/test",
-                             "XDG_CONFIG_HOME": str(self.home / "custom config")}):
+        for env in ({}, {"DATABASE_URI": "postgresql://fake:secret@localhost/test"}):
             with self.subTest(env=env):
                 result = self.launch("postgres", env=env)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertEqual(result.stdout, "")
                 self.assertIn("CVE-2026-85620", result.stderr)
                 self.assertNotIn("secret", result.stderr)
-                self.assertNotIn("~/.config", result.stderr)
 
     def test_local_env_with_custom_xdg_path(self):
         config = self.home / "custom config"
@@ -147,6 +163,11 @@ class MCPLauncherTests(unittest.TestCase):
         result = self.launch("chrome-devtools", env={"CHROME_MCP_BROWSER_URL": "http://localhost:9222"})
         self.assertIn("--browser-url\nhttp://localhost:9222\n", result.stdout)
         self.assertNotIn("--isolated", result.stdout)
+
+    def test_serena_default_uses_shared_agent_context(self):
+        result = self.launch("serena")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--context\nagent\n--project-from-cwd", result.stdout)
 
     def test_serena_contexts_and_project_discovery(self):
         for client, context in (("codex", "codex"), ("claude", "claude-code")):
