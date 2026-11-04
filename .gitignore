@@ -1,6 +1,7 @@
 # Machine-specific settings and generated files
 .gitconfig.local
 .env.local
+agents/mcp/mcp.env
 config/ghostty/local.config
 config/karabiner/automatic_backups/
 vim/.vim/dein.vim
