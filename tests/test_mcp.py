@@ -14,6 +14,49 @@ APM = os.environ.get("APM_TEST_EXECUTABLE")
 NAMES = {"serena", "github", "docker", "cloudflare", "chrome-devtools"}
 
 
+def write_uvx_forwarder(path):
+    # The selected APM may itself be a uvx wrapper. Restore the caller's PATH
+    # before invoking it so its uvx resolves to the real tool, not this shim.
+    path.write_text("""#!/bin/sh
+if [ "${APM_TEST_FORWARDING:-}" = 1 ]; then
+    echo 'Recursive APM_TEST_EXECUTABLE wrapper detected' >&2
+    exit 2
+fi
+shift 5
+APM_TEST_FORWARDING=1 PATH="$APM_TEST_REAL_PATH" exec "$APM_TEST_EXECUTABLE" "$@"
+""")
+    path.chmod(0o755)
+
+
+class APMForwarderTests(unittest.TestCase):
+    def test_uvx_wrapper_uses_original_path_without_recursing(self):
+        with tempfile.TemporaryDirectory(prefix="dotfiles-apm-forward-") as directory:
+            home = Path(directory)
+            shim_bin = home / "shim bin"
+            real_bin = home / "real bin"
+            shim_bin.mkdir()
+            real_bin.mkdir()
+            write_uvx_forwarder(shim_bin / "uvx")
+            wrapper = home / "packaged apm"
+            wrapper.write_text('#!/bin/sh\nexec uvx --python python3.13 --from apm-cli==0.35.0 apm "$@"\n')
+            wrapper.chmod(0o755)
+            uvx = real_bin / "uvx"
+            uvx.write_text('#!/bin/sh\nprintf "%s\\n" "$@"\n')
+            uvx.chmod(0o755)
+            env = {"PATH": f"{shim_bin}:/usr/bin:/bin",
+                   "APM_TEST_REAL_PATH": f"{real_bin}:/usr/bin:/bin",
+                   "APM_TEST_EXECUTABLE": str(wrapper)}
+            argv = ["uvx", "--python", "python3.13", "--from", "apm-cli==0.35.0", "apm", "install", "--dry-run"]
+            result = subprocess.run(argv, env=env, capture_output=True, text=True, timeout=5)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(result.stdout.splitlines(), argv[1:])
+            # A wrapper that explicitly returns to the shim fails promptly.
+            env["APM_TEST_REAL_PATH"] = env["PATH"]
+            result = subprocess.run(argv, env=env, capture_output=True, text=True, timeout=5)
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("Recursive APM_TEST_EXECUTABLE", result.stderr)
+
+
 @unittest.skipUnless(APM, "Set APM_TEST_EXECUTABLE to run APM integration tests")
 class APMIntegrationTests(unittest.TestCase):
     def setUp(self):
@@ -35,10 +78,10 @@ class APMIntegrationTests(unittest.TestCase):
         uvx = self.bin / "uvx"
         # Exercise the real repository wrapper, with uvx download replaced by
         # the explicitly selected APM executable. No network or real home.
-        uvx.write_text('#!/bin/sh\nshift 5\nexec "$APM_TEST_EXECUTABLE" "$@"\n')
-        uvx.chmod(0o755)
+        write_uvx_forwarder(uvx)
         self.env = {
             "APM_TEST_EXECUTABLE": str(Path(APM).resolve()),
+            "APM_TEST_REAL_PATH": os.environ.get("PATH", os.defpath),
             "HOME": str(self.home), "PATH": f"{self.bin}:/usr/bin:/bin",
             "XDG_CONFIG_HOME": str(self.home / "custom config"),
             "CODEX_HOME": str(self.codex), "CLAUDE_CONFIG_DIR": str(self.claude),
@@ -47,7 +90,7 @@ class APMIntegrationTests(unittest.TestCase):
 
     def install(self, *args, success=True):
         result = subprocess.run(["bash", str(ROOT / "agents/mcp/apm.sh"), "install", "--global", "--only", "mcp", *args],
-                                cwd=self.home, env=self.env, stdin=subprocess.DEVNULL, text=True, capture_output=True)
+                                cwd=self.home, env=self.env, stdin=subprocess.DEVNULL, text=True, capture_output=True, timeout=120)
         if success:
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         else:
