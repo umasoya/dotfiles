@@ -1,0 +1,38 @@
+name: dotfiles-mcp
+version: 1.0.0
+targets:
+  - codex
+  - claude
+dependencies:
+  mcp:
+    - name: serena
+      registry: false
+      transport: stdio
+      command: bash
+      env:
+        XDG_CONFIG_HOME: '${XDG_CONFIG_HOME}'
+      args: ['-c', 'exec bash "$HOME/.apm/dotfiles-mcp.sh" serena']
+    - name: github
+      registry: false
+      transport: http
+      url: https://api.githubcopilot.com/mcp/
+      headers:
+        Authorization: 'Bearer ${GITHUB_MCP_TOKEN}'
+    - name: docker
+      registry: false
+      transport: stdio
+      command: bash
+      env:
+        XDG_CONFIG_HOME: '${XDG_CONFIG_HOME}'
+      args: ['-c', 'exec bash "$HOME/.apm/dotfiles-mcp.sh" docker']
+    - name: cloudflare
+      registry: false
+      transport: http
+      url: https://mcp.cloudflare.com/mcp
+    - name: chrome-devtools
+      registry: false
+      transport: stdio
+      command: bash
+      env:
+        XDG_CONFIG_HOME: '${XDG_CONFIG_HOME}'
+      args: ['-c', 'exec bash "$HOME/.apm/dotfiles-mcp.sh" chrome-devtools']

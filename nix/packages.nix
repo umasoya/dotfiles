@@ -1,5 +1,10 @@
 { pkgs }:
 let
+  apm = pkgs.writeShellApplication {
+    name = "apm";
+    runtimeInputs = [ pkgs.uv pkgs.python313 ];
+    text = builtins.readFile ../agents/mcp/apm.sh;
+  };
   enhancd = pkgs.stdenvNoCC.mkDerivation {
     pname = "enhancd";
     version = "2.5.1";
@@ -42,6 +47,7 @@ with pkgs; [
   python313
   nodejs_22
   uv
+  apm
   codex
   claude-code
   herdr

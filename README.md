@@ -17,7 +17,7 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 | `config/herdr/` | Herdr設定 |
 | `agents/AGENTS.md` | Codex・Claude Codeの共通ユーザー指示 |
 | `agents/skills/` | Codexの共有スキル |
-| `agents/mcp/` | Codex・Claude Codeの共通MCP定義と登録手順 |
+| `agents/mcp/` | APMによるCodex・Claude Codeの共通MCP管理 |
 | `AGENTS.md` / `CLAUDE.md` | このリポジトリで作業するエージェントへの指示 |
 
 VS Codeは[Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync)に任せます。
@@ -153,6 +153,10 @@ XDG側の設定より後に読み込まれるため、競合する項目を確�
 Windows TerminalはWindows側で導入し、Ubuntuプロファイルからシェルを起動します。
 Nix・CLI・Herdr・エージェントはUbuntu側で使います。Windows Terminalの設定ファイル全体は上書きしません。
 
+GPG署名のパスフレーズを端末で入力できるよう、共通シェル設定は対話端末で`GPG_TTY`を設定します。
+既に開いている端末でコミット時に`Inappropriate ioctl for device`が出る場合は、
+`export GPG_TTY="$(tty)"`を実行してからコミットを再試行してください。
+
 Docker DesktopをWindows側で使う場合は、UbuntuへのWSL連携を有効にしてください。
 NixのDockerパッケージはクライアントだけで、Dockerデーモンや仮想マシンを起動しません。
 接続先の確認には`docker context ls`と`docker info`を使います。
@@ -167,6 +171,7 @@ NixのDockerパッケージはクライアントだけで、Dockerデーモン�
 | `vim/.vimrc` / `vim/.vim` | `~/.vimrc` / `~/.vim` | 共通 |
 | `config/herdr/config.toml` | `$XDG_CONFIG_HOME/herdr/config.toml` | 共通 |
 | `agents/AGENTS.md` | `$CODEX_HOME/AGENTS.md`、`~/.claude/CLAUDE.md` | 共通 |
+| `agents/mcp/apm.yml` / `run.sh` | `~/.apm/apm.yml` / `~/.apm/dotfiles-mcp.sh` | 共通 |
 | `agents/skills/github-pr-create/` | `$CODEX_HOME/skills/github-pr-create` | 共通 |
 | `config/karabiner/karabiner.json` / `assets` | `$XDG_CONFIG_HOME/karabiner/`内 | Mac |
 | `config/ghostty/` | `$XDG_CONFIG_HOME/ghostty` | Mac |
@@ -183,13 +188,23 @@ Codexの共有スキルは`agents/skills/`で管理し、スキルごとにリ�
 `github-pr-create`は`$github-pr-create 今の変更からPRを作成して`で呼び出せます。
 既存の同名スキルがある場合は、内容を確認してバックアップ先へ移動してから`deploy.sh`を実行してください。
 `$CODEX_HOME/skills`全体は置き換えず、他のスキルはそのまま残します。
-Serena・GitHub・Docker・Cloudflare・Chrome DevTools・Context7のMCP定義は
-`agents/mcp/`で管理します。[登録・認証手順](agents/mcp/README.md)に従って、
-`python3 agents/mcp/setup.py --dry-run`で確認後、`python3 agents/mcp/setup.py`で登録します。
+Serena・GitHub・Docker・Cloudflare・Chrome DevToolsのMCP定義は
+`agents/mcp/apm.yml`で管理し、[APM](https://github.com/microsoft/apm)で両クライアントのユーザー設定へ登録します。
+`deploy.sh`はAPMの定義と起動スクリプトだけをリンクします。サーバーの登録は自動実行しません。
+共通Nixプロファイルの`apm`コマンドは、uvxで`apm-cli==0.35.0`を起動します。
+[登録・認証・旧設定からの移行手順](agents/mcp/README.md)を確認し、次を実行します。
+
+```sh
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+apm install --global --only mcp --dry-run </dev/null
+apm install --global --only mcp </dev/null
+```
+
+GitHubトークンは1Passwordに保管し、`op run`でエージェント起動時だけ渡します（[設定手順](agents/mcp/README.md#githubと1password)）。
 Postgres MCPは既知の脆弱性のため登録・起動を停止しています。
-`init.sh`や`deploy.sh`では自動登録しません。MCP起動用のPython・Node.js・uvは共通Nixプロファイルに含みます。
-認証情報・接続文字列・マシン固有パスはローカル設定に残し、モデル・権限・仕事用設定も各クライアントで管理します。
-登録処理は同名定義の競合を検出し、既存の認証情報・権限設定を変更しません。
+認証情報は環境変数とローカル設定に残し、モデル・権限・仕事用設定は各クライアントで管理します。
+APMのロックファイルと管理状態は`~/.apm/`に保存し、dotfilesでは追跡しません。
+既存の同名定義が異なる場合はAPMが保護してエラーになりますが、他サーバーへの登録は部分的に進む場合があります。
 
 [Codexの指示ファイル](https://developers.openai.com/codex/guides/agents-md/)と
 [Claude Codeのメモリ設定](https://code.claude.com/docs/en/memory)の仕様に従い、
@@ -230,6 +245,7 @@ pre-commitは変更対象のシェルファイルを1つずつ構文検査し、
 
 ```sh
 python3 -m unittest discover -s tests -v
+APM_TEST_EXECUTABLE="$(command -v apm)" python3 -m unittest discover -s tests -p test_mcp.py -v
 nix flake check --no-build --all-systems
 ```
 

@@ -29,6 +29,17 @@ fi
 export LANG
 export LESSCHARSET=UTF-8
 
+# Give curses pinentry the current terminal, including in new Herdr panes.
+case $- in
+    *i*)
+        if [ -t 0 ] && command -v tty >/dev/null 2>&1; then
+            if GPG_TTY=$(tty); then
+                export GPG_TTY
+            fi
+        fi
+        ;;
+esac
+
 export COMPOSER_PATH="$XDG_CONFIG_HOME/composer/vendor"
 export COMPOSER_BIN="$COMPOSER_PATH/bin"
 export GOPATH="${GOPATH:-$HOME/go}"

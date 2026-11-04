@@ -37,6 +37,8 @@ add_link config/herdr/config.toml "$CONFIG_HOME/herdr/config.toml"
 add_link agents/AGENTS.md "${CODEX_HOME:-$HOME/.codex}/AGENTS.md"
 add_link agents/skills/github-pr-create "${CODEX_HOME:-$HOME/.codex}/skills/github-pr-create"
 add_link agents/AGENTS.md "$HOME/.claude/CLAUDE.md"
+add_link agents/mcp/apm.yml "$HOME/.apm/apm.yml"
+add_link agents/mcp/run.sh "$HOME/.apm/dotfiles-mcp.sh"
 if [[ "$(uname -s)" == Darwin ]]; then
     add_link config/karabiner/karabiner.json "$CONFIG_HOME/karabiner/karabiner.json"
     add_link config/karabiner/assets "$CONFIG_HOME/karabiner/assets"

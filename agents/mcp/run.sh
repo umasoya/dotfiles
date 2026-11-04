@@ -2,7 +2,7 @@
 set -euo pipefail
 
 server="${1:-}"
-client="${2:-}"
+client="${2:-agent}"
 local_env="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/mcp.env"
 if [[ -f "$local_env" ]]; then
     set -a
@@ -15,10 +15,11 @@ fi
 case "$server" in
     serena)
         case "$client" in
+            agent) context=agent ;;
             codex) context=codex ;;
             claude) context=claude-code ;;
             *)
-                echo 'Usage: run.sh serena {codex|claude}' >&2
+                echo 'Usage: run.sh serena [agent|codex|claude]' >&2
                 exit 2
                 ;;
         esac
@@ -51,7 +52,7 @@ case "$server" in
         exec npx -y chrome-devtools-mcp@1.12.0 "${args[@]}"
         ;;
     *)
-        echo 'Usage: run.sh {serena {codex|claude}|docker|postgres|chrome-devtools}' >&2
+        echo 'Usage: run.sh {serena [agent|codex|claude]|docker|postgres|chrome-devtools}' >&2
         exit 2
         ;;
 esac
