@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+    echo 'Usage: git wt <branch> [base-ref]'
+    echo 'Create a Git worktree and focus its Herdr workspace.'
+    echo 'Requires a running Herdr server. Existing local branches are reused.'
+}
+
+if [[ ${1:-} == --help || ${1:-} == -h ]]; then
+    usage
+    exit 0
+fi
+if (($# < 1 || $# > 2)); then
+    usage >&2
+    exit 2
+fi
+
+for tool in git herdr jq; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+        echo "git wt: $tool is required." >&2
+        exit 1
+    fi
+done
+
+repo=$(git rev-parse --show-toplevel)
+git check-ref-format --branch "$1" >/dev/null
+args=(worktree create --cwd "$repo" --branch "$1" --focus)
+if (($# == 2)); then
+    if git show-ref --verify --quiet "refs/heads/$1"; then
+        echo 'git wt: base-ref can only be used with a new branch.' >&2
+        exit 2
+    fi
+    git rev-parse --verify --end-of-options "$2^{commit}" >/dev/null
+    args+=(--base "$2")
+fi
+if output=$(herdr "${args[@]}"); then
+    if summary=$(printf '%s\n' "$output" | jq -er '
+        .result.worktree
+        | select((.branch | type) == "string" and (.path | type) == "string")
+        | "Worktreeを作成しました\n  ブランチ: \(.branch)\n  作成先:   \(.path)"
+    '); then
+        printf '%s\n' "$summary"
+    else
+        # Preserve the response if a future Herdr version changes its schema.
+        printf '%s\n' "$output"
+    fi
+else
+    status=$?
+    [[ -z "$output" ]] || printf '%s\n' "$output" >&2
+    exit "$status"
+fi

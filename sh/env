@@ -46,6 +46,7 @@ export GOPATH="${GOPATH:-$HOME/go}"
 export GOBIN="${GOBIN:-$GOPATH/bin}"
 _dotfiles_prepend_path "$COMPOSER_BIN"
 _dotfiles_prepend_path "$GOBIN"
+_dotfiles_prepend_path "$DOT_DIR/bin"
 # Dedicated profile keeps dotfiles upgrades separate from personal Nix packages.
 _dotfiles_prepend_path "$XDG_STATE_HOME/nix/profiles/dotfiles/bin"
 export PATH

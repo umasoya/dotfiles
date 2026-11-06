@@ -226,6 +226,33 @@ APMのロックファイルと管理状態は`~/.apm/`に保存し、dotfilesで
 tmuxの旧設定はHerdrへの移行に伴い削除しました。
 既存環境のtmux本体やホーム内の旧リンクは自動削除しません。
 
+### Git worktreeを作る
+
+`bin/git-wt`は任意のGitリポジトリで使える単体のBashスクリプトです。
+必要なものはBash・Git・Herdr・jqで、dotfilesの設定には依存しません。
+単体で利用する場合は、PATHの通ったディレクトリへ配置します。
+
+```sh
+mkdir -p "$HOME/.local/bin"
+install -m 755 bin/git-wt "$HOME/.local/bin/git-wt"
+```
+
+このdotfilesを利用する場合は共通シェル設定が`$DOT_DIR/bin`をPATHへ追加するため、コピーは不要です。
+既に開いているシェルでは`source "${DOT_DIR:-$HOME/dotfiles}/sh/env"`でPATHを反映してください。
+ヘルプは`git wt -h`で表示します（`git wt --help`はGitがmanページを探すため使いません）。
+Herdrを起動してから、作業対象のリポジトリ内（サブディレクトリでも可）で次を実行します。
+
+```sh
+git wt feat/login              # HEADから新規ブランチを作り、Herdrで開く
+git wt fix/login origin/main   # 指定した起点から作成（fetchは事前に手動実行）
+git wt existing-branch         # 既存のローカルブランチでworktreeを作成
+```
+
+[Herdrのworktree機能](https://herdr.dev/tui/docs/cli-reference/)を使い、作成したワークスペースへフォーカスします。
+配置先はHerdrの`worktrees.directory`設定に従います。未コミットの変更はコピーしません。
+既存ブランチに起点を指定するとエラーになります。他のworktreeで使用中のブランチや配置先の競合はHerdr/Gitが検出します。
+作成済みのworktreeを再び開く場合は`herdr worktree open --cwd "$PWD" --branch feat/login --focus`を使います。
+
 enhancd・fast-syntax-highlighting・PureもNixで管理し、`.zshrc`から専用プロファイル内のファイルを読み込みます。
 Pureの自動fetchは、SSH認証で1Passwordの解除を求められないよう、Bash・Zsh共通の`sh/env`で`PURE_GIT_PULL=0`に設定しています。
 ブランチ名・ローカル変更の表示は維持し、リモートの更新は手動の`git fetch`で取得します。
