@@ -19,6 +19,13 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 | `agents/skills/` | Codexの共有スキル |
 | `agents/mcp/` | APMによるCodex・Claude Codeの共通MCP管理 |
 | `AGENTS.md` / `CLAUDE.md` | このリポジトリで作業するエージェントへの指示 |
+| [docs/deployment.md](docs/deployment.md) | 設定の配置先一覧 |
+| [docs/agents.md](docs/agents.md) | エージェント・MCP・ローカル設定 |
+| [docs/herdr.md](docs/herdr.md) | Herdrの操作とGit worktree |
+| [docs/shell.md](docs/shell.md) | シェルプラグインの設定・移行 |
+| [docs/neovim.md](docs/neovim.md) | Neovim・Vimの導入、言語支援、操作 |
+| [docs/tools.md](docs/tools.md) | Nix・Macアプリの更新 |
+| [docs/validation.md](docs/validation.md) | 検証手順とGit hook |
 
 VS Codeは[Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync)に任せます。
 ユーザー設定・キーバインドなどが対象ですが、マシン固有設定とWSLなどのリモート拡張機能は同期対象外です。
@@ -83,6 +90,7 @@ bash init.sh
 `bash init.sh --dry-run`は競合確認だけを行い、本体・パッケージの導入と設定配置はしません。
 raw URLから`bash -s -- --dry-run`へ渡す場合も同様ですが、未取得のリポジトリはcloneします。
 設定配置だけを行う場合は`bash deploy.sh`を使います。
+配置先は[設定の配置](docs/deployment.md)、エージェントのログイン・MCP登録は[エージェントとローカル設定](docs/agents.md)を参照してください。
 
 `deploy.sh`はソフトウェアをインストールしません。配置先に別のファイル・ディレクトリ・リンクがあれば、
 一覧を表示して変更前に停止します。ただし、`~/.bashrc`が`/etc/skel/.bashrc`と完全に一致する通常ファイルなら、
@@ -121,16 +129,7 @@ exec "$SHELL" -l
 一時的に使う場合は`nix develop "$HOME/dotfiles"`でも起動できます。
 プログラミング言語のランタイムやプロジェクトごとの依存は、それぞれの開発環境で管理します。
 
-依存バージョンを更新するときは、差分を確認して`flake.lock`もコミット対象に含めます。
-
-```sh
-cd "$HOME/dotfiles"
-nix flake update
-nix flake check --no-build --all-systems
-nix profile upgrade \
-  --profile "${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/dotfiles" \
-  --all
-```
+更新方法は[ツールの更新](docs/tools.md#共通cliの更新)を参照してください。
 
 ### Macアプリ
 
@@ -141,7 +140,7 @@ Macでは`init.sh`が[Homebrew](https://brew.sh/)本体と不足アプリを導�
 HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file="$HOME/dotfiles/brew/Brewfile" --no-upgrade
 ```
 
-アプリを明示的に更新する場合は`HOMEBREW_NO_AUTO_UPDATE=1`と`--no-upgrade`を外して実行します。
+アプリの更新方法は[ツールの更新](docs/tools.md#macアプリの更新)を参照してください。
 
 対象はGhostty、Karabiner-Elements、Docker Desktopです。
 アプリの初回起動・必要なOS権限の設定は各Macで行います。
@@ -160,157 +159,3 @@ GPG署名のパスフレーズを端末で入力できるよう、共通シェ�
 Docker DesktopをWindows側で使う場合は、UbuntuへのWSL連携を有効にしてください。
 NixのDockerパッケージはクライアントだけで、Dockerデーモンや仮想マシンを起動しません。
 接続先の確認には`docker context ls`と`docker info`を使います。
-
-## 配置する設定
-
-| 元ファイル | 配置先 | 対象 |
-| --- | --- | --- |
-| `.bash_profile` / `.bashrc` / `.zprofile` / `.zshenv` / `.zshrc` | `~/`の同名ファイル | 共通 |
-| `git/.gitconfig` / `git/.gitignore` | `~/.gitconfig` / `~/.gitignore` | 共通 |
-| `git/.gitconfig.local`（存在する場合のみ） | `~/.gitconfig.local` | 共通 |
-| `config/nvim/` | `$XDG_CONFIG_HOME/nvim` | 共通 |
-| `config/herdr/config.toml` | `$XDG_CONFIG_HOME/herdr/config.toml` | 共通 |
-| `agents/AGENTS.md` | `$CODEX_HOME/AGENTS.md`、`~/.claude/CLAUDE.md` | 共通 |
-| `agents/mcp/apm.yml` / `run.sh` | `~/.apm/apm.yml` / `~/.apm/dotfiles-mcp.sh` | 共通 |
-| `agents/skills/github-pr-create/` | `$CODEX_HOME/skills/github-pr-create` | 共通 |
-| `config/karabiner/karabiner.json` / `assets` | `$XDG_CONFIG_HOME/karabiner/`内 | Mac |
-| `config/ghostty/` | `$XDG_CONFIG_HOME/ghostty` | Mac |
-
-`XDG_CONFIG_HOME`の既定値は`~/.config`、`CODEX_HOME`は`~/.codex`です。
-標準配置先は`~/dotfiles`です。別の場所へcloneした場合は、シェル起動前の環境で`DOT_DIR`を設定してください。
-Karabinerの自動バックアップやエージェントの認証・履歴ディレクトリ全体はリンクしません。
-
-## エージェントとローカル設定
-
-Codex・Claude Codeは初回起動時にそれぞれログインします。
-CLIバージョン、`agents/AGENTS.md`のユーザー指示、共通MCPのサーバー定義を共有します。
-Codexの共有スキルは`agents/skills/`で管理し、スキルごとにリンクします。
-`github-pr-create`は`$github-pr-create 今の変更からPRを作成して`で呼び出せます。
-既存の同名スキルがある場合は、内容を確認してバックアップ先へ移動してから`deploy.sh`を実行してください。
-`$CODEX_HOME/skills`全体は置き換えず、他のスキルはそのまま残します。
-Serena・GitHub・Docker・Cloudflare・Chrome DevToolsのMCP定義は
-`agents/mcp/apm.yml`で管理し、[APM](https://github.com/microsoft/apm)で両クライアントのユーザー設定へ登録します。
-`deploy.sh`はAPMの定義と起動スクリプトだけをリンクします。サーバーの登録は自動実行しません。
-共通Nixプロファイルの`apm`コマンドは、uvxで`apm-cli==0.35.0`を起動します。
-[登録・認証・旧設定からの移行手順](agents/mcp/README.md)を確認し、次を実行します。
-
-```sh
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-apm install --global --only mcp --dry-run </dev/null
-apm install --global --only mcp </dev/null
-```
-
-GitHubトークンは1Passwordに保管し、`op run`でエージェント起動時だけ渡します（[設定手順](agents/mcp/README.md#githubと1password)）。
-Postgres MCPは既知の脆弱性のため登録・起動を停止しています。
-認証情報は環境変数とローカル設定に残し、モデル・権限・仕事用設定は各クライアントで管理します。
-APMのロックファイルと管理状態は`~/.apm/`に保存し、dotfilesでは追跡しません。
-既存の同名定義が異なる場合はAPMが保護してエラーになりますが、他サーバーへの登録は部分的に進む場合があります。
-
-[Codexの指示ファイル](https://developers.openai.com/codex/guides/agents-md/)と
-[Claude Codeのメモリ設定](https://code.claude.com/docs/en/memory)の仕様に従い、
-このリポジトリの作業指示は`AGENTS.md`に集約し、`CLAUDE.md`から参照します。
-
-- Gitのマシン固有設定: `git/.gitconfig.local`（追跡対象外）。`deploy.sh`が`~/.gitconfig.local`へリンクし、カスタム`DOT_DIR`でも選択したcheckoutの設定を読み込みます。ファイルを後から作成した場合は`deploy.sh`を再実行してください。既存の`~/.gitconfig.local`が別の実体なら、他の設定と同様に競合として保護します。
-- 対話シェルの追加設定: `~/.bashrc.local`、`~/.zshrc.local`
-- Ghosttyの追加設定: `config/ghostty/local.config`（追跡対象外）
-
-仕事用の設定は、共有できる部分だけを後から取り込んでください。
-
-## Herdrとシェルプラグイン
-
-`herdr`で起動します。旧tmuxから`Ctrl+t`のprefixと`h/j/k/l`のペイン移動を引き継いだ初期設定です。
-既存環境のtokyo-nightテーマ・システム通知・初回案内済みの設定も共有しています。
-分割などの操作は`Ctrl+t`の後に`?`で確認できます。
-[設定仕様](https://herdr.dev/docs/configuration/)に従い、変更後は`herdr server reload-config`で再読み込みします。
-
-tmuxの旧設定はHerdrへの移行に伴い削除しました。
-既存環境のtmux本体やホーム内の旧リンクは自動削除しません。
-
-### Git worktreeを作る
-
-`bin/git-wt`は任意のGitリポジトリで使える単体のBashスクリプトです。
-必要なものはBash・Git・Herdr・jqで、dotfilesの設定には依存しません。
-単体で利用する場合は、PATHの通ったディレクトリへ配置します。
-
-```sh
-mkdir -p "$HOME/.local/bin"
-install -m 755 bin/git-wt "$HOME/.local/bin/git-wt"
-```
-
-このdotfilesを利用する場合は共通シェル設定が`$DOT_DIR/bin`をPATHへ追加するため、コピーは不要です。
-既に開いているシェルでは`source "${DOT_DIR:-$HOME/dotfiles}/sh/env"`でPATHを反映してください。
-ヘルプは`git wt -h`で表示します（`git wt --help`はGitがmanページを探すため使いません）。
-Herdrを起動してから、作業対象のリポジトリ内（サブディレクトリでも可）で次を実行します。
-
-```sh
-git wt feat/login              # HEADから新規ブランチを作り、Herdrで開く
-git wt fix/login origin/main   # 指定した起点から作成（fetchは事前に手動実行）
-git wt existing-branch         # 既存のローカルブランチでworktreeを作成
-```
-
-[Herdrのworktree機能](https://herdr.dev/tui/docs/cli-reference/)を使い、作成したワークスペースへフォーカスします。
-配置先はHerdrの`worktrees.directory`設定に従います。未コミットの変更はコピーしません。
-既存ブランチに起点を指定するとエラーになります。他のworktreeで使用中のブランチや配置先の競合はHerdr/Gitが検出します。
-作成済みのworktreeを再び開く場合は`herdr worktree open --cwd "$PWD" --branch feat/login --focus`を使います。
-
-不要になったworktreeは、同じリポジトリの別のcheckoutから削除します。
-
-```sh
-git wt --remove feat/login
-```
-
-Herdrで開いている場合は、そのworktreeのワークスペースも閉じます。
-既に閉じているworktreeにも対応します。ブランチとコミットは残します。
-未コミットの変更・未追跡ファイルがある場合や、Gitでロックされている場合は削除を拒否します。
-強制削除や一括削除は行いません。Herdrサーバーは削除時も起動しておく必要があります。
-
-enhancd・fast-syntax-highlighting・PureもNixで管理し、`.zshrc`から専用プロファイル内のファイルを読み込みます。
-Pureの自動fetchは、SSH認証で1Passwordの解除を求められないよう、Bash・Zsh共通の`sh/env`で`PURE_GIT_PULL=0`に設定しています。
-ブランチ名・ローカル変更の表示は維持し、リモートの更新は手動の`git fetch`で取得します。
-enhancdのソースは`nix/packages.nix`でコミットとハッシュを固定し、残り2つは固定済みnixpkgsのパッケージを使います。
-プラグインが未導入なら読み込みをスキップします。既存プロファイルへの反映には、上記の`nix profile upgrade`を実行してください。
-afxと未使用のgh-markdown-previewの定義は削除しました。
-既存環境のafx本体・`~/.afx`・`$XDG_CONFIG_HOME/afx`、インストール済みのgh拡張は自動削除しません。
-動作を確認した後、不要なものを手動で整理してください。
-
-## NeovimとVim
-
-普段の編集はNeovimを使い、対象言語だけ内蔵LSPで補完・診断・定義ジャンプを有効にします。
-Ruby LSPはプロジェクトを明示的に承認してから起動します。
-導入・移行、言語別の依存、基本操作、検証手順は[Neovimの設定](docs/neovim.md)を参照してください。
-
-## 検証とGit hook
-
-`deploy.sh`は`core.hooksPath=.githooks`を設定します。
-pre-commitは変更対象のシェルファイルを1つずつ構文検査し、BashにはShellCheckとshfmtも実行します。
-検査ツールは共通Nixプロファイルに含めています。
-
-```sh
-python3 -m unittest discover -s tests -v
-APM_TEST_EXECUTABLE="$(command -v apm)" python3 -m unittest discover -s tests -p test_mcp.py -v
-nix flake check --no-build --all-systems
-```
-
-配置テストは一時ホームと模擬コマンドを使い、実際のホーム設定を変更しません。
-
-### GitHub Actionsでのセットアップ検証
-
-`Setup tests`はmain向けPRの作成・追加コミット・再オープン時に実行します。
-変更判定は全PRで行い、初期化関連ファイルを変更した場合だけUbuntu 26.04（x64）と
-macOS 26（Apple Silicon）でテストします。push・定期・手動実行はありません。
-対象は`init.sh`・`deploy.sh`、シェルの入口、`sh/`・`nix/`・`brew/`・`git/`・`config/`・
-`agents/`・`tests/`・`bin/`・`.githooks/`、flake定義、`AGENTS.md`、本CIのワークフローと
-Actionの依存を固定する`.github/workflows/actions.lock`、補助スクリプトです。
-
-両OSでシェルの構文・ShellCheck・shfmt、既存のPythonテスト、Nix定義を検査します。
-さらに追跡ファイルを一時checkoutへコピーし、一時ホームで`init.sh`のdry-run・初回導入・
-再実行と、導入済みCLI・Bash/Zshの起動を確認します。Nixの共通CLIプロファイルは実際に導入します。
-Nix本体はCI用Actionで事前導入し、本体インストーラーの対話処理とHomebrew／GUIアプリ導入は
-既存の模擬テストで検証します。GUI初回起動・OS権限設定・WSL2固有の挙動、任意実行のAPM統合テストは対象外です。
-
-各OSのジョブは準備を含め20分、変更判定と結果集約は各2分で停止します。
-同じPRの新しい実行が始まると古い実行をキャンセルします。
-必須チェック名は`Setup required`です。対象変更があれば両OSの成功を必須とし、
-対象外の場合はテストを省略して成功します。変更判定の失敗・時間切れ・キャンセルは成功扱いにしません。
-[mainの保護ルール](https://github.com/umasoya/dotfiles/rules/26699991)ではこのチェックを必須にし、
-管理者を含むバイパス・直接push・force pushを禁止します。マージ前にはmainの最新状態への追従も必要です。
