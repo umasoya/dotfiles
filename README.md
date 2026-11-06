@@ -11,7 +11,7 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 | `init.sh` / `sh/setup-tools.sh` / `deploy.sh` | 初回セットアップ・ツール導入・設定配置 |
 | `.bash*` / `.zsh*` / `sh/` | シェルと共通環境変数 |
 | `git/` | 共通Git設定とローカル設定の参照 |
-| `vim/` / `config/nvim/` | 最小限のVim設定 / Neovim設定 |
+| `config/nvim/` | Neovim設定 |
 | `config/karabiner/` | Macのキー設定 |
 | `config/ghostty/` | Macの端末設定 |
 | `config/herdr/` | Herdr設定 |
@@ -168,7 +168,6 @@ NixのDockerパッケージはクライアントだけで、Dockerデーモン�
 | `.bash_profile` / `.bashrc` / `.zprofile` / `.zshenv` / `.zshrc` | `~/`の同名ファイル | 共通 |
 | `git/.gitconfig` / `git/.gitignore` | `~/.gitconfig` / `~/.gitignore` | 共通 |
 | `git/.gitconfig.local`（存在する場合のみ） | `~/.gitconfig.local` | 共通 |
-| `vim/.vimrc` | `~/.vimrc` | 共通 |
 | `config/nvim/` | `$XDG_CONFIG_HOME/nvim` | 共通 |
 | `config/herdr/config.toml` | `$XDG_CONFIG_HOME/herdr/config.toml` | 共通 |
 | `agents/AGENTS.md` | `$CODEX_HOME/AGENTS.md`、`~/.claude/CLAUDE.md` | 共通 |
@@ -277,7 +276,7 @@ afxと未使用のgh-markdown-previewの定義は削除しました。
 ## NeovimとVim
 
 普段の編集は`nvim`、最小限の編集用には`vim`を使います。エイリアスで置き換えません。
-Vimは同梱の`defaults.vim`を読むだけの設定です。
+Vimの設定ファイルは管理・配置せず、各環境の標準状態で使います。
 Neovimは`config/nvim/init.lua`だけで管理し、プラグインの取得や管理ツールは不要です。
 行番号・大文字小文字を考慮した検索・検索結果の強調表示を設定しています。強調解除は`:noh`です。
 配色・インデント・キー操作はNeovimの標準を使い、保存時の自動整形は行いません。
@@ -291,8 +290,7 @@ LSP設定にはNeovim 0.11以上が必要です。古いNeovimでは表示・検
 
 既存の`$XDG_CONFIG_HOME/nvim`がある場合は配置前に競合として停止します。
 内容を確認し、必要な設定をバックアップ先へ移動してから再実行してください。
-既存の`~/.vimrc`が別のcheckoutを指している場合も、参照先を確認して切り替えます。
-`~/.vim`は配置対象外です。旧リンクやdein本体、`~/.cache/dein`は自動削除しません。
+`~/.vimrc`・`~/.vim`は配置対象外です。既存の設定・旧リンクやdein本体、`~/.cache/dein`は自動削除しません。
 不要な旧リンクは参照先を確認して手動で削除してください。過去の設定はGit履歴から参照できます。
 
 ### 言語別の支援

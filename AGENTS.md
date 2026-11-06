@@ -13,7 +13,7 @@ Read README.md for the current setup.
 - flake.nix, flake.lock, nix/: shared CLI tools and pinned dependencies.
 - brew/Brewfile: Mac GUI applications only.
 - git/: shared Git settings; git/.gitconfig.local is machine-specific.
-- config/: Neovim, Herdr, Ghostty, Karabiner. vim/: minimal Vim fallback.
+- config/: Neovim, Herdr, Ghostty, Karabiner. Vim uses no managed config.
 - agents/AGENTS.md: shared Codex and Claude Code user instructions.
 
 ## Issue #15 migration
