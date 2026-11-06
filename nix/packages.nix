@@ -30,6 +30,13 @@ with pkgs; [
   gh
   ghq
   vim
+  neovim
+  # Language servers; Ruby LSP uses each project's Ruby environment.
+  typescript-language-server
+  gopls
+  marksman
+  vscode-langservers-extracted
+  yaml-language-server
   zsh
   enhancd
   zsh-fast-syntax-highlighting

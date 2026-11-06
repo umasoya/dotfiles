@@ -13,7 +13,7 @@ Read README.md for the current setup.
 - flake.nix, flake.lock, nix/: shared CLI tools and pinned dependencies.
 - brew/Brewfile: Mac GUI applications only.
 - git/: shared Git settings; git/.gitconfig.local is machine-specific.
-- config/: Herdr, Ghostty, Karabiner. vim/: retained Vim settings.
+- config/: Neovim, Herdr, Ghostty, Karabiner. vim/: minimal Vim fallback.
 - agents/AGENTS.md: shared Codex and Claude Code user instructions.
 
 ## Issue #15 migration
@@ -22,7 +22,9 @@ Read README.md for the current setup.
 - Manage enhancd, fast-syntax-highlighting, and Pure with Nix; load them in .zshrc.
 - Support Codex and Claude Code, Ghostty on Mac, Windows Terminal on Windows,
   and Herdr for agent terminal sessions.
-- Keep Karabiner and Vim. VS Code uses Settings Sync.
+- Keep Karabiner and Vim as a fallback; use Neovim for language-aware editing.
+- Neovim uses builtin LSP/completion without plugins. Shared servers use Nix;
+  Ruby LSP uses the project Ruby environment. VS Code uses Settings Sync.
 - Use Herdr for terminal multiplexing; legacy tmux settings have been removed.
 
 ## Editing and validation

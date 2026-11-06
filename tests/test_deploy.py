@@ -47,7 +47,7 @@ class DeploymentTests(unittest.TestCase):
         (checkout / "git").mkdir()
         for name in (".gitconfig", ".gitignore"):
             shutil.copy2(ROOT / "git" / name, checkout / "git" / name)
-        for name in ("herdr", "ghostty", "karabiner"):
+        for name in ("herdr", "ghostty", "karabiner", "nvim"):
             shutil.copytree(ROOT / "config" / name, checkout / "config" / name,
                             ignore=shutil.ignore_patterns("automatic_backups", "local.config"))
         return checkout
@@ -137,6 +137,7 @@ class DeploymentTests(unittest.TestCase):
         self.run_deploy()
         self.run_deploy()
         self.assertEqual((self.home / ".vimrc").resolve(), ROOT / "vim/.vimrc")
+        self.assertEqual((self.home / ".config/nvim").resolve(), ROOT / "config/nvim")
         self.assertEqual((self.home / ".claude/CLAUDE.md").resolve(), ROOT / "agents/AGENTS.md")
         self.assertFalse((self.home / ".config/karabiner").exists())
         self.assertFalse((self.home / ".tmux.conf").exists())
@@ -144,6 +145,14 @@ class DeploymentTests(unittest.TestCase):
         self.assertFalse((self.home / ".vim").exists())
         self.assertEqual((self.home / ".codex/skills/github-pr-create").resolve(),
                          ROOT / "agents/skills/github-pr-create")
+
+    def test_existing_neovim_config_prevents_all_changes(self):
+        target = self.home / ".config/nvim"
+        target.mkdir(parents=True)
+        (target / "init.lua").write_text("-- keep me\n")
+        self.run_deploy(success=False)
+        self.assertEqual((target / "init.lua").read_text(), "-- keep me\n")
+        self.assertFalse((self.home / ".bashrc").exists())
 
     def test_existing_skill_prevents_all_changes(self):
         target = self.home / ".codex/skills/github-pr-create"
@@ -250,6 +259,7 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual((self.home / "settings/karabiner/karabiner.json").resolve(),
                          ROOT / "config/karabiner/karabiner.json")
         self.assertTrue((self.home / "settings/ghostty").is_symlink())
+        self.assertEqual((self.home / "settings/nvim").resolve(), ROOT / "config/nvim")
         self.assertTrue((self.home / "codex/AGENTS.md").is_symlink())
         self.assertEqual((self.home / "codex/skills/github-pr-create").resolve(),
                          ROOT / "agents/skills/github-pr-create")

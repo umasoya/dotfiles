@@ -32,6 +32,7 @@ if [[ -f "$DOTFILES_DIR/git/.gitconfig.local" ]]; then
     add_link git/.gitconfig.local "$HOME/.gitconfig.local"
 fi
 add_link vim/.vimrc "$HOME/.vimrc"
+add_link config/nvim "$CONFIG_HOME/nvim"
 add_link config/herdr/config.toml "$CONFIG_HOME/herdr/config.toml"
 add_link agents/AGENTS.md "${CODEX_HOME:-$HOME/.codex}/AGENTS.md"
 add_link agents/skills/github-pr-create "${CODEX_HOME:-$HOME/.codex}/skills/github-pr-create"
