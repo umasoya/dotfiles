@@ -21,3 +21,5 @@ __pycache__/
 
 # Keep pre-existing machine-local XDG data out of Git.
 config/.config/*
+
+.serena
