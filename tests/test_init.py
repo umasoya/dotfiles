@@ -156,7 +156,7 @@ if args[0] == "clone":
         result = self.run_init(success=False)
         self.assertIn("Conflict:", result.stderr)
         self.assertEqual((self.home / ".bashrc").read_text(), "keep me")
-        self.assertFalse((self.home / ".vimrc").exists())
+        self.assertFalse((self.home / ".config/nvim").exists())
         self.assertFalse((self.home / "git-calls").exists())
 
 

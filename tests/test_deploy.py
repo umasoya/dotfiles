@@ -42,12 +42,12 @@ class DeploymentTests(unittest.TestCase):
         checkout.mkdir()
         for name in ("deploy.sh", ".bash_profile", ".bashrc", ".zprofile", ".zshenv", ".zshrc"):
             shutil.copy2(ROOT / name, checkout / name)
-        for name in ("vim", "agents"):
+        for name in ("agents",):
             (checkout / name).symlink_to(ROOT / name, target_is_directory=True)
         (checkout / "git").mkdir()
         for name in (".gitconfig", ".gitignore"):
             shutil.copy2(ROOT / "git" / name, checkout / "git" / name)
-        for name in ("herdr", "ghostty", "karabiner"):
+        for name in ("herdr", "ghostty", "karabiner", "nvim"):
             shutil.copytree(ROOT / "config" / name, checkout / "config" / name,
                             ignore=shutil.ignore_patterns("automatic_backups", "local.config"))
         return checkout
@@ -136,12 +136,24 @@ class DeploymentTests(unittest.TestCase):
     def test_linux_deployment_is_idempotent(self):
         self.run_deploy()
         self.run_deploy()
-        self.assertEqual((self.home / ".vimrc").resolve(), ROOT / "vim/.vimrc")
+        self.assertFalse((self.home / ".vimrc").exists())
+        self.assertFalse((self.home / ".vimrc").is_symlink())
+        self.assertEqual((self.home / ".config/nvim").resolve(), ROOT / "config/nvim")
         self.assertEqual((self.home / ".claude/CLAUDE.md").resolve(), ROOT / "agents/AGENTS.md")
         self.assertFalse((self.home / ".config/karabiner").exists())
         self.assertFalse((self.home / ".tmux.conf").exists())
+        self.assertFalse((self.home / ".vim").is_symlink())
+        self.assertFalse((self.home / ".vim").exists())
         self.assertEqual((self.home / ".codex/skills/github-pr-create").resolve(),
                          ROOT / "agents/skills/github-pr-create")
+
+    def test_existing_neovim_config_prevents_all_changes(self):
+        target = self.home / ".config/nvim"
+        target.mkdir(parents=True)
+        (target / "init.lua").write_text("-- keep me\n")
+        self.run_deploy(success=False)
+        self.assertEqual((target / "init.lua").read_text(), "-- keep me\n")
+        self.assertFalse((self.home / ".bashrc").exists())
 
     def test_existing_skill_prevents_all_changes(self):
         target = self.home / ".codex/skills/github-pr-create"
@@ -155,7 +167,7 @@ class DeploymentTests(unittest.TestCase):
         for platform in ("Linux", "Darwin"):
             with self.subTest(platform=platform):
                 self.env["TEST_OS"] = platform
-                for name, source in ((".vimrc", "vim/.vimrc"), (".vim", "vim/.vim")):
+                for name, source in ((".gitignore", "git/.gitignore"),):
                     target = self.home / name
                     if target.is_symlink():
                         target.unlink()
@@ -163,14 +175,14 @@ class DeploymentTests(unittest.TestCase):
                     target.symlink_to(relative)
                 self.run_deploy("--dry-run")
                 self.run_deploy()
-                for name, source in ((".vimrc", "vim/.vimrc"), (".vim", "vim/.vim")):
+                for name, source in ((".gitignore", "git/.gitignore"),):
                     target = self.home / name
                     self.assertEqual(os.readlink(target), os.path.relpath(ROOT / source, self.home))
 
     def test_symlink_to_different_file_is_preserved(self):
-        other = self.home / "other-vimrc"
+        other = self.home / "other-gitignore"
         other.write_text("keep me")
-        target = self.home / ".vimrc"
+        target = self.home / ".gitignore"
         target.symlink_to(other.name)
         self.run_deploy(success=False)
         self.assertEqual(os.readlink(target), other.name)
@@ -185,7 +197,7 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual((target / "SKILL.md").read_text(), "keep me")
 
     def test_file_conflict_prevents_all_changes(self):
-        target = self.home / ".vimrc"
+        target = self.home / ".gitignore"
         target.write_text("keep me")
         self.assertIn("Conflict:", self.run_deploy(success=False).stderr)
         self.assertEqual(target.read_text(), "keep me")
@@ -217,7 +229,7 @@ class DeploymentTests(unittest.TestCase):
     def test_other_conflict_preserves_default_bashrc(self):
         target = self.default_bashrc()
         original = target.read_bytes()
-        (self.home / ".vimrc").write_text("keep me")
+        (self.home / ".gitignore").write_text("keep me")
         self.run_deploy(success=False)
         self.assertFalse(target.is_symlink())
         self.assertEqual(target.read_bytes(), original)
@@ -230,7 +242,7 @@ class DeploymentTests(unittest.TestCase):
         self.assertIn("# custom settings", target.read_text())
 
     def test_broken_symlink_is_preserved(self):
-        target = self.home / ".vimrc"
+        target = self.home / ".gitignore"
         target.symlink_to("missing")
         self.run_deploy(success=False)
         self.assertEqual(os.readlink(target), "missing")
@@ -248,6 +260,7 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual((self.home / "settings/karabiner/karabiner.json").resolve(),
                          ROOT / "config/karabiner/karabiner.json")
         self.assertTrue((self.home / "settings/ghostty").is_symlink())
+        self.assertEqual((self.home / "settings/nvim").resolve(), ROOT / "config/nvim")
         self.assertTrue((self.home / "codex/AGENTS.md").is_symlink())
         self.assertEqual((self.home / "codex/skills/github-pr-create").resolve(),
                          ROOT / "agents/skills/github-pr-create")

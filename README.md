@@ -11,7 +11,7 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 | `init.sh` / `sh/setup-tools.sh` / `deploy.sh` | 初回セットアップ・ツール導入・設定配置 |
 | `.bash*` / `.zsh*` / `sh/` | シェルと共通環境変数 |
 | `git/` | 共通Git設定とローカル設定の参照 |
-| `vim/` | Vim設定 |
+| `config/nvim/` | Neovim設定 |
 | `config/karabiner/` | Macのキー設定 |
 | `config/ghostty/` | Macの端末設定 |
 | `config/herdr/` | Herdr設定 |
@@ -22,7 +22,7 @@ Apple Silicon macOSとUbuntu on WSL2で共有する開発環境です。
 
 VS Codeは[Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync)に任せます。
 ユーザー設定・キーバインドなどが対象ですが、マシン固有設定とWSLなどのリモート拡張機能は同期対象外です。
-旧iTerm2・Neovim・pt設定、フォント、補助スクリプトは管理対象から外しました。過去の内容はGit履歴から参照できます。
+旧iTerm2・pt設定、フォント、補助スクリプトは管理対象から外しました。過去の内容はGit履歴から参照できます。
 
 ## セットアップ
 
@@ -105,7 +105,7 @@ raw URLから`bash -s -- --dry-run`へ渡す場合も同様ですが、未取得
 experimental-features = nix-command flakes
 ```
 
-CLI一覧は`nix/packages.nix`にあります。Git、Vim、検索・補完ツール、Dockerクライアント、
+CLI一覧は`nix/packages.nix`にあります。Git、Vim・Neovim、Language Server、検索・補完ツール、Dockerクライアント、
 Codex、Claude Code、Herdrなどをまとめた専用プロファイルを導入します。
 Claude Codeに限り、Nix評価時に非自由ライセンスのパッケージを許可しています。
 
@@ -168,7 +168,7 @@ NixのDockerパッケージはクライアントだけで、Dockerデーモン�
 | `.bash_profile` / `.bashrc` / `.zprofile` / `.zshenv` / `.zshrc` | `~/`の同名ファイル | 共通 |
 | `git/.gitconfig` / `git/.gitignore` | `~/.gitconfig` / `~/.gitignore` | 共通 |
 | `git/.gitconfig.local`（存在する場合のみ） | `~/.gitconfig.local` | 共通 |
-| `vim/.vimrc` / `vim/.vim` | `~/.vimrc` / `~/.vim` | 共通 |
+| `config/nvim/` | `$XDG_CONFIG_HOME/nvim` | 共通 |
 | `config/herdr/config.toml` | `$XDG_CONFIG_HOME/herdr/config.toml` | 共通 |
 | `agents/AGENTS.md` | `$CODEX_HOME/AGENTS.md`、`~/.claude/CLAUDE.md` | 共通 |
 | `agents/mcp/apm.yml` / `run.sh` | `~/.apm/apm.yml` / `~/.apm/dotfiles-mcp.sh` | 共通 |
@@ -273,7 +273,11 @@ afxと未使用のgh-markdown-previewの定義は削除しました。
 既存環境のafx本体・`~/.afx`・`$XDG_CONFIG_HOME/afx`、インストール済みのgh拡張は自動削除しません。
 動作を確認した後、不要なものを手動で整理してください。
 
-Vimは既存のdein設定を維持しています。初回起動でプラグインを取得するためネットワーク接続が必要です。
+## NeovimとVim
+
+普段の編集はNeovimを使い、対象言語だけ内蔵LSPで補完・診断・定義ジャンプを有効にします。
+Ruby LSPはプロジェクトを明示的に承認してから起動します。
+導入・移行、言語別の依存、基本操作、検証手順は[Neovimの設定](docs/neovim.md)を参照してください。
 
 ## 検証とGit hook
 

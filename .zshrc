@@ -127,7 +127,7 @@ editor_ignore=(
   '*.(swp|tmp)'
 )
 
-zstyle ':completion:*:*:(vi|vim|less):*files' \
+zstyle ':completion:*:*:(vi|vim|nvim|less):*files' \
   ignored-patterns "${editor_ignore[@]}"
 
 # Enable use cache
@@ -138,7 +138,7 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # Ignore completion matches pattern
-zstyle ':completion:*:*:(vi|vim|less):*files' ignored-patterns ${editor_ignore}
+zstyle ':completion:*:*:(vi|vim|nvim|less):*files' ignored-patterns ${editor_ignore}
 # Ignore completion if selected parent dir
 zstyle ':completion:*:(cd|mv|cp):*' ignore-parents parent pwd
 # if not exists target at current candidate target at parent dir
@@ -165,6 +165,10 @@ alias ll='ls -l'
 alias grep='grep --color=auto -n'
 
 alias reshell='exec ${SHELL} -l'
+
+if command -v nvim >/dev/null 2>&1; then
+    alias vi='nvim'
+fi
 
 # Machine-specific interactive settings.
 if [ -r "$HOME/.zshrc.local" ]; then
