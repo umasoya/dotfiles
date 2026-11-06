@@ -77,6 +77,59 @@ class GitWtTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0)
             self.assertEqual(result.stdout, '{"new_schema":true}\n')
 
+            checkout = root / "linked checkout"
+            git("worktree", "add", "-b", "cleanup", str(checkout))
+            listing = mock_bin / "listing.json"
+            calls = mock_bin / "remove.json"
+            herdr.write_text(
+                '#!/usr/bin/env python3\nimport json, sys\nfrom pathlib import Path\n'
+                'root = Path(__file__).parent\n'
+                'if sys.argv[1:3] == ["worktree", "list"]:\n'
+                '    print((root / "listing.json").read_text())\n'
+                'else:\n'
+                '    (root / "remove.json").write_text(json.dumps(sys.argv[1:]))\n'
+                '    print("{}")\n')
+
+            def set_listing(branch="cleanup", linked=True, workspace=None):
+                listing.write_text(json.dumps({"result": {"worktrees": [{
+                    "branch": branch, "path": str(checkout),
+                    "is_linked_worktree": linked, "open_workspace_id": workspace,
+                }]}}))
+
+            set_listing(workspace="w99")
+            dirty = checkout / "untracked.txt"
+            dirty.write_text("keep me")
+            self.assertNotEqual(run("--remove", "cleanup").returncode, 0)
+            self.assertFalse(calls.exists())
+            dirty.unlink()
+            result = run("--remove", "cleanup")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(calls.read_text()),
+                             ["worktree", "remove", "--workspace", "w99"])
+            self.assertIn("Worktreeを削除しました", result.stdout)
+            calls.unlink()
+
+            set_listing()
+            result = subprocess.run([str(SCRIPT), "--remove", "cleanup"],
+                                    cwd=checkout, env=env, capture_output=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertTrue(checkout.exists())
+
+            git("worktree", "lock", str(checkout))
+            self.assertNotEqual(run("--remove", "cleanup").returncode, 0)
+            self.assertTrue(checkout.exists())
+            git("worktree", "unlock", str(checkout))
+            result = run("--remove", "cleanup")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertFalse(checkout.exists())
+            git("show-ref", "--verify", "refs/heads/cleanup")
+
+            set_listing(linked=False)
+            self.assertNotEqual(run("--remove", "cleanup").returncode, 0)
+            self.assertNotEqual(run("--remove", "unknown").returncode, 0)
+            self.assertNotEqual(run("--remove").returncode, 0)
+            self.assertFalse(calls.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

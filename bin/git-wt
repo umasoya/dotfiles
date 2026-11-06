@@ -4,8 +4,10 @@ set -euo pipefail
 
 usage() {
     echo 'Usage: git wt <branch> [base-ref]'
+    echo '       git wt --remove <branch>'
     echo 'Create a Git worktree and focus its Herdr workspace.'
     echo 'Requires a running Herdr server. Existing local branches are reused.'
+    echo 'Removal keeps the branch and refuses dirty or locked worktrees.'
 }
 
 if [[ ${1:-} == --help || ${1:-} == -h ]]; then
@@ -25,6 +27,45 @@ for tool in git herdr jq; do
 done
 
 repo=$(git rev-parse --show-toplevel)
+if [[ $1 == --remove ]]; then
+    if (($# != 2)); then
+        usage >&2
+        exit 2
+    fi
+    git check-ref-format --branch "$2" >/dev/null
+    listing=$(herdr worktree list --cwd "$repo")
+    target=$(printf '%s\n' "$listing" | jq -ce --arg branch "$2" '
+        [.result.worktrees[] | select(.branch == $branch and .is_linked_worktree == true)]
+        | select(length == 1) | .[0]
+    ') || {
+        echo "git wt: linked worktree not found for branch: $2" >&2
+        exit 1
+    }
+    checkout=$(printf '%s\n' "$target" | jq -er '.path | select(type == "string" and length > 0)')
+    workspace=$(printf '%s\n' "$target" | jq -r '.open_workspace_id // empty')
+    if [[ $(cd "$checkout" && pwd -P) == "$repo" ]]; then
+        echo 'git wt: run removal from another checkout of this repository.' >&2
+        exit 1
+    fi
+    changes=$(git -C "$checkout" status --porcelain --untracked-files=all)
+    if [[ -n $changes ]]; then
+        echo "git wt: uncommitted changes exist: $checkout" >&2
+        exit 1
+    fi
+    if [[ -n $workspace ]]; then
+        if output=$(herdr worktree remove --workspace "$workspace"); then
+            :
+        else
+            status=$?
+            [[ -z "$output" ]] || printf '%s\n' "$output" >&2
+            exit "$status"
+        fi
+    else
+        git worktree remove -- "$checkout"
+    fi
+    printf 'Worktreeを削除しました\n  ブランチ: %s（保持）\n  削除先:   %s\n' "$2" "$checkout"
+    exit 0
+fi
 git check-ref-format --branch "$1" >/dev/null
 args=(worktree create --cwd "$repo" --branch "$1" --focus)
 if (($# == 2)); then

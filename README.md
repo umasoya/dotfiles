@@ -253,6 +253,17 @@ git wt existing-branch         # 既存のローカルブランチでworktreeを
 既存ブランチに起点を指定するとエラーになります。他のworktreeで使用中のブランチや配置先の競合はHerdr/Gitが検出します。
 作成済みのworktreeを再び開く場合は`herdr worktree open --cwd "$PWD" --branch feat/login --focus`を使います。
 
+不要になったworktreeは、同じリポジトリの別のcheckoutから削除します。
+
+```sh
+git wt --remove feat/login
+```
+
+Herdrで開いている場合は、そのworktreeのワークスペースも閉じます。
+既に閉じているworktreeにも対応します。ブランチとコミットは残します。
+未コミットの変更・未追跡ファイルがある場合や、Gitでロックされている場合は削除を拒否します。
+強制削除や一括削除は行いません。Herdrサーバーは削除時も起動しておく必要があります。
+
 enhancd・fast-syntax-highlighting・PureもNixで管理し、`.zshrc`から専用プロファイル内のファイルを読み込みます。
 Pureの自動fetchは、SSH認証で1Passwordの解除を求められないよう、Bash・Zsh共通の`sh/env`で`PURE_GIT_PULL=0`に設定しています。
 ブランチ名・ローカル変更の表示は維持し、リモートの更新は手動の`git fetch`で取得します。
