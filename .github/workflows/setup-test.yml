@@ -1,0 +1,102 @@
+name: Setup tests
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: setup-test-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    permissions:
+      pull-requests: read
+    outputs:
+      setup: ${{ steps.filter.outputs.setup }}
+    steps:
+      - uses: actions/github-script@v7
+        id: filter
+        with:
+          script: |
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              ...context.repo,
+              pull_number: context.issue.number,
+              per_page: 100,
+            });
+            // The API returns at most 3,000 files. Fail closed on truncation.
+            if (files.length !== context.payload.pull_request.changed_files) {
+              throw new Error('Could not inspect every changed file');
+            }
+            const related = path =>
+              /^(init\.sh|deploy\.sh|flake\.(nix|lock)|\.bash_profile|\.bashrc|\.zprofile|\.zshenv|\.zshrc|AGENTS\.md)$/.test(path) ||
+              /^(sh|nix|brew|git|config|agents|tests|bin|\.githooks)\//.test(path) ||
+              /^\.github\/scripts\//.test(path) ||
+              path === '.github/workflows/setup-test.yml';
+            core.setOutput('setup', files.some(file =>
+              related(file.filename) || (file.previous_filename && related(file.previous_filename))));
+
+  test:
+    needs: changes
+    if: needs.changes.outputs.setup == 'true'
+    name: Setup (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: cachix/install-nix-action@v31
+        with:
+          enable_kvm: false
+      - name: Install validation tools
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install shellcheck shfmt
+          else
+            sudo apt-get update
+            sudo apt-get install --yes shellcheck shfmt zsh
+          fi
+      - name: Check shell scripts
+        run: python3 .github/scripts/check-shells.py
+      - name: Run isolated regression tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Check Nix definitions
+        run: nix flake check --no-build --all-systems
+      - name: Install real CLI profile and verify setup in a temporary home
+        run: python3 .github/scripts/test-setup.py
+
+  result:
+    name: Setup required
+    needs: [changes, test]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require successful tests or an explicitly unrelated change
+        env:
+          CHANGES_RESULT: ${{ needs.changes.result }}
+          SETUP_CHANGED: ${{ needs.changes.outputs.setup }}
+          TEST_RESULT: ${{ needs.test.result }}
+        run: |
+          test "$CHANGES_RESULT" = success
+          if [ "$SETUP_CHANGED" = true ]; then
+            test "$TEST_RESULT" = success
+          else
+            test "$SETUP_CHANGED" = false
+            test "$TEST_RESULT" = skipped
+          fi

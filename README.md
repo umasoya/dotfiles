@@ -292,3 +292,24 @@ nix flake check --no-build --all-systems
 ```
 
 配置テストは一時ホームと模擬コマンドを使い、実際のホーム設定を変更しません。
+
+### GitHub Actionsでのセットアップ検証
+
+`Setup tests`はmain向けPRの作成・追加コミット・再オープン時に実行します。
+変更判定は全PRで行い、初期化関連ファイルを変更した場合だけUbuntu 24.04（x64）と
+macOS 15（Apple Silicon）でテストします。push・定期・手動実行はありません。
+対象は`init.sh`・`deploy.sh`、シェルの入口、`sh/`・`nix/`・`brew/`・`git/`・`config/`・
+`agents/`・`tests/`・`bin/`・`.githooks/`、flake定義、`AGENTS.md`、本CIのワークフローと補助スクリプトです。
+
+両OSでシェルの構文・ShellCheck・shfmt、既存のPythonテスト、Nix定義を検査します。
+さらに追跡ファイルを一時checkoutへコピーし、一時ホームで`init.sh`のdry-run・初回導入・
+再実行と、導入済みCLI・Bash/Zshの起動を確認します。Nixの共通CLIプロファイルは実際に導入します。
+Nix本体はCI用Actionで事前導入し、本体インストーラーの対話処理とHomebrew／GUIアプリ導入は
+既存の模擬テストで検証します。GUI初回起動・OS権限設定・WSL2固有の挙動、任意実行のAPM統合テストは対象外です。
+
+各OSのジョブは準備を含め20分、変更判定と結果集約は各2分で停止します。
+同じPRの新しい実行が始まると古い実行をキャンセルします。
+必須チェック名は`Setup required`です。対象変更があれば両OSの成功を必須とし、
+対象外の場合はテストを省略して成功します。変更判定の失敗・時間切れ・キャンセルは成功扱いにしません。
+[mainの保護ルール](https://github.com/umasoya/dotfiles/rules/26699991)ではこのチェックを必須にし、
+管理者を含むバイパス・直接push・force pushを禁止します。マージ前にはmainの最新状態への追従も必要です。
