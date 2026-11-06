@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   changes:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 2
     permissions:
       pull-requests: read
@@ -49,7 +49,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15]
+        os: [ubuntu-26.04, macos-26]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
@@ -84,7 +84,7 @@ jobs:
     name: Setup required
     needs: [changes, test]
     if: always()
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 2
     steps:
       - name: Require successful tests or an explicitly unrelated change
