@@ -12,7 +12,7 @@ SCRIPT = Path(__file__).resolve().parents[1] / "bin" / "git-wt"
 class GitWtTests(unittest.TestCase):
     def test_arguments_and_validation(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
+            root = Path(tmp).resolve()
             repo = root / "repo with spaces"
             repo.mkdir()
             env = dict(os.environ, GIT_CONFIG_NOSYSTEM="1",

@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def main():
     with tempfile.TemporaryDirectory(prefix="dotfiles-ci-") as temporary:
-        base = Path(temporary)
+        base = Path(temporary).resolve()
         home = base / "home with spaces"
         home.mkdir()
         checkout = home / "dotfiles"

@@ -13,9 +13,9 @@ class DeploymentTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="dotfiles-test-")
         self.addCleanup(self.temp.cleanup)
-        self.home = Path(self.temp.name) / "home with spaces"
+        self.home = Path(self.temp.name).resolve() / "home with spaces"
         self.home.mkdir()
-        self.bin = Path(self.temp.name) / "bin"
+        self.bin = Path(self.temp.name).resolve() / "bin"
         self.bin.mkdir()
         for name, content in {
             "git": '#!/bin/sh\nprintf "git\\n" >> "$HOME/git-called"\n',
@@ -38,7 +38,7 @@ class DeploymentTests(unittest.TestCase):
         return result
 
     def make_checkout(self):
-        checkout = Path(self.temp.name) / "custom checkout"
+        checkout = Path(self.temp.name).resolve() / "custom checkout"
         checkout.mkdir()
         for name in ("deploy.sh", ".bash_profile", ".bashrc", ".zprofile", ".zshenv", ".zshrc"):
             shutil.copy2(ROOT / name, checkout / name)
