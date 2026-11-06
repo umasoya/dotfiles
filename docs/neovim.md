@@ -11,7 +11,7 @@ Neovimは[`config/nvim/init.lua`](../config/nvim/init.lua)と[Ruby LSPの信頼�
 
 以下のコマンドはリポジトリのルートで実行します。
 共通Nixプロファイルの導入・更新後、`bash deploy.sh --dry-run`で確認し、`bash deploy.sh`で配置します。
-更新手順は[共通CLI](../README.md#共通cli)を参照してください。固定済みNixパッケージのNeovimを使います。
+導入は[共通CLI](../README.md#共通cli)、更新は[ツールの更新](tools.md#共通cliの更新)を参照してください。固定済みNixパッケージのNeovimを使います。
 LSP設定にはNeovim 0.12以上が必要です。古いNeovimでは表示・検索の設定だけを読み込みます。
 `nvim --version`と`command -v nvim`で、古い手動導入版よりNix版が優先されていることを確認してください。
 
