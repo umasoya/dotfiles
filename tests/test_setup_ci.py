@@ -24,6 +24,9 @@ class RequiredSetupCheckTests(unittest.TestCase):
             ([{"filename": ".githooks/pre-commit"}], 1, True),
             ([{"filename": "bin/git-wt"}], 1, True),
             ([{"filename": ".github/workflows/setup-test.yml"}], 1, True),
+            ([{"filename": ".github/workflows/actions.lock"}], 1, True),
+            ([{"filename": "docs/actions.lock", "previous_filename":
+               ".github/workflows/actions.lock"}], 1, True),
             ([{"filename": ".github/scripts/test-setup.py"}], 1, True),
             ([{"filename": "docs/old-init.sh", "previous_filename": "init.sh"}], 1, True),
             ([{"filename": "README.md"}], 2, "error"),

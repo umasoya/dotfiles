@@ -38,7 +38,8 @@ jobs:
               /^(init\.sh|deploy\.sh|flake\.(nix|lock)|\.bash_profile|\.bashrc|\.zprofile|\.zshenv|\.zshrc|AGENTS\.md)$/.test(path) ||
               /^(sh|nix|brew|git|config|agents|tests|bin|\.githooks)\//.test(path) ||
               /^\.github\/scripts\//.test(path) ||
-              path === '.github/workflows/setup-test.yml';
+              path === '.github/workflows/setup-test.yml' ||
+              path === '.github/workflows/actions.lock';
             core.setOutput('setup', files.some(file =>
               related(file.filename) || (file.previous_filename && related(file.previous_filename))));
 

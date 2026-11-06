@@ -296,10 +296,11 @@ nix flake check --no-build --all-systems
 ### GitHub Actionsでのセットアップ検証
 
 `Setup tests`はmain向けPRの作成・追加コミット・再オープン時に実行します。
-変更判定は全PRで行い、初期化関連ファイルを変更した場合だけUbuntu 24.04（x64）と
-macOS 15（Apple Silicon）でテストします。push・定期・手動実行はありません。
+変更判定は全PRで行い、初期化関連ファイルを変更した場合だけUbuntu 26.04（x64）と
+macOS 26（Apple Silicon）でテストします。push・定期・手動実行はありません。
 対象は`init.sh`・`deploy.sh`、シェルの入口、`sh/`・`nix/`・`brew/`・`git/`・`config/`・
-`agents/`・`tests/`・`bin/`・`.githooks/`、flake定義、`AGENTS.md`、本CIのワークフローと補助スクリプトです。
+`agents/`・`tests/`・`bin/`・`.githooks/`、flake定義、`AGENTS.md`、本CIのワークフローと
+Actionの依存を固定する`.github/workflows/actions.lock`、補助スクリプトです。
 
 両OSでシェルの構文・ShellCheck・shfmt、既存のPythonテスト、Nix定義を検査します。
 さらに追跡ファイルを一時checkoutへコピーし、一時ホームで`init.sh`のdry-run・初回導入・
