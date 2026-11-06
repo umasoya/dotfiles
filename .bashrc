@@ -77,6 +77,10 @@ alias l='ls -CF'
 
 alias reshell='exec ${SHELL} -l'
 
+if command -v nvim >/dev/null 2>&1; then
+    alias vi='nvim'
+fi
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi

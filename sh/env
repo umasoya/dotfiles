@@ -52,6 +52,11 @@ _dotfiles_prepend_path "$XDG_STATE_HOME/nix/profiles/dotfiles/bin"
 export PATH
 unset -f _dotfiles_prepend_path
 
+# Keep existing editor settings usable before Neovim is installed.
+if command -v nvim >/dev/null 2>&1; then
+    export EDITOR=nvim
+fi
+
 export FILTER="fzf:peco:fzy"
 export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse --extended --cycle"
 # Disable Pure's background fetch to avoid SSH authentication prompts.
