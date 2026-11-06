@@ -11,11 +11,11 @@ jobs:
   labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
         with:
           sparse-checkout: .github/labels.yml
 
-      - uses: EndBug/label-sync@v2
+      - uses: EndBug/label-sync@v2.3.3
         with:
           config-file: .github/labels.yml
           delete-other-labels: true
