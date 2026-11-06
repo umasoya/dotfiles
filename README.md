@@ -276,6 +276,7 @@ afxと未使用のgh-markdown-previewの定義は削除しました。
 ## NeovimとVim
 
 普段の編集はNeovimを使い、対象言語だけ内蔵LSPで補完・診断・定義ジャンプを有効にします。
+Ruby LSPはプロジェクトを明示的に承認してから起動します。
 導入・移行、言語別の依存、基本操作、検証手順は[Neovimの設定](docs/neovim.md)を参照してください。
 
 ## 検証とGit hook

@@ -9,6 +9,8 @@ if vim.fn.has('nvim-0.12') == 0 then
     return
 end
 
+local ruby_trust = require('dotfiles.ruby_trust')
+
 local servers = {
     ts_ls = {
         cmd = { 'typescript-language-server', '--stdio' },
@@ -59,10 +61,20 @@ for name, server in pairs(servers) do
         if path == '' then
             return
         end
-        on_dir(vim.fs.root(bufnr, markers) or vim.fs.dirname(path))
+        local root = vim.fs.root(bufnr, markers) or vim.fs.dirname(path)
+        if name == 'ruby_lsp' then
+            root = ruby_trust.root(bufnr)
+            if not ruby_trust.is_trusted(root) then
+                return
+            end
+        end
+        on_dir(root)
     end
     -- In particular, Ruby LSP must discover the bundle from the project root.
     server.cmd = function(dispatchers, config)
+        if name == 'ruby_lsp' then
+            assert(ruby_trust.is_trusted(config.root_dir), 'Ruby LSP requires workspace trust')
+        end
         return vim.lsp.rpc.start(cmd, dispatchers, { cwd = config.root_dir })
     end
     vim.lsp.config(name, server)
