@@ -4,8 +4,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
 
--- Older Neovim can still edit files; LSP configuration needs 0.11+.
-if vim.fn.has('nvim-0.11') == 0 then
+-- Older Neovim can still edit files; LSP configuration needs 0.12+.
+if vim.fn.has('nvim-0.12') == 0 then
     return
 end
 

@@ -46,8 +46,8 @@ class NeovimTests(unittest.TestCase):
     def setUp(self):
         result = subprocess.run([NVIM, "--version"], capture_output=True, text=True)
         version = result.stdout.splitlines()[0].split("v", 1)[1].split(".")
-        if tuple(map(int, version[:2])) < (0, 11):
-            self.skipTest("LSP checks require Neovim 0.11+")
+        if tuple(map(int, version[:2])) < (0, 12):
+            self.skipTest("LSP checks require Neovim 0.12+")
 
     def test_unrelated_file_uses_plain_editing(self):
         self.run_editor("example.txt", "example\nExample\nEXAMPLE\n", '''
