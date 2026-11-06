@@ -140,6 +140,8 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual((self.home / ".claude/CLAUDE.md").resolve(), ROOT / "agents/AGENTS.md")
         self.assertFalse((self.home / ".config/karabiner").exists())
         self.assertFalse((self.home / ".tmux.conf").exists())
+        self.assertFalse((self.home / ".vim").is_symlink())
+        self.assertFalse((self.home / ".vim").exists())
         self.assertEqual((self.home / ".codex/skills/github-pr-create").resolve(),
                          ROOT / "agents/skills/github-pr-create")
 
@@ -155,7 +157,7 @@ class DeploymentTests(unittest.TestCase):
         for platform in ("Linux", "Darwin"):
             with self.subTest(platform=platform):
                 self.env["TEST_OS"] = platform
-                for name, source in ((".vimrc", "vim/.vimrc"), (".vim", "vim/.vim")):
+                for name, source in ((".vimrc", "vim/.vimrc"),):
                     target = self.home / name
                     if target.is_symlink():
                         target.unlink()
@@ -163,7 +165,7 @@ class DeploymentTests(unittest.TestCase):
                     target.symlink_to(relative)
                 self.run_deploy("--dry-run")
                 self.run_deploy()
-                for name, source in ((".vimrc", "vim/.vimrc"), (".vim", "vim/.vim")):
+                for name, source in ((".vimrc", "vim/.vimrc"),):
                     target = self.home / name
                     self.assertEqual(os.readlink(target), os.path.relpath(ROOT / source, self.home))
 

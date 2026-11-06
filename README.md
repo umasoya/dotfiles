@@ -168,7 +168,7 @@ NixのDockerパッケージはクライアントだけで、Dockerデーモン�
 | `.bash_profile` / `.bashrc` / `.zprofile` / `.zshenv` / `.zshrc` | `~/`の同名ファイル | 共通 |
 | `git/.gitconfig` / `git/.gitignore` | `~/.gitconfig` / `~/.gitignore` | 共通 |
 | `git/.gitconfig.local`（存在する場合のみ） | `~/.gitconfig.local` | 共通 |
-| `vim/.vimrc` / `vim/.vim` | `~/.vimrc` / `~/.vim` | 共通 |
+| `vim/.vimrc` | `~/.vimrc` | 共通 |
 | `config/herdr/config.toml` | `$XDG_CONFIG_HOME/herdr/config.toml` | 共通 |
 | `agents/AGENTS.md` | `$CODEX_HOME/AGENTS.md`、`~/.claude/CLAUDE.md` | 共通 |
 | `agents/mcp/apm.yml` / `run.sh` | `~/.apm/apm.yml` / `~/.apm/dotfiles-mcp.sh` | 共通 |
@@ -273,7 +273,11 @@ afxと未使用のgh-markdown-previewの定義は削除しました。
 既存環境のafx本体・`~/.afx`・`$XDG_CONFIG_HOME/afx`、インストール済みのgh拡張は自動削除しません。
 動作を確認した後、不要なものを手動で整理してください。
 
-Vimは既存のdein設定を維持しています。初回起動でプラグインを取得するためネットワーク接続が必要です。
+Vimは同梱の`defaults.vim`を読み込み、標準設定で使います。独自のキーマップ・配色・言語別設定やプラグインはありません。
+既存の`~/.vimrc`がこのcheckoutへのリンクなら、次回起動から反映されます。
+別のcheckoutを参照している場合は、リンク先を確認してから切り替えてください。
+`~/.vim`は配置対象から外しました。既存の`~/.vim`リンクや以前取得したdein本体、`~/.cache/dein`は自動削除しません。
+不要になった旧リンクは参照先を確認して手動で削除してください。過去の設定はGit履歴から参照できます。
 
 ## 検証とGit hook
 
