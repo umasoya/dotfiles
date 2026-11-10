@@ -50,13 +50,18 @@ main() {
         return 1
     fi
     # Detect configuration conflicts before downloading or installing software.
-    bash "$dotfiles_dir/deploy.sh" --dry-run </dev/null
+    # Guard empty array expansions for macOS Bash 3.2 with nounset.
+    local deploy_args=()
+    if [[ "${1:-}" != --dry-run ]]; then
+        deploy_args+=(--interactive)
+    fi
+    bash "$dotfiles_dir/deploy.sh" --dry-run ${deploy_args[@]+"${deploy_args[@]}"} </dev/null
     if [[ "${1:-}" == --dry-run ]]; then
         printf '%s\n' 'Dry run: software installation and configuration deployment were skipped.'
         return
     fi
     bash "$dotfiles_dir/sh/setup-tools.sh" "$dotfiles_dir" </dev/null
-    bash "$dotfiles_dir/deploy.sh" </dev/null
+    bash "$dotfiles_dir/deploy.sh" ${deploy_args[@]+"${deploy_args[@]}"} </dev/null
     printf '\n%s\n' "✅ Setup complete: $dotfiles_dir"
     printf '%s\n' '🔄 Open a new login shell to use the installed CLI tools.' \
         '' '📝 TODO: Switch this repository to SSH:'

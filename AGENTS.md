@@ -6,7 +6,8 @@ Read README.md for the current setup.
 ## Current layout
 
 - init.sh: clone/bootstrap entry point. deploy.sh: conflict-checked symlink deployment.
-  init.sh installs Nix/shared CLI tools and, on Mac, Homebrew/apps via sh/setup-tools.sh.
+  init.sh installs Nix/shared CLI tools via sh/setup-tools.sh.
+  Homebrew and Mac applications are installed manually.
   deploy.sh only deploys settings; GNU Stow is not used.
 - Shell entry points: .bash_profile, .bashrc, .zprofile, .zshenv, .zshrc.
 - sh/: shared environment, Homebrew initialization, and dircolors.

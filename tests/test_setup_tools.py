@@ -26,8 +26,6 @@ class ToolSetupTests(unittest.TestCase):
         # Use isolated initialization scripts, never those of the execution host.
         (self.checkout / "sh/nix.sh").write_text(
             'export PATH="$HOME/.nix-profile/bin:$PATH"\n')
-        (self.checkout / "sh/brew.sh").write_text(
-            'export PATH="$HOME/testbrew/bin:$PATH"\n')
         # Virtualize the absolute system fallback as well as HOME and PATH.
         # Otherwise an installed host Nix bypasses the first-install mocks.
         self.system_nix = self.home / "system nix/bin/nix"
@@ -127,25 +125,24 @@ Path(args[args.index("-o") + 1]).write_text(
         self.assertIn(str(self.home / "custom state/nix/profiles/dotfiles"), installs[0])
         self.assertFalse(any(call[0] in ("curl", "brew") for call in self.calls()))
 
-    def test_macos_installs_only_missing_apps_without_upgrade(self):
+    def test_macos_does_not_run_homebrew(self):
         self.write_tool("nix", self.nix_script)
         self.write_tool("brew", self.brew_script)
         self.env["TEST_OS"] = "Darwin"
         self.run_setup()
-        self.assertIn(["brew", "bundle", f"--file={self.checkout}/brew/Brewfile",
-                       "--no-upgrade"], self.calls())
+        self.assertFalse(any(call[0] == "brew" for call in self.calls()))
         self.assertFalse(any(call[0] == "curl" for call in self.calls()))
 
     def test_first_install_uses_downloaded_scripts_with_terminal(self):
         self.env["TEST_OS"] = "Darwin"
         self.run_setup(terminal=True)
         calls = self.calls()
-        self.assertEqual(len([call for call in calls if call[0] == "curl"]), 2)
-        self.assertEqual((self.home / "installer-calls").read_text(), "installer\ninstaller\n")
-        self.assertTrue(any(call[0] == "brew" for call in calls))
+        self.assertEqual(len([call for call in calls if call[0] == "curl"]), 1)
+        self.assertEqual((self.home / "installer-calls").read_text(), "installer\n")
+        self.assertFalse(any(call[0] == "brew" for call in calls))
         self.assertEqual(list(Path(self.temp.name).glob("dotfiles-installer.*")), [])
         self.run_setup()
-        self.assertEqual(len([call for call in self.calls() if call[0] == "curl"]), 2)
+        self.assertEqual(len([call for call in self.calls() if call[0] == "curl"]), 1)
 
     def test_nix_outside_path_is_reused(self):
         target = self.home / ".nix-profile/bin"
@@ -176,7 +173,7 @@ Path(args[args.index("-o") + 1]).write_text(
         self.assertFalse(any(call[0] == "brew" for call in self.calls()))
         del self.env["NIX_FAIL"]
         self.run_setup()
-        self.assertTrue(any(call[0] == "brew" for call in self.calls()))
+        self.assertFalse(any(call[0] == "brew" for call in self.calls()))
 
     def test_failed_download_does_not_run_installer(self):
         self.env["CURL_FAIL"] = "1"
@@ -184,11 +181,12 @@ Path(args[args.index("-o") + 1]).write_text(
         self.assertFalse((self.home / "installer-calls").exists())
         self.assertEqual(list(Path(self.temp.name).glob("dotfiles-installer.*")), [])
 
-    def test_brew_failure_is_propagated(self):
+    def test_broken_brew_does_not_block_setup(self):
         self.write_tool("nix", self.nix_script)
         self.write_tool("brew", self.brew_script)
         self.env.update(TEST_OS="Darwin", BREW_STATUS="6")
-        self.assertEqual(self.run_setup(success=False).returncode, 6)
+        self.run_setup()
+        self.assertFalse(any(call[0] == "brew" for call in self.calls()))
 
 
 if __name__ == "__main__":

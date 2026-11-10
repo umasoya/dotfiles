@@ -44,18 +44,17 @@ curl -fsSL https://raw.githubusercontent.com/umasoya/dotfiles/main/init.sh | bas
 
 1. `deploy.sh --dry-run`で配置先の競合を確認
 2. 未導入なら公式インストーラーでNixを導入し、共通CLIの専用プロファイルを作成
-3. Macでは未導入ならHomebrewを導入し、Brewfileの不足アプリを導入
-4. `deploy.sh`で設定を配置
+3. `deploy.sh --interactive`で既存設定の上書きを確認し、設定を配置
 
-Nix・Homebrew本体の導入時は端末からの入力と管理者権限が必要になるため、対話端末から実行してください。
+Nix本体の導入時は端末からの入力と管理者権限が必要になるため、対話端末から実行してください。
 公式インストーラーは一時ファイルへダウンロードして実行し、終了時に一時ファイルを削除します。
 Nixの新規導入にはmulti-user方式を使います。WSL2ではsystemdを有効にしたUbuntuを使用してください。
 Git・curlは事前に用意します（MacではCommand Line Toolsも必要です）。
 
 既存のcheckoutがあればその内容を使い、自動pullやブランチ変更はしません。
 Nixの既存専用プロファイルは検証して再利用し、自動更新しません。
-`flake.lock`も更新せず、Macアプリは`brew bundle --no-upgrade`で不足分のみ導入します。
-途中で失敗した場合は原因を解消して同じコマンドを再実行できます。既存設定は自動上書きしません。
+`flake.lock`も更新しません。Homebrew本体とMacアプリは手動で導入します。
+途中で失敗した場合は原因を解消して同じコマンドを再実行できます。既存設定は上書き前に端末で確認します。拒否または空入力ならその配置先をスキップします。
 完了後は新しいログインシェルを開いてください。
 作業ブランチを試す場合はraw URLの`main`とclone対象の`DOTFILES_REF`を揃えます。
 
@@ -96,6 +95,10 @@ raw URLから`bash -s -- --dry-run`へ渡す場合も同様ですが、未取得
 一覧を表示して変更前に停止します。ただし、`~/.bashrc`が`/etc/skel/.bashrc`と完全に一致する通常ファイルなら、
 未変更の標準設定としてバックアップせずdotfilesのリンクへ置き換えます。`--dry-run`では置き換え予定だけを表示します。
 編集済みの`.bashrc`や別のリンクは保護します。競合した既存設定を確認し、必要なものを自分のバックアップ先へ移動してから再実行してください。
+`init.sh`の通常実行、または`bash deploy.sh --interactive`では、競合ごとに端末で`y`を入力すると、
+既存のファイル・ディレクトリ・リンクを`${XDG_STATE_HOME:-~/.local/state}/dotfiles/backups/`内へ退避して置き換えます。
+元の配置先とバックアップ先は実行時に表示します。拒否・空入力はスキップし、端末がない場合は競合時に停止します。
+親パスがディレクトリでない場合は停止します。`--dry-run`は確認入力や変更を行いません。
 同じ実体を参照する配置先は、相対リンク・絶対リンク・親ディレクトリのリンク経由の違いに関係なく再配置をスキップします。
 旧セットアップのKarabinerディレクトリリンクもそのまま使えます。
 `--force`で上書きする機能はありません。
@@ -133,8 +136,8 @@ exec "$SHELL" -l
 
 ### Macアプリ
 
-Macでは`init.sh`が[Homebrew](https://brew.sh/)本体と不足アプリを導入します。
-手動で不足分だけを導入する場合は、次を実行します。
+`init.sh`はHomebrewやMacアプリをインストールしません。
+[Homebrew](https://brew.sh/)を手動で導入した後、不足アプリだけを導入するには次を実行します。
 
 ```sh
 HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file="$HOME/dotfiles/brew/Brewfile" --no-upgrade

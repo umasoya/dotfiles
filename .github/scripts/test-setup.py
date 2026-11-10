@@ -1,4 +1,4 @@
-"""Install the real Nix profile; isolate deployment and mock GUI installation."""
+"""Install the real Nix profile; isolate deployment and detect Homebrew calls."""
 import os
 from pathlib import Path
 import shutil
@@ -54,8 +54,7 @@ def main():
         assert profile.resolve(strict=True) == generation, "Rerun replaced the profile"
         run(str(profile / "bin/bash"), "-lc", 'test "$EDITOR" = nvim && command -v rg')
         run(str(profile / "bin/zsh"), "-lic", 'test "$EDITOR" = nvim && command -v rg')
-        if os.uname().sysname == "Darwin":
-            assert (home / "brew-calls").read_text().count("bundle --file=") == 2
+        assert not (home / "brew-calls").exists(), "Setup invoked Homebrew"
 
 
 if __name__ == "__main__":
