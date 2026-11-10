@@ -14,7 +14,7 @@ run_installer() (
     local installer_url="$1"
     shift
     if ! { exec 3</dev/tty; } 2>/dev/null; then
-        echo 'A terminal is required to install Nix or Homebrew. Run setup from a terminal.' >&2
+        echo 'A terminal is required to install Nix. Run setup from a terminal.' >&2
         exit 1
     fi
     local installer_dir
@@ -64,21 +64,4 @@ else
     mkdir -p -- "$(dirname -- "$profile")"
     nix --extra-experimental-features 'nix-command flakes' profile install \
         --profile "$profile" --no-update-lock-file "$dotfiles_dir#default"
-fi
-
-if [[ "$platform" == Darwin ]]; then
-    if ! command -v brew >/dev/null 2>&1; then
-        # shellcheck source=sh/brew.sh
-        . "$dotfiles_dir/sh/brew.sh"
-    fi
-    if ! command -v brew >/dev/null 2>&1; then
-        run_installer https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-        # shellcheck source=sh/brew.sh
-        . "$dotfiles_dir/sh/brew.sh"
-    fi
-    if ! command -v brew >/dev/null 2>&1; then
-        echo 'Homebrew was not found after installation. Open a new shell and rerun setup.' >&2
-        exit 1
-    fi
-    HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file="$dotfiles_dir/brew/Brewfile" --no-upgrade
 fi
