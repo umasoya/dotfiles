@@ -86,9 +86,10 @@ if ((conflicts)); then
 fi
 
 # Collect decisions before changing any destination. Never read the streamed script.
+# Use guarded array expansions for macOS Bash 3.2 with nounset and empty arrays.
 skipped=()
 if ! "$dry_run"; then
-    for i in "${replacements[@]}"; do
+    for i in ${replacements[@]+"${replacements[@]}"}; do
         printf 'Replace %s? Existing content will be backed up. [y/N] ' "${targets[$i]}" >&3
         answer=""
         if IFS= read -r answer <&3 && [[ "$answer" == y || "$answer" == Y || "$answer" == yes || "$answer" == YES ]]; then
@@ -104,7 +105,7 @@ for i in "${!sources[@]}"; do
     target="${targets[$i]}"
     [[ "$target" -ef "${sources[$i]}" ]] && continue
     skip=false
-    for skipped_index in "${skipped[@]}"; do
+    for skipped_index in ${skipped[@]+"${skipped[@]}"}; do
         [[ "$i" == "$skipped_index" ]] && skip=true
     done
     "$skip" && continue
@@ -115,7 +116,7 @@ for i in "${!sources[@]}"; do
         printf 'Link: %s -> %s\n' "$target" "${sources[$i]}"
     else
         mkdir -p -- "$(dirname -- "$target")"
-        for replacement_index in "${replacements[@]}"; do
+        for replacement_index in ${replacements[@]+"${replacements[@]}"}; do
             if [[ "$i" == "$replacement_index" ]]; then
                 if [[ -z "$backup_dir" ]]; then
                     backup_root="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/backups"
