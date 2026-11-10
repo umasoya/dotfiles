@@ -4,18 +4,17 @@ set -euo pipefail
 DOTFILES_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 dry_run=false
-case "${1:-}" in
-    --dry-run) dry_run=true ;;
-    "") ;;
-    *)
-        echo "Usage: $0 [--dry-run]" >&2
-        exit 2
-        ;;
-esac
-if (($# > 1)); then
-    echo "Usage: $0 [--dry-run]" >&2
-    exit 2
-fi
+interactive=false
+for arg in "$@"; do
+    case "$arg" in
+        --dry-run) dry_run=true ;;
+        --interactive) interactive=true ;;
+        *)
+            echo "Usage: $0 [--dry-run] [--interactive]" >&2
+            exit 2
+            ;;
+    esac
+done
 
 sources=()
 targets=()
@@ -52,6 +51,7 @@ is_default_bashrc() {
 
 # Check every destination before making any changes, including dangling symlinks.
 conflicts=0
+replacements=()
 for i in "${!sources[@]}"; do
     source_path="${sources[$i]}"
     target="${targets[$i]}"
@@ -72,17 +72,42 @@ for i in "${!sources[@]}"; do
     elif is_default_bashrc "$target"; then
         continue
     elif [[ -e "$target" || -L "$target" ]]; then
-        echo "Conflict: $target (move it to a backup before deploying)" >&2
-        conflicts=1
+        if "$interactive" && { exec 3<>/dev/tty; } 2>/dev/null; then
+            replacements+=("$i")
+            printf 'Conflict: %s (confirmation required before replacement)\n' "$target" >&2
+        else
+            echo "Conflict: $target (move it to a backup before deploying, or use --interactive in a terminal)" >&2
+            conflicts=1
+        fi
     fi
 done
 if ((conflicts)); then
     exit 1
 fi
 
+# Collect decisions before changing any destination. Never read the streamed script.
+skipped=()
+if ! "$dry_run"; then
+    for i in "${replacements[@]}"; do
+        printf 'Replace %s? Existing content will be backed up. [y/N] ' "${targets[$i]}" >&3
+        answer=""
+        if IFS= read -r answer <&3 && [[ "$answer" == y || "$answer" == Y || "$answer" == yes || "$answer" == YES ]]; then
+            continue
+        fi
+        skipped+=("$i")
+        printf 'Skip: %s\n' "${targets[$i]}"
+    done
+fi
+
+backup_dir=""
 for i in "${!sources[@]}"; do
     target="${targets[$i]}"
     [[ "$target" -ef "${sources[$i]}" ]] && continue
+    skip=false
+    for skipped_index in "${skipped[@]}"; do
+        [[ "$i" == "$skipped_index" ]] && skip=true
+    done
+    "$skip" && continue
     if "$dry_run"; then
         if is_default_bashrc "$target"; then
             printf 'Replace default .bashrc: %s\n' "$target"
@@ -90,6 +115,17 @@ for i in "${!sources[@]}"; do
         printf 'Link: %s -> %s\n' "$target" "${sources[$i]}"
     else
         mkdir -p -- "$(dirname -- "$target")"
+        for replacement_index in "${replacements[@]}"; do
+            if [[ "$i" == "$replacement_index" ]]; then
+                if [[ -z "$backup_dir" ]]; then
+                    backup_root="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/backups"
+                    mkdir -p -- "$backup_root"
+                    backup_dir="$(mktemp -d "$backup_root/deploy.XXXXXXXX")"
+                fi
+                mv -- "$target" "$backup_dir/$i"
+                printf 'Backup: %s -> %s/%s\n' "$target" "$backup_dir" "$i"
+            fi
+        done
         if is_default_bashrc "$target"; then
             ln -sf -- "${sources[$i]}" "$target"
         else

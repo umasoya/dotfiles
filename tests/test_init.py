@@ -105,7 +105,7 @@ if args[0] == "clone":
     def test_preflight_and_installation_precede_deployment(self):
         self.run_init()
         self.assertEqual((self.home / "setup-calls").read_text(),
-                         "deploy:--dry-run\ntools\ndeploy:apply\n")
+                         "deploy:--dry-run\ntools\ndeploy:--interactive\n")
 
     def test_tool_failure_stops_before_deployment(self):
         self.env["TOOLS_STATUS"] = "8"

@@ -1,5 +1,9 @@
 """Exercise deployment without touching the user's home or repository Git config."""
 import os
+import errno
+import pty
+import select
+import time
 from pathlib import Path
 import shutil
 import subprocess
@@ -36,6 +40,82 @@ class DeploymentTests(unittest.TestCase):
         else:
             self.assertNotEqual(result.returncode, 0)
         return result
+
+    def run_interactive(self, answers, *args):
+        pid, fd = pty.fork()
+        if pid == 0:
+            os.execve("/bin/bash", ["bash", str(ROOT / "deploy.sh"),
+                                   "--interactive", *args], self.env)
+        output = b""
+        sent = 0
+        deadline = time.monotonic() + 10
+        try:
+            while time.monotonic() < deadline:
+                if not select.select([fd], [], [], 0.1)[0]:
+                    continue
+                try:
+                    chunk = os.read(fd, 65536)
+                except OSError as error:
+                    if error.errno == errno.EIO:
+                        break
+                    raise
+                if not chunk:
+                    break
+                output += chunk
+                while output.count(b"[y/N] ") > sent:
+                    os.write(fd, (answers[sent] + "\n").encode())
+                    sent += 1
+            else:
+                os.kill(pid, 9)
+                self.fail("Interactive deployment timed out")
+        finally:
+            os.close(fd)
+            _, status = os.waitpid(pid, 0)
+        self.assertEqual(os.waitstatus_to_exitcode(status), 0, output.decode())
+        return output.decode()
+
+    def test_interactive_replacement_backs_up_files_directories_and_links(self):
+        target = self.home / ".gitignore"
+        for kind in ("file", "directory", "link"):
+            with self.subTest(kind=kind):
+                if target.is_symlink():
+                    target.unlink()
+                if kind == "file":
+                    target.write_text("personal settings")
+                elif kind == "directory":
+                    target.mkdir()
+                    (target / "keep").write_text("personal settings")
+                else:
+                    target.symlink_to("missing")
+                output = self.run_interactive(["y"])
+                self.assertEqual(target.resolve(), ROOT / "git/.gitignore")
+                backup_line = next(line for line in output.splitlines()
+                                   if line.startswith("Backup: "))
+                backup = Path(backup_line.split(" -> ", 1)[1])
+                if kind == "file":
+                    self.assertEqual(backup.read_text(), "personal settings")
+                elif kind == "directory":
+                    self.assertEqual((backup / "keep").read_text(), "personal settings")
+                else:
+                    self.assertEqual(os.readlink(backup), "missing")
+
+    def test_interactive_decline_and_empty_answer_skip_conflict(self):
+        for answer in ("n", ""):
+            with self.subTest(answer=answer):
+                target = self.home / ".gitignore"
+                target.write_text("keep me")
+                self.run_interactive([answer])
+                self.assertEqual(target.read_text(), "keep me")
+                self.assertTrue((self.home / ".bashrc").is_symlink())
+                self.assertFalse((self.home / ".local/state/dotfiles/backups").exists())
+
+    def test_interactive_dry_run_does_not_prompt_or_change_conflicts(self):
+        target = self.home / ".gitignore"
+        target.write_text("keep me")
+        output = self.run_interactive([], "--dry-run")
+        self.assertNotIn("[y/N]", output)
+        self.assertEqual(target.read_text(), "keep me")
+        self.assertFalse((self.home / ".bashrc").exists())
 
     def make_checkout(self):
         checkout = Path(self.temp.name).resolve() / "custom checkout"
